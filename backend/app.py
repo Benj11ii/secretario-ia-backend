@@ -11,7 +11,7 @@ app = Flask(__name__)
 TELEGRAM_TOKEN = "7832767566:AAEa3mbtsP_0HmY-Z37Dyc8VneMHEUHpDmw"
 CHAT_ID = "8538712379"
 # Esta es la URL de tu Google Apps Script que enviará el correo
-GOOGLE_SHEETS_URL = "1nDZxOrYDXRbsGau779iEvWMsERQhT9I1kFuCNhExewA" 
+GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzY7NXEc-XcaOzgoBDGyLAQdKYb6lUX-iIrFDZqiXC2dFdvqUNlsgcaC6Namu5pXdX8gg/exec" 
 
 def tarea_fondo_ia(datos):
     """
