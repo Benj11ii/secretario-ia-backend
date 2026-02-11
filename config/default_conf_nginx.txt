@@ -1,0 +1,51 @@
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+
+    server_name _;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    # Redirigir tráfico de /ollama hacia la IA
+    location /ollama/ {
+        proxy_pass http://127.x.x.x:xxxxxx/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+
+        # --- LÍNEAS NUEVAS PARA DARLE PACIENCIA ---
+        proxy_connect_timeout 300;
+        proxy_send_timeout 300;
+        proxy_read_timeout 300;
+        send_timeout 300;
+    }
+
+    # Redirigir tráfico de /secretario hacia Python
+    location /secretario/ {
+        proxy_pass http://127.0.0.1:5000/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+
+        # --- LÍNEAS NUEVAS ---
+        proxy_connect_timeout 300;
+        proxy_send_timeout 300;
+        proxy_read_timeout 300;
+        send_timeout 300;
+    }
+
+    location /guardar {
+    proxy_pass http://127.0.x.x:xxxx/guardar;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    }
+
+}
+
+
+
+
+

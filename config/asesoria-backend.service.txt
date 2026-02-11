@@ -1,0 +1,13 @@
+[Unit]
+Description=Servidor Secretario de Asesoria IA
+After=network.target
+
+[Service]
+User=bcarmona
+WorkingDirectory=/home/bcarmona
+# Usamos el python que está dentro de tu entorno virtual (env)
+ExecStart=/home/bcarmona/env/bin/python3 /home/bcarmona/app.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
