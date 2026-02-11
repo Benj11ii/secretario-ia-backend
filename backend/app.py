@@ -1,84 +1,89 @@
-
-from flask import Flask, request, jsonify, send_from_directory
-from flask_cors import CORS
-import csv
+import threading
 import requests
+import csv
+import os
+from flask import Flask, request, jsonify
 from datetime import datetime
 
 app = Flask(__name__)
-CORS(app)
 
-# --- CONFIGURACIÓN ---
-TELEGRAM_TOKEN = "TELEGRAMTOKEN"
-TELEGRAM_CHAT_ID = "CHATID"
-CSV_FILE = "/home/bcarmona/solicitudes.csv"
-# URL de Google Sheets
-GOOGLE_URL = "URLGOOGLE"
+# --- CONFIGURACIÓN (Reemplaza con tus datos reales) ---
+TELEGRAM_TOKEN = "7832767566:AAEa3mbtsP_0HmY-Z37Dyc8VneMHEUHpDmw"
+CHAT_ID = "8538712379"
+# Esta es la URL de tu Google Apps Script que enviará el correo
+GOOGLE_SHEETS_URL = "1nDZxOrYDXRbsGau779iEvWMsERQhT9I1kFuCNhExewA" 
 
-def enviar_telegram(mensaje):
-    url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
-    payload = {"chat_id": TELEGRAM_CHAT_ID, "text": mensaje}
+def tarea_fondo_ia(datos):
+    """
+    TRABAJADOR DE FONDO:
+    Aquí el Celeron N95 hace el trabajo pesado sin bloquear al cliente.
+    """
     try:
-        # Guardamos la respuesta en una variable 'r'
-        r = requests.post(url, json=payload)
-        # Imprimimos lo que dijo Telegram (Sea bueno o malo)
-        print(f"TELEGRAM DICE: {r.status_code} - {r.text}")
-    except Exception as e:
-        print(f"Error CONEXION Telegram: {e}")
+        nombre = datos.get('nombre')
+        telefono = datos.get('telefono')
+        correo = datos.get('correo')
+        texto_original = datos.get('texto_original')
 
-@app.route('/guardar', methods=['POST'])
-def guardar():
-    # 1. Intentar capturar datos incluso si la conexión se corta
-    try:
-        data = request.get_json(force=True) or {}
-    except Exception as e:
-        print(f"Error recibiendo JSON (posible cierre de navegador): {e}")
-        data = {}
+        # 1. LLAMADA A OLLAMA (IA Local)
+        # Usamos un timeout largo porque Ollama puede tardar en el Celeron
+        print(f"🤖 Procesando IA para {nombre}...")
+        response_ia = requests.post('http://127.0.0.1:11434/api/generate', 
+            json={
+                "model": "llama3", 
+                "prompt": f"Analiza esta solicitud de asesoría y genera un resumen técnico de viabilidad: {texto_original}",
+                "stream": False
+            }, timeout=300)
+        
+        resumen = response_ia.json().get('response', 'Resumen no disponible')
 
-    ahora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    nombre = data.get('nombre', 'Usuario desconectado')
-    telefono = data.get('telefono', 'N/A')
-    correo = data.get('correo', 'N/A')
-    resumen = data.get('resumen', 'Sin resumen (navegador cerrado)')
-    texto_original = data.get('texto_original', 'N/A')
-
-    # 2. ESCRIBIR EN CSV (Prioridad: local, no depende de internet)
-    try:
-        with open('/home/bcarmona/solicitudes.csv', mode='a', newline='', encoding='utf-8') as f:
+        # 2. GUARDAR EN CSV (Tu base de datos local)
+        archivo_csv = '/home/bcarmona/backend/Solicitudes.csv'
+        fila = [datetime.now().strftime("%Y-%m-%d %H:%M:%S"), nombre, telefono, correo, resumen]
+        
+        # Nos aseguramos de que el directorio exista
+        os.makedirs(os.path.dirname(archivo_csv), exist_ok=True)
+        
+        with open(archivo_csv, mode='a', newline='', encoding='utf-8') as f:
             writer = csv.writer(f)
-            writer.writerow([ahora, nombre, telefono, correo, resumen, texto_original])
-        print("✅ CSV guardado")
+            writer.writerow(fila)
+
+        # 3. NOTIFICAR A TELEGRAM
+        msg = f"🚀 *Nueva Solicitud V2*\n\n*Cliente:* {nombre}\n*Email:* {correo}\n*Resumen IA:* {resumen}"
+        requests.post(f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage", 
+                      json={"chat_id": CHAT_ID, "text": msg, "parse_mode": "Markdown"})
+
+        # 4. ENVIAR A GOOGLE SHEETS / APPS SCRIPT
+        # Esto disparará el correo automático desde Google
+        requests.post(GOOGLE_SHEETS_URL, json={
+            "nombre": nombre,
+            "correo": correo,
+            "resumen": resumen,
+            "telefono": telefono
+        })
+
+        print(f"✅ Todo listo. Cliente {nombre} procesado.")
+
     except Exception as e:
-        print(f"❌ Error CSV: {e}")
+        print(f"❌ Error en el hilo de fondo: {e}")
 
-    # 3. ENVIAR A TELEGRAM (Con try-except por si falla la red)
-    try:
-        mensaje_bot = (
-            f"🔔 NUEVA SOLICITUD\n"
-            f"👤 Nombre: {nombre}\n"
-            f"📞 Tel: {telefono}\n"
-            f"📧 Email: {correo}\n"
-            f"🤖 Resumen IA: {resumen}\n"
-            f"📝 Original: {texto_original}"
-        )
-        enviar_telegram(mensaje_bot)
+@app.route('/secretario/guardar', methods=['POST'])
+def guardar_solicitud():
+    datos = request.json
+    
+    if not datos:
+        return jsonify({"error": "No se recibieron datos"}), 400
 
-    except Exception as e:
-        print(f"⚠️ Telegram no pudo enviarse: {e}")
+    # LANZAR EL HILO (Threading)
+    # Aquí está el secreto: el programa sigue sin esperar a la IA
+    hilo = threading.Thread(target=tarea_fondo_ia, args=(datos,))
+    hilo.start()
 
-    # 4. ENVIAR A GOOGLE SHEETS (Con TIMEOUT de 5 segundos)
-    # Esto evita que Flask se quede "colgado" si Google no responde rápido
-    try:
-        requests.post(GOOGLE_URL, json=data, timeout=5)
-        print("📊 Datos enviados a Google")
-    except requests.exceptions.Timeout:
-        print("❌ Google Sheets dio Timeout (Red lenta), pero el proceso sigue.")
-    except Exception as e:
-        print(f"❌ Error Google Sheets: {e}")
+    # RESPUESTA INMEDIATA AL CELULAR
+    return jsonify({
+        "status": "ok",
+        "message": "Solicitud recibida. Recibirás un correo en 15 min."
+    }), 200
 
-    # 5. Responder al cliente (aunque ya se haya ido, Flask termina el ciclo)
-    return jsonify({"status": "received"}), 200
-
-#if __name__ == '__main__':
-app.run(host='0.0.0.0', port=5000)
-
+if __name__ == '__main__':
+    # Mantenemos el puerto 5000 para tu Nginx
+    app.run(host='0.0.0.0', port=5000)
