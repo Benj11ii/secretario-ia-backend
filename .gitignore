@@ -1,0 +1,15 @@
+# Mac basura
+.DS_Store
+
+# Python temporales
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Entornos virtuales
+env/
+venv/
+.env
+
+# Archivos de datos (opcional)
+backend/*.csv
