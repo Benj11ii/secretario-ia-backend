@@ -3,174 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asesoría Técnica Inteligente</title>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; display: flex; justify-co>
-        .container { background: white; width: 100%; max-width: 500px; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px>
-        h2 { color: #2c3e50; text-align: center; }
+    <title>IAseroría Informática - Consultoría Técnica</title>
+    <link rel="stylesheet" href="styles.css"> <style>
+        /* Un poco de estilo rápido para la nueva experiencia */
         .hidden { display: none; }
-        .question { font-weight: bold; margin-bottom: 15px; display: block; color: #34495e; }
-        textarea { width: 100%; height: 120px; padding: 10px; border: 1px solid #ddd; border-radius: 8px; resize: none; box-sizin>
-
-        /* Botones */
-        button { background-color: #3498db; color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; >
-        button:hover { background-color: #2980b9; }
-        button:disabled { background-color: #95a5a6; cursor: not-allowed; }
-
-        /* Animaciones de Carga */
-        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 30px; height: 30px; anima>
-        .spinner-small { border: 3px solid rgba(255,255,255,0.3); border-top: 3px solid #fff; border-radius: 50%; width: 20px; he>
-
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        .summary-box { background: #e8f4fd; padding: 15px; border-radius: 8px; border-left: 4px solid #3498db; margin-bottom: 20p>
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-size: 14px; color: #666; }
-        input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+        .success-card {
+            text-align: center;
+            padding: 40px;
+            border-radius: 15px;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+        }
+        input:invalid { border-color: #ef4444; }
+        .hint { font-size: 0.8rem; color: #666; margin-top: 4px; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>Consultoría Técnica</h2>
+    <div class="container">
+        <div id="form-container">
+            <h1>Nueva Solicitud de Asesoría</h1>
+            <p>Completa tus datos para iniciar el análisis de viabilidad con IA.</p>
+            
+            <form id="asesoria-form" onsubmit="enviarVersion2(event)">
+                <div class="field">
+                    <label>Nombre Completo</label>
+                    <input type="text" id="name" required placeholder="Ej: Juan Pérez">
+                </div>
 
-    <!-- PASO 1 -->
-    <div id="step-1">
-        <span class="question">¿Cómo te puedo ayudar con tu proyecto hoy?</span>
-        <textarea id="client-input" placeholder="Describe brevemente tu requerimiento..."></textarea>
-        <button onclick="sendToIA()">Solicitar revisión de factibilidad</button>
+                <div class="field">
+                    <label>Teléfono de Contacto</label>
+                    <input type="tel" id="phone" required 
+                           pattern="569[0-9]{8}" 
+                           placeholder="56912345678">
+                    <p class="hint">Formato: 569 + 8 dígitos</p>
+                </div>
+
+                <div class="field">
+                    <label>Correo Electrónico</label>
+                    <input type="email" id="email" required placeholder="tu@correo.com">
+                </div>
+
+                <div class="field">
+                    <label>Cuéntanos sobre tu proyecto o problema</label>
+                    <textarea id="client-input" required rows="5" 
+                              placeholder="Describe aquí lo que necesitas impulsar..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-finalizar" id="btn-submit">
+                    <span id="btn-text">Enviar Solicitud</span>
+                    <div id="spinner" class="spinner hidden"></div>
+                </button>
+            </form>
+        </div>
+
+        <div id="success-message" class="success-card hidden">
+            <div style="font-size: 3rem;">✅</div>
+            <h2>¡Solicitud Registrada con Éxito!</h2>
+            <p>Estamos procesando tu información con nuestro sistema de IA.</p>
+            <hr>
+            <p><strong>¿Qué pasará ahora?</strong></p>
+            <p>En unos <strong>15 minutos</strong> recibirás un correo electrónico de <strong>IAseroria.Informatica@gmail.com</strong> con el resumen técnico de viabilidad y los pasos a seguir.</p>
+            <br>
+            <p><em>"Gracias por permitirnos ayudarte a seguir creciendo"</em></p>
+            <button onclick="location.reload()" style="margin-top:20px;">Enviar otra consulta</button>
+        </div>
     </div>
 
-    <!-- PASO 2: CARGA IA -->
-    <div id="step-loading" class="hidden">
-        <div class="spinner"></div>
-        <p id="loading-msg" style="text-align: center; color: #666;">Iniciando análisis...</p>
-    </div>
- <!-- PASO 3: RESUMEN IA -->
-    <div id="step-2" class="hidden">
-        <span class="question">Esto es lo que he comprendido:</span>
-        <div id="ia-summary" class="summary-box"></div>
-        <p>¿Es correcta esta interpretación?</p>
-        <button onclick="showForm()">Sí, es correcto. Solicitar presupuesto</button>
-        <button style="background-color: #95a5a6;" onclick="location.reload()">No, quiero corregir</button>
-    </div>
+    <script>
+        async function enviarVersion2(event) {
+            event.preventDefault(); // Evita que la página recargue
 
-    <!-- PASO 4: FORMULARIO -->
-    <div id="step-3" class="hidden">
-        <span class="question">Ingrese sus datos para el presupuesto:</span>
-        <div class="form-group"><label>Nombre Completo</label><input type="text" id="name"></div>
-        <div class="form-group"><label>Teléfono</label><input type="tel" id="phone"></div>
-        <div class="form-group"><label>Email</label><input type="email" id="email"></div>
+            const btn = document.getElementById('btn-submit');
+            const btnText = document.getElementById('btn-text');
+            const spinner = document.getElementById('spinner');
+            const formContainer = document.getElementById('form-container');
+            const successMessage = document.getElementById('success-message');
 
-        <!-- Botón Final con ID para manipularlo -->
-        <button id="btn-final" style="background-color: #27ae60;" onclick="finalizarSolicitud()">Enviar Solicitud Final</button>
-        <p id="msg-final" style="text-align: center; font-size: 12px; color: #888; display: none;">Guardando datos en el servidor>
-    </div>
-</div>
+            // 1. Mostrar estado de carga
+            btn.disabled = true;
+            btnText.innerText = "Registrando...";
+            spinner.classList.remove('hidden');
 
-<script>
-    const SERVER_IP = window.location.hostname;
-    const phrases = ["Analizando factibilidad...", "Revisando normativas...", "Preparando resumen técnico...", "Redactando respue>
+            const payload = {
+                nombre: document.getElementById('name').value,
+                telefono: document.getElementById('phone').value,
+                correo: document.getElementById('email').value,
+                texto_original: document.getElementById('client-input').value
+            };
 
-    async function sendToIA() {
-        const input = document.getElementById('client-input').value;
-        if (!input) return alert("Por favor escribe algo.");
+            try {
+                // Enviamos a la nueva ruta que crearemos en app.py (V2)
+                const response = await fetch('/secretario/guardar', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
 
-        document.getElementById('step-1').classList.add('hidden');
-        document.getElementById('step-loading').classList.remove('hidden');
+                if (response.ok) {
+                    // 2. Transición inmediata al mensaje de éxito
+                    formContainer.classList.add('hidden');
+                    successMessage.classList.remove('hidden');
+                } else {
+                    throw new Error("Error en el servidor");
+                }
 
-        let phraseIdx = 0;
-        const phraseInterval = setInterval(() => {
-            phraseIdx = (phraseIdx + 1) % phrases.length;
-            document.getElementById('loading-msg').innerText = phrases[phraseIdx];
-        }, 3000);
-
-        try {
-            const response = await fetch(`/ollama/api/chat`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    model: "qwen2.5:3b",
-                    messages: [
-                        { role: "system", content: "Actúa como consultor experto. Resume el requerimiento en 2 párrafos técnicos >
-                        { role: "user", content: input }
-                    ],
-                    stream: false
-                })
-            });
-            const data = await response.json();
-            clearInterval(phraseInterval);
-            document.getElementById('ia-summary').innerText = data.message.content;
-            document.getElementById('step-loading').classList.add('hidden');
-            document.getElementById('step-2').classList.remove('hidden');
-        } catch (error) {
-            alert("Error conectando con la IA.");
-            location.reload();
+            } catch (error) {
+                alert("Hubo un problema. Por favor verifica tu conexión e intenta de nuevo.");
+                btn.disabled = false;
+                btnText.innerText = "Enviar Solicitud";
+                spinner.classList.add('hidden');
+            }
         }
-    }
-
-    function showForm() {
-        document.getElementById('step-2').classList.add('hidden');
-        document.getElementById('step-3').classList.remove('hidden');
-    }
-
-    async function finalizarSolicitud() {
-    const name = document.getElementById('name').value;
-    const phone = document.getElementById('phone').value;
-    const email = document.getElementById('email').value;
-    const summary = document.getElementById('ia-summary').innerText;
-    const original = document.getElementById('client-input').value;
-
-    if (!name || !phone || !email) {
-        alert("Por favor, completa todos los campos.");
-        return;
-    }
-
-    // --- ACTIVAR ANIMACIÓN (Lo que ya tenías) ---
-    const btn = document.querySelector('.btn-finalizar');
-    const loadingHtml = '<div class="spinner"></div> Enviando...'; // Ajusta esto a tu HTML de carga
-    const originalText = btn.innerHTML;
-
-    btn.disabled = true;
-    btn.innerHTML = loadingHtml;
-
-    try {
-        const response = await fetch('/secretario/guardar', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                nombre: name,
-                telefono: phone,
-                correo: email,
-                resumen: summary,
-                texto_original: original
-            })
-        });
-
-        if (response.ok) {
-            alert("✅ ¡Solicitud enviada con éxito!");
-            location.reload();
-        } else {
-            throw new Error("Error en el servidor");
-        }
-
-    } catch (error) {
-        console.error("Error:", error);
-        alert("⚠️ La conexión se interrumpió (posiblemente al apagarse la pantalla). Por favor, intenta de nuevo.");
-
-        // --- QUITAR ANIMACIÓN SI FALLA ---
-        // Esto es clave: si falla, devolvemos el botón a la normalidad
-        btn.disabled = false;
-        btn.innerHTML = originalText;
-    }
-}
-window.onpageshow = function(event) {
-    if (event.persisted) {
-        // Si el usuario volvió usando el botón "atrás"
-        window.location.reload(); // Forzamos recarga para limpiar todo
-    }
-};
-
-</script>
+    </script>
 </body>
 </html>
