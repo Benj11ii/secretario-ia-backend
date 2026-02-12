@@ -24,7 +24,7 @@
         <div id="form-container">
             <h1>Nueva Solicitud de Asesoría</h1>
             <p>Completa tus datos para iniciar el análisis de viabilidad con IA.</p>
-            
+
             <form id="asesoria-form" onsubmit="enviarVersion2(event)">
                 <div class="field">
                     <label>Nombre Completo</label>
@@ -33,8 +33,8 @@
 
                 <div class="field">
                     <label>Teléfono de Contacto</label>
-                    <input type="tel" id="phone" required 
-                           pattern="569[0-9]{8}" 
+                    <input type="tel" id="phone" required
+                           pattern="569[0-9]{8}"
                            placeholder="56912345678">
                     <p class="hint">Formato: 569 + 8 dígitos</p>
                 </div>
@@ -46,7 +46,7 @@
 
                 <div class="field">
                     <label>Cuéntanos sobre tu proyecto o problema</label>
-                    <textarea id="client-input" required rows="5" 
+                    <textarea id="client-input" required rows="5"
                               placeholder="Describe aquí lo que necesitas impulsar..."></textarea>
                 </div>
 
@@ -57,13 +57,13 @@
             </form>
         </div>
 
-        <div id="success-message" class="success-card hidden">
+                <div id="success-message" class="success-card hidden">
             <div style="font-size: 3rem;">✅</div>
             <h2>¡Solicitud Registrada con Éxito!</h2>
             <p>Estamos procesando tu información con nuestro sistema de IA.</p>
             <hr>
             <p><strong>¿Qué pasará ahora?</strong></p>
-            <p>En unos <strong>15 minutos</strong> recibirás un correo electrónico de <strong>IAseroria.Informatica@gmail.com</strong> con el resumen técnico de viabilidad y los pasos a seguir.</p>
+            <p>En unos <strong>15 minutos</strong> recibirás un correo electrónico de <strong>IAseroria.Informatica@gmail.com</strong> con el resumen técnico de viabilidad>
             <br>
             <p><em>"Gracias por permitirnos ayudarte a seguir creciendo"</em></p>
             <button onclick="location.reload()" style="margin-top:20px;">Enviar otra consulta</button>
@@ -94,7 +94,7 @@
 
             try {
                 // Enviamos a la nueva ruta que crearemos en app.py (V2)
-                const response = await fetch('/secretario/guardar', {
+                const response = await fetch('https://servidorasesoria.taild621e6.ts.net/secretario/guardar', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
@@ -107,8 +107,7 @@
                 } else {
                     throw new Error("Error en el servidor");
                 }
-
-            } catch (error) {
+                    } catch (error) {
                 alert("Hubo un problema. Por favor verifica tu conexión e intenta de nuevo.");
                 btn.disabled = false;
                 btnText.innerText = "Enviar Solicitud";
@@ -118,3 +117,4 @@
     </script>
 </body>
 </html>
+
