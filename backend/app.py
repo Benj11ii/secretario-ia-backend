@@ -7,83 +7,105 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-# --- CONFIGURACIÓN (Reemplaza con tus datos reales) ---
+# --- CONFIGURACIÓN ---
 TELEGRAM_TOKEN = "7832767566:AAEa3mbtsP_0HmY-Z37Dyc8VneMHEUHpDmw"
 CHAT_ID = "8538712379"
-# Esta es la URL de tu Google Apps Script que enviará el correo
-GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzY7NXEc-XcaOzgoBDGyLAQdKYb6lUX-iIrFDZqiXC2dFdvqUNlsgcaC6Namu5pXdX8gg/exec" 
+GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbxPMwswf1fgzammSXEKJadeh9yR96Oy1UrhLz6u0GR5Bz6iGvYAkNVewuByr2EOWUiw8w/exec"
 
 def tarea_fondo_ia(datos):
-    """
-    TRABAJADOR DE FONDO:
-    Aquí el Celeron N95 hace el trabajo pesado sin bloquear al cliente.
-    """
+    # 1. Recolección de datos (mapeo de nombres)
+    nombre = datos.get('nombre', 'Sin nombre')
+    telefono = datos.get('telefono', 'Sin tel')
+    correo = datos.get('correo', 'Sin correo')
+    # Capturamos como se llame en el HTML y lo guardamos en una variable interna
+    texto_cliente = datos.get('texto_original') or datos.get('solicitud') or "Sin mensaje"
+    
+    archivo_csv = "/home/bcarmona/backend/Solicitudes.csv"
+    fecha_actual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
     try:
-        nombre = datos.get('nombre')
-        telefono = datos.get('telefono')
-        correo = datos.get('correo')
-        texto_original = datos.get('texto_original')
-
-        # 1. LLAMADA A OLLAMA (IA Local)
-        # Usamos un timeout largo porque Ollama puede tardar en el Celeron
-        print(f"🤖 Procesando IA para {nombre}...")
-        response_ia = requests.post('http://127.0.0.1:11434/api/generate', 
-            json={
-                "model": "llama3", 
-                "prompt": f"Analiza esta solicitud de asesoría y genera un resumen técnico de viabilidad: {texto_original}",
-                "stream": False
-            }, timeout=300)
-        
-        resumen = response_ia.json().get('response', 'Resumen no disponible')
-
-        # 2. GUARDAR EN CSV (Tu base de datos local)
-        archivo_csv = '/home/bcarmona/backend/Solicitudes.csv'
-        fila = [datetime.now().strftime("%Y-%m-%d %H:%M:%S"), nombre, telefono, correo, resumen]
-        
-        # Nos aseguramos de que el directorio exista
-        os.makedirs(os.path.dirname(archivo_csv), exist_ok=True)
-        
+        # --- PASO 1: RESPALDO INICIAL EN CSV ---
         with open(archivo_csv, mode='a', newline='', encoding='utf-8') as f:
             writer = csv.writer(f)
-            writer.writerow(fila)
+            writer.writerow([fecha_actual, nombre, telefono, correo, texto_cliente, "PROCESANDO..."])
 
-        # 3. NOTIFICAR A TELEGRAM
-        msg = f"🚀 *Nueva Solicitud V2*\n\n*Cliente:* {nombre}\n*Email:* {correo}\n*Resumen IA:* {resumen}"
-        requests.post(f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage", 
-                      json={"chat_id": CHAT_ID, "text": msg, "parse_mode": "Markdown"})
+        # --- PASO 2: LÓGICA DE IA (Ollama con Qwen) ---
+        print(f"🤖 Procesando con Qwen2.5 para: {nombre}")
+        resumen_ia = "Procesando..." # Valor por defecto
+        
+        try:
+            response = requests.post(
+                "http://localhost:11434/api/generate",
+                json={
+                    "model": "qwen2.5:3b", 
+                    "prompt": f"Resume en una frase corta y profesional esta solicitud: {texto_cliente}",
+                    "stream": False
+                },
+                timeout=190
+            )
+            if response.status_code == 200:
+                resumen_ia = response.json().get('response','El modelo IA no generó el resumen')
+                print(f"✅ IA respondió: {resumen_ia[:30]}...")
+            else:
+                print(f"⚠️ Ollama error {response.status_code}")
+                resumen_ia = "Resumen temporalmente no disponible"
+        except requests.exceptions.Timeout:
+            print("⚠️ La IA tardó demasiado tiempo (Timeout)")
+            resumen_ia = "La IA está procesando una solicitud larga..."
+        except Exception as e:
+            print(f"⚠️ Error de conexión con Ollama: {e}")
 
-        # 4. ENVIAR A GOOGLE SHEETS / APPS SCRIPT
-        # Esto disparará el correo automático desde Google
-        requests.post(GOOGLE_SHEETS_URL, json={
+        # --- PASO 3: REGISTRO FINAL EN CSV LOCAL ---
+        with open(archivo_csv, mode='a', newline='', encoding='utf-8') as f:
+            writer = csv.writer(f)
+            writer.writerow([fecha_actual, nombre, telefono, correo, texto_cliente, resumen_ia])
+
+        # --- PASO 4: NOTIFICAR A TELEGRAM ---
+        msg = (f"🚀 *Nueva Solicitud*\n\n"
+               f"*Cliente:* {nombre}\n"
+               f"*Texto Original:* {texto_cliente}\n\n"
+               f"*Resumen IA:* {resumen_ia}")
+        
+        try:
+            requests.post(f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage", 
+                          json={"chat_id": CHAT_ID, "text": msg, "parse_mode": "Markdown"}, 
+                          timeout=10)
+            print("✅ Telegram enviado")
+        except Exception as e:
+            print(f"⚠️ Telegram falló: {e}")
+
+        # --- PASO 5: ENVIAR A GOOGLE SHEETS ---
+        payload = {
             "nombre": nombre,
+            "telefono": telefono,
             "correo": correo,
-            "resumen": resumen,
-            "telefono": telefono
-        })
-
-        print(f"✅ Todo listo. Cliente {nombre} procesado.")
+            "solicitud": texto_cliente,  # Enviamos el texto largo aquí
+            "resumen": resumen_ia       # Enviamos el resumen aquí
+        }
+        
+        try:
+            resp = requests.post(GOOGLE_SHEETS_URL, json=payload, timeout=30)
+            print(f"🚩 Respuesta Google Sheets: {resp.status_code}")
+        except Exception as e:
+            print(f"⚠️ Google Sheets falló: {e}")
 
     except Exception as e:
-        print(f"❌ Error en el hilo de fondo: {e}")
+        print(f"❌ ERROR CRÍTICO EN EL PROCESO: {str(e)}")
 
 @app.route('/secretario/guardar', methods=['POST'])
 def guardar_solicitud():
-    datos = request.json
-    
+    datos = request.get_json()
     if not datos:
         return jsonify({"error": "No se recibieron datos"}), 400
 
-    # LANZAR EL HILO (Threading)
-    # Aquí está el secreto: el programa sigue sin esperar a la IA
+    # Iniciamos el proceso pesado en segundo plano
     hilo = threading.Thread(target=tarea_fondo_ia, args=(datos,))
     hilo.start()
 
-    # RESPUESTA INMEDIATA AL CELULAR
-    return jsonify({
-        "status": "ok",
-        "message": "Solicitud recibida. Recibirás un correo en 15 min."
-    }), 200
+    return jsonify({"status": "ok", "message": "Datos recibidos correctamente"}), 200
 
 if __name__ == '__main__':
-    # Mantenemos el puerto 5000 para tu Nginx
-    app.run(host='0.0.0.0', port=5000)
+    # Importante: host 0.0.0.0 para que Nginx lo vea
+    app.run(host='0.0.0.0', port=5000, debug=False)
+
+
