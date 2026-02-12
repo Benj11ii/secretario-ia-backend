@@ -8,9 +8,9 @@ from datetime import datetime
 app = Flask(__name__)
 
 # --- CONFIGURACIÓN ---
-TELEGRAM_TOKEN = "7832767566:AAEa3mbtsP_0HmY-Z37Dyc8VneMHEUHpDmw"
-CHAT_ID = "8538712379"
-GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbxPMwswf1fgzammSXEKJadeh9yR96Oy1UrhLz6u0GR5Bz6iGvYAkNVewuByr2EOWUiw8w/exec"
+TELEGRAM_TOKEN = "tu token_aquí"
+CHAT_ID = "tu chat_id_aquí"
+GOOGLE_SHEETS_URL = "tu url_aquí"
 
 def tarea_fondo_ia(datos):
     # 1. Recolección de datos (mapeo de nombres)
