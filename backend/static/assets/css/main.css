@@ -4904,3 +4904,135 @@ input[type="submit"]:active {
     color: #000000 !important;               /* Texto negro (como te gusta) */
     transform: scale(1.05) !important;
 }
+
+
+
+
+
+/* ============================================================
+   BOTÓN WHATSAPP FLOTANTE (VERDE CON CÍRCULO NARANJA)
+   ============================================================ */
+
+/* Contenedor del botón */
+.whatsapp-float {
+    position: fixed !important;
+    bottom: 25px !important;
+    right: 25px !important;
+    z-index: 9999 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+}
+
+/* Círculo exterior naranja */
+.whatsapp-float .outer-circle {
+    background: #f2a61f !important;  /* Naranja de tu marca */
+    width: 70px !important;
+    height: 70px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 4px 15px rgba(242, 166, 31, 0.4) !important;
+    animation: pulse 2s infinite !important;
+}
+
+/* Círculo interior negro con icono verde */
+.whatsapp-float .inner-circle {
+    background: #000000 !important;  /* Fondo negro */
+    width: 54px !important;
+    height: 54px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Icono de WhatsApp verde */
+.whatsapp-float i {
+    color: #25D366 !important;  /* Verde WhatsApp */
+    font-size: 32px !important;
+    line-height: 1 !important;
+}
+
+/* Efecto hover */
+.whatsapp-float:hover {
+    transform: scale(1.1) !important;
+}
+
+.whatsapp-float:hover .outer-circle {
+    box-shadow: 0 6px 20px rgba(242, 166, 31, 0.6) !important;
+}
+
+/* Animación de pulso */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(242, 166, 31, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(242, 166, 31, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(242, 166, 31, 0);
+    }
+}
+
+/* Responsive para móvil */
+@media screen and (max-width: 736px) {
+    .whatsapp-float {
+        bottom: 15px !important;
+        right: 15px !important;
+    }
+    
+    .whatsapp-float .outer-circle {
+        width: 60px !important;
+        height: 60px !important;
+    }
+    
+    .whatsapp-float .inner-circle {
+        width: 46px !important;
+        height: 46px !important;
+    }
+    
+    .whatsapp-float i {
+        font-size: 28px !important;
+    }
+}
+
+
+
+/* ============================================================
+   CORRECCIÓN: ELIMINAR LÍNEA EXTRA DEL BOTÓN WHATSAPP
+   ============================================================ */
+
+/* Eliminar cualquier decoración de texto */
+.whatsapp-float,
+.whatsapp-float:hover,
+.whatsapp-float:focus,
+.whatsapp-float:active,
+.whatsapp-float:visited {
+    text-decoration: none !important;
+    border-bottom: none !important;
+    outline: none !important;
+}
+
+/* Asegurar que no haya líneas en los elementos internos */
+.whatsapp-float .outer-circle,
+.whatsapp-float .inner-circle,
+.whatsapp-float i {
+    text-decoration: none !important;
+    border-bottom: none !important;
+}
+
+/* Eliminar cualquier borde o línea residual */
+.whatsapp-float * {
+    border-bottom: none !important;
+    text-decoration: none !important;
+}
+
+/* Para navegadores específicos */
+.whatsapp-float::-moz-focus-inner {
+    border: 0 !important;
+}
