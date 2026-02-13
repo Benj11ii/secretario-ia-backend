@@ -120,15 +120,17 @@ def tarea_fondo_ia(datos):
 
 @app.route('/secretario/guardar', methods=['POST'])
 def guardar_solicitud():
-    datos = request.get_json()
+    # Esto permite recibir datos tanto de formularios web como de JSON
+    datos = request.form.to_dict() if request.form else request.get_json()
+    
     if not datos:
         return jsonify({"error": "No se recibieron datos"}), 400
 
-    # Iniciamos el proceso pesado en segundo plano
     hilo = threading.Thread(target=tarea_fondo_ia, args=(datos,))
     hilo.start()
 
-    return jsonify({"status": "ok", "message": "Datos recibidos correctamente"}), 200
+    # Redirigir a una página de "Gracias" o simplemente avisar éxito
+    return "¡Solicitud recibida! Te contactaremos pronto."
 
 if __name__ == '__main__':
     # Importante: host 0.0.0.0 para que Nginx lo vea
