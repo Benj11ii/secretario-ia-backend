@@ -3,11 +3,16 @@ import requests
 import csv
 import os
 from dotenv import load_dotenv
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from datetime import datetime
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', static_url_path='')
 load_dotenv()
+
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
+
 # --- CONFIGURACIÓN ---
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
@@ -21,7 +26,7 @@ def tarea_fondo_ia(datos):
     # Capturamos como se llame en el HTML y lo guardamos en una variable interna
     texto_cliente = datos.get('texto_original') or datos.get('solicitud') or "Sin mensaje"
     
-    archivo_csv = "/home/bcarmona/backend/Solicitudes.csv"
+    archivo_csv = "/home/bcarmona/secretario-ia-backend/backend/Solicitudes.csv"
     fecha_actual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     try:
