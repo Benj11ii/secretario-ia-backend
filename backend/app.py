@@ -8,9 +8,9 @@ from datetime import datetime
 app = Flask(__name__)
 
 # --- CONFIGURACIÓN ---
-TELEGRAM_TOKEN = "tu token_aquí"
-CHAT_ID = "tu chat_id_aquí"
-GOOGLE_SHEETS_URL = "tu url_aquí"
+TELEGRAM_TOKEN = "Tu token aqui"
+CHAT_ID = "tu id aqui"
+GOOGLE_SHEETS_URL = "tu url aqui"
 
 def tarea_fondo_ia(datos):
     # 1. Recolección de datos (mapeo de nombres)
@@ -32,16 +32,35 @@ def tarea_fondo_ia(datos):
         # --- PASO 2: LÓGICA DE IA (Ollama con Qwen) ---
         print(f"🤖 Procesando con Qwen2.5 para: {nombre}")
         resumen_ia = "Procesando..." # Valor por defecto
-        
+        servicios_permitidos = (
+            "Maquetación HTML, Google Apps Script (GAS), automatización en Spreadsheets/Excel, "
+            "ordenamiento de Bases de Datos,lógica en Python, configuración de Host y plataformas de Mailing "
+            "(Zenvia, Mailerlite, Mailrelay)."
+        )
+        prompt_espiritu = (
+            f"IMPORTANTE: RESPONDE SIEMPRE EN ESPAÑOL.\n"
+            f"Actúa como un Analista de Sistemas experto y consultor tecnológico.\n"
+            f"El cliente envió esta solicitud: '{texto_cliente}'.\n\n"
+            f"TU TAREA es entregar una resumen sobre lo que pide cliente, siendo flexible con el siguiente esquema sugerido :\n"
+            f"1. Usted quiere: Debes definir brevemente el tipo de proyecto (ej: 'Un Desarrollo de interfaz web', 'Una Automatización de procesos', 'Una Integración de sistemas').\n"
+            f"2. Resumen técnico sencillo: Resume lo que comprendes de su idea, detalla técnicamente aspectos que empaticen y atraigan al cliente, por ejemplo comentar sobre como el problema que se puede solucionar el >
+            f"3. Cierre de Factibilidad: Explica que nuestro equipo realizará un análisis a profundidad y le enviará un plan con una propuesta a su correo.\n\n"
+            f"REGLAS:\n"
+            f"- Tono: Serio, amable y profesional.\n"
+            f"- Máximo 9 líneas. Sé directo y evita siempre el portugués."
+        )
         try:
             response = requests.post(
                 "http://localhost:11434/api/generate",
                 json={
-                    "model": "qwen2.5:3b", 
-                    "prompt": f"Resume en una frase corta y profesional esta solicitud: {texto_cliente}",
-                    "stream": False
+                    "model": "qwen2.5:3b",
+                    "prompt": prompt_espiritu,
+                    "stream": False,
+                    "options": {
+                      "temperature": 0.7 #Toque humano
+                    }
                 },
-                timeout=190
+                timeout=500
             )
             if response.status_code == 200:
                 resumen_ia = response.json().get('response','El modelo IA no generó el resumen')
@@ -62,7 +81,7 @@ def tarea_fondo_ia(datos):
 
         # --- PASO 4: NOTIFICAR A TELEGRAM ---
         msg = (f"🚀 *Nueva Solicitud*\n\n"
-               f"*Cliente:* {nombre}\n"
+               f"*Cliente:* {nombre}\n\n"
                f"*Texto Original:* {texto_cliente}\n\n"
                f"*Resumen IA:* {resumen_ia}")
         
@@ -73,8 +92,7 @@ def tarea_fondo_ia(datos):
             print("✅ Telegram enviado")
         except Exception as e:
             print(f"⚠️ Telegram falló: {e}")
-
-        # --- PASO 5: ENVIAR A GOOGLE SHEETS ---
+            # --- PASO 5: ENVIAR A GOOGLE SHEETS ---
         payload = {
             "nombre": nombre,
             "telefono": telefono,
@@ -107,5 +125,3 @@ def guardar_solicitud():
 if __name__ == '__main__':
     # Importante: host 0.0.0.0 para que Nginx lo vea
     app.run(host='0.0.0.0', port=5000, debug=False)
-
-
