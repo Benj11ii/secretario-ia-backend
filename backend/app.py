@@ -13,8 +13,6 @@ TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
 GOOGLE_SHEETS_URL = os.getenv("GOOGLE_SHEETS_URL")
 
-
-
 def tarea_fondo_ia(datos):
     # 1. Recolección de datos (mapeo de nombres)
     nombre = datos.get('nombre', 'Sin nombre')
@@ -46,12 +44,13 @@ def tarea_fondo_ia(datos):
             f"El cliente envió esta solicitud: '{texto_cliente}'.\n\n"
             f"TU TAREA es entregar una resumen sobre lo que pide cliente, siendo flexible con el siguiente esquema sugerido :\n"
             f"1. Usted quiere: Debes definir brevemente el tipo de proyecto (ej: 'Un Desarrollo de interfaz web', 'Una Automatización de procesos', 'Una Integración de sistemas').\n"
-            f"2. Resumen técnico sencillo: Resume lo que comprendes de su idea, detalla técnicamente aspectos que empaticen y atraigan al cliente, por ejemplo comentar sobre como el problema que se puede solucionar el >
+            f"2. Resumen técnico sencillo: Resume lo que comprendes de su idea, detalla técnicamente aspectos que empaticen y atraigan al cliente, por ejemplo comentar sobre como el problema se puede solucionar el cliente iente o como el sistema que se lograría optimizar, empatiza con cliente al abordar su solicitud.\n"
             f"3. Cierre de Factibilidad: Explica que nuestro equipo realizará un análisis a profundidad y le enviará un plan con una propuesta a su correo.\n\n"
             f"REGLAS:\n"
             f"- Tono: Serio, amable y profesional.\n"
             f"- Máximo 9 líneas. Sé directo y evita siempre el portugués."
         )
+ 
         try:
             response = requests.post(
                 "http://localhost:11434/api/generate",
@@ -95,7 +94,8 @@ def tarea_fondo_ia(datos):
             print("✅ Telegram enviado")
         except Exception as e:
             print(f"⚠️ Telegram falló: {e}")
-            # --- PASO 5: ENVIAR A GOOGLE SHEETS ---
+
+        # --- PASO 5: ENVIAR A GOOGLE SHEETS ---
         payload = {
             "nombre": nombre,
             "telefono": telefono,
@@ -128,3 +128,4 @@ def guardar_solicitud():
 if __name__ == '__main__':
     # Importante: host 0.0.0.0 para que Nginx lo vea
     app.run(host='0.0.0.0', port=5000, debug=False)
+
