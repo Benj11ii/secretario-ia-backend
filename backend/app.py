@@ -2,15 +2,18 @@ import threading
 import requests
 import csv
 import os
+from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from datetime import datetime
 
 app = Flask(__name__)
-
+load_dotenv()
 # --- CONFIGURACIÓN ---
-TELEGRAM_TOKEN = "Tu token aqui"
-CHAT_ID = "tu id aqui"
-GOOGLE_SHEETS_URL = "tu url aqui"
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+CHAT_ID = os.getenv("CHAT_ID")
+GOOGLE_SHEETS_URL = os.getenv("GOOGLE_SHEETS_URL")
+
+
 
 def tarea_fondo_ia(datos):
     # 1. Recolección de datos (mapeo de nombres)
