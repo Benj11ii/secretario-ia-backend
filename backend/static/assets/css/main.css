@@ -4109,3 +4109,88 @@ input, select, textarea {
 					}
 
 	}
+
+	/* Color naranja para los iconos de la galería y botones principales */
+.icon.major {
+    color: #ff9800 !important;
+}
+
+#header #logo a {
+    color: #ff9800 !important;
+    font-weight: bold;
+}
+
+input[type="submit"].primary,
+input[type="reset"].primary,
+input[type="button"].primary,
+button.primary,
+.button.primary {
+    background-color: #ff9800 !important;
+    box-shadow: none;
+}
+
+#banner {
+    background-image: linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("../../images/banner.jpg");
+}
+
+/* 1. Color de fondo general y textos */
+body.landing {
+    background-color: #1c1d26 !important; /* Azul muy oscuro casi negro */
+}
+
+/* 2. El Logo en Naranja */
+#header #logo a {
+    color: #ff9800 !important;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+/* 3. Navegación: Efecto al pasar el ratón (Hover) */
+#nav ul li a {
+    transition: color 0.3s ease, border-bottom-color 0.3s ease;
+}
+
+#nav ul li a:hover {
+    color: #ffb74d !important; /* Naranja más suave al pasar el ratón */
+}
+
+/* 4. Botón principal en Naranja */
+input[type="submit"].primary,
+.button.primary {
+    background-color: #ff9800 !important;
+    border-color: #ff9800 !important;
+    color: #ffffff !important;
+}
+
+input[type="submit"].primary:hover,
+.button.primary:hover {
+    background-color: #e68a00 !important; /* Naranja más oscuro al presionar */
+    border-color: #e68a00 !important;
+}
+
+/* 5. Iconos de la Galería */
+.icon.major {
+    color: #ff9800 !important;
+    border-color: #ff9800 !important;
+}
+
+/* 6. Ajuste del Banner (Imagen de fondo con filtro oscuro) */
+#banner {
+    background-image: linear-gradient(rgba(28, 29, 38, 0.8), rgba(28, 29, 38, 0.8)), url("../../images/banner.jpg");
+    background-size: cover;
+}
+/* Poner la imagen de red como fondo del banner */
+#banner {
+    background-image: linear-gradient(rgba(28, 29, 38, 0.6), rgba(28, 29, 38, 0.6)), url("../../images/principalimagen.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Esto da un efecto de movimiento elegante al bajar */
+    color: #ffffff;
+}
+
+/* Ajuste opcional para que tu logo central no sea gigante */
+#banner .image img {
+    max-width: 300px;
+    height: auto;
+    border-radius: 10px; /* Opcional: bordes redondeados para el logo */
+}
