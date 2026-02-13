@@ -795,7 +795,7 @@ body.landing.is-preload:after {
 	}
 }
 
-*============================================================CORRECCIÓN PARA MÓVIL: BANNER CON OVERLAY OSCURO MÁS FUERTE============================================================*/
+/*============================================================CORRECCIÓN PARA MÓVIL: BANNER CON OVERLAY OSCURO MÁS FUERTE============================================================*/
 /* Cuando la pantalla es pequeña (móvil) */
 @media screen and (max-width: 736px) {
 
@@ -4515,4 +4515,42 @@ textarea:focus {
 /* Asegurar que el nombre de la empresa sea blanco sobre el fondo negro */
 #titleBar .title {
 	color: #ffffff !important;
+}
+
+
+/* --- CORRECCIÓN: LOGO REDONDO PERFECTO --- */
+
+/* 1. Ajustes al CONTENEDOR (El círculo naranja/negro) */
+#banner .content .image {
+    border-radius: 50% !important; /* Fuerza absoluta a que sea un círculo */
+    overflow: hidden !important;   /* RECORTA las esquinas cuadradas de la imagen */
+    
+    /* Aseguramos dimensiones cuadradas para que el radio de 50% haga un círculo perfecto */
+    width: 18em !important; 
+    height: 18em !important;
+    
+    /* Centrado interno */
+    display: inline-flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    
+    /* Fondo para evitar huecos blancos */
+    background-color: #1c1d26 !important;
+    
+    /* Eliminamos desplazamientos raros */
+    margin-top: 0 !important;
+    transform: none !important;
+}
+
+/* 2. Ajustes a la IMAGEN (El dibujo del cerebro) */
+#banner .content .image img {
+    width: 100% !important;       /* Que llene el círculo */
+    height: 100% !important;      /* Que llene el círculo */
+    object-fit: cover !important; /* Cubre todo el espacio sin estirarse raro */
+    border-radius: 0 !important;  /* Dejamos que el contenedor haga el recorte */
+}
+
+/* 3. Quitamos la textura de puntos */
+#banner .content .image:before {
+    display: none !important;
 }
