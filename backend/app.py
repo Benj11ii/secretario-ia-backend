@@ -2,8 +2,8 @@ import threading
 import requests
 import csv
 import os
-from dotenv import load_dotenv
-from flask import Flask, request, jsonify, send_from_directory
+from dotenv import load_dotenv # type: ignore
+from flask import Flask, request, jsonify, send_from_directory, redirect, url_for
 from datetime import datetime
 
 app = Flask(__name__, static_folder="static", static_url_path="")
@@ -151,7 +151,7 @@ def guardar_solicitud():
     hilo.start()
 
     # Redirigir a una página de "Gracias" o simplemente avisar éxito
-    return "¡Solicitud recibida! Te contactaremos pronto."
+    return redirect('/gracias.html')
 
 
 if __name__ == "__main__":
