@@ -679,6 +679,55 @@ input, select, textarea {
 
 		}
 
+		@media screen and (max-width: 736px) {
+    #banner {
+        background-image: linear-gradient(rgba(28, 29, 38, 0.9), rgba(28, 29, 38, 0.9)), url("../../images/principalimagen.jpg") !important;
+        background-size: cover !important;
+        background-position: center !important;
+    }
+}
+* ============================================================
+   CORRECCIÓN PARA MÓVIL: BANNER CON OVERLAY OSCURO MÁS FUERTE
+   ============================================================ */
+
+/* Cuando la pantalla es pequeña (móvil) */
+@media screen and (max-width: 736px) {
+
+    /* Reforzamos el overlay oscuro sobre la imagen */
+    #banner {
+        /* Mantenemos la imagen pero con un overlay más oscuro (cambiado de 0.4 a 0.85) */
+        background-image: linear-gradient(rgba(28, 29, 38, 0.85), rgba(28, 29, 38, 0.85)), url("../../images/principalimagen.jpg") !important;
+        background-size: cover !important;
+        background-position: center !important;
+        background-attachment: scroll !important; /* Cambiamos a scroll para mejor rendimiento en móvil */
+    }
+
+    /* Aseguramos que el texto/logo tenga suficiente contraste */
+    #banner .content header h2,
+    #banner .content header p,
+    #banner .content {
+        color: #ffffff !important;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Sombra más fuerte */
+    }
+
+    /* Ajustamos el tamaño del logo si es necesario */
+    #banner .content .image img {
+        max-width: 200px !important;
+        height: auto !important;
+    }
+}
+
+/* Para pantallas muy pequeñas */
+@media screen and (max-width: 480px) {
+    #banner .content {
+        padding: 1.5em 1em !important;
+    }
+    
+    #banner .content .image img {
+        max-width: 150px !important;
+    }
+}
+
 /* Row */
 
 	.row {
@@ -4164,8 +4213,8 @@ input[type="submit"].primary,
 
 input[type="submit"].primary:hover,
 .button.primary:hover {
-    background-color: #e68a00 !important; /* Naranja más oscuro al presionar */
-    border-color: #e68a00 !important;
+    background-color: #341f00 !important; /* Naranja más oscuro al presionar */
+    border-color: #b97002 !important;
 }
 
 /* 5. Iconos de la Galería */
@@ -4181,10 +4230,11 @@ input[type="submit"].primary:hover,
 }
 /* Poner la imagen de red como fondo del banner */
 #banner {
-    background-image: linear-gradient(rgba(28, 29, 38, 0.6), rgba(28, 29, 38, 0.6)), url("../../images/principalimagen.jpg");
+    /* Cambiamos de 0.6 a 0.4 para que el fondo sea más visible */
+    background-image: linear-gradient(rgba(28, 29, 38, 0.4), rgba(28, 29, 38, 0.4)), url("../../images/principalimagen.jpg");
     background-size: cover;
     background-position: center;
-    background-attachment: fixed; /* Esto da un efecto de movimiento elegante al bajar */
+    background-attachment: fixed;
     color: #ffffff;
 }
 
@@ -4193,4 +4243,108 @@ input[type="submit"].primary:hover,
     max-width: 300px;
     height: auto;
     border-radius: 10px; /* Opcional: bordes redondeados para el logo */
+}
+
+/* ============================================================
+   PERSONALIZACIÓN IASESORIA (PEGA ESTO AL FINAL DEL TODO)
+   ============================================================ */
+
+/* 1. Fondo de la sección de contacto con imagen tenue */
+#five {
+    background-image: linear-gradient(rgba(28, 29, 38, 0.85), rgba(28, 29, 38, 0.85)), url("../../images/principalimagen.jpg") !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+}
+
+/* 2. Color de la línea divisoria (ahora naranja) */
+hr, .major > :after, section > header:after {
+    border-bottom-color: #f2a61f !important;
+    background-color: #f2a61f !important;
+    opacity: 1 !important;
+}
+
+/* 3. El botón: Color normal y Hover (al pasar el ratón) */
+.button.primary, 
+input[type="submit"].primary {
+    background-color: #f2a61f !important;
+    box-shadow: none !important;
+    border: 0 !important;
+    color: #ffffff !important;
+    transition: background-color 0.3s ease !important;
+}
+
+.button.primary:hover, 
+input[type="submit"].primary:hover {
+    background-color: #d98e16 !important; /* Naranja más oscuro al pasar el ratón */
+    color: #ffffff !important;
+}
+
+/* 4. Efecto Hover en el Menú (Home, etc.) */
+#nav ul li a:hover {
+    color: #f2a61f !important;
+    border-bottom: 0 !important;
+}
+
+/* ============================================================
+   CORRECCIÓN FINAL: CAMBIAR ROSADO A NARANJA
+   ============================================================ */
+
+/* 1. Línea decorativa naranja debajo de los títulos de sección */
+header.major:after {
+    background: #f2a61f !important; /* Naranja consistente */
+}
+
+/* 2. Bordes de los paneles de Spotlight (secciones principales) */
+.spotlight.style1 .content {
+    border-color: #f2a61f !important; /* Naranja consistente */
+}
+
+/* 3. Cambiar el color de los enlaces normales y al pasar el ratón */
+a {
+    color: #ff9800 !important; /* Un naranja un poco más brillante para enlaces */
+    border-bottom-color: #ff9800 !important;
+}
+
+a:hover {
+    color: #f2a61f !important; /* Naranja más oscuro al pasar el ratón */
+    border-bottom-color: transparent !important;
+}
+
+/* 4. Para el color de los textos activos en el menú (si los hay) */
+#nav ul li.active > a,
+#nav ul li.active > span {
+    color: #ff9800 !important;
+}
+
+/* 5. Para el botón del menú en dispositivos móviles */
+#titleBar .toggle:before {
+    background: #f2a61f !important; /* Fondo naranja */
+    color: rgba(255, 255, 255, 0.9) !important; /* Color del ícono (blanco) */
+}
+
+/* 6. En caso de que queden bordes de input al hacer foco */
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+select:focus,
+textarea:focus {
+    border-color: #ff9800 !important;
+}
+
+/* 7. Para los ítems activos en el menú desplegable (si existe) */
+.dropotron > li.active > a,
+.dropotron > li.active > span {
+    color: #ff9800 !important;
+}
+
+/* Cambiar el color de fondo de la barra superior en móviles */
+#titleBar {
+    background: #1c1d26 !important; /* El color negro azulado de tu marca */
+    box-shadow: 0 1px 10px rgba(0,0,0,0.5) !important; /* Le da un poco de profundidad */
+}
+
+/* Asegurar que el nombre de la empresa sea blanco sobre el fondo negro */
+#titleBar .title {
+    color: #ffffff !important;
 }
