@@ -787,14 +787,6 @@ body.landing.is-preload:after {
 
 }
 
-@media screen and (max-width: 736px) {
-	#banner {
-		background-image: linear-gradient(rgba(28, 29, 38, 0.9), rgba(28, 29, 38, 0.9)), url("../../images/principalimagen.jpg") !important;
-		background-size: cover !important;
-		background-position: center !important;
-	}
-}
-
 /*============================================================CORRECCIÓN PARA MÓVIL: BANNER CON OVERLAY OSCURO MÁS FUERTE============================================================*/
 /* Cuando la pantalla es pequeña (móvil) */
 @media screen and (max-width: 736px) {
@@ -802,7 +794,7 @@ body.landing.is-preload:after {
 	/* Reforzamos el overlay oscuro sobre la imagen */
 	#banner {
 		/* Mantenemos la imagen pero con un overlay más oscuro (cambiado de 0.4 a 0.85) */
-		background-image: linear-gradient(rgba(28, 29, 38, 0.85), rgba(28, 29, 38, 0.85)), url("../../images/principalimagen.jpg") !important;
+		background-image: linear-gradient(rgba(28, 29, 38, 0.6), rgba(28, 29, 38, 0.6)), url("../../images/principalimagen.jpg") !important;
 		background-size: cover !important;
 		background-position: center !important;
 		background-attachment: scroll !important;
@@ -4387,7 +4379,7 @@ input[type="submit"].primary:hover,
 /* Poner la imagen de red como fondo del banner */
 #banner {
 	/* Cambiamos de 0.6 a 0.4 para que el fondo sea más visible */
-	background-image: linear-gradient(rgba(28, 29, 38, 0.4), rgba(28, 29, 38, 0.4)), url("../../images/principalimagen.jpg");
+	background-image: linear-gradient(rgba(28, 29, 38, 0.6), rgba(28, 29, 38, 0.6)), url("../../images/principalimagen.jpg");
 	background-size: cover;
 	background-position: center;
 	background-attachment: fixed;
@@ -4396,7 +4388,7 @@ input[type="submit"].primary:hover,
 
 /* Ajuste opcional para que tu logo central no sea gigante */
 #banner .image img {
-	max-width: 300px;
+	max-width: 400px;
 	height: auto;
 	border-radius: 10px;
 	/* Opcional: bordes redondeados para el logo */
@@ -4408,7 +4400,7 @@ input[type="submit"].primary:hover,
 
 /* 1. Fondo de la sección de contacto con imagen tenue */
 #five {
-	background-image: linear-gradient(rgba(28, 29, 38, 0.85), rgba(28, 29, 38, 0.85)), url("../../images/principalimagen.jpg") !important;
+	background-image: linear-gradient(rgba(28, 29, 38, 0.6), rgba(28, 29, 38, 0.6)), url("../../images/principalimagen.jpg") !important;
 	background-size: cover !important;
 	background-position: center !important;
 	background-attachment: fixed !important;
@@ -4553,4 +4545,362 @@ textarea:focus {
 /* 3. Quitamos la textura de puntos */
 #banner .content .image:before {
     display: none !important;
+}
+
+/* --- SUPER INTERACTIVIDAD (SOBRESCRIBE TODO) --- */
+
+/* Forzar que el texto sea negro en hover para TODOS los botones primarios */
+#header nav ul li a.button.primary:hover,
+#five form .actions input[type="submit"]:hover,
+.button.primary:hover,
+input[type="submit"]:hover {
+    background-color: #f2a61f !important; /* Tu naranja */
+    color: #000000 !important;           /* Negro absoluto para la letra */
+    cursor: pointer !important;
+    transform: scale(1.05) !important;   /* Se agranda un 5% */
+    transition: all 0.2s ease-in-out !important;
+}
+
+/* Efecto visual de "botón presionado" */
+.button.primary:active, 
+input[type="submit"]:active {
+    transform: scale(0.98) !important;
+    background-color: #d68f1a !important; /* Un naranja más oscuro al hundirse */
+}
+
+/* --- INTERACTIVIDAD PARA TODA LA BARRA DE NAVEGACIÓN --- */
+
+/* Estilo para los enlaces de texto (Inicio, Galería) */
+#nav ul li a {
+    transition: color 0.3s ease, border-bottom-color 0.3s ease !important;
+    text-decoration: none;
+}
+
+/* Efecto al pasar el mouse sobre Inicio y Galería */
+#nav ul li a:hover:not(.button) {
+    color: #f2a61f !important; /* Cambian al naranja de tu marca */
+}
+
+/* Si quieres que se vea una rayita naranja debajo al pasar el mouse */
+#nav ul li a:hover:not(.button):after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #f2a61f;
+    transition: width 0.3s;
+}
+
+/* ============================================================
+   CORRECCIÓN DEFINITIVA: LOGO RESPONSIVE PARA MÓVIL
+   ============================================================ */
+
+/* Ajustes para el header en desktop/tablet */
+#header #logo {
+    display: flex;
+    align-items: center;
+    height: inherit;
+}
+
+#header #logo a {
+    display: flex;
+    align-items: center;
+    color: #ff9800 !important;
+    font-size: 1.2rem;
+    white-space: nowrap;
+}
+
+#header #logo img {
+    height: 40px;
+    width: auto;
+    margin-right: 10px;
+    transition: height 0.3s ease;
+    border-radius: 4px; /* Opcional: bordes redondeados */
+}
+
+/* Ajustes para tablets */
+@media screen and (max-width: 980px) {
+    #header #logo img {
+        height: 35px;
+    }
+    
+    #header #logo a {
+        font-size: 1.1rem;
+    }
+}
+
+/* ============================================================
+   CORRECCIÓN PARA MÓVIL: LOGO EN TITLEBAR
+   ============================================================ */
+
+@media screen and (max-width: 736px) {
+    /* Ocultamos el header original en móvil */
+    #header {
+        display: none !important;
+    }
+    
+    /* Personalizamos la barra de título móvil */
+    #titleBar {
+        background: #1c1d26 !important;
+        height: 60px !important; /* Un poco más alto para el logo */
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3) !important;
+        z-index: 10001 !important;
+    }
+    
+    /* Contenedor del logo en móvil */
+    #titleBar .title {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        height: 60px !important;
+        line-height: normal !important;
+        padding: 0 10px !important;
+    }
+    
+    /* Estilo del enlace del logo en móvil */
+    #titleBar .title a {
+        display: flex !important;
+        align-items: center !important;
+        text-decoration: none !important;
+        color: #ff9800 !important;
+        font-weight: bold !important;
+        font-size: 1.1rem !important;
+        white-space: nowrap !important;
+    }
+    
+    /* La imagen del logo en móvil */
+    #titleBar .title a img {
+        height: 35px !important; /* Tamaño en móvil */
+        width: auto !important;
+        margin-right: 8px !important;
+        border-radius: 4px !important;
+        vertical-align: middle !important;
+    }
+    
+    /* Ajuste del botón hamburguesa */
+    #titleBar .toggle {
+        top: 8px !important;
+    }
+    
+    #titleBar .toggle:before {
+        background: #f2a61f !important;
+        height: 44px !important;
+        width: 50px !important;
+        line-height: 44px !important;
+        font-size: 20px !important;
+    }
+}
+
+/* Ajuste para móviles pequeños */
+@media screen and (max-width: 480px) {
+    #titleBar .title a img {
+        height: 28px !important; /* Más pequeño en pantallas muy pequeñas */
+        margin-right: 5px !important;
+    }
+    
+    #titleBar .title a {
+        font-size: 1rem !important;
+    }
+    
+    #titleBar {
+        height: 55px !important;
+    }
+    
+    #titleBar .title {
+        height: 55px !important;
+    }
+}
+
+/* ============================================================
+   CORRECCIÓN ADICIONAL: AJUSTE DEL BOTÓN DE CONTACTO
+   ============================================================ */
+
+@media screen and (max-width: 736px) {
+    #nav ul li .button.primary {
+        padding: 0.3rem 0.8rem !important;
+        font-size: 0.85rem !important;
+    }
+}
+
+/* ============================================================
+   CORRECCIÓN: BANNER CON IMAGEN VISIBLE (OPCIONAL)
+   ============================================================ */
+
+@media screen and (max-width: 736px) {
+    #banner .content .image {
+        width: 12em !important;
+        height: 12em !important;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #banner .content .image {
+        width: 9em !important;
+        height: 9em !important;
+    }
+}
+/* ============================================================
+   AJUSTE DE TRANSPARENCIA: FONDOS MÁS TENUES
+   ============================================================ */
+
+/* Banner principal - más transparencia (menor opacidad) */
+#banner {
+    background-image: linear-gradient(rgba(28, 29, 38, 0.01), rgba(28, 29, 38, 0.01)), url("../../images/principalimagen.jpg") !important;
+}
+
+/* Sección de contacto - más transparencia */
+#five {
+    background-image: linear-gradient(rgba(28, 29, 38, 0.01), rgba(28, 29, 38, 0.01)), url("../../images/principalimagen.jpg") !important;
+}
+
+/* Versión móvil - también más transparente */
+@media screen and (max-width: 736px) {
+    #banner {
+        background-image: linear-gradient(rgba(28, 29, 38, 0.01), rgba(28, 29, 38, 0.01)), url("../../images/principalimagen.jpg") !important;
+    }
+}
+
+
+
+
+/* ============================================================
+   ATENUAR SOLO EL FONDO DETRÁS DEL FORMULARIO (VERSIÓN FUERTE)
+   ============================================================ */
+
+/* Resetear todas las reglas anteriores */
+#five {
+    background-image: none !important;
+    position: relative !important;
+    background-color: #1c1d26 !important; /* Color de respaldo */
+}
+
+/* Crear una capa superpuesta para la imagen con poca opacidad */
+#five:before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background-image: url("../../images/principalimagen.jpg") !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+    opacity: 0.1 !important; /* MUY BAJA OPACIDAD - AJUSTA ESTE VALOR */
+    z-index: 0 !important;
+    display: block !important;
+}
+
+/* Asegurar que el contenido esté por encima de la imagen */
+#five .container {
+    position: relative !important;
+    z-index: 2 !important;
+    background-color: rgba(28, 29, 38, 0.8) !important; /* Fondo oscuro del formulario */
+    padding: 3em !important;
+    border-radius: 10px !important;
+    max-width: 600px !important;
+    margin: 0 auto !important;
+}
+
+/* Mantener el header de la sección visible */
+#five header {
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+/* Responsive */
+@media screen and (max-width: 736px) {
+    #five .container {
+        padding: 2em 1.5em !important;
+        margin: 0 1em !important;
+    }
+}
+
+
+
+
+
+
+
+/* ============================================================
+   AJUSTES FINALES: BOTÓN BLANCO Y COLOR DE TEXTO EN INPUTS
+   ============================================================ */
+
+/* Botón Enviar Solicitud - Texto BLANCO */
+#five .actions input[type="submit"].primary,
+#five .button.primary {
+    color: #000000 !important; /* Texto blanco */
+    background-color: #f2a61f !important; /* Mantiene el naranja */
+}
+
+/* Cuando se pasa el mouse sobre el botón (hover) - texto NEGRO (como te gusta) */
+#five .actions input[type="submit"].primary:hover,
+#five .button.primary:hover {
+    color: #000000 !important; /* Texto negro al hacer hover */
+    background-color: #d98e16 !important;
+    transform: scale(1.05) !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+/* Estilo para los INPUTS (campos del formulario) */
+#five input[type="text"],
+#five input[type="email"],
+#five textarea {
+    background-color: rgba(255, 255, 255, 0.1) !important; /* Fondo semi-transparente */
+    color: #ffeee3 !important; /* Texto blanco */
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 4px !important;
+    padding: 0.75em 1em !important;
+    font-size: 1rem !important;
+}
+
+/* Color del texto cuando se está escribiendo */
+#five input[type="text"]:focus,
+#five input[type="email"]:focus,
+#five textarea:focus {
+    background-color: rgba(255, 255, 255, 0.15) !important; /* Un poco más claro al enfocar */
+    border-color: #f2a61f !important; /* Borde naranja al enfocar */
+    outline: none !important;
+    color: #ffffff !important;
+}
+
+/* Color del placeholder (texto de ejemplo: "Nombre", "Email", etc) */
+#five input::placeholder,
+#five textarea::placeholder {
+    color: rgba(255, 255, 255, 0.6) !important; /* Blanco suave semi-transparente */
+    opacity: 1 !important;
+}
+
+/* Para navegadores que usan -webkit (Chrome, Safari, Edge) */
+#five input::-webkit-input-placeholder,
+#five textarea::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Para Firefox */
+#five input::-moz-placeholder,
+#five textarea::-moz-placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+    opacity: 1 !important;
+}
+
+
+
+/* ============================================================
+   AJUSTE DEL BOTÓN CONTACTO (MENÚ SUPERIOR)
+   ============================================================ */
+
+/* Color normal del botón Contacto */
+#header nav ul li a.button.primary,
+#nav ul li a.button.primary {
+    background-color: #f2a61f !important;  /* Color naranja actual */
+    color: #000000 !important;              /* Texto blanco */
+}
+
+/* Color cuando pasas el mouse (hover) */
+#header nav ul li a.button.primary:hover,
+#nav ul li a.button.primary:hover {
+    background-color: #d98e16 !important;   /* Naranja más oscuro */
+    color: #000000 !important;               /* Texto negro (como te gusta) */
+    transform: scale(1.05) !important;
 }
