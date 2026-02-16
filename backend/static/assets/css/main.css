@@ -5275,8 +5275,8 @@ body {
 #one {
     /* Usamos 0.95 para que la imagen sea casi invisible */
     background-image: linear-gradient(
-        rgba(28, 29, 38, 0.95), 
-        rgba(28, 29, 38, 0.95)
+        rgba(28, 29, 38, 0.98), 
+        rgba(28, 29, 38, 0.98)
     ), url("../../images/principalimagen.jpg") !important;
     
     background-attachment: fixed;
