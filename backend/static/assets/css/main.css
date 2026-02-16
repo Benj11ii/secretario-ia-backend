@@ -4514,37 +4514,43 @@ textarea:focus {
 
 /* 1. Ajustes al CONTENEDOR (El círculo naranja/negro) */
 #banner .content .image {
-    border-radius: 50% !important; /* Fuerza absoluta a que sea un círculo */
-    overflow: hidden !important;   /* RECORTA las esquinas cuadradas de la imagen */
-    
-    /* Aseguramos dimensiones cuadradas para que el radio de 50% haga un círculo perfecto */
-    width: 18em !important; 
-    height: 18em !important;
-    
-    /* Centrado interno */
-    display: inline-flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    
-    /* Fondo para evitar huecos blancos */
-    background-color: #1c1d26 !important;
-    
-    /* Eliminamos desplazamientos raros */
-    margin-top: 0 !important;
-    transform: none !important;
+	border-radius: 50% !important;
+	/* Fuerza absoluta a que sea un círculo */
+	overflow: hidden !important;
+	/* RECORTA las esquinas cuadradas de la imagen */
+
+	/* Aseguramos dimensiones cuadradas para que el radio de 50% haga un círculo perfecto */
+	width: 18em !important;
+	height: 18em !important;
+
+	/* Centrado interno */
+	display: inline-flex !important;
+	justify-content: center !important;
+	align-items: center !important;
+
+	/* Fondo para evitar huecos blancos */
+	background-color: #1c1d26 !important;
+
+	/* Eliminamos desplazamientos raros */
+	margin-top: 0 !important;
+	transform: none !important;
 }
 
 /* 2. Ajustes a la IMAGEN (El dibujo del cerebro) */
 #banner .content .image img {
-    width: 100% !important;       /* Que llene el círculo */
-    height: 100% !important;      /* Que llene el círculo */
-    object-fit: cover !important; /* Cubre todo el espacio sin estirarse raro */
-    border-radius: 0 !important;  /* Dejamos que el contenedor haga el recorte */
+	width: 100% !important;
+	/* Que llene el círculo */
+	height: 100% !important;
+	/* Que llene el círculo */
+	object-fit: cover !important;
+	/* Cubre todo el espacio sin estirarse raro */
+	border-radius: 0 !important;
+	/* Dejamos que el contenedor haga el recorte */
 }
 
 /* 3. Quitamos la textura de puntos */
 #banner .content .image:before {
-    display: none !important;
+	display: none !important;
 }
 
 /* --- SUPER INTERACTIVIDAD (SOBRESCRIBE TODO) --- */
@@ -4554,41 +4560,46 @@ textarea:focus {
 #five form .actions input[type="submit"]:hover,
 .button.primary:hover,
 input[type="submit"]:hover {
-    background-color: #f2a61f !important; /* Tu naranja */
-    color: #000000 !important;           /* Negro absoluto para la letra */
-    cursor: pointer !important;
-    transform: scale(1.05) !important;   /* Se agranda un 5% */
-    transition: all 0.2s ease-in-out !important;
+	background-color: #f2a61f !important;
+	/* Tu naranja */
+	color: #000000 !important;
+	/* Negro absoluto para la letra */
+	cursor: pointer !important;
+	transform: scale(1.05) !important;
+	/* Se agranda un 5% */
+	transition: all 0.2s ease-in-out !important;
 }
 
 /* Efecto visual de "botón presionado" */
-.button.primary:active, 
+.button.primary:active,
 input[type="submit"]:active {
-    transform: scale(0.98) !important;
-    background-color: #d68f1a !important; /* Un naranja más oscuro al hundirse */
+	transform: scale(0.98) !important;
+	background-color: #d68f1a !important;
+	/* Un naranja más oscuro al hundirse */
 }
 
 /* --- INTERACTIVIDAD PARA TODA LA BARRA DE NAVEGACIÓN --- */
 
 /* Estilo para los enlaces de texto (Inicio, Galería) */
 #nav ul li a {
-    transition: color 0.3s ease, border-bottom-color 0.3s ease !important;
-    text-decoration: none;
+	transition: color 0.3s ease, border-bottom-color 0.3s ease !important;
+	text-decoration: none;
 }
 
 /* Efecto al pasar el mouse sobre Inicio y Galería */
 #nav ul li a:hover:not(.button) {
-    color: #f2a61f !important; /* Cambian al naranja de tu marca */
+	color: #f2a61f !important;
+	/* Cambian al naranja de tu marca */
 }
 
 /* Si quieres que se vea una rayita naranja debajo al pasar el mouse */
 #nav ul li a:hover:not(.button):after {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 2px;
-    background: #f2a61f;
-    transition: width 0.3s;
+	content: '';
+	display: block;
+	width: 100%;
+	height: 2px;
+	background: #f2a61f;
+	transition: width 0.3s;
 }
 
 /* ============================================================
@@ -4597,36 +4608,37 @@ input[type="submit"]:active {
 
 /* Ajustes para el header en desktop/tablet */
 #header #logo {
-    display: flex;
-    align-items: center;
-    height: inherit;
+	display: flex;
+	align-items: center;
+	height: inherit;
 }
 
 #header #logo a {
-    display: flex;
-    align-items: center;
-    color: #ff9800 !important;
-    font-size: 1.2rem;
-    white-space: nowrap;
+	display: flex;
+	align-items: center;
+	color: #ff9800 !important;
+	font-size: 1.2rem;
+	white-space: nowrap;
 }
 
 #header #logo img {
-    height: 40px;
-    width: auto;
-    margin-right: 10px;
-    transition: height 0.3s ease;
-    border-radius: 4px; /* Opcional: bordes redondeados */
+	height: 40px;
+	width: auto;
+	margin-right: 10px;
+	transition: height 0.3s ease;
+	border-radius: 4px;
+	/* Opcional: bordes redondeados */
 }
 
 /* Ajustes para tablets */
 @media screen and (max-width: 980px) {
-    #header #logo img {
-        height: 35px;
-    }
-    
-    #header #logo a {
-        font-size: 1.1rem;
-    }
+	#header #logo img {
+		height: 35px;
+	}
+
+	#header #logo a {
+		font-size: 1.1rem;
+	}
 }
 
 /* ============================================================
@@ -4634,81 +4646,85 @@ input[type="submit"]:active {
    ============================================================ */
 
 @media screen and (max-width: 736px) {
-    /* Ocultamos el header original en móvil */
-    #header {
-        display: none !important;
-    }
-    
-    /* Personalizamos la barra de título móvil */
-    #titleBar {
-        background: #1c1d26 !important;
-        height: 60px !important; /* Un poco más alto para el logo */
-        box-shadow: 0 2px 10px rgba(0,0,0,0.3) !important;
-        z-index: 10001 !important;
-    }
-    
-    /* Contenedor del logo en móvil */
-    #titleBar .title {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        height: 60px !important;
-        line-height: normal !important;
-        padding: 0 10px !important;
-    }
-    
-    /* Estilo del enlace del logo en móvil */
-    #titleBar .title a {
-        display: flex !important;
-        align-items: center !important;
-        text-decoration: none !important;
-        color: #ff9800 !important;
-        font-weight: bold !important;
-        font-size: 1.1rem !important;
-        white-space: nowrap !important;
-    }
-    
-    /* La imagen del logo en móvil */
-    #titleBar .title a img {
-        height: 35px !important; /* Tamaño en móvil */
-        width: auto !important;
-        margin-right: 8px !important;
-        border-radius: 4px !important;
-        vertical-align: middle !important;
-    }
-    
-    /* Ajuste del botón hamburguesa */
-    #titleBar .toggle {
-        top: 8px !important;
-    }
-    
-    #titleBar .toggle:before {
-        background: #f2a61f !important;
-        height: 44px !important;
-        width: 50px !important;
-        line-height: 44px !important;
-        font-size: 20px !important;
-    }
+
+	/* Ocultamos el header original en móvil */
+	#header {
+		display: none !important;
+	}
+
+	/* Personalizamos la barra de título móvil */
+	#titleBar {
+		background: #1c1d26 !important;
+		height: 60px !important;
+		/* Un poco más alto para el logo */
+		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
+		z-index: 10001 !important;
+	}
+
+	/* Contenedor del logo en móvil */
+	#titleBar .title {
+		display: flex !important;
+		align-items: center !important;
+		justify-content: center !important;
+		height: 60px !important;
+		line-height: normal !important;
+		padding: 0 10px !important;
+	}
+
+	/* Estilo del enlace del logo en móvil */
+	#titleBar .title a {
+		display: flex !important;
+		align-items: center !important;
+		text-decoration: none !important;
+		color: #ff9800 !important;
+		font-weight: bold !important;
+		font-size: 1.1rem !important;
+		white-space: nowrap !important;
+	}
+
+	/* La imagen del logo en móvil */
+	#titleBar .title a img {
+		height: 35px !important;
+		/* Tamaño en móvil */
+		width: auto !important;
+		margin-right: 8px !important;
+		border-radius: 4px !important;
+		vertical-align: middle !important;
+	}
+
+	/* Ajuste del botón hamburguesa */
+	#titleBar .toggle {
+		top: 8px !important;
+	}
+
+	#titleBar .toggle:before {
+		background: #f2a61f !important;
+		height: 44px !important;
+		width: 50px !important;
+		line-height: 44px !important;
+		font-size: 20px !important;
+	}
 }
 
 /* Ajuste para móviles pequeños */
 @media screen and (max-width: 480px) {
-    #titleBar .title a img {
-        height: 28px !important; /* Más pequeño en pantallas muy pequeñas */
-        margin-right: 5px !important;
-    }
-    
-    #titleBar .title a {
-        font-size: 1rem !important;
-    }
-    
-    #titleBar {
-        height: 55px !important;
-    }
-    
-    #titleBar .title {
-        height: 55px !important;
-    }
+	#titleBar .title a img {
+		height: 28px !important;
+		/* Más pequeño en pantallas muy pequeñas */
+		margin-right: 5px !important;
+	}
+
+	#titleBar .title a {
+		font-size: 1rem !important;
+	}
+
+	#titleBar {
+		height: 55px !important;
+	}
+
+	#titleBar .title {
+		height: 55px !important;
+	}
 }
 
 /* ============================================================
@@ -4716,10 +4732,10 @@ input[type="submit"]:active {
    ============================================================ */
 
 @media screen and (max-width: 736px) {
-    #nav ul li .button.primary {
-        padding: 0.3rem 0.8rem !important;
-        font-size: 0.85rem !important;
-    }
+	#nav ul li .button.primary {
+		padding: 0.3rem 0.8rem !important;
+		font-size: 0.85rem !important;
+	}
 }
 
 /* ============================================================
@@ -4727,37 +4743,38 @@ input[type="submit"]:active {
    ============================================================ */
 
 @media screen and (max-width: 736px) {
-    #banner .content .image {
-        width: 12em !important;
-        height: 12em !important;
-    }
+	#banner .content .image {
+		width: 12em !important;
+		height: 12em !important;
+	}
 }
 
 @media screen and (max-width: 480px) {
-    #banner .content .image {
-        width: 9em !important;
-        height: 9em !important;
-    }
+	#banner .content .image {
+		width: 9em !important;
+		height: 9em !important;
+	}
 }
+
 /* ============================================================
    AJUSTE DE TRANSPARENCIA: FONDOS MÁS TENUES
    ============================================================ */
 
 /* Banner principal - más transparencia (menor opacidad) */
 #banner {
-    background-image: linear-gradient(rgba(28, 29, 38, 0.01), rgba(28, 29, 38, 0.01)), url("../../images/principalimagen.jpg") !important;
+	background-image: linear-gradient(rgba(28, 29, 38, 0.01), rgba(28, 29, 38, 0.01)), url("../../images/principalimagen.jpg") !important;
 }
 
 /* Sección de contacto - más transparencia */
 #five {
-    background-image: linear-gradient(rgba(28, 29, 38, 0.01), rgba(28, 29, 38, 0.01)), url("../../images/principalimagen.jpg") !important;
+	background-image: linear-gradient(rgba(28, 29, 38, 0.01), rgba(28, 29, 38, 0.01)), url("../../images/principalimagen.jpg") !important;
 }
 
 /* Versión móvil - también más transparente */
 @media screen and (max-width: 736px) {
-    #banner {
-        background-image: linear-gradient(rgba(28, 29, 38, 0.01), rgba(28, 29, 38, 0.01)), url("../../images/principalimagen.jpg") !important;
-    }
+	#banner {
+		background-image: linear-gradient(rgba(28, 29, 38, 0.01), rgba(28, 29, 38, 0.01)), url("../../images/principalimagen.jpg") !important;
+	}
 }
 
 
@@ -4769,51 +4786,54 @@ input[type="submit"]:active {
 
 /* Resetear todas las reglas anteriores */
 #five {
-    background-image: none !important;
-    position: relative !important;
-    background-color: #1c1d26 !important; /* Color de respaldo */
+	background-image: none !important;
+	position: relative !important;
+	background-color: #1c1d26 !important;
+	/* Color de respaldo */
 }
 
 /* Crear una capa superpuesta para la imagen con poca opacidad */
 #five:before {
-    content: '' !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    background-image: url("../../images/principalimagen.jpg") !important;
-    background-size: cover !important;
-    background-position: center !important;
-    background-attachment: fixed !important;
-    opacity: 0.1 !important; /* MUY BAJA OPACIDAD - AJUSTA ESTE VALOR */
-    z-index: 0 !important;
-    display: block !important;
+	content: '' !important;
+	position: absolute !important;
+	top: 0 !important;
+	left: 0 !important;
+	width: 100% !important;
+	height: 100% !important;
+	background-image: url("../../images/principalimagen.jpg") !important;
+	background-size: cover !important;
+	background-position: center !important;
+	background-attachment: fixed !important;
+	opacity: 0.1 !important;
+	/* MUY BAJA OPACIDAD - AJUSTA ESTE VALOR */
+	z-index: 0 !important;
+	display: block !important;
 }
 
 /* Asegurar que el contenido esté por encima de la imagen */
 #five .container {
-    position: relative !important;
-    z-index: 2 !important;
-    background-color: rgba(28, 29, 38, 0.8) !important; /* Fondo oscuro del formulario */
-    padding: 3em !important;
-    border-radius: 10px !important;
-    max-width: 600px !important;
-    margin: 0 auto !important;
+	position: relative !important;
+	z-index: 2 !important;
+	background-color: rgba(28, 29, 38, 0.8) !important;
+	/* Fondo oscuro del formulario */
+	padding: 3em !important;
+	border-radius: 10px !important;
+	max-width: 600px !important;
+	margin: 0 auto !important;
 }
 
 /* Mantener el header de la sección visible */
 #five header {
-    position: relative !important;
-    z-index: 2 !important;
+	position: relative !important;
+	z-index: 2 !important;
 }
 
 /* Responsive */
 @media screen and (max-width: 736px) {
-    #five .container {
-        padding: 2em 1.5em !important;
-        margin: 0 1em !important;
-    }
+	#five .container {
+		padding: 2em 1.5em !important;
+		margin: 0 1em !important;
+	}
 }
 
 
@@ -4829,59 +4849,67 @@ input[type="submit"]:active {
 /* Botón Enviar Solicitud - Texto BLANCO */
 #five .actions input[type="submit"].primary,
 #five .button.primary {
-    color: #000000 !important; /* Texto blanco */
-    background-color: #f2a61f !important; /* Mantiene el naranja */
+	color: #000000 !important;
+	/* Texto blanco */
+	background-color: #f2a61f !important;
+	/* Mantiene el naranja */
 }
 
 /* Cuando se pasa el mouse sobre el botón (hover) - texto NEGRO (como te gusta) */
 #five .actions input[type="submit"].primary:hover,
 #five .button.primary:hover {
-    color: #000000 !important; /* Texto negro al hacer hover */
-    background-color: #d98e16 !important;
-    transform: scale(1.05) !important;
-    transition: all 0.2s ease-in-out !important;
+	color: #000000 !important;
+	/* Texto negro al hacer hover */
+	background-color: #d98e16 !important;
+	transform: scale(1.05) !important;
+	transition: all 0.2s ease-in-out !important;
 }
 
 /* Estilo para los INPUTS (campos del formulario) */
 #five input[type="text"],
 #five input[type="email"],
 #five textarea {
-    background-color: rgba(255, 255, 255, 0.1) !important; /* Fondo semi-transparente */
-    color: #ffeee3 !important; /* Texto blanco */
-    border: 1px solid rgba(255, 255, 255, 0.3) !important;
-    border-radius: 4px !important;
-    padding: 0.75em 1em !important;
-    font-size: 1rem !important;
+	background-color: rgba(255, 255, 255, 0.1) !important;
+	/* Fondo semi-transparente */
+	color: #ffeee3 !important;
+	/* Texto blanco */
+	border: 1px solid rgba(255, 255, 255, 0.3) !important;
+	border-radius: 4px !important;
+	padding: 0.75em 1em !important;
+	font-size: 1rem !important;
 }
 
 /* Color del texto cuando se está escribiendo */
 #five input[type="text"]:focus,
 #five input[type="email"]:focus,
 #five textarea:focus {
-    background-color: rgba(255, 255, 255, 0.15) !important; /* Un poco más claro al enfocar */
-    border-color: #f2a61f !important; /* Borde naranja al enfocar */
-    outline: none !important;
-    color: #ffffff !important;
+	background-color: rgba(255, 255, 255, 0.15) !important;
+	/* Un poco más claro al enfocar */
+	border-color: #f2a61f !important;
+	/* Borde naranja al enfocar */
+	outline: none !important;
+	color: #ffffff !important;
 }
 
 /* Color del placeholder (texto de ejemplo: "Nombre", "Email", etc) */
 #five input::placeholder,
 #five textarea::placeholder {
-    color: rgba(255, 255, 255, 0.6) !important; /* Blanco suave semi-transparente */
-    opacity: 1 !important;
+	color: rgba(255, 255, 255, 0.6) !important;
+	/* Blanco suave semi-transparente */
+	opacity: 1 !important;
 }
 
 /* Para navegadores que usan -webkit (Chrome, Safari, Edge) */
 #five input::-webkit-input-placeholder,
 #five textarea::-webkit-input-placeholder {
-    color: rgba(255, 255, 255, 0.6) !important;
+	color: rgba(255, 255, 255, 0.6) !important;
 }
 
 /* Para Firefox */
 #five input::-moz-placeholder,
 #five textarea::-moz-placeholder {
-    color: rgba(255, 255, 255, 0.6) !important;
-    opacity: 1 !important;
+	color: rgba(255, 255, 255, 0.6) !important;
+	opacity: 1 !important;
 }
 
 
@@ -4893,16 +4921,20 @@ input[type="submit"]:active {
 /* Color normal del botón Contacto */
 #header nav ul li a.button.primary,
 #nav ul li a.button.primary {
-    background-color: #f2a61f !important;  /* Color naranja actual */
-    color: #000000 !important;              /* Texto blanco */
+	background-color: #f2a61f !important;
+	/* Color naranja actual */
+	color: #000000 !important;
+	/* Texto blanco */
 }
 
 /* Color cuando pasas el mouse (hover) */
 #header nav ul li a.button.primary:hover,
 #nav ul li a.button.primary:hover {
-    background-color: #d98e16 !important;   /* Naranja más oscuro */
-    color: #000000 !important;               /* Texto negro (como te gusta) */
-    transform: scale(1.05) !important;
+	background-color: #d98e16 !important;
+	/* Naranja más oscuro */
+	color: #000000 !important;
+	/* Texto negro (como te gusta) */
+	transform: scale(1.05) !important;
 }
 
 
@@ -4915,90 +4947,95 @@ input[type="submit"]:active {
 
 /* Contenedor del botón */
 .whatsapp-float {
-    position: fixed !important;
-    bottom: 25px !important;
-    right: 25px !important;
-    z-index: 9999 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    transition: all 0.3s ease !important;
-    text-decoration: none !important;
+	position: fixed !important;
+	bottom: 25px !important;
+	right: 25px !important;
+	z-index: 9999 !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	transition: all 0.3s ease !important;
+	text-decoration: none !important;
 }
 
 /* Círculo exterior naranja */
 .whatsapp-float .outer-circle {
-    background: #f2a61f !important;  /* Naranja de tu marca */
-    width: 70px !important;
-    height: 70px !important;
-    border-radius: 50% !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    box-shadow: 0 4px 15px rgba(242, 166, 31, 0.4) !important;
-    animation: pulse 2s infinite !important;
+	background: #f2a61f !important;
+	/* Naranja de tu marca */
+	width: 70px !important;
+	height: 70px !important;
+	border-radius: 50% !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	box-shadow: 0 4px 15px rgba(242, 166, 31, 0.4) !important;
+	animation: pulse 2s infinite !important;
 }
 
 /* Círculo interior negro con icono verde */
 .whatsapp-float .inner-circle {
-    background: #000000 !important;  /* Fondo negro */
-    width: 54px !important;
-    height: 54px !important;
-    border-radius: 50% !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+	background: #000000 !important;
+	/* Fondo negro */
+	width: 54px !important;
+	height: 54px !important;
+	border-radius: 50% !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
 }
 
 /* Icono de WhatsApp verde */
 .whatsapp-float i {
-    color: #25D366 !important;  /* Verde WhatsApp */
-    font-size: 32px !important;
-    line-height: 1 !important;
+	color: #25D366 !important;
+	/* Verde WhatsApp */
+	font-size: 32px !important;
+	line-height: 1 !important;
 }
 
 /* Efecto hover */
 .whatsapp-float:hover {
-    transform: scale(1.1) !important;
+	transform: scale(1.1) !important;
 }
 
 .whatsapp-float:hover .outer-circle {
-    box-shadow: 0 6px 20px rgba(242, 166, 31, 0.6) !important;
+	box-shadow: 0 6px 20px rgba(242, 166, 31, 0.6) !important;
 }
 
 /* Animación de pulso */
 @keyframes pulse {
-    0% {
-        box-shadow: 0 0 0 0 rgba(242, 166, 31, 0.7);
-    }
-    70% {
-        box-shadow: 0 0 0 15px rgba(242, 166, 31, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(242, 166, 31, 0);
-    }
+	0% {
+		box-shadow: 0 0 0 0 rgba(242, 166, 31, 0.7);
+	}
+
+	70% {
+		box-shadow: 0 0 0 15px rgba(242, 166, 31, 0);
+	}
+
+	100% {
+		box-shadow: 0 0 0 0 rgba(242, 166, 31, 0);
+	}
 }
 
 /* Responsive para móvil */
 @media screen and (max-width: 736px) {
-    .whatsapp-float {
-        bottom: 15px !important;
-        right: 15px !important;
-    }
-    
-    .whatsapp-float .outer-circle {
-        width: 60px !important;
-        height: 60px !important;
-    }
-    
-    .whatsapp-float .inner-circle {
-        width: 46px !important;
-        height: 46px !important;
-    }
-    
-    .whatsapp-float i {
-        font-size: 28px !important;
-    }
+	.whatsapp-float {
+		bottom: 15px !important;
+		right: 15px !important;
+	}
+
+	.whatsapp-float .outer-circle {
+		width: 60px !important;
+		height: 60px !important;
+	}
+
+	.whatsapp-float .inner-circle {
+		width: 46px !important;
+		height: 46px !important;
+	}
+
+	.whatsapp-float i {
+		font-size: 28px !important;
+	}
 }
 
 
@@ -5013,201 +5050,223 @@ input[type="submit"]:active {
 .whatsapp-float:focus,
 .whatsapp-float:active,
 .whatsapp-float:visited {
-    text-decoration: none !important;
-    border-bottom: none !important;
-    outline: none !important;
+	text-decoration: none !important;
+	border-bottom: none !important;
+	outline: none !important;
 }
 
 /* Asegurar que no haya líneas en los elementos internos */
 .whatsapp-float .outer-circle,
 .whatsapp-float .inner-circle,
 .whatsapp-float i {
-    text-decoration: none !important;
-    border-bottom: none !important;
+	text-decoration: none !important;
+	border-bottom: none !important;
 }
 
 /* Eliminar cualquier borde o línea residual */
 .whatsapp-float * {
-    border-bottom: none !important;
-    text-decoration: none !important;
+	border-bottom: none !important;
+	text-decoration: none !important;
 }
 
 /* Para navegadores específicos */
 .whatsapp-float::-moz-focus-inner {
-    border: 0 !important;
+	border: 0 !important;
 }
 
 
 /* Esto detecta cuando el navegador está aplicando el autocompletado */
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
+input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    /* Cambia el color del texto (ajusta a tu diseño) */
-    -webkit-text-fill-color: #ffffff !important;
-    
-    /* Esto crea una "sombra interna" gigante que tapa el color feo del navegador */
-    /* El primer valor es el color de fondo que TÚ quieras (ej. el color de tu formulario) */
-    transition: background-color 5000s ease-in-out 0s;
-    box-shadow: inset 0 0 0px 1000px #1d1e26 !important; 
+	/* Cambia el color del texto (ajusta a tu diseño) */
+	-webkit-text-fill-color: #ffffff !important;
+
+	/* Esto crea una "sombra interna" gigante que tapa el color feo del navegador */
+	/* El primer valor es el color de fondo que TÚ quieras (ej. el color de tu formulario) */
+	transition: background-color 5000s ease-in-out 0s;
+	box-shadow: inset 0 0 0px 1000px #1d1e26 !important;
 }
 
 
 
 /* --- ESTILOS PAGINA SERVICIOS --- */
 .header-servicios {
-    text-align: center;
-    padding: 80px 20px;
-    background: linear-gradient(rgba(26, 26, 33, 0.8), rgba(26, 26, 33, 0.8));
-    background-size: cover;
+	text-align: center;
+	padding: 80px 20px;
+	background: linear-gradient(rgba(26, 26, 33, 0.8), rgba(26, 26, 33, 0.8));
+	background-size: cover;
 }
 
 .header-servicios h1 {
-    color: #f3a022; 
-    font-size: 2.5em;
-    margin-bottom: 10px;
+	color: #f3a022;
+	font-size: 2.5em;
+	margin-bottom: 10px;
 }
 
 .contenedor-planes {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-    padding: 50px 20px;
-    max-width: 1200px;
-    margin: auto;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 30px;
+	padding: 50px 20px;
+	max-width: 1200px;
+	margin: auto;
 }
 
 .tarjeta-plan {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(243, 160, 34, 0.3);
-    border-radius: 8px;
-    padding: 30px;
-    width: 350px;
-    transition: transform 0.3s ease;
-    display: flex;
-    flex-direction: column;
+	background: rgba(255, 255, 255, 0.05);
+	border: 1px solid rgba(243, 160, 34, 0.3);
+	border-radius: 8px;
+	padding: 30px;
+	width: 350px;
+	transition: transform 0.3s ease;
+	display: flex;
+	flex-direction: column;
 }
 
 .tarjeta-plan:hover {
-    transform: translateY(-10px);
-    border-color: #f3a022;
+	transform: translateY(-10px);
+	border-color: #f3a022;
 }
 
 .tarjeta-plan h2 {
-    color: #f3a022;
-    font-size: 1.5em;
-    margin-bottom: 20px;
-    border-bottom: 1px solid rgba(243, 160, 34, 0.2);
-    padding-bottom: 10px;
+	color: #f3a022;
+	font-size: 1.5em;
+	margin-bottom: 20px;
+	border-bottom: 1px solid rgba(243, 160, 34, 0.2);
+	padding-bottom: 10px;
 }
 
 .precio {
-    font-size: 1.8em;
-    font-weight: bold;
-    margin: 20px 0;
-    color: #fff;
+	font-size: 1.8em;
+	font-weight: bold;
+	margin: 20px 0;
+	color: #fff;
 }
 
 .lista-servicios {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 30px;
-    flex-grow: 1;
+	list-style: none;
+	padding: 0;
+	margin-bottom: 30px;
+	flex-grow: 1;
 }
 
 .lista-servicios li {
-    margin-bottom: 12px;
-    padding-left: 25px;
-    position: relative;
-    color: #ffffff;
+	margin-bottom: 12px;
+	padding-left: 25px;
+	position: relative;
+	color: #ffffff;
 }
 
 .lista-servicios li::before {
-    content: "✓";
-    color: #f3a022;
-    position: absolute;
-    left: 0;
+	content: "✓";
+	color: #f3a022;
+	position: absolute;
+	left: 0;
 }
 
 .btn-cotizar {
-    background-color: #f3a022;
-    color: #1a1a21 !important; /* Texto negro como pediste */
-    text-decoration: none;
-    padding: 15px;
-    text-align: center;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background 0.3s;
+	background-color: #f3a022;
+	color: #1a1a21 !important;
+	/* Texto negro como pediste */
+	text-decoration: none;
+	padding: 15px;
+	text-align: center;
+	border-radius: 5px;
+	font-weight: bold;
+	transition: background 0.3s;
 }
 
 .btn-cotizar:hover {
-    background-color: #d48a1a;
+	background-color: #d48a1a;
 }
 
 /* --- BARRA DE NAVEGACIÓN (HEADER) --- */
 #header {
-    background-color: #000000 !important; /* Fondo negro sólido */
-    color: #ffffff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 40px;
-    position: fixed; /* Para que se mantenga arriba al bajar */
-    top: 0;
-    width: 100%;
-    z-index: 1000;
+	background-color: #000000 !important;
+	/* Fondo negro sólido */
+	color: #ffffff;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 40px;
+	position: fixed;
+	/* Para que se mantenga arriba al bajar */
+	top: 0;
+	width: 100%;
+	z-index: 1000;
 }
 
 #header #logo a {
-    color: #f3a022; /* Color naranja para el nombre IAsesoria */
-    text-decoration: none;
-    font-weight: bold;
+	color: #f3a022;
+	/* Color naranja para el nombre IAsesoria */
+	text-decoration: none;
+	font-weight: bold;
 }
 
 #nav ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+	display: flex;
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 
 #nav ul li {
-    margin-left: 20px;
+	margin-left: 20px;
 }
 
 #nav ul li a {
-    color: #f3a022; /* Texto naranja en el menú */
-    text-decoration: none;
-    font-weight: bold;
-    padding: 8px 15px;
-    border-radius: 4px;
-    transition: background 0.3s;
+	color: #f3a022;
+	/* Texto naranja en el menú */
+	text-decoration: none;
+	font-weight: bold;
+	padding: 8px 15px;
+	border-radius: 4px;
+	transition: background 0.3s;
 }
 
 /* El botón de la página actual o botones destacados con texto negro */
-#nav ul li a.current, 
+#nav ul li a.current,
 .btn-destacado {
-    background-color: #f3a022; /* Fondo naranja del formulario */ 
-    color: #000000 !important;   /* Texto negro para legibilidad */
+	background-color: #f3a022;
+	/* Fondo naranja del formulario */
+	color: #000000 !important;
+	/* Texto negro para legibilidad */
 }
 
 /* --- FONDO GLOBAL CON REDES Y NODOS --- */
 body {
-    margin: 0;
-    padding: 0;
-    /* Usamos el degradado para oscurecer la imagen y que el texto resalte */
-    background-attachment: fixed; /* Esto hace que la imagen no se mueva al hacer scroll */
-    background-image: linear-gradient(rgba(28, 29, 38, 0.6), rgba(28, 29, 38, 0.6)), 
-                      url("../../images/principalimagen.jpg") !important;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    color: #ffffff;
-    font-family: 'Source Sans Pro', sans-serif;
+	margin: 0;
+	padding: 0;
+	background-attachment: fixed;
+	/* Cambiamos 0.6 por 0.85 para dar profundidad y oscuridad */
+	background-image: linear-gradient(rgba(26, 26, 33, 0.85), rgba(26, 26, 33, 0.85)),
+		url("../../images/principalimagen.jpg") !important;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	color: #ffffff;
+	font-family: 'Source Sans Pro', sans-serif;
+	background-color: #1c1d26;
+	/* Color de respaldo sólido */
 }
 
 /* Ajuste para que las tarjetas de los planes no se vean raras con el fondo */
 .contenedor-planes {
-    background: transparent; /* Mantenemos la transparencia para ver los nodos */
+	background: transparent;
+	/* Mantenemos la transparencia para ver los nodos */
+}
+
+.header-servicios {
+    background: transparent !important; /* Deja que el fondo del body brille */
+    padding: 100px 20px 40px 20px;
+}
+
+.tarjeta-plan {
+    /* Un fondo sutilmente más claro que el body para que destaque */
+    background: rgba(255, 255, 255, 0.03) !important; 
+    backdrop-filter: blur(5px); /* Toque extra de elegancia pro */
+    border: 1px solid rgba(243, 160, 34, 0.2);
 }
