@@ -5051,3 +5051,96 @@ input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
     box-shadow: inset 0 0 0px 1000px #1d1e26 !important; 
 }
+
+
+
+/* --- ESTILOS PAGINA SERVICIOS --- */
+.header-servicios {
+    text-align: center;
+    padding: 80px 20px;
+    background: linear-gradient(rgba(26, 26, 33, 0.8), rgba(26, 26, 33, 0.8));
+    background-size: cover;
+}
+
+.header-servicios h1 {
+    color: #f3a022; 
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.contenedor-planes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 50px 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.tarjeta-plan {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(243, 160, 34, 0.3);
+    border-radius: 8px;
+    padding: 30px;
+    width: 350px;
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.tarjeta-plan:hover {
+    transform: translateY(-10px);
+    border-color: #f3a022;
+}
+
+.tarjeta-plan h2 {
+    color: #f3a022;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(243, 160, 34, 0.2);
+    padding-bottom: 10px;
+}
+
+.precio {
+    font-size: 1.8em;
+    font-weight: bold;
+    margin: 20px 0;
+    color: #fff;
+}
+
+.lista-servicios {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px;
+    flex-grow: 1;
+}
+
+.lista-servicios li {
+    margin-bottom: 12px;
+    padding-left: 25px;
+    position: relative;
+    color: #ffffff;
+}
+
+.lista-servicios li::before {
+    content: "✓";
+    color: #f3a022;
+    position: absolute;
+    left: 0;
+}
+
+.btn-cotizar {
+    background-color: #f3a022;
+    color: #1a1a21 !important; /* Texto negro como pediste */
+    text-decoration: none;
+    padding: 15px;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.btn-cotizar:hover {
+    background-color: #d48a1a;
+}

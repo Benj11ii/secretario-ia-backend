@@ -4,121 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Planes de Eficiencia - IAsesoria</title>
+    
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}">
-    <style>
-        /* Ajustes específicos para mantener la estética del PDF */
-        body {
-            background-color: #1a1a21; /* Fondo oscuro del PDF */
-            color: #ffffff;
-            font-family: 'Source Sans Pro', sans-serif;
-        }
-
-        .header-servicios {
-            text-align: center;
-            padding: 80px 20px;
-            background: linear-gradient(rgba(26, 26, 33, 0.8), rgba(26, 26, 33, 0.8)), url('images/banner.jpg');
-            background-size: cover;
-        }
-
-        .header-servicios h1 {
-            color: #f3a022; /* Naranja de tus botones */
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-
-        .contenedor-planes {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-            padding: 50px 20px;
-            max-width: 1200px;
-            margin: auto;
-        }
-
-        .tarjeta-plan {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(243, 160, 34, 0.3);
-            border-radius: 8px;
-            padding: 30px;
-            width: 350px;
-            transition: transform 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .tarjeta-plan:hover {
-            transform: translateY(-10px);
-            border-color: #f3a022;
-        }
-
-        .tarjeta-plan h2 {
-            color: #f3a022;
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            border-bottom: 1px solid rgba(243, 160, 34, 0.2);
-            padding-bottom: 10px;
-        }
-
-        .precio {
-            font-size: 1.8em;
-            font-weight: bold;
-            margin: 20px 0;
-            color: #fff;
-        }
-
-        .lista-servicios {
-            list-style: none;
-            padding: 0;
-            margin-bottom: 30px;
-            flex-grow: 1;
-        }
-
-        .lista-servicios li {
-            margin-bottom: 12px;
-            padding-left: 25px;
-            position: relative;
-        }
-
-        .lista-servicios li::before {
-            content: "✓";
-            color: #f3a022;
-            position: absolute;
-            left: 0;
-        }
-
-        .btn-cotizar {
-            background-color: #f3a022;
-            color: #1a1a21;
-            text-decoration: none;
-            padding: 15px;
-            text-align: center;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background 0.3s;
-        }
-
-        .btn-cotizar:hover {
-            background-color: #d48a1a;
-        }
-
-        /* Footer similar al PDF */
-        footer {
-            text-align: center;
-            padding: 40px;
-            font-size: 0.9em;
-            color: rgba(255,255,255,0.5);
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/servicios.css') }}">
 </head>
-<body>
+<body class="is-preload">
 
     <header id="header">
-        <h1 id="logo"><a href="/">IAsesoria</a></h1>
+        <h1 id="logo">
+            <a href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='images/logoprincipal.jpeg') }}" 
+                     alt="Logo" style="height: 40px; vertical-align: middle; margin-right: 10px;">
+                IAsesoria
+            </a>
+        </h1>
         <nav id="nav">
             <ul>
-                <li><a href="/">Inicio</a></li>
-                <li class="current"><a href="/servicios">Planes</a></li>
+                <li><a href="{{ url_for('index') }}">Inicio</a></li>
+                <li class="current"><a href="{{ url_for('servicios') }}">Planes</a></li>
                 <li><a href="/#contacto">Contacto</a></li>
             </ul>
         </nav>
@@ -126,14 +29,13 @@
 
     <section class="header-servicios">
         <h1>Planes de Eficiencia Digital</h1>
-        <p>Soluciones diseñadas para escalar tus procesos con Inteligencia Artificial[cite: 35].</p>
+        <p>Soluciones diseñadas para escalar tus procesos con Inteligencia Artificial.</p>
     </section>
 
     <main class="contenedor-planes">
-        
         <div class="tarjeta-plan">
             <h2>Gestión y Orden de Datos</h2>
-            <p>Ideal para empresas que necesitan transformar el caos en información accionable[cite: 41].</p>
+            <p>Transforma el caos en información accionable.</p>
             <div class="precio">Desde $120.000 <small>CLP</small></div>
             <ul class="lista-servicios">
                 <li>Organización masiva de datos</li>
@@ -146,20 +48,20 @@
 
         <div class="tarjeta-plan">
             <h2>Automatización de Flujos</h2>
-            <p>Deja que la IA maneje las tareas repetitivas de tu día a día[cite: 38].</p>
+            <p>Deja que la IA maneje las tareas repetitivas.</p>
             <div class="precio">Desde $80.000 <small>CLP</small></div>
             <ul class="lista-servicios">
                 <li>Automatización administrativa</li>
                 <li>Formularios inteligentes</li>
                 <li>Correos automáticos (IA)</li>
-                <li>Integración con Telegram/CRM [cite: 44]</li>
+                <li>Integración con Telegram/CRM</li>
             </ul>
             <a href="/#contacto" class="btn-cotizar">Me interesa este plan</a>
         </div>
 
         <div class="tarjeta-plan">
             <h2>Consultoría Estratégica</h2>
-            <p>Asesoría personalizada para digitalizar tu negocio desde cero[cite: 35].</p>
+            <p>Asesoría personalizada desde cero.</p>
             <div class="precio">Desde $30.000 <small>/ h</small></div>
             <ul class="lista-servicios">
                 <li>Optimización de procesos</li>
@@ -169,11 +71,10 @@
             </ul>
             <a href="/#contacto" class="btn-cotizar">Me interesa este plan</a>
         </div>
-
     </main>
 
     <footer>
-        <p>IAsesoria © 2026 - Todos los derechos reservados [cite: 56]</p>
+        <p>IAsesoria © 2026 - Todos los derechos reservados</p>
     </footer>
 
 </body>
