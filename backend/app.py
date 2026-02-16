@@ -3,7 +3,7 @@ import requests
 import csv
 import os
 from dotenv import load_dotenv # type: ignore
-from flask import Flask, request, jsonify, send_from_directory, redirect, url_for
+from flask import Flask, render_template, request, jsonify, send_from_directory, redirect, url_for
 from flask_cors import CORS # si se cae aplicar Python: Reload Language Server
 from datetime import datetime
 
@@ -140,6 +140,9 @@ def tarea_fondo_ia(datos):
     except Exception as e:
         print(f"❌ ERROR CRÍTICO EN EL PROCESO: {str(e)}")
 
+@app.route('/servicios')
+def servicios():
+    return render_template('servicios.html')
 
 @app.route("/secretario/guardar", methods=["POST"])
 def guardar_solicitud():
