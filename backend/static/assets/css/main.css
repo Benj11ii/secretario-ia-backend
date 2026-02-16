@@ -5363,13 +5363,14 @@ body {
     text-decoration: none;
     padding: 15px 30px;
     text-align: center;
-    border-radius: 50px;
+    border-radius: 5px;
     font-weight: bold;
     transition: all 0.3s;
     border: 2px solid #f3a022;
     width: 100%;
     margin: 10px 0;
 }
+
 
 .btn-confianza:hover {
     background: #f3a022;
