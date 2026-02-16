@@ -791,7 +791,7 @@ body.landing.is-preload:after {
 /* Cuando la pantalla es pequeña (móvil) */
 @media screen and (max-width: 736px) {
 
-	/* Reforzamos el overlay oscuro sobre la imagen */
+	/* Reforzamos el overlay oscuro sobre la imagen ESTE ES EL LOGO PRINCIPAL EN INDEX*/
 	#banner {
 		/* Mantenemos la imagen pero con un overlay más oscuro (cambiado de 0.4 a 0.85) */
 		background-image: linear-gradient(rgba(28, 29, 38, 0.9), rgba(28, 29, 38, 0.9)), url("../../images/principalimagen.jpg") !important;
