@@ -5304,3 +5304,82 @@ body {
 }
 
 
+
+
+/* Tarjeta especial de confianza */
+.tarjeta-confianza {
+    background: linear-gradient(145deg, rgba(243, 160, 34, 0.05) 0%, rgba(26, 26, 33, 1) 100%);
+    border: 2px solid rgba(243, 160, 34, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.tarjeta-confianza::before {
+    content: "✨";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 2em;
+    opacity: 0.3;
+}
+
+.icono-confianza {
+    font-size: 3em;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.texto-confianza {
+    color: #f3a022;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9em;
+}
+
+.destacado-confianza {
+    background: rgba(243, 160, 34, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+    border-left: 4px solid #f3a022;
+}
+
+.lista-confianza {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.lista-confianza li {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-confianza {
+    display: inline-block;
+    background: transparent;
+    color: #f3a022 !important;
+    text-decoration: none;
+    padding: 15px 30px;
+    text-align: center;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: all 0.3s;
+    border: 2px solid #f3a022;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.btn-confianza:hover {
+    background: #f3a022;
+    color: #1a1a21 !important;
+    transform: scale(1.02);
+}
+
+.nota-pequena {
+    font-size: 0.8em;
+    color: rgba(255, 255, 255, 0.4);
+    text-align: center;
+    margin-top: 10px;
+}
