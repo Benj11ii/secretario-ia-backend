@@ -79,6 +79,7 @@
 					<p>Cuéntanos tu necesidad y deja que nuestra IA te proponga una solución.</p>
 				</header>
 				<form method="POST" action="/secretario/guardar" class="cta">
+					<input type="hidden" name="servicio_interes" id="servicio_interes" value="">
 					<div class="row gtr-50 gtr-uniform">
 						<div class="col-6 col-12-xsmall">
 							<input type="text" name="nombre" placeholder="Nombre" required />
@@ -176,6 +177,33 @@
 			}
 		});
 	</script>
+	<!-- Script simple para capturar el servicio -->
+<script>
+// Detectar si venimos con un servicio específico
+document.addEventListener('DOMContentLoaded', function() {
+    // Obtener el parámetro 'servicio' de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const servicio = urlParams.get('servicio');
+    
+    // Si hay servicio, guardarlo en el campo oculto
+    if (servicio) {
+        document.getElementById('servicio_interes').value = servicio;
+        
+        // Opcional: Mostrar un mensaje sutil en el placeholder
+        const textarea = document.querySelector('textarea[name="texto_original"]');
+        if (textarea) {
+            const mensajes = {
+                'automatizacion': 'Cuéntame qué procesos administrativos quieres automatizar...',
+                'gestion-datos': 'Cuéntame qué datos necesitas organizar o limpiar...',
+                'consultoria': 'Cuéntame en qué área necesitas asesoría...'
+            };
+            if (mensajes[servicio]) {
+                textarea.placeholder = mensajes[servicio];
+            }
+        }
+    }
+});
+</script>
 
 </body>
 

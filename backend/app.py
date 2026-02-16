@@ -2,20 +2,18 @@ import threading
 import requests
 import csv
 import os
-from dotenv import load_dotenv # type: ignore
-from flask import Flask, render_template, request, jsonify, send_from_directory, redirect, url_for
-from flask_cors import CORS # si se cae aplicar Python: Reload Language Server
+from dotenv import load_dotenv
+from flask import Flask, render_template, request, jsonify, redirect
+from flask_cors import CORS
 from datetime import datetime
 
 app = Flask(__name__, static_folder="static", static_url_path="")
-CORS(app)  # Permitir CORS para todas las rutas
+CORS(app)
 load_dotenv()
-
 
 @app.route("/")
 def index():
     return render_template('index.html')
-
 
 @app.route("/servicios")
 def servicios():
@@ -30,56 +28,45 @@ TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
 GOOGLE_SHEETS_URL = os.getenv("GOOGLE_SHEETS_URL")
 
-
 def tarea_fondo_ia(datos):
-    # 1. Recolección de datos (mapeo de nombres)
+    # 1. Recolección de datos
     nombre = datos.get("nombre", "Sin nombre")
     telefono = datos.get("telefono", "Sin tel")
     correo = datos.get("correo", "Sin correo")
-    # Capturamos como se llame en el HTML y lo guardamos en una variable interna
-    texto_cliente = (
-        datos.get("texto_original") or datos.get("solicitud") or "Sin mensaje"
-    )
+    servicio_interes = datos.get("servicio_interes", "No especificado")
+    texto_cliente = datos.get("texto_original") or datos.get("solicitud") or "Sin mensaje"
 
-    archivo_csv = "/home/bcarmona/secretario-ia-backend/backend/Solicitudes.csv"
+    # 📁 Ruta del CSV
+    archivo_csv = os.path.join(os.path.dirname(__file__), "Solicitudes.csv")
     fecha_actual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     try:
-        # --- PASO 1: RESPALDO INICIAL EN CSV ---
-        with open(archivo_csv, mode="a", newline="", encoding="utf-8") as f:
-            writer = csv.writer(f)
-            writer.writerow(
-                [fecha_actual, nombre, telefono, correo, texto_cliente, "PROCESANDO..."]
-            )
-
-        # --- PASO 2: LÓGICA DE IA (Ollama con Qwen) ---
-        print(f"🤖 Procesando con Qwen2.5 para: {nombre}")
-        resumen_ia = "Procesando..."  # Valor por defecto
-        servicios_permitidos = (
-            "Maquetación HTML, Google Apps Script (GAS), automatización en Spreadsheets/Excel, "
-            "ordenamiento de Bases de Datos,lógica en Python, configuración de Host y plataformas de Mailing "
-            "(Zenvia, Mailerlite, Mailrelay)."
+        # --- PASO 1: LÓGICA DE IA ---
+        print(f"🤖 Procesando con Qwen2.5 para: {nombre} - Interés: {servicio_interes}")
+        
+        servicios_oferta = (
+            f"Nuestros servicios principales son:\n"
+            f"- Automatización Administrativa (formularios inteligentes, correos automáticos, integración con Telegram/CRM)\n"
+            f"- Gestión de Datos (organización masiva, limpieza de bases de datos, dashboards simples)\n"
+            f"- Consultoría Estratégica (optimización de procesos, asesoría digital, soporte por horas)\n"
         )
+
         prompt_espiritu = (
             f"IMPORTANTE: RESPONDE SIEMPRE EN ESPAÑOL.\n"
             f"Actúa como un Analista de Sistemas experto y consultor tecnológico.\n\n"
-            f"SOLICITUD DEL CLIENTE: {texto_cliente}\n\n"
+            f"Nuestros servicios: {servicios_oferta}\n"
+            f"El cliente está interesado en: {servicio_interes}. Su consulta: {texto_cliente}\n\n"
             f"GENERA UN RESUMEN PROFESIONAL CON ESTA ESTRUCTURA:\n\n"
             f"1. Tipo de proyecto: [Define en 10 palabras: web, automatización, integración, datos, etc.]\n\n"
-            f"2. Resumen técnico sencillo: [Explica qué entendiste y cómo lo resolverías. Usa lenguaje claro pero técnico. Menciona 1-2 beneficios clave para el cliente. Máximo 4 líneas.]\n\n"
-            f"3. Próximos pasos: [Nuestro equipo analizará en detalle su caso y le enviaremos una propuesta personalizada por correo en 24-48 horas.]\n\n"
+            f"2. Resumen técnico sencillo: [Explica qué entendiste y cómo lo resolverías. Máximo 4 líneas.]\n\n"
+            f"3. Próximos pasos: [Nuestro equipo analizará en detalle su caso y le enviaremos propuesta en 24-48 horas.]\n\n"
             f"REGLAS:\n"
-            f"- Tono: Profesional, cálido y entusiasta (como un experto que ama lo que hace)\n"
-            f"- Longitud: Máximo 9 líneas en total\n"
+            f"- Tono: Profesional, cálido y entusiasta\n"
+            f"- Longitud: Máximo 9 líneas\n"
             f"- Idioma: Español exclusivamente\n"
-            f"- Beneficio: Siempre incluir cómo tu solución ayudará al negocio del cliente\n"
-            f"- Empatía: Demuestra que entiendes su necesidad específica\n\n"
-            f"EJEMPLO DE RESPUESTA:\n"
-            f"1. Tipo de proyecto: Desarrollo de página web con galería de fotos.\n"
-            f"2. Resumen técnico: Entendemos que necesitas mostrar tus productos artesanales. Crearemos una web responsive con galería interactiva y carga optimizada, para que tus clientes vean las fotos rápido desde cualquier dispositivo.\n"
-            f"3. Próximos pasos: Analizaremos tu caso a fondo y te enviaremos una propuesta con diseño, funcionalidades y presupuesto en máximo 48 horas."
         )
 
+        resumen_ia = "Resumen temporalmente no disponible"
         try:
             response = requests.post(
                 "http://localhost:11434/api/generate",
@@ -87,36 +74,41 @@ def tarea_fondo_ia(datos):
                     "model": "qwen2.5:3b",
                     "prompt": prompt_espiritu,
                     "stream": False,
-                    "options": {"temperature": 0.7},  # Toque humano
+                    "options": {"temperature": 0.7},
                 },
                 timeout=500,
             )
             if response.status_code == 200:
-                resumen_ia = response.json().get(
-                    "response", "El modelo IA no generó el resumen"
-                )
-                print(f"✅ IA respondió: {resumen_ia[:30]}...")
+                resumen_ia = response.json().get("response", "El modelo IA no generó el resumen")
+                print(f"✅ IA respondió: {resumen_ia[:50]}...")
             else:
                 print(f"⚠️ Ollama error {response.status_code}")
-                resumen_ia = "Resumen temporalmente no disponible"
-        except requests.exceptions.Timeout:
-            print("⚠️ La IA tardó demasiado tiempo (Timeout)")
-            resumen_ia = "La IA está procesando una solicitud larga..."
         except Exception as e:
-            print(f"⚠️ Error de conexión con Ollama: {e}")
+            print(f"⚠️ Error con Ollama: {e}")
 
-        # --- PASO 3: REGISTRO FINAL EN CSV LOCAL ---
+        # --- PASO 2: GUARDAR EN CSV (SOLO UNA VEZ, CON EL RESUMEN) ---
+        archivo_existe = os.path.exists(archivo_csv)
+        
         with open(archivo_csv, mode="a", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
-            writer.writerow(
-                [fecha_actual, nombre, telefono, correo, texto_cliente, resumen_ia]
-            )
+            
+            # Si el archivo no existe, escribir encabezados
+            if not archivo_existe:
+                writer.writerow(["Fecha", "Nombre", "Teléfono", "Email", "Servicio interés", "Solicitud", "Resumen IA"])
+            
+            # Escribir los datos (solo una vez, con el resumen ya generado)
+            writer.writerow([fecha_actual, nombre, telefono, correo, servicio_interes, texto_cliente, resumen_ia])
+        
+        print(f"✅ Datos guardados en CSV para {nombre}")
 
-        # --- PASO 4: NOTIFICAR A TELEGRAM ---
+        # --- PASO 3: NOTIFICAR A TELEGRAM ---
         msg = (
             f"🚀 *Nueva Solicitud*\n\n"
-            f"*Cliente:* {nombre}\n\n"
-            f"*Texto Original:* {texto_cliente}\n\n"
+            f"*Cliente:* {nombre}\n"
+            f"*Teléfono:* {telefono}\n"
+            f"*Email:* {correo}\n"
+            f"*Servicio de interés:* {servicio_interes}\n\n"
+            f"*Solicitud:* {texto_cliente}\n\n"
             f"*Resumen IA:* {resumen_ia}"
         )
 
@@ -130,41 +122,38 @@ def tarea_fondo_ia(datos):
         except Exception as e:
             print(f"⚠️ Telegram falló: {e}")
 
-        # --- PASO 5: ENVIAR A GOOGLE SHEETS ---
+        # --- PASO 4: ENVIAR A GOOGLE SHEETS ---
         payload = {
             "nombre": nombre,
             "telefono": telefono,
             "correo": correo,
-            "solicitud": texto_cliente,  # Enviamos el texto largo aquí
-            "resumen": resumen_ia,  # Enviamos el resumen aquí
+            "servicio_interes": servicio_interes,
+            "solicitud": texto_cliente,
+            "resumen": resumen_ia,
+            "fecha": fecha_actual
         }
 
         try:
             resp = requests.post(GOOGLE_SHEETS_URL, json=payload, timeout=30)
-            print(f"🚩 Respuesta Google Sheets: {resp.status_code}")
+            print(f"📊 Google Sheets respuesta: {resp.status_code}")
         except Exception as e:
             print(f"⚠️ Google Sheets falló: {e}")
 
     except Exception as e:
-        print(f"❌ ERROR CRÍTICO EN EL PROCESO: {str(e)}")
-
+        print(f"❌ ERROR CRÍTICO: {str(e)}")
 
 @app.route("/secretario/guardar", methods=["POST"])
 def guardar_solicitud():
-    # Esto permite recibir datos tanto de formularios web como de JSON
     datos = request.form.to_dict() if request.form else request.get_json()
 
     if not datos:
         return jsonify({"error": "No se recibieron datos"}), 400
 
+    # Iniciar proceso en segundo plano
     hilo = threading.Thread(target=tarea_fondo_ia, args=(datos,))
     hilo.start()
 
-    # Redirigir a una página de "Gracias" o simplemente avisar éxito
     return redirect('/gracias')
-    
-
 
 if __name__ == "__main__":
-    # Importante: host 0.0.0.0 para que Nginx lo vea
     app.run(host="0.0.0.0", port=5000, debug=False)
