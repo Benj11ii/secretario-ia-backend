@@ -16,17 +16,17 @@
 
 		<header id="header">
 			<h1 id="logo">
-				<a href="/">Inicio
-					<img src="images/logoprincipal.jpeg" alt=""
+				<a href="{{ url_for('index') }}">
+					<img src="{{ url_for('static', filename='images/logoprincipal.jpeg') }}" alt="Logo IAsesoria"
 						style="height: 40px; vertical-align: middle; margin-right: 10px;">
 					IAsesoria
 				</a>
 			</h1>
 			<nav id="nav">
 				<ul>
-					<li><a href="/">Inicio</a></li>
-					<li><a href="#one" class="scrolly">Servicios</a></li>
-					<li><a href="#five" class="button primary scrolly">Contacto</a></li>
+					<li><a href="{{ url_for('index') }}">Inicio</a></li>
+					<li><a href="{{ url_for('servicios') }}">Servicios</a></li>
+					<li><a href="/#contacto">Contacto</a></li>
 				</ul>
 			</nav>
 		</header>
@@ -121,16 +121,15 @@
 		</footer>
 
 	</div>
-<!-- Botón WhatsApp flotante - VERSIÓN CORREGIDA -->
-<a href="https://wa.me/56938383838?text=Hola%20Benjamín,%20vi%20tu%20página%20y%20me%20gustaría%20consultar%20sobre..." 
-   class="whatsapp-float" 
-   target="_blank">
-   <div class="outer-circle">
-       <div class="inner-circle">
-           <i class="fab fa-whatsapp"></i>
-       </div>
-   </div>
-</a>
+	<!-- Botón WhatsApp flotante - VERSIÓN CORREGIDA -->
+	<a href="https://wa.me/56938383838?text=Hola%20Benjamín,%20vi%20tu%20página%20y%20me%20gustaría%20consultar%20sobre..."
+		class="whatsapp-float" target="_blank">
+		<div class="outer-circle">
+			<div class="inner-circle">
+				<i class="fab fa-whatsapp"></i>
+			</div>
+		</div>
+	</a>
 
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/js/jquery.scrolly.min.js"></script>
