@@ -4370,7 +4370,7 @@ input[type="submit"].primary:hover,
 	border-color: #ff9800 !important;
 }
 
-/* 6. Ajuste del Banner (Imagen de fondo con filtro oscuro) */
+/* 6. Ajuste del Banner (Imagen de fondo con filtro oscuro) esto es el banner de index principal donde se ve el logo*/
 #banner {
 	background-image: linear-gradient(rgba(28, 29, 38, 0.8), rgba(28, 29, 38, 0.8)), url("../../images/banner.jpg");
 	background-size: cover;
@@ -4379,7 +4379,7 @@ input[type="submit"].primary:hover,
 /* Poner la imagen de red como fondo del banner */
 #banner {
 	/* Cambiamos de 0.6 a 0.4 para que el fondo sea más visible */
-	background-image: linear-gradient(rgba(28, 29, 38, 0.9), rgba(28, 29, 38, 0.9)), url("../../images/principalimagen.jpg");
+	background-image: linear-gradient(rgba(28, 29, 38, 0.6), rgba(28, 29, 38, 0.6)), url("../../images/principalimagen.jpg");
 	background-size: cover;
 	background-position: center;
 	background-attachment: fixed;
@@ -4400,7 +4400,7 @@ input[type="submit"].primary:hover,
 
 /* 1. Fondo de la sección de contacto con imagen tenue */
 #five {
-	background-image: linear-gradient(rgba(28, 29, 38, 0.9), rgba(28, 29, 38, 0.9)), url("../../images/principalimagen.jpg") !important;
+	background-image: linear-gradient(rgba(28, 29, 38, 0.1), rgba(28, 29, 38, 0.1)), url("../../images/principalimagen.jpg") !important;
 	background-size: cover !important;
 	background-position: center !important;
 	background-attachment: fixed !important;
