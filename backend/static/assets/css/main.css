@@ -794,7 +794,7 @@ body.landing.is-preload:after {
 	/* Reforzamos el overlay oscuro sobre la imagen */
 	#banner {
 		/* Mantenemos la imagen pero con un overlay más oscuro (cambiado de 0.4 a 0.85) */
-		background-image: linear-gradient(rgba(28, 29, 38, 0.6), rgba(28, 29, 38, 0.6)), url("../../images/principalimagen.jpg") !important;
+		background-image: linear-gradient(rgba(28, 29, 38, 0.9), rgba(28, 29, 38, 0.9)), url("../../images/principalimagen.jpg") !important;
 		background-size: cover !important;
 		background-position: center !important;
 		background-attachment: scroll !important;
@@ -4379,7 +4379,7 @@ input[type="submit"].primary:hover,
 /* Poner la imagen de red como fondo del banner */
 #banner {
 	/* Cambiamos de 0.6 a 0.4 para que el fondo sea más visible */
-	background-image: linear-gradient(rgba(28, 29, 38, 0.6), rgba(28, 29, 38, 0.6)), url("../../images/principalimagen.jpg");
+	background-image: linear-gradient(rgba(28, 29, 38, 0.9), rgba(28, 29, 38, 0.9)), url("../../images/principalimagen.jpg");
 	background-size: cover;
 	background-position: center;
 	background-attachment: fixed;
@@ -4400,7 +4400,7 @@ input[type="submit"].primary:hover,
 
 /* 1. Fondo de la sección de contacto con imagen tenue */
 #five {
-	background-image: linear-gradient(rgba(28, 29, 38, 0.6), rgba(28, 29, 38, 0.6)), url("../../images/principalimagen.jpg") !important;
+	background-image: linear-gradient(rgba(28, 29, 38, 0.9), rgba(28, 29, 38, 0.9)), url("../../images/principalimagen.jpg") !important;
 	background-size: cover !important;
 	background-position: center !important;
 	background-attachment: fixed !important;
@@ -4762,18 +4762,18 @@ input[type="submit"]:active {
 
 /* Banner principal - más transparencia (menor opacidad) */
 #banner {
-	background-image: linear-gradient(rgba(28, 29, 38, 0.01), rgba(28, 29, 38, 0.01)), url("../../images/principalimagen.jpg") !important;
+	background-image: linear-gradient(rgba(28, 29, 38, 0.9), rgba(28, 29, 38, 0.9)), url("../../images/principalimagen.jpg") !important;
 }
 
 /* Sección de contacto - más transparencia */
 #five {
-	background-image: linear-gradient(rgba(28, 29, 38, 0.01), rgba(28, 29, 38, 0.01)), url("../../images/principalimagen.jpg") !important;
+	background-image: linear-gradient(rgba(28, 29, 38, 0.9), rgba(28, 29, 38, 0.9)), url("../../images/principalimagen.jpg") !important;
 }
 
 /* Versión móvil - también más transparente */
 @media screen and (max-width: 736px) {
 	#banner {
-		background-image: linear-gradient(rgba(28, 29, 38, 0.01), rgba(28, 29, 38, 0.01)), url("../../images/principalimagen.jpg") !important;
+		background-image: linear-gradient(rgba(28, 29, 38, 0.9), rgba(28, 29, 38, 0.9)), url("../../images/principalimagen.jpg") !important;
 	}
 }
 
@@ -5095,7 +5095,7 @@ input:-webkit-autofill:active {
 .header-servicios {
 	text-align: center;
 	padding: 80px 20px;
-	background: linear-gradient(rgba(28, 29, 38, 0.01), rgba28, 29, 38, 0.01);
+	background: linear-gradient(rgba(28, 29, 38, 0.9), rgba(28, 29, 38, 0.9));
 	background-size: cover;
 }
 
@@ -5242,7 +5242,7 @@ body {
 	padding: 0;
 	background-attachment: fixed;
 	/* Cambiamos 0.6 por 0.85 para dar profundidad y oscuridad */
-	background-image: linear-gradient(rgba(28, 29, 38, 0.6), rgba(28, 29, 38, 0.6)),
+	background-image: linear-gradient(rgba(28, 29, 38, 0.9), rgba(28, 29, 38, 0.9)),
 		url("../../images/principalimagen.jpg") !important;
 	background-size: cover;
 	background-position: center;
