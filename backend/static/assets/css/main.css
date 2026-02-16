@@ -5058,7 +5058,7 @@ input:-webkit-autofill:active {
 .header-servicios {
     text-align: center;
     padding: 80px 20px;
-    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(6, 6, 8, 0.8));
+    background: linear-gradient(rgba(26, 26, 33, 0.8), rgba(26, 26, 33, 0.8));
     background-size: cover;
 }
 
@@ -5143,4 +5143,51 @@ input:-webkit-autofill:active {
 
 .btn-cotizar:hover {
     background-color: #d48a1a;
+}
+
+/* --- BARRA DE NAVEGACIÓN (HEADER) --- */
+#header {
+    background-color: #000000 !important; /* Fondo negro sólido */
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    position: fixed; /* Para que se mantenga arriba al bajar */
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+#header #logo a {
+    color: #f3a022; /* Color naranja para el nombre IAsesoria */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#nav ul li {
+    margin-left: 20px;
+}
+
+#nav ul li a {
+    color: #f3a022; /* Texto naranja en el menú */
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+/* El botón de la página actual o botones destacados con texto negro */
+#nav ul li a.current, 
+.btn-destacado {
+    background-color: #f3a022; /* Fondo naranja del formulario */ 
+    color: #000000 !important;   /* Texto negro para legibilidad */
 }
