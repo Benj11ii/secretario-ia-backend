@@ -122,7 +122,7 @@
 
 	</div>
 	<!-- Botón WhatsApp flotante - VERSIÓN CORREGIDA -->
-	<a href="https://wa.me/56938383838?text=Hola%20Benjamín,%20vi%20tu%20página%20y%20me%20gustaría%20consultar%20sobre..."
+	<a href="https://wa.me/56938763560?text=Hola%20Benjamín,%20vi%20tu%20página%20y%20me%20gustaría%20consultar%20sobre..."
 		class="whatsapp-float" target="_blank">
 		<div class="outer-circle">
 			<div class="inner-circle">
@@ -140,28 +140,42 @@
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<script>
-// Script para manejar anclas cuando se viene de otra página
-document.addEventListener('DOMContentLoaded', function() {
-    // Verificar si hay un hash en la URL
-    if (window.location.hash) {
-        const hash = window.location.hash;
-        
-        // Si el hash es #five (o cualquier otro que quieras manejar)
-        if (hash === '#five' || hash === '#contacto') {
-            // Pequeño retraso para asegurar que todo esté cargado
-            setTimeout(function() {
-                const elemento = document.querySelector(hash);
-                if (elemento) {
-                    elemento.scrollIntoView({ 
-                        behavior: 'smooth' 
-                    });
-                }
-            }, 300); // 300ms de retraso
-        }
-    }
-});
-</script>
+
+
+	<script>
+		// Script mejorado para manejar anclas cuando se viene de otra página
+		document.addEventListener('DOMContentLoaded', function () {
+			if (window.location.hash === '#five') {
+				// Función para intentar el scroll
+				function scrollToFive() {
+					const elemento = document.querySelector('#five');
+					if (elemento) {
+						elemento.scrollIntoView({ behavior: 'smooth' });
+						return true;
+					}
+					return false;
+				}
+
+				// Intentar inmediatamente
+				if (!scrollToFive()) {
+					// Si no existe, observar cambios en el DOM
+					const observer = new MutationObserver(function () {
+						if (scrollToFive()) {
+							observer.disconnect();
+						}
+					});
+
+					observer.observe(document.body, {
+						childList: true,
+						subtree: true
+					});
+
+					// Timeout de seguridad después de 3 segundos
+					setTimeout(() => observer.disconnect(), 3000);
+				}
+			}
+		});
+	</script>
 
 </body>
 

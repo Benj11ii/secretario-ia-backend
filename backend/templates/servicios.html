@@ -4,114 +4,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planes de Eficiencia - IAsesoria</title>
-
+    <title>Servicios - IAsesoria</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/servicios.css') }}">
 </head>
 
 <body class="is-preload">
+    <div id="page-wrapper">
+        <header id="header">
+            <h1 id="logo">
+                <a href="{{ url_for('index') }}">
+                    <img src="{{ url_for('static', filename='images/logoprincipal.jpeg') }}" alt="Logo"
+                        style="height: 40px; vertical-align: middle; margin-right: 10px;">
+                    IAsesoria
+                </a>
+            </h1>
+            <nav id="nav">
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Inicio</a></li>
+                    <li class="current"><a href="{{ url_for('servicios') }}">Servicios</a></li>
+                    <li><a href="/#five">Contacto</a></li>
+                </ul>
+            </nav>
+        </header>
 
-    <header id="header">
-        <h1 id="logo">
-            <a href="{{ url_for('index') }}">
-                <img src="{{ url_for('static', filename='images/logoprincipal.jpeg') }}" alt="Logo"
-                    style="height: 40px; vertical-align: middle; margin-right: 10px;">
-                IAsesoria
-            </a>
-        </h1>
-        <nav id="nav">
-            <ul>
-                <li><a href="{{ url_for('index') }}">Inicio</a></li>
-                <li class="current"><a href="{{ url_for('servicios') }}">Planes</a></li>
-                <li><a href="/#contacto">Contacto</a></li>
+        <section class="header-servicios" style="background: transparent; margin-top: 80px;">
+            <h1>Servicios de Eficiencia Digital</h1>
+            <p>Soluciones diseñadas para escalar tus procesos con Inteligencia Artificial.</p>
+        </section>
+
+        <main class="contenedor-planes">
+            <div class="tarjeta-plan">
+                <h2>Gestión y Orden de Datos</h2>
+                <p>Transforma el caos en información accionable.</p>
+                <div class="precio">Desde $120.000 <small>CLP</small></div>
+                <ul class="lista-servicios">
+                    <li>Organización masiva de datos</li>
+                    <li>Limpieza de bases de datos</li>
+                    <li>Dashboards de control</li>
+                    <li>Soporte continuo</li>
+                </ul>
+                <a href="/#five" class="btn-cotizar">Me interesa este plan</a>
+            </div>
+
+            <div class="tarjeta-plan">
+                <h2>Automatización de Flujos</h2>
+                <p>Deja que la IA maneje las tareas repetitivas.</p>
+                <div class="precio">Desde $80.000 <small>CLP</small></div>
+                <ul class="lista-servicios">
+                    <li>Automatización administrativa</li>
+                    <li>Formularios inteligentes</li>
+                    <li>Correos automáticos (IA)</li>
+                    <li>Integración con Telegram/CRM</li>
+                </ul>
+                <a href="/#five" class="btn-cotizar">Me interesa este plan</a>
+            </div>
+
+            <div class="tarjeta-plan">
+                <h2>Consultoría Estratégica</h2>
+                <p>Asesoría personalizada desde cero.</p>
+                <div class="precio">Desde $30.000 <small>/ h</small></div>
+                <ul class="lista-servicios">
+                    <li>Optimización de procesos</li>
+                    <li>Diseño de arquitectura digital</li>
+                    <li>Asesoría en herramientas IA</li>
+                    <li>Capacitación de equipos</li>
+                </ul>
+                <a href="/#five" class="btn-cotizar">Me interesa este plan</a>
+            </div>
+        </main>
+
+        <footer id="footer">
+            <ul class="icons">
+                <li><a href="https://www.linkedin.com/in/benjamin-carmona-69aa44223"
+                        class="icon brands alt fa-linkedin-in" target="_blank"><span class="label">LinkedIn</span></a>
+                </li>
+                <li><a href="https://github.com/Benj11ii" class="icon brands alt fa-github" target="_blank"><span
+                            class="label">GitHub</span></a></li>
+                <li><a href="mailto:iasesoriainformatica@gmail.com" class="icon solid alt fa-envelope"><span
+                            class="label">Email</span></a></li>
             </ul>
-        </nav>
-    </header>
-
-    <section class="header-servicios" style="background: transparent; margin-top: 80px;">
-        <h1>Planes de Eficiencia Digital</h1>
-        <p>Soluciones diseñadas para escalar tus procesos con Inteligencia Artificial[cite: 6].</p>
-    </section>
-
-    <main class="contenedor-planes">
-        <div class="tarjeta-plan">
-            <h2>Gestión y Orden de Datos</h2>
-            <p>Transforma el caos en información accionable.</p>
-            <div class="precio">Desde $120.000 <small>CLP</small></div>
-            <ul class="lista-servicios">
-                <li>Organización masiva de datos</li>
-                <li>Limpieza de bases de datos</li>
-                <li>Dashboards de control</li>
-                <li>Soporte continuo</li>
+            <ul class="copyright">
+                <li>&copy; IAsesoria Informática. Todos los derechos reservados.</li>
+                <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
             </ul>
-            <a href="/#five" class="btn-cotizar">Me interesa este plan</a>
-        </div>
+        </footer>
 
-        <div class="tarjeta-plan">
-            <h2>Automatización de Flujos</h2>
-            <p>Deja que la IA maneje las tareas repetitivas.</p>
-            <div class="precio">Desde $80.000 <small>CLP</small></div>
-            <ul class="lista-servicios">
-                <li>Automatización administrativa</li>
-                <li>Formularios inteligentes</li>
-                <li>Correos automáticos (IA)</li>
-                <li>Integración con Telegram/CRM</li>
-            </ul>
-            <a href="/#five" class="btn-cotizar">Me interesa este plan</a>
-        </div>
+        <!-- Botón WhatsApp flotante -->
+        <a href="https://wa.me/56938763560?text=Hola%20Benjamín,%20vi%20tu%20página%20y%20me%20gustaría%20consultar%20sobre..."
+            class="whatsapp-float" target="_blank">
+            <div class="outer-circle">
+                <div class="inner-circle">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+            </div>
+        </a>
+    </div>
 
-        <div class="tarjeta-plan">
-            <h2>Consultoría Estratégica</h2>
-            <p>Asesoría personalizada desde cero.</p>
-            <div class="precio">Desde $30.000 <small>/ h</small></div>
-            <ul class="lista-servicios">
-                <li>Optimización de procesos</li>
-                <li>Diseño de arquitectura digital</li>
-                <li>Asesoría en herramientas IA</li>
-                <li>Capacitación de equipos</li>
-            </ul>
-            <a href="/#five" class="btn-cotizar">Me interesa este plan</a>
-        </div>
-    </main>
-
-   		<footer id="footer">
-			<ul class="icons">
-				<li><a href="https://www.linkedin.com/in/benjamin-carmona-69aa44223"
-						class="icon brands alt fa-linkedin-in" target="_blank"><span class="label">LinkedIn</span></a>
-				</li>
-				<li><a href="https://github.com/Benj11ii" class="icon brands alt fa-github" target="_blank"><span
-							class="label">GitHub</span></a></li>
-				<li><a href="mailto:iasesoriainformatica@gmail.com" class="icon solid alt fa-envelope"><span
-							class="label">Email</span></a></li>
-			</ul>
-			<ul class="copyright">
-				<li>&copy; IAsesoria Informática. Todos los derechos reservados.</li>
-				<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-			</ul>
-		</footer>
-
-	</div>
-	<!-- Botón WhatsApp flotante - VERSIÓN CORREGIDA -->
-	<a href="https://wa.me/56938383838?text=Hola%20Benjamín,%20vi%20tu%20página%20y%20me%20gustaría%20consultar%20sobre..."
-		class="whatsapp-float" target="_blank">
-		<div class="outer-circle">
-			<div class="inner-circle">
-				<i class="fab fa-whatsapp"></i>
-			</div>
-		</div>
-	</a>
-
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/jquery.scrolly.min.js"></script>
-	<script src="assets/js/jquery.dropotron.min.js"></script>
-	<script src="assets/js/jquery.scrollex.min.js"></script>
-	<script src="assets/js/browser.min.js"></script>
-	<script src="assets/js/breakpoints.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<script src="assets/js/main.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
+    <script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/jquery.scrolly.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/jquery.dropotron.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/jquery.scrollex.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/browser.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/breakpoints.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/util.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </body>
 
 </html>
