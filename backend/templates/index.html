@@ -140,6 +140,29 @@
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<script>
+// Script para manejar anclas cuando se viene de otra página
+document.addEventListener('DOMContentLoaded', function() {
+    // Verificar si hay un hash en la URL
+    if (window.location.hash) {
+        const hash = window.location.hash;
+        
+        // Si el hash es #five (o cualquier otro que quieras manejar)
+        if (hash === '#five' || hash === '#contacto') {
+            // Pequeño retraso para asegurar que todo esté cargado
+            setTimeout(function() {
+                const elemento = document.querySelector(hash);
+                if (elemento) {
+                    elemento.scrollIntoView({ 
+                        behavior: 'smooth' 
+                    });
+                }
+            }, 300); // 300ms de retraso
+        }
+    }
+});
+</script>
+
 </body>
 
 </html>
