@@ -5191,3 +5191,23 @@ input:-webkit-autofill:active {
     background-color: #f3a022; /* Fondo naranja del formulario */ 
     color: #000000 !important;   /* Texto negro para legibilidad */
 }
+
+/* --- FONDO GLOBAL CON REDES Y NODOS --- */
+body {
+    margin: 0;
+    padding: 0;
+    /* Usamos el degradado para oscurecer la imagen y que el texto resalte */
+    background-attachment: fixed; /* Esto hace que la imagen no se mueva al hacer scroll */
+    background-image: linear-gradient(rgba(26, 26, 33, 0.85), rgba(26, 26, 33, 0.85)), 
+                      url("/static/images/principalimagen.jpg") !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #ffffff;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+/* Ajuste para que las tarjetas de los planes no se vean raras con el fondo */
+.contenedor-planes {
+    background: transparent; /* Mantenemos la transparencia para ver los nodos */
+}
