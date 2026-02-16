@@ -5095,7 +5095,7 @@ input:-webkit-autofill:active {
 .header-servicios {
 	text-align: center;
 	padding: 80px 20px;
-	background: linear-gradient(rgba(28, 29, 38, 0.1), rgba28, 29, 38, 0.1));
+	background: linear-gradient(rgba(28, 29, 38, 0.95), rgba28, 29, 38, 0.95);
 	background-size: cover;
 }
 
