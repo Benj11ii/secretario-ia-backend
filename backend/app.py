@@ -158,4 +158,4 @@ def guardar_solicitud():
 
 if __name__ == "__main__":
     # Importante: host 0.0.0.0 para que Nginx lo vea
-    app.run(host='192.168.1.50', port=5000)
+    app.run(host="0.0.0.0", port=5000, debug=False)
