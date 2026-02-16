@@ -5199,7 +5199,7 @@ body {
     /* Usamos el degradado para oscurecer la imagen y que el texto resalte */
     background-attachment: fixed; /* Esto hace que la imagen no se mueva al hacer scroll */
     background-image: linear-gradient(rgba(26, 26, 33, 0.85), rgba(26, 26, 33, 0.85)), 
-                      url("/static/images/principalimagen.jpg") !important;
+                      url("../../images/principalimagen.jpg") !important;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
