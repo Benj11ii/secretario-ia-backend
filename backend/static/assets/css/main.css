@@ -4762,12 +4762,12 @@ input[type="submit"]:active {
 
 /* Banner principal - más transparencia (menor opacidad) */
 #banner {
-	background-image: linear-gradient(rgba(28, 29, 38, 0.1), rgba(28, 29, 38, 0.1)), url("../../images/principalimagen.jpg") !important;
+	background-image: linear-gradient(rgba(28, 29, 38, 0.01), rgba(28, 29, 38, 0.01)), url("../../images/principalimagen.jpg") !important;
 }
 
 /* Sección de contacto - más transparencia */
 #five {
-	background-image: linear-gradient(rgba(28, 29, 38, 0.1), rgba(28, 29, 38, 0.1)), url("../../images/principalimagen.jpg") !important;
+	background-image: linear-gradient(rgba(28, 29, 38, 0.01), rgba(28, 29, 38, 0.01)), url("../../images/principalimagen.jpg") !important;
 }
 
 /* Versión móvil - también más transparente */
