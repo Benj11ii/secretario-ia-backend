@@ -97,7 +97,7 @@
 						</div>
 						<div class="col-12">
 							<ul class="actions special">
-								<li><input type="submit" value="Enviar Solicitud" class="btn-cotizar" /></li>
+								<li><button type="submit" class="btn-cotizar">Enviar Solicitud</button></li>
 							</ul>
 						</div>
 					</div>
@@ -178,32 +178,32 @@
 		});
 	</script>
 	<!-- Script simple para capturar el servicio -->
-<script>
-// Detectar si venimos con un servicio específico
-document.addEventListener('DOMContentLoaded', function() {
-    // Obtener el parámetro 'servicio' de la URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const servicio = urlParams.get('servicio');
-    
-    // Si hay servicio, guardarlo en el campo oculto
-    if (servicio) {
-        document.getElementById('servicio_interes').value = servicio;
-        
-        // Opcional: Mostrar un mensaje sutil en el placeholder
-        const textarea = document.querySelector('textarea[name="texto_original"]');
-        if (textarea) {
-            const mensajes = {
-                'automatizacion': 'Cuéntame qué procesos administrativos quieres automatizar...',
-                'gestion-datos': 'Cuéntame qué datos necesitas organizar o limpiar...',
-                'consultoria': 'Cuéntame en qué área necesitas asesoría...'
-            };
-            if (mensajes[servicio]) {
-                textarea.placeholder = mensajes[servicio];
-            }
-        }
-    }
-});
-</script>
+	<script>
+		// Detectar si venimos con un servicio específico
+		document.addEventListener('DOMContentLoaded', function () {
+			// Obtener el parámetro 'servicio' de la URL
+			const urlParams = new URLSearchParams(window.location.search);
+			const servicio = urlParams.get('servicio');
+
+			// Si hay servicio, guardarlo en el campo oculto
+			if (servicio) {
+				document.getElementById('servicio_interes').value = servicio;
+
+				// Opcional: Mostrar un mensaje sutil en el placeholder
+				const textarea = document.querySelector('textarea[name="texto_original"]');
+				if (textarea) {
+					const mensajes = {
+						'automatizacion': 'Cuéntame qué procesos administrativos quieres automatizar...',
+						'gestion-datos': 'Cuéntame qué datos necesitas organizar o limpiar...',
+						'consultoria': 'Cuéntame en qué área necesitas asesoría...'
+					};
+					if (mensajes[servicio]) {
+						textarea.placeholder = mensajes[servicio];
+					}
+				}
+			}
+		});
+	</script>
 
 </body>
 
