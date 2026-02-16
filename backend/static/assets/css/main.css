@@ -5242,7 +5242,7 @@ body {
 	padding: 0;
 	background-attachment: fixed;
 	/* Cambiamos 0.6 por 0.85 para dar profundidad y oscuridad */
-	background-image: linear-gradient(rgba(28, 29, 38, 0.9), rgba(28, 29, 38, 0.9)),
+	background-image: linear-gradient(rgba(28, 29, 38, 0.97), rgba(28, 29, 38, 0.7)),
 		url("../../images/principalimagen.jpg") !important;
 	background-size: cover;
 	background-position: center;
