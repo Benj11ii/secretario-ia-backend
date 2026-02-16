@@ -5242,7 +5242,7 @@ body {
 	padding: 0;
 	background-attachment: fixed;
 	/* Cambiamos 0.6 por 0.85 para dar profundidad y oscuridad */
-	background-image: linear-gradient(rgba(28, 29, 38, 0.97), rgba(28, 29, 38, 0.7)),
+	background-image: linear-gradient(rgba(28, 29, 38, 0.98), rgba(28, 29, 38, 0.97)),
 		url("../../images/principalimagen.jpg") !important;
 	background-size: cover;
 	background-position: center;
@@ -5275,8 +5275,8 @@ body {
 #one {
     /* Usamos 0.95 para que la imagen sea casi invisible */
     background-image: linear-gradient(
-        rgba(28, 29, 38, 0.98), 
-        rgba(28, 29, 38, 0.98)
+        rgba(28, 29, 38, 0.99), 
+        rgba(28, 29, 38, 0.99)
     ), url("../../images/principalimagen.jpg") !important;
     
     background-attachment: fixed;
