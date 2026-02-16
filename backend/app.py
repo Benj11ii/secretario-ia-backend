@@ -4,7 +4,7 @@ import csv
 import os
 from dotenv import load_dotenv # type: ignore
 from flask import Flask, request, jsonify, send_from_directory, redirect, url_for
-from flask_cors import CORS
+from flask_cors import CORS # si se cae aplicar Python: Reload Language Server
 from datetime import datetime
 
 app = Flask(__name__, static_folder="static", static_url_path="")
