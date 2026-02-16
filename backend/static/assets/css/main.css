@@ -5049,5 +5049,5 @@ input:-webkit-autofill:active {
     /* Esto crea una "sombra interna" gigante que tapa el color feo del navegador */
     /* El primer valor es el color de fondo que TÚ quieras (ej. el color de tu formulario) */
     transition: background-color 5000s ease-in-out 0s;
-    box-shadow: inset 0 0 0px 1000px #222222 !important; 
+    box-shadow: inset 0 0 0px 1000px #1d1e26 !important; 
 }
