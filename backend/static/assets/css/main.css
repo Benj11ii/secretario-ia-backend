@@ -5167,20 +5167,28 @@ input:-webkit-autofill:active {
 	left: 0;
 }
 
-.btn-cotizar {
-	background-color: #f3a022;
-	color: #1a1a21 !important;
-	/* Texto negro como pediste */
-	text-decoration: none;
-	padding: 15px;
-	text-align: center;
-	border-radius: 5px;
-	font-weight: bold;
-	transition: background 0.3s;
+.btn-cotizar, 
+input[type="submit"].btn-cotizar,
+.button.primary {
+    background-color: #f3a022;
+    color: #1a1a21 !important;
+    text-decoration: none;
+    padding: 15px 30px;  /* Un poco más de padding horizontal */
+    text-align: center;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1em;
 }
 
-.btn-cotizar:hover {
-	background-color: #231500;
+.btn-cotizar:hover,
+input[type="submit"].btn-cotizar:hover,
+.button.primary:hover {
+    background-color: #231500;
+    color: #ffffff !important;  /* Texto blanco al hacer hover para mejor contraste */
 }
 
 /* --- BARRA DE NAVEGACIÓN (HEADER) --- */
