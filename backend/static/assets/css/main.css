@@ -5302,3 +5302,38 @@ body {
     color: #f3a022 !important; /* El naranja de IAsesoria */
     border-color: rgba(243, 160, 34, 0.3) !important;
 }
+
+
+/* Estilo específico para input type submit con clase btn-cotizar */
+input[type="submit"].btn-cotizar {
+    background-color: #f3a022;
+    color: #1a1a21 !important;
+    text-decoration: none;
+    padding: 15px 30px;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1em;
+    width: auto;  /* Que no ocupe todo el ancho */
+    min-width: 200px;  /* Ancho mínimo */
+}
+
+input[type="submit"].btn-cotizar:hover {
+    background-color: #231500;
+    color: #ffffff !important;
+}
+
+/* Para mantener la estructura del formulario */
+.actions.special {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.actions.special li {
+    list-style: none;
+}
