@@ -4379,7 +4379,7 @@ input[type="submit"].primary:hover,
 /* Poner la imagen de red como fondo del banner */
 #banner {
 	/* Cambiamos de 0.6 a 0.4 para que el fondo sea más visible */
-	background-image: linear-gradient(rgba(28, 29, 38, 0.6), rgba(28, 29, 38, 0.6)), url("../../images/principalimagen.jpg");
+	background-image: linear-gradient(rgba(28, 29, 38, 0.1), rgba(28, 29, 38, 0.1)), url("../../images/principalimagen.jpg");
 	background-size: cover;
 	background-position: center;
 	background-attachment: fixed;
