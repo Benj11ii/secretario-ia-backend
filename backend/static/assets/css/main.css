@@ -5270,3 +5270,27 @@ body {
     backdrop-filter: blur(5px); /* Toque extra de elegancia pro */
     border: 1px solid rgba(243, 160, 34, 0.2);
 }
+
+/* --- SECCIÓN SOLUCIONES: FONDO CASI TOTALMENTE OSCURO --- */
+#one {
+    /* Usamos 0.95 para que la imagen sea casi invisible */
+    background-image: linear-gradient(
+        rgba(28, 29, 38, 0.95), 
+        rgba(28, 29, 38, 0.95)
+    ), url("../../images/principalimagen.jpg") !important;
+    
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    
+    /* Aseguramos que el color base sea el mismo del degradado */
+    background-color: #1c1d26; 
+    padding: 6em 0;
+    color: #ffffff;
+}
+
+/* Ajuste opcional para que los iconos resalten más con este fondo tan oscuro */
+#one .icon.major {
+    color: #f3a022 !important; /* El naranja de IAsesoria */
+    border-color: rgba(243, 160, 34, 0.3) !important;
+}
