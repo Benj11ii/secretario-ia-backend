@@ -14,8 +14,16 @@ load_dotenv()
 
 @app.route("/")
 def index():
-    return app.send_static_file("index.html")
+    return render_template('index.html')
 
+
+@app.route("/servicios")
+def servicios():
+    return render_template('servicios.html')
+
+@app.route('/gracias')
+def pagina_gracias():
+    return render_template('gracias.html')
 
 # --- CONFIGURACIÓN ---
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
@@ -140,9 +148,6 @@ def tarea_fondo_ia(datos):
     except Exception as e:
         print(f"❌ ERROR CRÍTICO EN EL PROCESO: {str(e)}")
 
-@app.route('/servicios')
-def servicios():
-    return render_template('servicios.html')
 
 @app.route("/secretario/guardar", methods=["POST"])
 def guardar_solicitud():
@@ -156,7 +161,8 @@ def guardar_solicitud():
     hilo.start()
 
     # Redirigir a una página de "Gracias" o simplemente avisar éxito
-    return redirect('/gracias.html')
+    return redirect('/gracias')
+    
 
 
 if __name__ == "__main__":
