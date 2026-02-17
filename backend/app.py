@@ -62,7 +62,7 @@ def tarea_fondo_ia(datos):
             f"3. Próximos pasos: [Nuestro equipo analizará en detalle su caso y le enviaremos propuesta en 24-48 horas.]\n\n"
             f"REGLAS:\n"
             f"- Tono: Profesional, cálido y entusiasta\n"
-            f"- Longitud: Máximo 9 líneas\n"
+            f"- Longitud: Máximo 5 líneas muy concisas\n"
             f"- Idioma: Español exclusivamente\n"
         )
 
