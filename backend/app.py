@@ -77,7 +77,7 @@ def tarea_fondo_ia(datos):
             response = requests.post(
                 "http://localhost:11434/api/generate",
                 json={
-                    "model": "qwen2.5:3b",
+                    "model": "llama3.2",
                     "prompt": prompt_espiritu,
                     "stream": False,
                     "options": {"temperature": 0.7},
