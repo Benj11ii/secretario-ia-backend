@@ -5167,28 +5167,30 @@ input:-webkit-autofill:active {
 	left: 0;
 }
 
-.btn-cotizar, 
+.btn-cotizar,
 input[type="submit"].btn-cotizar,
 .button.primary {
-    background-color: #f3a022;
-    color: #1a1a21 !important;
-    text-decoration: none;
-    padding: 15px 30px;  /* Un poco más de padding horizontal */
-    text-align: center;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background 0.3s;
-    border: none;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 1em;
+	background-color: #f3a022;
+	color: #1a1a21 !important;
+	text-decoration: none;
+	padding: 15px 30px;
+	/* Un poco más de padding horizontal */
+	text-align: center;
+	border-radius: 5px;
+	font-weight: bold;
+	transition: background 0.3s;
+	border: none;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 1em;
 }
 
 .btn-cotizar:hover,
 input[type="submit"].btn-cotizar:hover,
 .button.primary:hover {
-    background-color: #231500;
-    color: #ffffff !important;  /* Texto blanco al hacer hover para mejor contraste */
+	background-color: #231500;
+	color: #ffffff !important;
+	/* Texto blanco al hacer hover para mejor contraste */
 }
 
 /* --- BARRA DE NAVEGACIÓN (HEADER) --- */
@@ -5268,39 +5270,40 @@ body {
 }
 
 .header-servicios {
-    background: transparent !important; /* Deja que el fondo del body brille */
-    padding: 100px 20px 40px 20px;
+	background: transparent !important;
+	/* Deja que el fondo del body brille */
+	padding: 100px 20px 40px 20px;
 }
 
 .tarjeta-plan {
-    /* Un fondo sutilmente más claro que el body para que destaque */
-    background: rgba(255, 255, 255, 0.03) !important; 
-    backdrop-filter: blur(5px); /* Toque extra de elegancia pro */
-    border: 1px solid rgba(243, 160, 34, 0.2);
+	/* Un fondo sutilmente más claro que el body para que destaque */
+	background: rgba(255, 255, 255, 0.03) !important;
+	backdrop-filter: blur(5px);
+	/* Toque extra de elegancia pro */
+	border: 1px solid rgba(243, 160, 34, 0.2);
 }
 
 /* --- SECCIÓN SOLUCIONES: FONDO CASI TOTALMENTE OSCURO --- */
 #one {
-    /* Usamos 0.95 para que la imagen sea casi invisible ajuste para servicios */
-    background-image: linear-gradient(
-        rgba(28, 29, 38, 0.98), 
-        rgba(28, 29, 38, 0.98)
-    ), url("../../images/principalimagen.jpg") !important;
-    
-    background-attachment: fixed;
-    background-size: cover;
-    background-position: center;
-    
-    /* Aseguramos que el color base sea el mismo del degradado */
-    background-color: #1c1d26; 
-    padding: 6em 0;
-    color: #ffffff;
+	/* Usamos 0.95 para que la imagen sea casi invisible ajuste para servicios */
+	background-image: linear-gradient(rgba(28, 29, 38, 0.98),
+			rgba(28, 29, 38, 0.98)), url("../../images/principalimagen.jpg") !important;
+
+	background-attachment: fixed;
+	background-size: cover;
+	background-position: center;
+
+	/* Aseguramos que el color base sea el mismo del degradado */
+	background-color: #1c1d26;
+	padding: 6em 0;
+	color: #ffffff;
 }
 
 /* Ajuste opcional para que los iconos resalten más con este fondo tan oscuro */
 #one .icon.major {
-    color: #f3a022 !important; /* El naranja de IAsesoria */
-    border-color: rgba(243, 160, 34, 0.3) !important;
+	color: #f3a022 !important;
+	/* El naranja de IAsesoria */
+	border-color: rgba(243, 160, 34, 0.3) !important;
 }
 
 
@@ -5308,112 +5311,115 @@ body {
 
 /* Tarjeta especial de confianza */
 .tarjeta-confianza {
-    background: linear-gradient(145deg, rgba(243, 160, 34, 0.05) 0%, rgba(26, 26, 33, 1) 100%);
-    border: 2px solid rgba(243, 160, 34, 0.3);
-    position: relative;
-    overflow: hidden;
+	background: linear-gradient(145deg, rgba(243, 160, 34, 0.05) 0%, rgba(26, 26, 33, 1) 100%);
+	border: 2px solid rgba(243, 160, 34, 0.3);
+	position: relative;
+	overflow: hidden;
 }
 
 .tarjeta-confianza::before {
-    content: "✨";
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 2em;
-    opacity: 0.3;
+	content: "✨";
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	font-size: 2em;
+	opacity: 0.3;
 }
 
 .icono-confianza {
-    font-size: 3em;
-    text-align: center;
-    margin-bottom: 10px;
+	font-size: 3em;
+	text-align: center;
+	margin-bottom: 10px;
 }
 
 .texto-confianza {
-    color: #f3a022;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 0.9em;
+	color: #f3a022;
+	font-weight: bold;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-size: 0.9em;
 }
 
 .destacado-confianza {
-    background: rgba(243, 160, 34, 0.1);
-    padding: 15px;
-    border-radius: 8px;
-    margin: 15px 0;
-    border-left: 4px solid #f3a022;
+	background: rgba(243, 160, 34, 0.1);
+	padding: 15px;
+	border-radius: 8px;
+	margin: 15px 0;
+	border-left: 4px solid #f3a022;
 }
 
 .lista-confianza {
-    list-style: none;
-    padding: 0;
-    margin: 20px 0;
+	list-style: none;
+	padding: 0;
+	margin: 20px 0;
 }
 
 .lista-confianza li {
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	padding: 8px 0;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .btn-confianza {
-    display: inline-block;
-    background: transparent;
-    color: #f3a022 !important;
-    text-decoration: none;
-    padding: 15px 30px;
-    text-align: center;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: all 0.3s;
-    border: 2px solid #f3a022;
-    width: 100%;
-    margin: 10px 0;
+	display: inline-block;
+	background: transparent;
+	color: #f3a022 !important;
+	text-decoration: none;
+	padding: 15px 30px;
+	text-align: center;
+	border-radius: 5px;
+	font-weight: bold;
+	transition: all 0.3s;
+	border: 2px solid #f3a022;
+	width: 100%;
+	margin: 10px 0;
 }
 
 
 .btn-confianza:hover {
-    background: #f3a022;
-    color: #1a1a21 !important;
-    transform: scale(1.02);
+	background: #f3a022;
+	color: #1a1a21 !important;
+	transform: scale(1.02);
 }
 
 .nota-pequena {
-    font-size: 0.8em;
-    color: rgba(255, 255, 255, 0.4);
-    text-align: center;
-    margin-top: 10px;
+	font-size: 0.8em;
+	color: rgba(255, 255, 255, 0.4);
+	text-align: center;
+	margin-top: 10px;
 }
 
 /* Corrección para el campo de teléfono de IAsesoria */
 input[type="tel"] {
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    -ms-appearance: none;
-    appearance: none;
-    background: rgba(255, 255, 255, 0.10); /* Fondo oscuro semitransparente */
-    border-radius: 4px;
-    border: solid 1px rgba(255, 255, 255, 0.3);
-    color: inherit;
-    display: block;
-    outline: 0;
-    padding: 0 1rem;
-    text-decoration: none;
-    width: 100%;
-    height: 3rem; /* Ajusta esto según la altura de tus otros inputs */
-    margin-bottom: 1rem;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	-ms-appearance: none;
+	appearance: none;
+	background: rgba(255, 255, 255, 0.10);
+	/* Fondo oscuro semitransparente */
+	border-radius: 4px;
+	border: solid 1px rgba(255, 255, 255, 0.3);
+	color: inherit;
+	display: block;
+	outline: 0;
+	padding: 0 1rem;
+	text-decoration: none;
+	width: 100%;
+	height: 3rem;
+	/* Ajusta esto según la altura de tus otros inputs */
+	margin-bottom: 1rem;
 }
 
 /* Estilo cuando el usuario hace clic en el campo (Focus) */
 input[type="tel"]:focus {
-    border-color: #f2a61f; /* El naranja de tu logo */
-    box-shadow: 0 0 0 1px #f2a61f;
+	border-color: #f2a61f;
+	/* El naranja de tu logo */
+	box-shadow: 0 0 0 1px #f2a61f;
 }
 
 /* Ajuste para que el placeholder se vea igual a los otros */
 input[type="tel"]::placeholder {
-    color: rgba(255, 255, 255, 0.10) !important;
-    opacity: 1;
+	color: rgba(255, 255, 255, 0.10) !important;
+	opacity: 1;
 }
 
 
@@ -5421,76 +5427,81 @@ input[type="tel"]::placeholder {
 input[type="tel"],
 input[type="text"],
 input[type="email"] {
-    background: rgba(255, 255, 255, 0.10) !important; /* Asegura el mismo tono grisáceo */
-    border: solid 1px rgba(255, 255, 255, 0.3) !important;
-    color: #ffffff !important;
-    height: 3rem;
-    padding: 0 1rem;
-    width: 100%;
-    border-radius: 4px;
-    display: block;
-    appearance: none;
+	background: rgba(255, 255, 255, 0.10) !important;
+	/* Asegura el mismo tono grisáceo */
+	border: solid 1px rgba(255, 255, 255, 0.3) !important;
+	color: #ffffff !important;
+	height: 3rem;
+	padding: 0 1rem;
+	width: 100%;
+	border-radius: 4px;
+	display: block;
+	appearance: none;
 }
 
 /* 2. Color naranja al hacer clic */
 input[type="tel"]:focus,
 input[type="text"]:focus,
 input[type="email"]:focus {
-    border-color: #f2a61f !important;
-    box-shadow: 0 0 0 1px #f2a61f !important;
+	border-color: #f2a61f !important;
+	box-shadow: 0 0 0 1px #f2a61f !important;
 }
 
 /* 3. TRUCO PARA AUTOCOMPLETADO (Autofill) */
 /* Esto evita que el navegador ponga el fondo blanco/azul feo cuando sugiere datos */
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px #222430 inset !important; /* Ajusta este color al fondo de tu web */
-    -webkit-text-fill-color: white !important;
-    transition: background-color 5000s ease-in-out 0s;
+	-webkit-box-shadow: 0 0 0 30px #222430 inset !important;
+	/* Ajusta este color al fondo de tu web */
+	-webkit-text-fill-color: white !important;
+	transition: background-color 5000s ease-in-out 0s;
 }
 
 /* Ajuste específico para que el placeholder se vea igual */
 input[type="tel"]::placeholder {
-    color: rgba(255, 255, 255, 0.10);
+	color: rgba(255, 255, 255, 0.10);
 }
 
 
 textarea {
-    /* 1. Evita que se pueda cambiar el tamaño manualmente */
-    resize: none;
+	/* 1. Evita que se pueda cambiar el tamaño manualmente */
+	resize: none;
 
-    /* 2. (Opcional) Asegura una altura fija para que siempre se vea igual */
-    height: 150px !important; 
+	/* 2. (Opcional) Asegura una altura fija para que siempre se vea igual */
+	height: 150px !important;
 
-    /* 3. Asegura que ocupe todo el ancho de su columna */
-    width: 100% !important;
+	/* 3. Asegura que ocupe todo el ancho de su columna */
+	width: 100% !important;
 
-    /* 4. Permite scroll interno si el texto es muy largo */
-    overflow: auto;
+	/* 4. Permite scroll interno si el texto es muy largo */
+	overflow: auto;
 }
 
 /* Ajuste para que el boton de gracias  tenga el mismo estilo que los demas */
 
 
-.thank-you-button {
-    background-color: #f3a022;
-    color: #1a1a21 !important;
-    text-decoration: none;
-    padding: 15px 30px;  /* Un poco más de padding horizontal */
-    text-align: center;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background 0.3s;
-    border: none;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 1em;
+.thank-you-button,
+.button.primary {
+	background-color: #f3a022;
+	color: #1a1a21 !important;
+	text-decoration: none;
+	padding: 15px 30px;
+	/* Un poco más de padding horizontal */
+	text-align: center;
+	border-radius: 5px;
+	font-weight: bold;
+	transition: background 0.3s;
+	border: none;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 1em;
 }
 
 .thank-you-button:hover,
 .button.primary:hover {
-    background-color: #231500;
-    color: #ffffff !important;  /* Texto blanco al hacer hover para mejor contraste */
+	background-color: #231500;
+	color: #ffffff !important;
+	/* Texto blanco al hacer hover para mejor contraste */
 }
