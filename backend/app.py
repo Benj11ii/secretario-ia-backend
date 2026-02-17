@@ -59,17 +59,20 @@ def tarea_fondo_ia(datos):
         )
 
         prompt_espiritu = (
-            f"Eres un Consultor Tecnológico experto. Tu tarea es analizar la solicitud del cliente.\n\n"
-            f"SEGURIDAD: Si el cliente solicita explícitamente cometer delitos, hackeos, fraudes o evasión de impuestos, "
-            f"responde únicamente: 'Lo sentimos, IAsesoria no realiza proyectos que no cumplan con nuestros estándares éticos y legales.'\n\n"
-            f"DE LO CONTRARIO (Si es una solicitud legítima de negocios), genera un resumen técnico profesional con esta estructura:\n"
-            f"1. Tipo de proyecto: [Define en 10 palabras]\n"
+            f"Actúa como Analista de Sistemas y FILTRO ÉTICO de la empresa IAsesoria.\n\n"
+            f"PASO 1: EVALUACIÓN DE SEGURIDAD\n"
+            f"Analiza la consulta del cliente: '''{texto_cliente}'''\n"
+            f"Si detectas intenciones de fraude, evasión de impuestos, hackeo, borrado de registros (logs), "
+            f"o manipulación de folios contables pasados, responde ÚNICAMENTE: 'Lo sentimos, IAsesoria no realiza proyectos que no cumplan con nuestros estándares éticos y legales.' y DETÉN TU ESCRITURA. No generes nada más.\n\n"
+            f"PASO 2: RESUMEN TÉCNICO (SÓLO SI ES UNA SOLICITUD LEGAL)\n"
+            f"Nuestros servicios ofrecidos: {servicios_oferta}\n"
+            f"El cliente hizo clic en el servicio: {servicio_interes}.\n"
+            f"Consulta para procesar: '''{texto_cliente}'''\n\n"
+            f"Genera una respuesta profesional con esta estructura:\n"
+            f"1. Tipo de proyecto: [Clasifícalo en 10 palabras usando nuestros servicios como base]\n"
             f"2. Resumen técnico: [Explica la solución en máximo 3 líneas]\n"
-            f"3. Próximos pasos: [Indica que el equipo analizará el caso y contactará en 24-48 horas]\n\n"
-            f"DATOS PARA PROCESAR:\n"
-            f"Servicio solicitado: {servicio_interes}\n"
-            f"Consulta del cliente: '''{texto_cliente}'''\n\n"
-            f"INSTRUCCIÓN FINAL: Responde de forma cordial, breve y siempre en español."
+            f"3. Próximos pasos: [Nuestro equipo analizará su caso y le contactaremos en 24-48 horas]\n\n"
+            f"REGLA FINAL: Responde siempre en español cordial, usando 'Usted'."
         )
 
         resumen_ia = "Resumen temporalmente no disponible"
