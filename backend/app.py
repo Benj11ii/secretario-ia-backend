@@ -49,61 +49,100 @@ def tarea_fondo_ia(datos):
 
     try:
         # --- PASO 1: LÓGICA DE IA ---
-        print(f"🤖 Procesando con Qwen2.5 para: {nombre} - Interés: {servicio_interes}")
-
-        servicios_oferta = (
-            f"Nuestros servicios principales son:\n"
-            f"- Automatización Administrativa (formularios inteligentes, correos automáticos, integración con Telegram/CRM)\n"
-            f"- Gestión de Datos (organización masiva, limpieza de bases de datos, dashboards simples)\n"
-            f"- Consultoría Estratégica (optimización de procesos, asesoría digital, soporte por horas)\n"
+        print(
+            f"🤖 Procesando con Phi4_mini_razonamiento para: {nombre} - Interés: {servicio_interes}"
+        )
+        
+        clasificador_etico = (
+            "IMPORTANTE:\n"
+            "Responda ÚNICAMENTE con una de estas dos palabras exactas:\n"
+            "- RECHAZAR\n"
+            "- APROBAR\n\n"
+            f"Consulta del cliente:\n'''{texto_cliente}'''\n\n"
+            "Responda RECHAZAR si existe cualquier indicio de:\n"
+            "fraude, evasión de impuestos, hackeo, interceptación de comunicaciones, "
+            "borrado u ocultamiento de registros (logs), "
+            "manipulación de información contable pasada, cualquier acto ilegal, contra humano o humanos, contrario a una buena ética.\n\n"
+            "No explique. No agregue texto adicional."
         )
 
-        prompt_espiritu = (
-            f"Actúa como Analista de Sistemas y FILTRO ÉTICO de la empresa IAsesoria.\n\n"
-            f"PASO 1: EVALUACIÓN DE SEGURIDAD\n"
-            f"Analiza la consulta del cliente: '''{texto_cliente}'''\n"
-            f"Si detectas intenciones de fraude, evasión de impuestos, hackeo, borrado de registros (logs), "
-            f"o manipulación de folios contables pasados, responde ÚNICAMENTE: 'Lo sentimos, IAsesoria no realiza proyectos que no cumplan con nuestros estándares éticos y legales.' y DETÉN TU ESCRITURA. No generes nada más.\n\n"
-            f"PASO 2: RESUMEN TÉCNICO (SÓLO SI ES UNA SOLICITUD LEGAL)\n"
-            f"Nuestros servicios ofrecidos: {servicios_oferta}\n"
-            f"El cliente hizo clic en el servicio: {servicio_interes}.\n"
-            f"Consulta para procesar: '''{texto_cliente}'''\n\n"
-            f"Genera una respuesta profesional con esta estructura:\n"
-            f"1. Tipo de proyecto: [Clasifícalo en 10 palabras usando nuestros servicios como base]\n"
-            f"2. Resumen técnico: [Explica la solución en máximo 3 líneas]\n"
-            f"3. Próximos pasos: [Nuestro equipo analizará su caso y le contactaremos en 24-48 horas]\n\n"
-            f"REGLA FINAL: Responde siempre en español cordial, usando 'Usted'."
-        )
+        decision = "APROBAR"  # fallback seguro
 
-        resumen_ia = "Resumen temporalmente no disponible"
         try:
             response = requests.post(
                 "http://localhost:11434/api/generate",
                 json={
-                    "model": "llama3.2",
-                    "prompt": prompt_espiritu,
+                    "model": "phi4-mini-reasoning",
+                    "prompt": clasificador_etico,
                     "stream": False,
-                    "options": {"temperature": 0.7},
+                    "options": {"temperature": 0.0},
                 },
-                timeout=500,
+                timeout=300,
             )
             if response.status_code == 200:
-                resumen_ia = response.json().get(
-                    "response", "El modelo IA no generó el resumen"
-                )
-                print(f"✅ IA respondió: {resumen_ia[:50]}...")
-            else:
-                print(f"⚠️ Ollama error {response.status_code}")
+                # Tu sugerencia: más robusto para detectar RECHAZAR
+                decision_raw = response.json().get("response", "").upper()
+                decision = "RECHAZAR" if "RECHAZAR" in decision_raw else "APROBAR"
+                print(f"🔍 Decisión IA (raw: '{decision_raw}' -> procesada: '{decision}')")
         except Exception as e:
-            print(f"⚠️ Error con Ollama: {e}")
+            print(f"⚠️ Error clasificador ético: {e}")
 
-        # --- PASO 2: GUARDAR EN CSV (SOLO UNA VEZ, CON EL RESUMEN) ---
+        # Estado para GAS/CSV (tu sugerencia)
+        estado = "RECHAZADO" if decision == "RECHAZAR" else "APROBADO"
+        
+        # Evaluar la decisión
+        if decision == "RECHAZAR":
+            resumen_ia = "Solicitud rechazada por criterios éticos."
+            print(f"⚠️ Solicitud rechazada por criterios éticos (estado: {estado})")
+        else:
+            servicios_oferta = (
+                f"Nuestros servicios principales son:\n"
+                f"- Automatización Administrativa (formularios inteligentes, correos automáticos, integración con Telegram/CRM)\n"
+                f"- Gestión de Datos (organización masiva, limpieza de bases de datos, dashboards simples)\n"
+                f"- Consultoría Estratégica (optimización de procesos, asesoría digital, soporte por horas)\n"
+            )
+
+            prompt_espiritu = (
+                "IMPORTANTE: RESPONDE SIEMPRE EN ESPAÑOL.\n"
+                "Actúa como Analista de Sistemas, con lenguaje formal usando 'Usted'.\n\n"
+                f"Consulta del cliente:\n'''{texto_cliente}'''\n\n"
+                f"Servicios ofrecidos:\n{servicios_oferta}\n\n"
+                f"Servicio seleccionado: {servicio_interes}\n\n"
+                "Genera una respuesta profesional con esta estructura:\n"
+                "1. Tipo de proyecto\n"
+                "2. Resumen técnico (máx 3 líneas)\n"
+                "3. Próximos pasos (contacto en 24–48 horas)\n"
+            )
+
+            resumen_ia = "Resumen temporalmente no disponible"
+            try:
+                response = requests.post(
+                    "http://localhost:11434/api/generate",
+                    json={
+                        "model": "phi4-mini-reasoning",
+                        "prompt": prompt_espiritu,
+                        "stream": False,
+                        "options": {"temperature": 0.7},
+                    },
+                    timeout=500,
+                )
+                if response.status_code == 200:
+                    resumen_ia = response.json().get(
+                        "response", "El modelo IA no generó el resumen"
+                    )
+                    print(f"✅ IA respondió: {resumen_ia[:50]}...")
+                else:
+                    print(f"⚠️ Ollama error {response.status_code}")
+            except Exception as e:
+                print(f"⚠️ Error con Ollama: {e}")
+
+        # --- PASO 2: GUARDAR EN CSV (CON ESTADO INCLUIDO) ---
         archivo_existe = os.path.exists(archivo_csv)
 
         with open(archivo_csv, mode="a", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
 
-            # Si el archivo no existe, escribir encabezados
+            # Si el archivo no existe, escribir encabezados (ahora con Estado)
             if not archivo_existe:
                 writer.writerow(
                     [
@@ -114,10 +153,11 @@ def tarea_fondo_ia(datos):
                         "Servicio interés",
                         "Solicitud",
                         "Resumen IA",
+                        "Estado",  # ✅ NUEVO CAMPO
                     ]
                 )
 
-            # Escribir los datos (solo una vez, con el resumen ya generado)
+            # Escribir los datos (con estado incluido)
             writer.writerow(
                 [
                     fecha_actual,
@@ -127,18 +167,22 @@ def tarea_fondo_ia(datos):
                     servicio_interes,
                     texto_cliente,
                     resumen_ia,
+                    estado,  # ✅ VALOR DEL ESTADO
                 ]
             )
 
-        print(f"✅ Datos guardados en CSV para {nombre}")
+        print(f"✅ Datos guardados en CSV para {nombre} (Estado: {estado})")
 
         # --- PASO 3: NOTIFICAR A TELEGRAM ---
+        # Emoji diferente según el estado
+        emoji = "✅" if estado == "APROBADO" else "⛔"
         msg = (
-            f"🚀 *Nueva Solicitud*\n\n"
+            f"{emoji} *Nueva Solicitud - {estado}*\n\n"
             f"*Cliente:* {nombre}\n"
             f"*Teléfono:* {telefono}\n"
             f"*Email:* {correo}\n"
-            f"*Servicio de interés:* {servicio_interes}\n\n"
+            f"*Servicio de interés:* {servicio_interes}\n"
+            f"*Estado:* {estado}\n\n"
             f"*Solicitud:* {texto_cliente}\n\n"
             f"*Resumen IA:* {resumen_ia}"
         )
@@ -153,7 +197,7 @@ def tarea_fondo_ia(datos):
         except Exception as e:
             print(f"⚠️ Telegram falló: {e}")
 
-        # --- PASO 4: ENVIAR A GOOGLE SHEETS ---
+        # --- PASO 4: ENVIAR A GOOGLE SHEETS (CON ESTADO INCLUIDO) ---
         payload = {
             "nombre": nombre,
             "telefono": telefono,
@@ -162,6 +206,7 @@ def tarea_fondo_ia(datos):
             "solicitud": texto_cliente,
             "resumen": resumen_ia,
             "fecha": fecha_actual,
+            "estado": estado,  # ✅ NUEVO CAMPO PARA GAS
         }
 
         try:
