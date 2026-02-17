@@ -5456,3 +5456,17 @@ input[type="tel"]::placeholder {
     color: rgba(255, 255, 255, 0.10);
 }
 
+
+textarea {
+    /* 1. Evita que se pueda cambiar el tamaño manualmente */
+    resize: none;
+
+    /* 2. (Opcional) Asegura una altura fija para que siempre se vea igual */
+    height: 150px !important; 
+
+    /* 3. Asegura que ocupe todo el ancho de su columna */
+    width: 100% !important;
+
+    /* 4. Permite scroll interno si el texto es muy largo */
+    overflow: auto;
+}
