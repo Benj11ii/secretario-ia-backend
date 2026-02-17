@@ -109,15 +109,16 @@ def tarea_fondo_ia(datos):
             )
 
             prompt_espiritu = (
-                "IMPORTANTE: RESPONDE SIEMPRE EN ESPAÑOL.\n"
+                "IMPORTANTE: RESPONDE SIEMPRE EN ESPAÑOL, DE FORMA ACOTADA Y PROFESIONAL.\n"
                 "Actúa como Analista de Sistemas, con lenguaje formal usando 'Usted'.\n\n"
                 f"Consulta del cliente:\n'''{texto_cliente}'''\n\n"
                 f"Servicios ofrecidos:\n{servicios_oferta}\n\n"
                 f"Servicio seleccionado: {servicio_interes}\n\n"
-                "Genera una respuesta profesional con esta estructura:\n"
-                "1. Tipo de proyecto\n"
+                "Genera una respuesta profesional con esta estructura exacta:\n"
+                "1. Tipo de proyecto:[máx 5 palabras]\n"
                 "2. Resumen técnico (máx 3 líneas)\n"
                 "3. Próximos pasos (contacto en 24–48 horas)\n"
+                f"Cliente: {texto_cliente}"
             )
 
             resumen_ia = "Resumen temporalmente no disponible"
