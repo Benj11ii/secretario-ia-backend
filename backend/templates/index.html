@@ -144,43 +144,48 @@
 
 
 
-<script>
-// Script de depuración - MUY IMPORTANTE
-document.addEventListener('DOMContentLoaded', function() {
-    console.log("=== DIAGNÓSTICO DE ANCLAS ===");
-    console.log("URL actual:", window.location.href);
-    console.log("Hash:", window.location.hash);
-    console.log("Search params:", window.location.search);
-    
-    const urlParams = new URLSearchParams(window.location.search);
-    const servicio = urlParams.get('servicio');
-    console.log("Servicio detectado:", servicio);
-    
-    // Verificar si existe el elemento #five
-    const elementoFive = document.querySelector('#five');
-    console.log("¿Existe elemento #five?", elementoFive ? "SÍ" : "NO");
-    
-    if (elementoFive) {
-        console.log("Posición de #five:", elementoFive.offsetTop);
-    }
-    
-    // Verificar si el script de scroll se está ejecutando
-    if (window.location.hash === '#five') {
-        console.log("⚠️ Hash #five detectado - debería hacer scroll");
-        
-        // Intentar scroll inmediato
-        setTimeout(function() {
-            const elemento = document.querySelector('#five');
-            if (elemento) {
-                elemento.scrollIntoView({ behavior: 'smooth' });
-                console.log("✅ Scroll ejecutado");
-            } else {
-                console.log("❌ Elemento #five no encontrado");
-            }
-        }, 500);
-    }
-});
-</script>
+
+	<script>
+		// Script para manejar redirección con parámetros y scroll
+		$(window).on('load', function () {
+			// 1. Capturar parámetros de la URL (servicio)
+			const urlParams = new URLSearchParams(window.location.search);
+			const servicio = urlParams.get('servicio');
+
+			if (servicio) {
+				// Asignar valor al input oculto
+				$('#servicio_interes').val(servicio);
+
+				// Cambiar placeholder según el servicio
+				const mensajes = {
+					'automatizacion': 'Cuéntame qué procesos administrativos quieres automatizar...',
+					'gestion-datos': 'Cuéntame qué datos necesitas organizar o limpiar...',
+					'consultoria': 'Cuéntame en qué área necesitas asesoría...',
+					'consulta-rapida': 'Cuéntanos tu duda sin compromiso...'
+				};
+
+				if (mensajes[servicio]) {
+					$('textarea[name="texto_original"]').attr('placeholder', mensajes[servicio]);
+				}
+			}
+
+			// 2. Manejar el Scroll suave hacia el ancla #five
+			// Verificamos si hay un hash en la URL (#five)
+			if (window.location.hash === '#five') {
+				console.log("Desplazando hacia contacto...");
+
+				// Pequeño timeout para permitir que la plantilla termine de cargar estilos
+				setTimeout(function () {
+					var $target = $('#five');
+					if ($target.length) {
+						$('html, body').animate({
+							scrollTop: $target.offset().top
+						}, 1000, 'swing'); // 1000ms de duración para el scroll suave
+					}
+				}, 500); // Espera medio segundo después de cargar todo
+			}
+		});
+	</script>
 	<!-- Script simple para capturar el servicio -->
 	<script>
 		// Detectar si venimos con un servicio específico
