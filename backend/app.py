@@ -114,15 +114,10 @@ def tarea_fondo_ia(datos):
                 f"EL CLIENTE SOLICITA: {texto_cliente}\n"
                 f"ÁREA DE INTERÉS: {servicio_interes}\n\n"
                 "INSTRUCCIONES:\n"
-                "Genera una respuesta con ESTA ESTRUCTURA EXACTA (4 puntos numerados):\n\n"
+                "Genera una respuesta con ESTA ESTRUCTURA EXACTA (3 puntos numerados):\n\n"
                 "1. Entendemos su necesidad: [En 1-2 líneas, parafrasea lo que el cliente quiere lograr, mostrando comprensión]\n\n"
                 "2. Propuesta personalizada: [Describe 2-3 ideas concretas de cómo podríamos abordar su proyecto, mencionando tecnologías o enfoques. Usa frases como 'Podríamos implementar...', 'Una opción sería...', 'Podemos explorar...' - sin comprometer que YA se hará]\n\n"
                 "3. Beneficios esperados: [Menciona 2 beneficios clave que podría obtener con esta automatización]\n\n"
-                "REGLAS:\n"
-                "- NO uses lenguaje que comprometa que YA se hará (evita 'implementaremos', 'desarrollaremos')\n"
-                "- Usa lenguaje sugerente: 'podríamos', 'sería posible', 'una alternativa sería'\n"
-                "- NO agregues saludos, nombre del cliente, ni texto adicional fuera de los 3 puntos\n"
-                "- Sé específico pero mantén el tono de consultoría, no de venta agresiva"
                 "IMPORTANTE: Tu respuesta debe comenzar DIRECTAMENTE con '1. Entendemos su necesidad:' sin ningún texto antes."
             )
 
