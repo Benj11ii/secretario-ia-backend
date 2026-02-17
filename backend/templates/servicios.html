@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +7,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/servicios.css') }}">
 </head>
-
 <body class="is-preload">
     <div id="page-wrapper">
         <header id="header">
@@ -34,6 +32,7 @@
         </section>
 
         <main class="contenedor-planes">
+            <!-- Tarjeta 1 -->
             <div class="tarjeta-plan">
                 <h2>Gestión y Orden de Datos</h2>
                 <p>Transforma tus datos en información con valor y accionable.</p>
@@ -47,7 +46,7 @@
                 <a href="/#five?servicio=gestion-datos" class="btn-cotizar">Consultar disponibilidad</a>
             </div>
 
-
+            <!-- Tarjeta 2 -->
             <div class="tarjeta-plan">
                 <h2>Automatización Administrativa</h2>
                 <p>Asiste a tu negocio con la IA, liberáte de tareas repetitivas.</p>
@@ -61,6 +60,7 @@
                 <a href="/#five?servicio=automatizacion" class="btn-cotizar">Consultar disponibilidad</a>
             </div>
 
+            <!-- Tarjeta 3 -->
             <div class="tarjeta-plan">
                 <h2>Consultoría Estratégica</h2>
                 <p>Asesoría personalizada para digitalizar tu negocio.</p>
@@ -74,36 +74,25 @@
                 <a href="/#five?servicio=consultoria" class="btn-cotizar">Consultar disponibilidad</a>
             </div>
 
+            <!-- Tarjeta 4 - Confianza -->
             <div class="tarjeta-plan tarjeta-confianza">
                 <h2>¿Primera vez con IA?</h2>
                 <p style="color: #f3a022; font-size: 1.2em;">Conversemos sin compromiso</p>
-
-                <p>Nuestra IA te responderá en <strong>minutos</strong> por correo.
-                    Descubre cómo mejorar la experiencia de tus clientes.</p>
-
+                <p>Nuestra IA te responderá en <strong>minutos</strong> por correo. Descubre cómo mejorar la experiencia de tus clientes.</p>
                 <ul class="lista-servicios" style="margin: 20px 0;">
                     <li>✨ Respuesta en menos de 15 minutos</li>
                     <li>🔐 Solo necesitas tu email</li>
                     <li>🤝 Orientación sin presiones</li>
                 </ul>
-
-                <a href="/#five?servicio=consulta-rapida" class="btn-confianza">
-                    Consulta inteligente
-                </a>
+                <a href="/#five?servicio=consulta-rapida" class="btn-confianza">Consulta inteligente</a>
             </div>
-
-
         </main>
 
         <footer id="footer">
             <ul class="icons">
-                <li><a href="https://www.linkedin.com/in/benjamin-carmona-69aa44223"
-                        class="icon brands alt fa-linkedin-in" target="_blank"><span class="label">LinkedIn</span></a>
-                </li>
-                <li><a href="https://github.com/Benj11ii" class="icon brands alt fa-github" target="_blank"><span
-                            class="label">GitHub</span></a></li>
-                <li><a href="mailto:iasesoriainformatica@gmail.com" class="icon solid alt fa-envelope"><span
-                            class="label">Email</span></a></li>
+                <li><a href="https://www.linkedin.com/in/benjamin-carmona-69aa44223" class="icon brands alt fa-linkedin-in" target="_blank"><span class="label">LinkedIn</span></a></li>
+                <li><a href="https://github.com/Benj11ii" class="icon brands alt fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+                <li><a href="mailto:iasesoriainformatica@gmail.com" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
             </ul>
             <ul class="copyright">
                 <li>&copy; IAsesoria Informática. Todos los derechos reservados.</li>
@@ -112,8 +101,7 @@
         </footer>
 
         <!-- Botón WhatsApp flotante -->
-        <a href="https://wa.me/56938763560?text=Hola%20Benjamín,%20vi%20tu%20página%20y%20me%20gustaría%20consultar%20sobre..."
-            class="whatsapp-float" target="_blank">
+        <a href="https://wa.me/56938763560?text=Hola%20Benjamín,%20vi%20tu%20página%20y%20me%20gustaría%20consultar%20sobre..." class="whatsapp-float" target="_blank">
             <div class="outer-circle">
                 <div class="inner-circle">
                     <i class="fab fa-whatsapp"></i>
@@ -132,5 +120,4 @@
     <script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </body>
-
 </html>
