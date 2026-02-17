@@ -88,7 +88,8 @@
 							<input type="email" name="correo" placeholder="Email" required />
 						</div>
 						<div class="col-12">
-							<input type="text" name="telefono" placeholder="Teléfono" required />
+							<input type="tel" name="telefono" placeholder="Ej: 912345678" pattern="[0-9]{9,12}"
+								title="Ingresa 9 dígitos (ej: 912345678)" required />
 						</div>
 						<div class="col-12">
 							<textarea name="texto_original"
@@ -142,64 +143,64 @@
 	<script src="assets/js/main.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-<!-- Script Unificado y Corregido para IAsesoria -->
-<script>
-    (function($) {
-        // Ejecutar cuando toda la ventana esté cargada (imágenes incluidas)
-        $(window).on('load', function() {
-            
-            // 1. LÓGICA DE PARÁMETROS (Rellenar formulario)
-            const urlParams = new URLSearchParams(window.location.search);
-            const servicio = urlParams.get('servicio');
+	<!-- Script Unificado y Corregido para IAsesoria -->
+	<script>
+		(function ($) {
+			// Ejecutar cuando toda la ventana esté cargada (imágenes incluidas)
+			$(window).on('load', function () {
 
-            if (servicio) {
-                console.log("Servicio detectado:", servicio);
-                
-                // Asignar valor al input oculto
-                $('#servicio_interes').val(servicio);
+				// 1. LÓGICA DE PARÁMETROS (Rellenar formulario)
+				const urlParams = new URLSearchParams(window.location.search);
+				const servicio = urlParams.get('servicio');
 
-                // Diccionario de mensajes
-                const mensajes = {
-                    'gestion-datos': 'Cuéntame qué datos necesitas organizar o limpiar...',
-                    'automatizacion': 'Cuéntame qué procesos administrativos quieres automatizar...',
-                    'consultoria': 'Cuéntame en qué área necesitas asesoría...',
-                    'consulta-rapida': 'Cuéntanos tu duda sin compromiso...'
-                };
+				if (servicio) {
+					console.log("Servicio detectado:", servicio);
 
-                // Cambiar el placeholder si existe coincidencia
-                if (mensajes[servicio]) {
-                    $('textarea[name="texto_original"]').attr('placeholder', mensajes[servicio]);
-                }
-            }
+					// Asignar valor al input oculto
+					$('#servicio_interes').val(servicio);
 
-            // 2. LÓGICA DE SCROLL (Retrasada para evitar conflicto con animación de carga)
-            if (window.location.hash === '#five') {
-                console.log("Hash #five detectado. Preparando scroll...");
+					// Diccionario de mensajes
+					const mensajes = {
+						'gestion-datos': 'Cuéntame qué datos necesitas organizar o limpiar...',
+						'automatizacion': 'Cuéntame qué procesos administrativos quieres automatizar...',
+						'consultoria': 'Cuéntame en qué área necesitas asesoría...',
+						'consulta-rapida': 'Cuéntanos tu duda sin compromiso...'
+					};
 
-                // IMPORTANTE: El timeout da tiempo a que la clase 'is-preload' desaparezca
-                setTimeout(function() {
-                    var $target = $('#five');
-                    
-                    if ($target.length) {
-                        // Eliminar la clase 'is-preload' manualmente por seguridad si aún existe
-                        $('body').removeClass('is-preload');
+					// Cambiar el placeholder si existe coincidencia
+					if (mensajes[servicio]) {
+						$('textarea[name="texto_original"]').attr('placeholder', mensajes[servicio]);
+					}
+				}
 
-                        // Calcular la posición exacta
-                        var targetTop = $target.offset().top;
+				// 2. LÓGICA DE SCROLL (Retrasada para evitar conflicto con animación de carga)
+				if (window.location.hash === '#five') {
+					console.log("Hash #five detectado. Preparando scroll...");
 
-                        // Ejecutar animación de scroll
-                        $('html, body').stop().animate({
-                            scrollTop: targetTop
-                        }, 1500, 'swing', function() {
-                            console.log("Scroll completado");
-                        });
-                    }
-                }, 700); // 700ms de espera para saltar la animación de entrada
-            }
-        });
+					// IMPORTANTE: El timeout da tiempo a que la clase 'is-preload' desaparezca
+					setTimeout(function () {
+						var $target = $('#five');
 
-    })(jQuery);
-</script>
+						if ($target.length) {
+							// Eliminar la clase 'is-preload' manualmente por seguridad si aún existe
+							$('body').removeClass('is-preload');
+
+							// Calcular la posición exacta
+							var targetTop = $target.offset().top;
+
+							// Ejecutar animación de scroll
+							$('html, body').stop().animate({
+								scrollTop: targetTop
+							}, 1500, 'swing', function () {
+								console.log("Scroll completado");
+							});
+						}
+					}, 700); // 700ms de espera para saltar la animación de entrada
+				}
+			});
+
+		})(jQuery);
+	</script>
 
 </body>
 
