@@ -92,17 +92,19 @@
 		<!-- Header (igual que tu index) -->
 		<header id="header">
 			<h1 id="logo">
-				<a href="/">
-					<img src="images/logoprincipal.jpeg" alt=""
+				<!-- Usa url_for para el inicio -->
+				<a href="{{ url_for('index') }}">
+					<img src="{{ url_for('static', filename='images/logoprincipal.jpeg') }}" alt=""
 						style="height: 40px; vertical-align: middle; margin-right: 10px;">
 					IAsesoria
 				</a>
 			</h1>
 			<nav id="nav">
 				<ul>
-					<li><a href="/">Inicio</a></li>
-					<li><a href="/#one">Servicios</a></li>
-					<li><a href="/#five" class="button primary">Contacto</a></li>
+					<!-- Enlaces corregidos para volver al inicio y bajar a la sección -->
+					<li><a href="{{ url_for('index') }}">Inicio</a></li>
+					<li><a href="{{ url_for('index') }}#one">Servicios</a></li>
+					<li><a href="{{ url_for('index') }}#five" class="button primary">Contacto</a></li>
 				</ul>
 			</nav>
 		</header>
@@ -124,7 +126,7 @@
 					<p>✅ Un asesor se pondrá en contacto contigo</p>
 				</div>
 
-				<a href="index.html" class="thank-you-button">Volver al inicio</a>
+				<a href="{{ url_for('index') }}" class="thank-you-button">Volver al inicio</a>
 
 				<div class="thank-you-footer">
 					<p>⚡ Servicio humano potenciado con IA ⚡</p>
