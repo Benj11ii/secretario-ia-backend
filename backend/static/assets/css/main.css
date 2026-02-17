@@ -5470,3 +5470,27 @@ textarea {
     /* 4. Permite scroll interno si el texto es muy largo */
     overflow: auto;
 }
+
+/* Ajuste para que el boton de gracias  tenga el mismo estilo que los demas */
+
+
+.thank-you-button {
+    background-color: #f3a022;
+    color: #1a1a21 !important;
+    text-decoration: none;
+    padding: 15px 30px;  /* Un poco más de padding horizontal */
+    text-align: center;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1em;
+}
+
+.thank-you-button:hover,
+.button.primary:hover {
+    background-color: #231500;
+    color: #ffffff !important;  /* Texto blanco al hacer hover para mejor contraste */
+}
