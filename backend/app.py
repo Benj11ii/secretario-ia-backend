@@ -50,7 +50,7 @@ def tarea_fondo_ia(datos):
     try:
         # --- PASO 1: LÓGICA DE IA ---
         print(
-            f"🤖 Procesando con Gemma2_2b para: {nombre} - Interés: {servicio_interes}"
+            f"🤖 Procesando con Gemma3_4b para: {nombre} - Interés: {servicio_interes}"
         )
 
         clasificador_etico = (
@@ -76,7 +76,7 @@ def tarea_fondo_ia(datos):
             response = requests.post(
                 "http://localhost:11434/api/generate",
                 json={
-                    "model": "gemma2:2b",
+                    "model": "gemma3:4b",
                     "prompt": clasificador_etico,
                     "stream": False,
                     "options": {"temperature": 0.0},
@@ -126,7 +126,7 @@ def tarea_fondo_ia(datos):
                 response = requests.post(
                     "http://localhost:11434/api/generate",
                     json={
-                        "model": "gemma2:2b",
+                        "model": "gemma3:4b",
                         "prompt": prompt_espiritu,
                         "stream": False,
                         "options": {"temperature": 0.7},
