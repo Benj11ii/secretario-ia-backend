@@ -67,7 +67,7 @@ def tarea_fondo_ia(datos):
             "✅ Gestiona información de SUS CLIENTES (con consentimiento)\n"
             "✅ Crea sistemas para su uso personal/empresarial legítimo\n\n"
             f"Solicitud: {texto_cliente}\n\n"
-            "IMPORTANTE: Si hay DUDA, responde RECHAZAR. Si menciona 'scraping', 'recolectar', 'extraer' de terceros → RECHAZAR."
+            "IMPORTANTE: Si hay DUDA, responde RECHAZAR. Si menciona 'scraping', 'recolectar datos de competencia', 'extraer' de terceros → RECHAZAR."
         )
 
         decision = "APROBAR"  # fallback seguro
