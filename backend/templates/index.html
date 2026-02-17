@@ -81,21 +81,26 @@
 				<form method="POST" action="/secretario/guardar" class="cta">
 					<input type="hidden" name="servicio_interes" id="servicio_interes" value="">
 					<div class="row gtr-50 gtr-uniform">
+						<!-- Fila 1: Nombre y Teléfono (Cortos) -->
 						<div class="col-6 col-12-xsmall">
 							<input type="text" name="nombre" placeholder="Nombre" required />
 						</div>
 						<div class="col-6 col-12-xsmall">
+							<input type="tel" name="telefono" placeholder="Ej: 912345678" pattern="[0-9]{9,12}"
+								required />
+						</div>
+
+						<!-- Fila 2: Email (Largo) -->
+						<div class="col-12">
 							<input type="email" name="correo" placeholder="Email" required />
 						</div>
+
+						<!-- Fila 3: Mensaje -->
 						<div class="col-12">
-							<input type="tel" name="telefono" placeholder="Ej: 912345678" pattern="[0-9]{9,12}"
-								title="Ingresa 9 dígitos (ej: 912345678)" required />
-						</div>
-						<div class="col-12">
-							<textarea name="texto_original"
-								placeholder="Describe brevemente qué proceso te gustaría automatizar..." rows="4"
+							<textarea name="texto_original" placeholder="Describe tu proceso..." rows="4"
 								required></textarea>
 						</div>
+
 						<div class="col-12">
 							<ul class="actions special">
 								<li><button type="submit" class="btn-cotizar">Enviar Solicitud</button></li>
