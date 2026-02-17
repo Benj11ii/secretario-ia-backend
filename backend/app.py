@@ -126,7 +126,7 @@ def tarea_fondo_ia(datos):
                 response = requests.post(
                     "http://localhost:11434/api/generate",
                     json={
-                        "model": "phi4-mini-reasoning",
+                        "model": "gemma2:2b",
                         "prompt": prompt_espiritu,
                         "stream": False,
                         "options": {"temperature": 0.7},
