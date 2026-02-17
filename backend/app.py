@@ -52,18 +52,22 @@ def tarea_fondo_ia(datos):
         print(
             f"🤖 Procesando con Gemma2_2b para: {nombre} - Interés: {servicio_interes}"
         )
-        
+
         clasificador_etico = (
-            "IMPORTANTE:\n"
-            "Responda ÚNICAMENTE con una de estas dos palabras exactas:\n"
-            "- RECHAZAR\n"
-            "- APROBAR\n\n"
-            f"Consulta del cliente:\n'''{texto_cliente}'''\n\n"
-            "Responda RECHAZAR si existe cualquier indicio de:\n"
-            "fraude, evasión de impuestos, hackeo, interceptación de comunicaciones, "
-            "borrado u ocultamiento de registros (logs), "
-            "manipulación de información contable pasada, cualquier acto ilegal, contra humano o humanos, contrario a una buena ética.\n\n"
-            "No explique. No agregue texto adicional."
+            "Eres un asistente ético que clasifica solicitudes de clientes.\n\n"
+            "Debes responder ÚNICAMENTE con una palabra: APROBAR o RECHAZAR.\n\n"
+            "RECHAZAR solo si la solicitud EXPLÍCITAMENTE pide:\n"
+            "- Actividades ilegales (hackear, interceptar comunicaciones, robar datos)\n"
+            "- Fraude o evasión de impuestos\n"
+            "- Dañar a terceros intencionalmente\n"
+            "- Violar privacidad de personas sin su consentimiento\n\n"
+            "APROBAR en todos los demás casos, incluyendo:\n"
+            "- Automatización de marketing (mensajes, emails, recordatorios)\n"
+            "- Gestión de clientes y ventas\n"
+            "- Organización de datos y reportes\n"
+            "- Cualquier proyecto legítimo de negocio\n\n"
+            f"Solicitud: {texto_cliente}\n\n"
+            "Respuesta (solo APROBAR o RECHAZAR):"
         )
 
         decision = "APROBAR"  # fallback seguro
@@ -83,13 +87,15 @@ def tarea_fondo_ia(datos):
                 # Tu sugerencia: más robusto para detectar RECHAZAR
                 decision_raw = response.json().get("response", "").upper()
                 decision = "RECHAZAR" if "RECHAZAR" in decision_raw else "APROBAR"
-                print(f"🔍 Decisión IA (raw: '{decision_raw}' -> procesada: '{decision}')")
+                print(
+                    f"🔍 Decisión IA (raw: '{decision_raw}' -> procesada: '{decision}')"
+                )
         except Exception as e:
             print(f"⚠️ Error clasificador ético: {e}")
 
         # Estado para GAS/CSV (tu sugerencia)
         estado = "RECHAZADO" if decision == "RECHAZAR" else "APROBADO"
-        
+
         # Evaluar la decisión
         if decision == "RECHAZAR":
             resumen_ia = "Solicitud rechazada por criterios éticos."
