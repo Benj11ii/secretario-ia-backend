@@ -50,7 +50,7 @@ def tarea_fondo_ia(datos):
     try:
         # --- PASO 1: LÓGICA DE IA ---
         print(
-            f"🤖 Procesando con Phi4_mini_razonamiento para: {nombre} - Interés: {servicio_interes}"
+            f"🤖 Procesando con Gemma2_2b para: {nombre} - Interés: {servicio_interes}"
         )
         
         clasificador_etico = (
@@ -72,7 +72,7 @@ def tarea_fondo_ia(datos):
             response = requests.post(
                 "http://localhost:11434/api/generate",
                 json={
-                    "model": "phi4-mini-reasoning",
+                    "model": "gemma2:2b",
                     "prompt": clasificador_etico,
                     "stream": False,
                     "options": {"temperature": 0.0},
