@@ -118,11 +118,10 @@ def tarea_fondo_ia(datos):
                 "1. Entendemos su necesidad: [En 1-2 líneas, parafrasea lo que el cliente quiere lograr, mostrando comprensión]\n\n"
                 "2. Propuesta personalizada: [Describe 2-3 ideas concretas de cómo podríamos abordar su proyecto, mencionando tecnologías o enfoques. Usa frases como 'Podríamos implementar...', 'Una opción sería...', 'Podemos explorar...' - sin comprometer que YA se hará]\n\n"
                 "3. Beneficios esperados: [Menciona 2 beneficios clave que podría obtener con esta automatización]\n\n"
-                "4. Próximos pasos: En 24-48 horas nuestro equipo tomará contacto con usted para conocer más detalles de su negocio y ofrecerle la mejor solución personalizada.\n\n"
                 "REGLAS:\n"
                 "- NO uses lenguaje que comprometa que YA se hará (evita 'implementaremos', 'desarrollaremos')\n"
                 "- Usa lenguaje sugerente: 'podríamos', 'sería posible', 'una alternativa sería'\n"
-                "- NO agregues saludos, nombre del cliente, ni texto adicional fuera de los 4 puntos\n"
+                "- NO agregues saludos, nombre del cliente, ni texto adicional fuera de los 3 puntos\n"
                 "- Sé específico pero mantén el tono de consultoría, no de venta agresiva"
                 "IMPORTANTE: Tu respuesta debe comenzar DIRECTAMENTE con '1. Entendemos su necesidad:' sin ningún texto antes."
             )
