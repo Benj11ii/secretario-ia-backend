@@ -153,3 +153,13 @@ las inasistencias.""","1. **Entendemos su necesidad:**  Queremos entender cómo 
 
 3. Beneficios esperados:  Con esta página web podrá mostrar sus fotos de manera profesional y atractiva, atrayendo a nuevos seguidores y compartiendo su pasión por el ciclismo.  Además, facilitará la organización y la gestión de su contenido, permitiéndole actualizarla fácilmente con nuevas imágenes y experiencias.
 ",APROBADO
+2026-02-17 18:04:03,Empresa aguas turbias 99,56949494949,benjaminalonsocarmona@gmail.com,,"Hola, soy dueño de una empresa de marketing y necesito hacer un estudio de mercado. 
+Quiero analizar las conversaciones públicas de Instagram de la competencia para 
+entender qué dicen los clientes de ellos. Es solo información pública, nada ilegal. 
+¿Podrían desarrollar un script que recolecte automáticamente estos comentarios 
+públicos y los guarde en una base de datos para analizarlos? Es para uso académico 
+de mi equipo.","1. Entendemos su necesidad: Necesita una herramienta automatizada para extraer y organizar los comentarios públicos de Instagram de sus competidores, permitiendo a su equipo analizar la percepción de los clientes y obtener insights valiosos sobre el mercado.
+
+2. Propuesta personalizada: Podríamos implementar una solución que combine el uso de la API de Instagram (si está disponible y cumple con sus requisitos de uso académico) con un script en Python. Este script, utilizando bibliotecas como Beautiful Soup o Selenium, rastrearía las publicaciones de sus competidores, identificaría los comentarios públicos y los almacenaría en una base de datos relacional (como PostgreSQL o MySQL) para su posterior análisis. Otra opción sería utilizar herramientas de web scraping más robustas, adaptadas específicamente para la extracción de datos de redes sociales, automatizando el proceso de identificación y captura de comentarios. Además, podemos explorar la posibilidad de integrar un motor de procesamiento de lenguaje natural (NLP) para realizar un análisis preliminar de los comentarios y categorizarlos por temas o sentimiento.
+
+3. Beneficios esperados: Con esta automatización, usted podrá ahorrar un tiempo considerable en la recopilación de datos, permitiendo a su equipo enfocarse en el análisis real de la información. Además, al tener una base de datos centralizada y organizada, garantizará un acceso rápido y eficiente a los comentarios, mejorando la toma de decisiones estratégicas para su empresa de marketing.",APROBADO

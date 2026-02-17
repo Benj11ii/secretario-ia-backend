@@ -54,20 +54,20 @@ def tarea_fondo_ia(datos):
         )
 
         clasificador_etico = (
-            "Eres un asistente ético que clasifica solicitudes de clientes.\n\n"
-            "Debes responder ÚNICAMENTE con una palabra: APROBAR o RECHAZAR.\n\n"
-            "RECHAZAR solo si la solicitud EXPLÍCITAMENTE pide:\n"
-            "- Actividades ilegales (hackear, interceptar comunicaciones, robar datos)\n"
-            "- Fraude o evasión de impuestos\n"
-            "- Dañar a terceros intencionalmente\n"
-            "- Violar privacidad de personas sin su consentimiento\n\n"
-            "APROBAR en todos los demás casos, incluyendo:\n"
-            "- Automatización de marketing (mensajes, emails, recordatorios)\n"
-            "- Gestión de clientes y ventas\n"
-            "- Organización de datos y reportes\n"
-            "- Cualquier proyecto legítimo de negocio\n\n"
+            "Eres un asistente ético. Responde SOLO con APROBAR o RECHAZAR.\n\n"
+            "RECHAZAR SI LA SOLICITUD IMPLICA:\n"
+            "1️⃣ Acceder a datos de terceros sin su consentimiento (aunque sean 'públicos')\n"
+            "2️⃣ Web scraping o extracción automática de datos de plataformas (viola términos de servicio)\n"
+            "3️⃣ Monitorear competidores de forma automatizada\n"
+            "4️⃣ Recolectar información de redes sociales (Instagram, Facebook, etc.)\n"
+            "5️⃣ Usar datos de otras personas para beneficio comercial\n\n"
+            "APROBAR SOLO SI:\n"
+            "✅ El cliente trabaja con SUS PROPIOS DATOS\n"
+            "✅ Automatiza procesos INTERNOS de su negocio\n"
+            "✅ Gestiona información de SUS CLIENTES (con consentimiento)\n"
+            "✅ Crea sistemas para su uso personal/empresarial legítimo\n\n"
             f"Solicitud: {texto_cliente}\n\n"
-            "Respuesta (solo APROBAR o RECHAZAR):"
+            "IMPORTANTE: Si hay DUDA, responde RECHAZAR. Si menciona 'scraping', 'recolectar', 'extraer' de terceros → RECHAZAR."
         )
 
         decision = "APROBAR"  # fallback seguro
