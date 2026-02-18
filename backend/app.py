@@ -229,7 +229,6 @@ def tarea_fondo_ia(datos):
 def debug():
     print(request.method, request.path)
 @app.route("/secretario/guardar", methods=["POST"])
-@app.route("/secretario/guardar/", methods=["POST"])
 def guardar_solicitud():
     datos = {}
     if request.is_json:
