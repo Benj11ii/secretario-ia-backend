@@ -5519,3 +5519,31 @@ textarea {
     color: #888;
     display: block; /* Para que quede abajo */
 }
+/* Número del precio */
+.tarjeta-plan .precio strong,
+.tarjeta-plan .precio span.numero {
+    font-size: 1em;           /* Hereda el tamaño de .precio */
+}
+
+/* Texto del IVA (más pequeño) */
+.tarjeta-plan .precio small,
+.tarjeta-plan .iva-aclaracion {
+    display: block;
+    font-size: 0.4em;         /* 40% del tamaño del número */
+    color: rgba(255,255,255,0.7);
+    font-weight: normal;
+    margin-top: 2px;
+    letter-spacing: 0.5px;
+}
+
+/* Ajuste para que ocupe el ancho de la tarjeta */
+.tarjeta-plan {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Efecto hover opcional para darle vida */
+.tarjeta-plan:hover .precio {
+    transform: scale(1.02);
+    transition: transform 0.2s ease;
+}
