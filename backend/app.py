@@ -225,7 +225,9 @@ def tarea_fondo_ia(datos):
     except Exception as e:
         print(f"❌ ERROR CRÍTICO: {str(e)}")
 
-
+@app.before_request
+def debug():
+    print(request.method, request.path)
 @app.route("/secretario/guardar", methods=["POST"])
 @app.route("/secretario/guardar/", methods=["POST"])
 def guardar_solicitud():
