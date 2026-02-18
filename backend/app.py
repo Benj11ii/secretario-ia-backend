@@ -227,6 +227,7 @@ def tarea_fondo_ia(datos):
 
 
 @app.route("/secretario/guardar", methods=["POST"])
+@app.route("/secretario/guardar/", methods=["POST"])
 def guardar_solicitud():
     datos = request.form.to_dict() if request.form else request.get_json()
 
