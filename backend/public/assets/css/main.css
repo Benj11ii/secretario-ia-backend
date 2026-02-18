@@ -5505,3 +5505,17 @@ textarea {
 	color: #ffffff !important;
 	/* Texto blanco al hacer hover para mejor contraste */
 }
+
+/* Agrega esto al final de tu servicios.css */
+.precio {
+    font-size: 0.9em; /* Reduce el tamaño general */
+}
+.numero-grande {
+    font-size: 1.2em; /* Si quieres que el número destaque pero no tanto */
+    font-weight: bold;
+}
+.iva-aclaracion {
+    font-size: 0.7em;
+    color: #888;
+    display: block; /* Para que quede abajo */
+}
