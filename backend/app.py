@@ -3,11 +3,14 @@ import requests
 import csv
 import os
 from dotenv import load_dotenv
-from flask import Flask, render_template, request, jsonify, redirect
+from flask import Flask, render_template, request, jsonify, redirect, url_for
+from werkzeug.middleware.proxy_fix import ProxyFix 
 from flask_cors import CORS
 from datetime import datetime
 
 app = Flask(__name__, static_folder="public/assets", template_folder="public")
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
+GAR
 CORS(app)
 load_dotenv()
 
@@ -81,7 +84,7 @@ def tarea_fondo_ia(datos):
                     "stream": False,
                     "options": {"temperature": 0.0},
                 },
-                timeout=300,
+                timeout=60,
             )
             if response.status_code == 200:
                 # Tu sugerencia: más robusto para detectar RECHAZAR
@@ -131,7 +134,7 @@ def tarea_fondo_ia(datos):
                         "stream": False,
                         "options": {"temperature": 0.7},
                     },
-                    timeout=500,
+                    timeout=80,
                 )
                 if response.status_code == 200:
                     resumen_ia = response.json().get(
