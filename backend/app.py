@@ -10,7 +10,6 @@ from datetime import datetime
 
 app = Flask(__name__, static_folder="public/assets", template_folder="public")
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
-GAR
 CORS(app)
 load_dotenv()
 
