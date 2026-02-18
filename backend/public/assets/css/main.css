@@ -5522,15 +5522,15 @@ textarea {
 /* Número del precio */
 .tarjeta-plan .precio strong,
 .tarjeta-plan .precio span.numero {
-    font-size: 1em;           /* Hereda el tamaño de .precio */
+    font-size: 2.7em;           /* Hereda el tamaño de al precio de servicio para mejor legibilidad */
 }
 
 /* Texto del IVA (más pequeño) */
 .tarjeta-plan .precio small,
 .tarjeta-plan .iva-aclaracion {
     display: block;
-    font-size: 0.4em;         /* 40% del tamaño del número */
-    color: rgba(255,255,255,0.7);
+    font-size: 1.0em;         /* 40% del tamaño del número Ajuste de tamaño al IVA*/
+    color: rgba(255,255,255,0.7); 
     font-weight: normal;
     margin-top: 2px;
     letter-spacing: 0.5px;
