@@ -13,3 +13,20 @@ venv/
 
 # Archivos de datos (opcional)
 backend/*.csv
+
+# Logs
+backend/app.log
+backend/*.log
+*.log
+
+# Archivos de entorno (por si acaso)
+backend/.env
+.env
+
+# Archivos temporales
+*.tmp
+*.swp
+*.swo
+.DS_Store
+__pycache__/
+*.pyc
