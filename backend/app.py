@@ -231,8 +231,11 @@ def debug():
 @app.route("/secretario/guardar", methods=["POST"])
 @app.route("/secretario/guardar/", methods=["POST"])
 def guardar_solicitud():
-    datos = request.form.to_dict() if request.form else request.get_json()
-
+    datos = {}
+    if request.is_json:
+        datos = request.get_json(silent=True) or {}
+    else:
+        datos = request.form.to_dict()
     if not datos:
         return jsonify({"error": "No se recibieron datos"}), 400
 
