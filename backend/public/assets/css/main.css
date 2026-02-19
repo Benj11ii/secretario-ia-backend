@@ -5580,6 +5580,7 @@ textarea {
     color: rgba(255,255,255,0.7);
     margin-left: 0;            /* Pegado al borde izquierdo */
 	letter-spacing: 2.0px;
+	margin-bottom: 8px
 }
 
 /* Precio principal (con sangría) */
