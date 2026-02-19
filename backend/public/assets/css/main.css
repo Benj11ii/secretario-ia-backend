@@ -5533,6 +5533,7 @@ textarea {
     color: rgba(255,255,255,0.7); 
     font-weight: normal;
     margin-top: 2px;
+	margin-left: 180px;         /* Corre 180px a la derecha para que quede alineado con el número */
     letter-spacing: 0.9px;
 }
 
