@@ -5556,7 +5556,7 @@ textarea {
     color: rgba(255, 255, 255, 0.7); /* mismo color que el IVA */
     text-align: left;           /* alineado a la izquierda */
     margin-bottom: 0;
-    line-height: 1.2;
+    line-height: 2.0;
     letter-spacing: 0.5px;      /* opcional, para que combine con el IVA */
 }
 
