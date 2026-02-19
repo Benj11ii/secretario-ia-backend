@@ -5529,7 +5529,7 @@ textarea {
 .tarjeta-plan .precio small,
 .tarjeta-plan .iva-aclaracion {
     display: block;
-    font-size: 1.0em;         /* 40% del tamaño del número Ajuste de tamaño al IVA*/
+    font-size: 0.8em;         /*tamaño del número Ajuste de tamaño al IVA*/
     color: rgba(255,255,255,0.7); 
     font-weight: normal;
     margin-top: 2px;
@@ -5546,4 +5546,21 @@ textarea {
 .tarjeta-plan:hover .precio {
     transform: scale(1.02);
     transition: transform 0.2s ease;
+}
+
+/* Estilo para la palabra "Desde" */
+.tarjeta-plan .precio .desde {
+    display: block;
+    font-size: 1.1em;          /* un poco más grande que el IVA (0.4em) */
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.7); /* mismo color que el IVA */
+    text-align: left;           /* alineado a la izquierda */
+    margin-bottom: 0;
+    line-height: 1.2;
+    letter-spacing: 0.5px;      /* opcional, para que combine con el IVA */
+}
+
+/* Ajuste para que el precio no quede pegado al "Desde" */
+.tarjeta-plan .precio {
+    margin-top: 10px;           /* reduce el margen superior para que "Desde" quepa */
 }

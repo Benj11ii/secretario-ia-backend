@@ -207,15 +207,16 @@ def tarea_fondo_ia(datos):
         print("🔵 Enviando a Telegram...")
         # Emoji diferente según el estado
         emoji = "✅" if estado == "APROBADO" else "⛔"
+        servicio_mostrar = servicio_interes if servicio_interes and servicio_interes != "" else "No especificado"
         msg = (
             f"{emoji} *Nueva Solicitud - {estado}*\n\n"
             f"*Cliente:* {nombre}\n"
             f"*Teléfono:* {telefono}\n"
             f"*Email:* {correo}\n"
-            f"*Servicio de interés:* {servicio_interes}\n"
+            f"*Servicio de interés:* {servicio_mostrar}\n"
             f"*Estado:* {estado}\n\n"
             f"*Solicitud:* {texto_cliente}\n\n"
-            f"*Resumen IA:* {resumen_ia}"
+            f"*Resumen IA:* {resumen_ia}\n\n"
         )
 
         try:
