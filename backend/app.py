@@ -83,7 +83,7 @@ def tarea_fondo_ia(datos):
                     "stream": False,
                     "options": {"temperature": 0.0},
                 },
-                timeout=60,
+                timeout=180,
             )
             if response.status_code == 200:
                 # Tu sugerencia: más robusto para detectar RECHAZAR
@@ -133,7 +133,7 @@ def tarea_fondo_ia(datos):
                         "stream": False,
                         "options": {"temperature": 0.7},
                     },
-                    timeout=80,
+                    timeout=800,
                 )
                 if response.status_code == 200:
                     resumen_ia = response.json().get(
