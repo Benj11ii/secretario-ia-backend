@@ -5533,7 +5533,7 @@ textarea {
     color: rgba(255,255,255,0.7); 
     font-weight: normal;
     margin-top: 2px;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.9px;
 }
 
 /* Ajuste para que ocupe el ancho de la tarjeta */
@@ -5579,25 +5579,26 @@ textarea {
     font-weight: bold;
     color: rgba(255,255,255,0.7);
     margin-left: 0;            /* Pegado al borde izquierdo */
+	letter-spacing: 2.0px;
 }
 
 /* Precio principal (con sangría) */
 .tarjeta-plan .precio strong {
     display: block;
-    font-size: 2.2em;
-    font-weight: 700;
+    font-size: 2.7em;
+    font-weight: 200;
     color: #f2a61f;
-    line-height: 1.2;
-    margin-left: 20px;         /* Corre 20px a la derecha */
+    line-height: 1.0;
+    margin-left: 10px;         /* Corre 20px a la derecha */
 }
 
 /* IVA (con más sangría) */
 .tarjeta-plan .precio small {
     display: block;
-    font-size: 0.4em;
+    font-size: 0.6em;
     color: rgba(255,255,255,0.7);
     font-weight: normal;
     margin-top: 2px;
-    margin-left: 40px;         /* Corre 40px a la derecha */
-    letter-spacing: 0.5px;
+    margin-left: 180px;         /* Corre 40px a la derecha */
+    letter-spacing: 0.9px;
 }
