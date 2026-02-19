@@ -7,6 +7,22 @@ from flask import Flask, render_template, request, jsonify, redirect, url_for
 from werkzeug.middleware.proxy_fix import ProxyFix
 from flask_cors import CORS
 from datetime import datetime
+import logging
+import sys
+
+# Configurar logging a archivo
+logging.basicConfig(
+    filename='/home/bcarmona/secretario-ia-backend/backend/debug.log',
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+
+# Redirigir prints a logging
+def print_to_log(*args, **kwargs):
+    logging.info(' '.join(map(str, args)))
+
+# Reemplazar print con nuestra función
+print = print_to_log
 
 app = Flask(__name__, static_folder="public/assets", template_folder="public")
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
@@ -36,7 +52,7 @@ GOOGLE_SHEETS_URL = os.getenv("GOOGLE_SHEETS_URL")
 
 
 def tarea_fondo_ia(datos):
-    print(f"🔵 INICIO tarea_fondo_ia para {datos.get('nombre')}")
+    logging.info(f"🔵 INICIO tarea_fondo_ia para {datos.get('nombre')}")
     # 1. Recolección de datos
     nombre = datos.get("nombre", "Sin nombre")
     telefono = datos.get("telefono", "Sin tel")
