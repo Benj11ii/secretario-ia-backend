@@ -5564,3 +5564,40 @@ textarea {
 .tarjeta-plan .precio {
     margin-top: 10px;           /* reduce el margen superior para que "Desde" quepa */
 }
+
+/* Contenedor del precio */
+.tarjeta-plan .precio {
+    text-align: left;          /* Alinea todo a la izquierda */
+    margin: 15px 0;
+    line-height: 1.3;
+}
+
+/* Palabra "Desde" (arriba a la izquierda) */
+.tarjeta-plan .precio .desde {
+    display: block;
+    font-size: 0.9em;
+    font-weight: bold;
+    color: rgba(255,255,255,0.7);
+    margin-left: 0;            /* Pegado al borde izquierdo */
+}
+
+/* Precio principal (con sangría) */
+.tarjeta-plan .precio strong {
+    display: block;
+    font-size: 2.2em;
+    font-weight: 700;
+    color: #f2a61f;
+    line-height: 1.2;
+    margin-left: 20px;         /* Corre 20px a la derecha */
+}
+
+/* IVA (con más sangría) */
+.tarjeta-plan .precio small {
+    display: block;
+    font-size: 0.4em;
+    color: rgba(255,255,255,0.7);
+    font-weight: normal;
+    margin-top: 2px;
+    margin-left: 40px;         /* Corre 40px a la derecha */
+    letter-spacing: 0.5px;
+}
