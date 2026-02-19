@@ -4,7 +4,7 @@ import csv
 import os
 from dotenv import load_dotenv
 from flask import Flask, render_template, request, jsonify, redirect, url_for
-from werkzeug.middleware.proxy_fix import ProxyFix 
+from werkzeug.middleware.proxy_fix import ProxyFix
 from flask_cors import CORS
 from datetime import datetime
 
@@ -36,6 +36,7 @@ GOOGLE_SHEETS_URL = os.getenv("GOOGLE_SHEETS_URL")
 
 
 def tarea_fondo_ia(datos):
+    print(f"🔵 INICIO tarea_fondo_ia para {datos.get('nombre')}")
     # 1. Recolección de datos
     nombre = datos.get("nombre", "Sin nombre")
     telefono = datos.get("telefono", "Sin tel")
@@ -51,6 +52,7 @@ def tarea_fondo_ia(datos):
 
     try:
         # --- PASO 1: LÓGICA DE IA ---
+        print("🔵 Llamando a clasificador ético...")
         print(
             f"🤖 Procesando con Gemma3_4b para: {nombre} - Interés: {servicio_interes}"
         )
@@ -100,9 +102,11 @@ def tarea_fondo_ia(datos):
 
         # Evaluar la decisión
         if decision == "RECHAZAR":
+            print("🔵 Caso RECHAZADO, generando resumen...")
             resumen_ia = "Solicitud rechazada por criterios éticos."
             print(f"⚠️ Solicitud rechazada por criterios éticos (estado: {estado})")
         else:
+            print("🔵 Caso APROBADO, generando resumen técnico...")
             servicios_oferta = (
                 f"Nuestros servicios principales son:\n"
                 f"- Automatización Administrativa (formularios inteligentes, correos automáticos, integración con Telegram/CRM)\n"
@@ -146,6 +150,7 @@ def tarea_fondo_ia(datos):
                 print(f"⚠️ Error con Ollama: {e}")
 
         # --- PASO 2: GUARDAR EN CSV (CON ESTADO INCLUIDO) ---
+        print("🔵 Guardando en CSV...")
         archivo_existe = os.path.exists(archivo_csv)
 
         with open(archivo_csv, mode="a", newline="", encoding="utf-8") as f:
@@ -183,6 +188,7 @@ def tarea_fondo_ia(datos):
         print(f"✅ Datos guardados en CSV para {nombre} (Estado: {estado})")
 
         # --- PASO 3: NOTIFICAR A TELEGRAM ---
+        print("🔵 Enviando a Telegram...")
         # Emoji diferente según el estado
         emoji = "✅" if estado == "APROBADO" else "⛔"
         msg = (
@@ -207,6 +213,7 @@ def tarea_fondo_ia(datos):
             print(f"⚠️ Telegram falló: {e}")
 
         # --- PASO 4: ENVIAR A GOOGLE SHEETS (CON ESTADO INCLUIDO) ---
+        print("🔵 Enviando a Google Sheets...")
         payload = {
             "nombre": nombre,
             "telefono": telefono,
@@ -227,9 +234,12 @@ def tarea_fondo_ia(datos):
     except Exception as e:
         print(f"❌ ERROR CRÍTICO: {str(e)}")
 
+
 @app.before_request
 def debug():
     print(request.method, request.path)
+
+
 @app.route("/secretario/guardar", methods=["POST"])
 def guardar_solicitud():
     datos = {}
