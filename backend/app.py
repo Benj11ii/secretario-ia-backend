@@ -219,7 +219,7 @@ def tarea_fondo_ia(datos):
         }
 
         try:
-            resp = requests.post(GOOGLE_SHEETS_URL, json=payload, timeout=30)
+            resp = requests.post(GOOGLE_SHEETS_URL, json=payload, timeout=580)
             print(f"📊 Google Sheets respuesta: {resp.status_code}")
         except Exception as e:
             print(f"⚠️ Google Sheets falló: {e}")
