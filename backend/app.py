@@ -94,7 +94,7 @@ def procesar_con_mac(consulta, servicio_interes=""):
 
         print(f"🔵 Mac viva, enviando solicitud (timeout 180s)...")
         response = requests.post(
-            f"{MAC_WORKER_URL}/procesar_completo", json=payload, timeout=TIMEOUT_WORKER, verify=False 
+            f"{MAC_WORKER_URL}/procesar_completo", json=payload, timeout=TIMEOUT_WORKER 
         )
 
         if response.status_code == 200:
