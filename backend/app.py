@@ -56,7 +56,7 @@ GOOGLE_SHEETS_URL = os.getenv("GOOGLE_SHEETS_URL")
 
 # --- CONFIGURACIÓN DEL WORKER EN MAC ---
 # --- CONFIGURACIÓN DEL WORKER EN MAC ---
-MAC_WORKER_URL = "http://192.168.1.100:5001"
+MAC_WORKER_URL = "https://192.168.1.100:5001"
 TIMEOUT_WORKER = 180  # 3 minutos máximo esperando a la Mac
 
 
@@ -94,7 +94,7 @@ def procesar_con_mac(consulta, servicio_interes=""):
 
         print(f"🔵 Mac viva, enviando solicitud (timeout 180s)...")
         response = requests.post(
-            f"{MAC_WORKER_URL}/procesar_completo", json=payload, timeout=TIMEOUT_WORKER
+            f"{MAC_WORKER_URL}/procesar_completo", json=payload, timeout=TIMEOUT_WORKER, verify=False 
         )
 
         if response.status_code == 200:
