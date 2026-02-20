@@ -304,7 +304,7 @@ def tarea_fondo_ia(datos):
                     estado,
                     inicio_timestamp,  # ✅ String, no objeto datetime
                     duracion_segundos,
-                    procesado_por
+                    procesado_por,
                 ]
             )
 
@@ -352,8 +352,10 @@ def tarea_fondo_ia(datos):
             "solicitud": texto_cliente,
             "resumen": resumen_ia,
             "fecha": fecha_actual,
-            "estado": estado,  # ✅ NUEVO CAMPO PARA GAS
-            "inicio_timestamp": inicio_timestamp
+            "estado": estado,
+            "inicio_timestamp": inicio_timestamp,  # ✅ Debe estar
+            "duracion_segundos": duracion_segundos,  # ✅ Debe estar
+            "procesado_por": procesado_por,  # ✅ Debe estar
         }
 
         try:
