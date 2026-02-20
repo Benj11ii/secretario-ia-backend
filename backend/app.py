@@ -60,17 +60,15 @@ MAC_WORKER_URL = "https://192.168.1.100:5001"
 TIMEOUT_WORKER = 180  # 3 minutos máximo esperando a la Mac
 
 
-def mac_esta_viva(host="192.168.1.100", port=5001, timeout=0.5):
+def mac_esta_viva(host="192.168.1.100", port=5001, timeout=2):
     """
-    Verifica si la Mac está viva y el puerto del worker está abierto.
-    Timeout de 0.5 segundos (500ms) - respuesta casi inmediata.
+    Verifica si la Mac está viva intentando una conexión HTTPS.
+    Timeout de 2 segundos.
     """
     try:
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(timeout)
-        result = sock.connect_ex((host, port))
-        sock.close()
-        return result == 0  # 0 significa conexión exitosa
+        # Intentar conexión HTTPS con verificación del certificado
+        response = requests.get(f"https://{host}:{port}/health", timeout=timeout, verify=True)
+        return response.status_code == 200
     except:
         return False
 
