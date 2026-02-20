@@ -12,16 +12,14 @@ import sys
 
 # Configurar logging a archivo
 logging.basicConfig(
-    filename="/home/bcarmona/secretario-ia-backend/backend/debug.log",
+    filename='/home/bcarmona/secretario-ia-backend/backend/debug.log',
     level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s",
+    format='%(asctime)s - %(levelname)s - %(message)s'
 )
-
 
 # Redirigir prints a logging
 def print_to_log(*args, **kwargs):
-    logging.info(" ".join(map(str, args)))
-
+    logging.info(' '.join(map(str, args)))
 
 # Reemplazar print con nuestra función
 print = print_to_log
@@ -51,40 +49,6 @@ def pagina_gracias():
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
 GOOGLE_SHEETS_URL = os.getenv("GOOGLE_SHEETS_URL")
-
-# --- CONFIGURACIÓN DEL WORKER EN MAC ---
-MAC_WORKER_URL = "http://192.168.1.100:5001"
-TIMEOUT_WORKER = 180  # 3 minutos máximo esperando a la Mac
-
-
-def procesar_con_mac(consulta, servicio_interes=""):
-    """Intenta procesar la consulta usando el worker de la Mac M1"""
-    try:
-        import requests
-        import json
-
-        payload = {"consulta": consulta, "servicio_interes": servicio_interes}
-
-        # Llamar al endpoint /procesar_completo del worker
-        response = requests.post(
-            f"{MAC_WORKER_URL}/procesar_completo", json=payload, timeout=TIMEOUT_WORKER
-        )
-
-        if response.status_code == 200:
-            result = response.json()
-            if result.get("success"):
-                return result
-            else:
-                raise Exception(f"Worker devolvió error: {result.get('error')}")
-        else:
-            raise Exception(f"Worker respondió con código {response.status_code}")
-
-    except requests.exceptions.Timeout:
-        print("⏱️ Timeout esperando a Mac (3 minutos)")
-        return None
-    except Exception as e:
-        print(f"⚠️ Error conectando con Mac: {e}")
-        return None
 
 
 def tarea_fondo_ia(datos):
@@ -179,44 +143,27 @@ def tarea_fondo_ia(datos):
                 "IMPORTANTE: Tu respuesta debe comenzar DIRECTAMENTE con '1. Entendemos su necesidad:' sin ningún texto antes."
             )
 
-            esumen_ia = "Resumen temporalmente no disponible"
-
-            # PRIMERO: Intentar con la Mac
-            print("🔵 Intentando usar Mac M1 para generar resumen...")
-            resultado_mac = procesar_con_mac(texto_cliente, servicio_interes)
-
-            if resultado_mac and resultado_mac.get("success"):
-                # La Mac respondió correctamente
-                resumen_ia = resultado_mac.get("resumen", "")
-                decision_mac = resultado_mac.get("decision", "APROBAR")
-                estado = "RECHAZADO" if decision_mac == "RECHAZAR" else "APROBADO"
-                print(
-                    f"✅ Resumen generado por Mac en {resultado_mac.get('tiempo_segundos', '?')}s"
+            resumen_ia = "Resumen temporalmente no disponible"
+            try:
+                response = requests.post(
+                    "http://localhost:11434/api/generate",
+                    json={
+                        "model": "gemma3:4b",
+                        "prompt": prompt_espiritu,
+                        "stream": False,
+                        "options": {"temperature": 0.7},
+                    },
+                    timeout=800,
                 )
-                print(f"🤖 Decisión de Mac: {decision_mac}")
-            else:
-                # FALLBACK: Usar Ollama local (como antes)
-                print("⚠️ Mac no disponible, usando Gemma local...")
-                try:
-                    response = requests.post(
-                        "http://localhost:11434/api/generate",
-                        json={
-                            "model": "gemma3:4b",
-                            "prompt": prompt_espiritu,
-                            "stream": False,
-                            "options": {"temperature": 0.7},
-                        },
-                        timeout=800,
+                if response.status_code == 200:
+                    resumen_ia = response.json().get(
+                        "response", "El modelo IA no generó el resumen"
                     )
-                    if response.status_code == 200:
-                        resumen_ia = response.json().get(
-                            "response", "El modelo IA no generó el resumen"
-                        )
-                        print(f"✅ IA local respondió: {resumen_ia[:50]}...")
-                    else:
-                        print(f"⚠️ Ollama error {response.status_code}")
-                except Exception as e:
-                    print(f"⚠️ Error con Ollama local: {e}")
+                    print(f"✅ IA respondió: {resumen_ia[:50]}...")
+                else:
+                    print(f"⚠️ Ollama error {response.status_code}")
+            except Exception as e:
+                print(f"⚠️ Error con Ollama: {e}")
 
         # --- PASO 2: GUARDAR EN CSV (CON ESTADO INCLUIDO) ---
         print("🔵 Guardando en CSV...")
@@ -260,11 +207,7 @@ def tarea_fondo_ia(datos):
         print("🔵 Enviando a Telegram...")
         # Emoji diferente según el estado
         emoji = "✅" if estado == "APROBADO" else "⛔"
-        servicio_mostrar = (
-            servicio_interes
-            if servicio_interes and servicio_interes != ""
-            else "No especificado"
-        )
+        servicio_mostrar = servicio_interes if servicio_interes and servicio_interes != "" else "No especificado"
         msg = (
             f"{emoji} *Nueva Solicitud - {estado}*\n\n"
             f"*Cliente:* {nombre}\n"
