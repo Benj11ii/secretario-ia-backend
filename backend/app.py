@@ -58,6 +58,7 @@ GOOGLE_SHEETS_URL = os.getenv("GOOGLE_SHEETS_URL")
 MAC_WORKER_URL = "http://192.168.1.100:5001"
 TIMEOUT_WORKER = 180  # 3 minutos máximo esperando a la Mac
 
+
 def mac_esta_viva(host="192.168.1.100", port=5001, timeout=0.5):
     """
     Verifica si la Mac está viva y el puerto del worker está abierto.
@@ -72,47 +73,46 @@ def mac_esta_viva(host="192.168.1.100", port=5001, timeout=0.5):
     except:
         return False
 
+
 def procesar_con_mac(consulta, servicio_interes=""):
     """Intenta procesar la consulta usando el worker de la Mac M1"""
-    
+
     # ⚡ VERIFICACIÓN RÁPIDA: ¿La Mac está viva?
     if not mac_esta_viva():
-        print("⏱️ Mac no responde a verificación rápida (0.5s). Usando fallback inmediato.")
+        print(
+            "⏱️ Mac no responde a verificación rápida (0.5s). Usando fallback inmediato."
+        )
         return None
-    
+
     # Si llegamos aquí, la Mac está viva. Intentamos la petición real.
     try:
         import requests
         import json
-        
-        payload = {
-            "consulta": consulta,
-            "servicio_interes": servicio_interes
-        }
-        
+
+        payload = {"consulta": consulta, "servicio_interes": servicio_interes}
+
         print(f"🔵 Mac viva, enviando solicitud (timeout 180s)...")
         response = requests.post(
-            f"{MAC_WORKER_URL}/procesar_completo",
-            json=payload,
-            timeout=TIMEOUT_WORKER
+            f"{MAC_WORKER_URL}/procesar_completo", json=payload, timeout=TIMEOUT_WORKER
         )
-        
+
         if response.status_code == 200:
             result = response.json()
-            if result.get('success'):
+            if result.get("success"):
                 print(f"✅ Mac respondió en {result.get('tiempo_segundos', '?')}s")
                 return result
             else:
                 raise Exception(f"Worker devolvió error: {result.get('error')}")
         else:
             raise Exception(f"Worker respondió con código {response.status_code}")
-            
+
     except requests.exceptions.Timeout:
         print("⏱️ Timeout esperando a Mac (3 minutos) - la Mac está viva pero lenta")
         return None
     except Exception as e:
         print(f"⚠️ Error conectando con Mac: {e}")
         return None
+
 
 def tarea_fondo_ia(datos):
     logging.info(f"🔵 INICIO tarea_fondo_ia para {datos.get('nombre')}")
@@ -132,44 +132,50 @@ def tarea_fondo_ia(datos):
     try:
         # --- PASO 1: LÓGICA DE IA ---
         print("🔵 Llamando a clasificador ético...")
-        
+
         # ============================================
         # INTENTAR CON LA MAC PRIMERO
         # ============================================
         resultado_mac = procesar_con_mac(texto_cliente, servicio_interes)
-        
-        if resultado_mac and resultado_mac.get('success'):
+
+        if resultado_mac and resultado_mac.get("success"):
             # ✅ LA MAC RESPONDIÓ - Usamos sus resultados
             print("✅ Mac M1 procesó la solicitud exitosamente")
-            decision = resultado_mac.get('decision', 'APROBAR')
-            estado = resultado_mac.get('estado', 'APROBADO')
-            resumen_ia = resultado_mac.get('resumen', '')
+            decision = resultado_mac.get("decision", "APROBAR")
+            estado = resultado_mac.get("estado", "APROBADO")
+            resumen_ia = resultado_mac.get("resumen", "")
             print(f"📊 Decisión Mac: {decision}")
             print(f"⏱️ Tiempo Mac: {resultado_mac.get('tiempo_segundos', '?')}s")
-            
+
         else:
             # ⚠️ LA MAC NO RESPONDIÓ - Fallback a Gemma local
             print("⚠️ Mac no disponible, usando Gemma local...")
-            
+
             # --- CLASIFICADOR ÉTICO LOCAL (código original) ---
             print("🔵 Llamando a clasificador ético local...")
-            print(f"🤖 Procesando con Gemma3_4b para: {nombre} - Interés: {servicio_interes}")
+            print(
+                f"🤖 Procesando con Gemma3_4b para: {nombre} - Interés: {servicio_interes}"
+            )
 
             clasificador_etico = (
                 "Eres un asistente ético. Responde SOLO con APROBAR o RECHAZAR.\n\n"
-                "RECHAZAR SI LA SOLICITUD IMPLICA:\n"
-                "1️⃣ Acceder a datos de terceros sin su consentimiento (aunque sean 'públicos')\n"
-                "2️⃣ Web scraping o extracción automática de datos de plataformas (viola términos de servicio)\n"
-                "3️⃣ Monitorear competidores de forma automatizada\n"
-                "4️⃣ Recolectar información de redes sociales (Instagram, Facebook, etc.)\n"
-                "5️⃣ Usar datos de otras personas para beneficio comercial\n\n"
-                "APROBAR SOLO SI:\n"
-                "✅ El cliente trabaja con SUS PROPIOS DATOS\n"
-                "✅ Automatiza procesos INTERNOS de su negocio\n"
-                "✅ Gestiona información de SUS CLIENTES (con consentimiento)\n"
-                "✅ Crea sistemas para su uso personal/empresarial legítimo\n\n"
+                "RECHAZAR EXPLÍCITAMENTE SOLO SI LA SOLICITUD:\n"
+                "1️⃣ Pide acceder a datos de terceros SIN su consentimiento (hackear, espiar, robar)\n"
+                "2️⃣ Propone actividades ilegales (fraude, evasión de impuestos)\n"
+                "3️⃣ Busca dañar a terceros intencionalmente\n"
+                "4️⃣ Viola la privacidad de personas SIN su consentimiento explícito\n\n"
+                "APROBAR SIEMPRE EN ESTOS CASOS (aunque haya dudas):\n"
+                "✅ Automatización de procesos internos del negocio\n"
+                "✅ Gestión de clientes propios (citas, recordatorios, seguimiento)\n"
+                "✅ Organización de datos de la propia empresa\n"
+                "✅ Mejora de eficiencia operativa\n"
+                "✅ Cualquier proyecto legítimo de negocio\n\n"
+                "REGLAS DE ORO:\n"
+                "- Si la solicitud es sobre el NEGOCIO DEL CLIENTE (sus clientes, sus citas, sus datos) → APROBAR\n"
+                "- Si menciona 'competencia' o 'datos de otros' → RECHAZAR\n"
+                "- Si hay DUDA, APROBAR (mejor falso positivo que falso negativo)\n\n"
                 f"Solicitud: {texto_cliente}\n\n"
-                "IMPORTANTE: Si hay DUDA, responde RECHAZAR. Si menciona 'scraping', 'recolectar datos de competencia', 'extraer' de terceros → RECHAZAR."
+                "Respuesta (solo APROBAR o RECHAZAR):"
             )
 
             decision = "APROBAR"  # fallback seguro
@@ -178,7 +184,7 @@ def tarea_fondo_ia(datos):
                 response = requests.post(
                     "http://localhost:11434/api/generate",
                     json={
-                        "model": "gemma3:4b", #modelo rápido para clasificación local
+                        "model": "gemma3:4b",  # modelo rápido para clasificación local
                         "prompt": clasificador_etico,
                         "stream": False,
                         "options": {"temperature": 0.0},
@@ -188,7 +194,9 @@ def tarea_fondo_ia(datos):
                 if response.status_code == 200:
                     decision_raw = response.json().get("response", "").upper()
                     decision = "RECHAZAR" if "RECHAZAR" in decision_raw else "APROBAR"
-                    print(f"🔍 Decisión IA local (raw: '{decision_raw}' -> procesada: '{decision}')")
+                    print(
+                        f"🔍 Decisión IA local (raw: '{decision_raw}' -> procesada: '{decision}')"
+                    )
             except Exception as e:
                 print(f"⚠️ Error clasificador ético local: {e}")
 
@@ -227,7 +235,7 @@ def tarea_fondo_ia(datos):
                     response = requests.post(
                         "http://localhost:11434/api/generate",
                         json={
-                            "model": "qwen3:4b-instruct", #Modelo para resumen local
+                            "model": "qwen3:4b-instruct",  # Modelo para resumen local
                             "prompt": prompt_espiritu,
                             "stream": False,
                             "options": {"temperature": 0.7},
