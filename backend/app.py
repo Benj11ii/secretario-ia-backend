@@ -62,38 +62,45 @@ TIMEOUT_WORKER = 180  # 3 minutos máximo esperando a la Mac
 
 def mac_esta_viva(host="192.168.1.100", port=5001, timeout=2):
     """
-    Verifica si la Mac está viva intentando una conexión HTTPS.
-    Timeout de 2 segundos.
+    Verifica si la Mac está viva intentando una conexión HTTPS con el certificado.
     """
     try:
-        # Intentar conexión HTTPS con verificación del certificado
-        response = requests.get(f"https://{host}:{port}/health", timeout=timeout, verify=True)
+        # Usamos el mismo certificado para la verificación
+        response = requests.get(
+            f"https://{host}:{port}/health",
+            timeout=timeout,
+            verify='/usr/local/share/ca-certificates/mac-iasoria.crt'
+        )
         return response.status_code == 200
-    except:
+    except Exception as e:
+        print(f"⚠️ Error verificando Mac: {e}")
         return False
 
 
 def procesar_con_mac(consulta, servicio_interes=""):
-    """Intenta procesar la consulta usando el worker de la Mac M1"""
-
-    # ⚡ VERIFICACIÓN RÁPIDA: ¿La Mac está viva?
+    """Intenta procesar la consulta usando el worker de la Mac M1 con verificación de certificado"""
+    
+    # ⚡ VERIFICACIÓN RÁPIDA: ¿La Mac está viva? (usando el certificado)
     if not mac_esta_viva():
-        print(
-            "⏱️ Mac no responde a verificación rápida (0.5s). Usando fallback inmediato."
-        )
+        print("⏱️ Mac no responde a verificación rápida. Usando fallback inmediato.")
         return None
 
-    # Si llegamos aquí, la Mac está viva. Intentamos la petición real.
     try:
         import requests
         import json
 
         payload = {"consulta": consulta, "servicio_interes": servicio_interes}
-
         print(f"🔵 Mac viva, enviando solicitud (timeout 180s)...")
+
+        # --- CAMBIO IMPORTANTE AQUÍ ---
+        # Usamos el certificado que instalamos en el sistema
         response = requests.post(
-            f"{MAC_WORKER_URL}/procesar_completo", json=payload, timeout=TIMEOUT_WORKER 
+            f"{MAC_WORKER_URL}/procesar_completo",
+            json=payload,
+            timeout=TIMEOUT_WORKER,
+            verify='/usr/local/share/ca-certificates/mac-iasoria.crt'  # ← Ruta al certificado
         )
+        # --------------------------------
 
         if response.status_code == 200:
             result = response.json()
@@ -111,8 +118,7 @@ def procesar_con_mac(consulta, servicio_interes=""):
     except Exception as e:
         print(f"⚠️ Error conectando con Mac: {e}")
         return None
-
-
+    
 def tarea_fondo_ia(datos):
     logging.info(f"🔵 INICIO tarea_fondo_ia para {datos.get('nombre')}")
     # 1. Recolección de datos
