@@ -227,7 +227,7 @@ def tarea_fondo_ia(datos):
                     response = requests.post(
                         "http://localhost:11434/api/generate",
                         json={
-                            "model": "mistral:7b-instruct-v0.3-q4_K_M", #Modelo para resumen local
+                            "model": "gemma3:4b", #Modelo para resumen local
                             "prompt": prompt_espiritu,
                             "stream": False,
                             "options": {"temperature": 0.7},
