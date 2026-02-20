@@ -5557,7 +5557,7 @@ textarea {
     color: rgba(255, 255, 255, 0.7); /* mismo color que el IVA */
     text-align: left;           /* alineado a la izquierda */
     margin-bottom: 0;
-    line-height: 2.0;
+    line-height: 1.6;
     letter-spacing: 0.5px;      /* opcional, para que combine con el IVA */
 }
 
@@ -5576,7 +5576,7 @@ textarea {
 /* Palabra "Desde" (arriba a la izquierda) */
 .tarjeta-plan .precio .desde {
     display: block;
-    font-size: 0.9em;
+    font-size: 1.3em;
     font-weight: bold;
     color: rgba(255,255,255,0.7);
     margin-left: 0;            /* Pegado al borde izquierdo */
