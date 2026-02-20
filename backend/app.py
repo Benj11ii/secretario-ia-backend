@@ -3,6 +3,7 @@ import threading
 import requests
 import csv
 import os
+import time
 from dotenv import load_dotenv
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 from werkzeug.middleware.proxy_fix import ProxyFix
@@ -128,6 +129,8 @@ def tarea_fondo_ia(datos):
     # 📁 Ruta del CSV
     archivo_csv = os.path.join(os.path.dirname(__file__), "Solicitudes.csv")
     fecha_actual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    hora_inicio = datetime.now()
+    inicio_timestamp = hora_inicio.strftime("%Y-%m-%d %H:%M:%S")
 
     try:
         # --- PASO 1: LÓGICA DE IA ---
@@ -189,7 +192,7 @@ def tarea_fondo_ia(datos):
                         "stream": False,
                         "options": {"temperature": 0.0},
                     },
-                    timeout=180,
+                    timeout=300,
                 )
                 if response.status_code == 200:
                     decision_raw = response.json().get("response", "").upper()
@@ -240,7 +243,7 @@ def tarea_fondo_ia(datos):
                             "stream": False,
                             "options": {"temperature": 0.7},
                         },
-                        timeout=800,
+                        timeout=990,
                     )
                     if response.status_code == 200:
                         resumen_ia = response.json().get(
@@ -257,6 +260,13 @@ def tarea_fondo_ia(datos):
         # ============================================
 
         # --- PASO 2: GUARDAR EN CSV (CON ESTADO INCLUIDO) ---
+        # ⏱️ Calcular duración total
+        print("🔵 Guardando tiempo total en CSV...")
+        hora_fin = datetime.now()
+        duracion_segundos = (hora_fin - hora_inicio).total_seconds()
+        procesado_por = (
+            "Mac" if resultado_mac and resultado_mac.get("success") else "Celeron"
+        )
         print("🔵 Guardando en CSV...")
         archivo_existe = os.path.exists(archivo_csv)
 
@@ -275,6 +285,9 @@ def tarea_fondo_ia(datos):
                         "Solicitud",
                         "Resumen IA",
                         "Estado",  # ✅ NUEVO CAMPO
+                        "Inicio_timestamp",
+                        "Duracion_segundos",
+                        "procesado_por",
                     ]
                 )
 
@@ -288,7 +301,10 @@ def tarea_fondo_ia(datos):
                     servicio_interes,
                     texto_cliente,
                     resumen_ia,
-                    estado,  # ✅ VALOR DEL ESTADO
+                    estado,
+                    inicio_timestamp,  # ✅ String, no objeto datetime
+                    duracion_segundos,
+                    procesado_por
                 ]
             )
 
@@ -310,6 +326,8 @@ def tarea_fondo_ia(datos):
             f"*Email:* {correo}\n"
             f"*Servicio de interés:* {servicio_mostrar}\n"
             f"*Estado:* {estado}\n\n"
+            f"*Procesado por:* {procesado_por}\n"
+            f"*Duración:* {duracion_segundos:.1f}s\n\n"
             f"*Solicitud:* {texto_cliente}\n\n"
             f"*Resumen IA:* {resumen_ia}\n\n"
         )
@@ -335,6 +353,7 @@ def tarea_fondo_ia(datos):
             "resumen": resumen_ia,
             "fecha": fecha_actual,
             "estado": estado,  # ✅ NUEVO CAMPO PARA GAS
+            "inicio_timestamp": inicio_timestamp
         }
 
         try:
