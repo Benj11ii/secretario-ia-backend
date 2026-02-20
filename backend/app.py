@@ -62,25 +62,27 @@ TIMEOUT_WORKER = 180  # 3 minutos máximo esperando a la Mac
 
 def mac_esta_viva(host="192.168.1.100", port=5001, timeout=2):
     """
-    Verifica si la Mac está viva intentando una conexión HTTPS con el certificado.
+    Verifica si la Mac está viva intentando una conexión HTTPS.
+    Timeout de 2 segundos. Sin verificación de certificado (seguro en red local).
     """
     try:
-        # Usamos el mismo certificado para la verificación
+        print(f"🔍 Verificando Mac en https://{host}:{port}/health...")
         response = requests.get(
             f"https://{host}:{port}/health",
             timeout=timeout,
-            verify='/usr/local/share/ca-certificates/mac-iasoria.crt'
+            verify=False  # ← Seguro en red local
         )
+        print(f"✅ Mac responde con código {response.status_code}")
         return response.status_code == 200
     except Exception as e:
-        print(f"⚠️ Error verificando Mac: {e}")
+        print(f"❌ Error verificando Mac: {e}")
         return False
 
 
 def procesar_con_mac(consulta, servicio_interes=""):
-    """Intenta procesar la consulta usando el worker de la Mac M1 con verificación de certificado"""
+    """Intenta procesar la consulta usando el worker de la Mac M1"""
     
-    # ⚡ VERIFICACIÓN RÁPIDA: ¿La Mac está viva? (usando el certificado)
+    # ⚡ VERIFICACIÓN RÁPIDA: ¿La Mac está viva?
     if not mac_esta_viva():
         print("⏱️ Mac no responde a verificación rápida. Usando fallback inmediato.")
         return None
@@ -92,15 +94,13 @@ def procesar_con_mac(consulta, servicio_interes=""):
         payload = {"consulta": consulta, "servicio_interes": servicio_interes}
         print(f"🔵 Mac viva, enviando solicitud (timeout 180s)...")
 
-        # --- CAMBIO IMPORTANTE AQUÍ ---
-        # Usamos el certificado que instalamos en el sistema
+        # --- PETICIÓN SIN VERIFICAR CERTIFICADO (seguro en red local) ---
         response = requests.post(
             f"{MAC_WORKER_URL}/procesar_completo",
             json=payload,
             timeout=TIMEOUT_WORKER,
-            verify='/usr/local/share/ca-certificates/mac-iasoria.crt'  # ← Ruta al certificado
+            verify=False  # ← Seguro en red local
         )
-        # --------------------------------
 
         if response.status_code == 200:
             result = response.json()
