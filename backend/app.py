@@ -157,7 +157,7 @@ def tarea_fondo_ia(datos):
             # --- CLASIFICADOR ÉTICO LOCAL (código original) ---
             print("🔵 Llamando a clasificador ético local...")
             print(
-                f"🤖 Procesando con Gemma3_4b para: {nombre} - Interés: {servicio_interes}"
+                f"🤖 Procesando con Qwen 3 para: {nombre} - Interés: {servicio_interes}"
             )
 
             clasificador_etico = (
