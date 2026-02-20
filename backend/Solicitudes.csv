@@ -252,3 +252,60 @@ las inasistencias.","1. Entendemos su necesidad: Usted busca reducir las inasist
 
 3. Beneficios esperados: Con esta automatización, podrá ahorrar tiempo valioso en la gestión de su información docente, permitiéndole dedicar más tiempo a la atención individualizada de sus alumnos.  Además, contará con una visión clara y organizada de los progresos de cada uno, facilitando la toma de decisiones y la adaptación de su planificación docente.
 ",APROBADO
+2026-02-20 14:22:44,Cliente test00223,56938383838,benjaminalonsocarmona@gmail.com,consultoria,"""Necesito acceder al correo electrónico de mi competidor para 
+ver sus estrategias de marketing. ¿Pueden ayudarme con esa solicitud?""",Solicitud rechazada por criterios éticos.,RECHAZADO
+2026-02-20 14:27:36,"Cliente Empresa, solicitud compleja",56938383838,benjaminalonsocarmona@gmail.com,,"Hola, soy dueño de una pequeña clínica dental con 3 consultorios. Actualmente manejamos las citas con una agenda de papel y perdemos mucho tiempo con llamadas para confirmar. También queremos llevar un registro digital de los tratamientos de cada paciente para ofrecerles seguimiento.
+
+He visto tu plan de Gestión y Orden de Datos de $142.800 y me interesa, pero necesito estar seguro de que resuelve mis problemas reales antes de invertir.
+
+Mis preguntas concretas:
+1. ¿Puede recordar automáticamente a los pacientes 24h antes de su cita por WhatsApp y SMS?
+2. ¿Podemos cargar las fichas de los pacientes desde el celular después de cada atención?
+3. ¿Cómo se integra con lo que ya tenemos? No quiero empezar de cero.
+4. Si a futuro quiero agregar más cosas (ej. cobros automáticos), ¿se puede escalar?
+5. ¿Qué pasa si un paciente cancela? ¿Se libera el cupo y puedo asignarlo a otro?
+
+Necesito algo simple para nosotros (que no somos técnicos) pero que funcione bien y nos ahorre tiempo. ¿Pueden darme una idea clara de cómo sería el sistema y si realmente se adapta a una clínica dental?","1. Entendemos su necesidad: Quieres automatizar el manejo de citas y tratamientos para ahorrar tiempo, evitar pérdidas por llamadas y mantener un registro claro de cada paciente, sin necesidad de conocimientos técnicos ni empezar desde cero.
+
+2. Propuesta personalizada:  
+Podríamos implementar un sistema de formularios inteligentes que permita cargar las fichas de pacientes desde el celular tras cada atención, con campos simples y personalizables. Una opción sería integrar este sistema con WhatsApp y SMS para que automáticamente envíe recordatorios de citas 24 horas antes, sin necesidad de intervención humana. Podemos explorar una solución que se conecte directamente a tu agenda actual (por ejemplo, mediante una app de agenda o archivo físico), sin eliminar lo que ya tienes. Además, el sistema estaría diseñado para escalar fácilmente: si en el futuro necesitas cobros automáticos, notificaciones de seguimiento o reportes de tratamientos, se podrían agregar sin cambiar el núcleo del sistema.  
+
+3. Beneficios esperados:  
+- Ahorras hasta 6-8 horas semanales en llamadas y gestión manual de citas.  
+- Mantienes un registro actualizado y accesible de cada tratamiento, lo que te permite ofrecer seguimiento personalizado a tus pacientes.",APROBADO
+2026-02-20 14:37:19,PruebaModelo Novak3,56938383838,benjaminalonsocarmona@gmail.com,,"""Hola, soy dueño de una pequeña clínica dental con 3 consultorios. Actualmente manejamos las citas con una agenda de papel y perdemos mucho tiempo con llamadas para confirmar. También queremos llevar un registro digital de los tratamientos de cada paciente para ofrecerles seguimiento.
+
+He visto tu plan de Gestión y Orden de Datos de $142.800 y me interesa, pero necesito estar seguro de que resuelve mis problemas reales antes de invertir.
+
+Mis preguntas concretas:
+1. ¿Puede recordar automáticamente a los pacientes 24h antes de su cita por WhatsApp y SMS?
+2. ¿Podemos cargar las fichas de los pacientes desde el celular después de cada atención?
+3. ¿Cómo se integra con lo que ya tenemos? No quiero empezar de cero.
+4. Si a futuro quiero agregar más cosas (ej. cobros automáticos), ¿se puede escalar?
+5. ¿Qué pasa si un paciente cancela? ¿Se libera el cupo y puedo asignarlo a otro?
+
+Necesito algo simple para nosotros (que no somos técnicos) pero que funcione bien y nos ahorre tiempo. ¿Pueden darme una idea clara de cómo sería el sistema y si realmente se adapta a una clínica dental?""",Solicitud rechazada por criterios éticos.,RECHAZADO
+2026-02-20 14:47:02,Prueba test nova v2,56938383838,benjaminalonsocarmona@gmail.com,,"""""""Hola, soy dueño de una pequeña clínica dental con 3 consultorios. Actualmente manejamos las citas con una agenda de papel y perdemos mucho tiempo con llamadas para confirmar. También queremos llevar un registro digital de los tratamientos de cada paciente para ofrecerles seguimiento.
+
+He visto tu plan de Gestión y Orden de Datos de $142.800 y me interesa, pero necesito estar seguro de que resuelve mis problemas reales antes de invertir.
+
+Mis preguntas concretas:
+1. ¿Puede recordar automáticamente a los pacientes 24h antes de su cita por WhatsApp y SMS?
+2. ¿Podemos cargar las fichas de los pacientes desde el celular después de cada atención?
+3. ¿Cómo se integra con lo que ya tenemos? No quiero empezar de cero.
+4. Si a futuro quiero agregar más cosas (ej. cobros automáticos), ¿se puede escalar?
+5. ¿Qué pasa si un paciente cancela? ¿Se libera el cupo y puedo asignarlo a otro?
+
+Necesito algo simple para nosotros (que no somos técnicos) pero que funcione bien y nos ahorre tiempo. ¿Pueden darme una idea clara de cómo sería el sistema y si realmente se adapta a una clínica dental?""""""",Solicitud rechazada por criterios éticos.,RECHAZADO
+2026-02-20 16:41:17,Prueba Mistral 7b,56938383838,benjaminalonsocarmona@gmail.com,,"""Hola, soy dueño de una pequeña clínica dental con 3 consultorios. Actualmente manejamos las citas con una agenda de papel y perdemos mucho tiempo con llamadas para confirmar. También queremos llevar un registro digital de los tratamientos de cada paciente para ofrecerles seguimiento.
+
+He visto tu plan de Gestión y Orden de Datos de $142.800 y me interesa, pero necesito estar seguro de que resuelve mis problemas reales antes de invertir.
+
+Mis preguntas concretas:
+1. ¿Puede recordar automáticamente a los pacientes 24h antes de su cita por WhatsApp y SMS?
+2. ¿Podemos cargar las fichas de los pacientes desde el celular después de cada atención?
+3. ¿Cómo se integra con lo que ya tenemos? No quiero empezar de cero.
+4. Si a futuro quiero agregar más cosas (ej. cobros automáticos), ¿se puede escalar?
+5. ¿Qué pasa si un paciente cancela? ¿Se libera el cupo y puedo asignarlo a otro?
+
+Necesito algo simple para nosotros (que no somos técnicos) pero que funcione bien y nos ahorre tiempo. ¿Pueden darme una idea clara de cómo sería el sistema y si realmente se adapta a una clínica dental?""",Solicitud rechazada por criterios éticos.,RECHAZADO
