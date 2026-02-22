@@ -5604,3 +5604,60 @@ textarea {
     margin-left: 180px;         /* Corre 40px a la derecha */
     letter-spacing: 0.9px;
 }
+
+
+
+
+
+
+
+
+
+
+
+/* Estilos específicos para centrar el contenido del Banner */
+#banner .content {
+    display: flex;
+    flex-direction: column; /* Alinea los elementos uno arriba de otro */
+    align-items: center;    /* Centra horizontalmente */
+    justify-content: center; /* Centra verticalmente */
+    text-align: center;
+    padding: 2em;
+}
+
+#banner .content header h2 {
+    margin-bottom: 1.5rem; /* Espacio entre título y logo */
+    font-size: 2.5em;      /* Tamaño destacado para el título */
+}
+
+#banner .content .image {
+    margin-bottom: 1.5rem; /* Espacio entre logo y texto de abajo */
+    display: block;
+}
+
+#banner .content .image img {
+    max-width: 250px;      /* Tamaño del logo, puede ajustarlo a su gusto */
+    height: auto;
+    border-radius: 100%;   /* Si desea que el logo mantenga forma circular */
+}
+
+#banner .content p {
+    font-size: 1.3em;      /* Texto de abajo un poco más grande como solicitó */
+    line-height: 1.6;
+    max-width: 800px;      /* Evita que el texto sea demasiado ancho en pantallas grandes */
+}
+
+/* Ajustes para pantallas pequeñas (Móviles) */
+@media screen and (max-width: 736px) {
+    #banner .content header h2 {
+        font-size: 1.8em;
+    }
+    
+    #banner .content p {
+        font-size: 1.1em;
+    }
+
+    #banner .content .image img {
+        max-width: 180px; /* Logo un poco más pequeño en móviles */
+    }
+}
