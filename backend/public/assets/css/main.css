@@ -5615,49 +5615,66 @@ textarea {
 
 
 
-/* Estilos específicos para centrar el contenido del Banner */
-#banner .content {
+
+
+
+
+/* Banner base */
+#banner {
     display: flex;
-    flex-direction: column; /* Alinea los elementos uno arriba de otro */
-    align-items: center;    /* Centra horizontalmente */
-    justify-content: center; /* Centra verticalmente */
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 0;
+}
+
+/* Contenido en columna */
+#banner .content {
+    position: static;
+    transform: none;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
     text-align: center;
-    padding: 2em;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
 }
 
-#banner .content header h2 {
-    margin-bottom: 1.5rem; /* Espacio entre título y logo */
-    font-size: 2.5em;      /* Tamaño destacado para el título */
+
+/* Logo */
+#banner .image {
+    position: static;
+    margin: 0;
 }
 
-#banner .content .image {
-    margin-bottom: 1.5rem; /* Espacio entre logo y texto de abajo */
+#banner .image img {
+    max-width: 430px;
+    height: auto;
+    border-radius: 34px;
     display: block;
 }
 
-#banner .content .image img {
-    max-width: 250px;      /* Tamaño del logo, puede ajustarlo a su gusto */
-    height: auto;
-    border-radius: 100%;   /* Si desea que el logo mantenga forma circular */
-}
-
-#banner .content p {
-    font-size: 1.3em;      /* Texto de abajo un poco más grande como solicitó */
+/* Texto inferior */
+#banner p {
+    font-size: 1.5em;
     line-height: 1.6;
-    max-width: 800px;      /* Evita que el texto sea demasiado ancho en pantallas grandes */
+    margin: 0;
+    max-width: 700px;
 }
 
-/* Ajustes para pantallas pequeñas (Móviles) */
-@media screen and (max-width: 736px) {
-    #banner .content header h2 {
-        font-size: 1.8em;
-    }
-    
-    #banner .content p {
-        font-size: 1.1em;
-    }
 
-    #banner .content .image img {
-        max-width: 180px; /* Logo un poco más pequeño en móviles */
-    }
+
+
+#banner h2 .accent {
+    color: #f3a022; /* salmón */
+    font-weight: 700;
+    text-shadow: 
+        0 2px 6px rgba(255, 154, 107, 0.45);
+}
+
+#banner h2 {
+    color: rgba(255,255,255,0.92);
 }
