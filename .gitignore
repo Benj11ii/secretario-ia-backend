@@ -30,3 +30,6 @@ backend/.env
 .DS_Store
 __pycache__/
 *.pyc
+
+#Reportes locales básicos
+*.Solicitudes.csv
