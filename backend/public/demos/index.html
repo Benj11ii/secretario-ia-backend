@@ -1,0 +1,143 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>IAsesoria - Demos Interactivas</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <!-- Rutas ABSOLUTAS desde la raíz -->
+    <link rel="stylesheet" href="/backend/public/assets/css/main.css" />
+    <link rel="stylesheet" href="/backend/public/demos/assets/css/demos.css" />
+</head>
+</head>
+
+<body class="is-preload">
+    <div id="page-wrapper">
+        <header id="header">
+            <h1 id="logo">
+                <a href="/">
+                    <img src="../assets/images/logoprincipal.jpeg" alt="Logo IAsesoria"
+                        style="height: 40px; vertical-align: middle; margin-right: 10px;">
+                    IAsesoria
+                </a>
+            </h1>
+            <nav id="nav">
+                <ul>
+                    <li><a href="/">Inicio</a></li>
+                    <li><a href="/servicios">Servicios</a></li>
+                    <li><a href="/#five">Contacto</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Banner de la página de demos -->
+        <section id="demos-banner" class="wrapper style1 special fade-up">
+            <div class="container">
+                <header class="major">
+                    <h2>Demos Interactivas</h2>
+                    <p>Prueba en segundos cómo la IA puede transformar tu negocio</p>
+                </header>
+            </div>
+        </section>
+
+
+
+        <!-- Grid de las 4 demos en modo lista -->
+        <section class="wrapper style2">
+            <div class="container">
+                <div class="row gtr-150">
+                    <div class="col-12">
+
+                        <!-- DEMO 1: DATOS ORDENADOS (ya funcionando) -->
+                        <div class="demo-card">
+                            <h3>📊 Ordena datos en 10 segundos</h3>
+                            <p>Sube un Excel desordenado y mira cómo la IA lo transforma al instante</p>
+                            <div id="demo-data" class="demo-preview">
+                                <p style="text-align: center; color: #f3a022;">
+                                    ⬇️ Haz clic en "Ver" para ordenar los datos ⬇️
+                                </p>
+                            </div>
+                            <button class="btn-cotizar" onclick="runDataDemo()">Ver</button>
+                        </div>
+
+                        <!-- DEMO 2: AUTOMATIZACIÓN -->
+                        <div class="demo-card">
+                            <h3>🤖 Automatización en acción</h3>
+                            <p>Un formulario que dispara múltiples acciones automáticas</p>
+                            <div id="demo-auto" class="demo-preview">
+                                <p style="text-align: center; color: #f3a022;">
+                                    ⚡ Presiona "Ver" para simular automatización
+                                </p>
+                            </div>
+                            <button class="btn-cotizar" onclick="runAutoDemo()">Ver</button>
+                        </div>
+
+                        <!-- DEMO 3: ASISTENTE IA -->
+                        <div class="demo-card">
+                            <h3>💬 Asistente 24/7</h3>
+                            <p>Conversa con un bot inteligente que entiende contexto</p>
+                            <div id="demo-chat" class="demo-preview">
+                                <p style="text-align: center; color: #f3a022;">
+                                    💬 Haz clic en "Ver" para conversar con el bot
+                                </p>
+                            </div>
+                            <button class="btn-cotizar" onclick="runChatDemo()">Ver</button>
+                        </div>
+
+                        <!-- DEMO 4: DATOS QUE HABLAN -->
+                        <div class="demo-card">
+                            <h3>📈 Datos que hablan</h3>
+                            <p>De números a gráficos claros en un clic</p>
+                            <div id="demo-dash" class="demo-preview">
+                                <p style="text-align: center; color: #f3a022;">
+                                    📊 Presiona "Ver" para ver datos en tiempo real
+                                </p>
+                            </div>
+                            <button class="btn-cotizar" onclick="runDashDemo()">Ver</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer id="footer">
+            <ul class="icons">
+                <li><a href="https://cl.linkedin.com/in/benjamin-carmona-69aa44223"
+                        class="icon brands alt fa-linkedin-in" target="_blank"><span class="label">LinkedIn</span></a>
+                </li>
+                <li><a href="https://github.com/Benj11ii" class="icon brands alt fa-github" target="_blank"><span
+                            class="label">GitHub</span></a></li>
+                <li><a href="mailto:iasesoriainformatica@gmail.com" class="icon solid alt fa-envelope"><span
+                            class="label">Email</span></a></li>
+            </ul>
+            <ul class="copyright">
+                <li>&copy; IAsesoria Informática. Todos los derechos reservados.</li>
+                <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+            </ul>
+        </footer>
+        <!-- Botón WhatsApp flotante -->
+        <a href="https://wa.me/56926870966?text=Hola%20vi%20su%20página%20y%20me%20gustaría%20solicitar%20información%20sobre..."
+            class="whatsapp-float" target="_blank">
+            <div class="outer-circle">
+                <div class="inner-circle">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+            </div>
+        </a>
+    </div>
+
+
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/jquery.scrolly.min.js"></script>
+    <script src="../assets/js/jquery.dropotron.min.js"></script>
+    <script src="../assets/js/jquery.scrollex.min.js"></script>
+    <script src="../assets/js/browser.min.js"></script>
+    <script src="../assets/js/breakpoints.min.js"></script>
+    <script src="../assets/js/util.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="/backend/public/demos/assets/js/demos.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,306 @@
+.demo-card {
+    display: grid;
+    grid-template-columns: 320px 1fr auto;
+    align-items: center;
+    gap: 1.5rem;
+
+    background: rgba(25, 25, 35, 0.7);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 1rem;
+    transition: all 0.4s ease;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Efecto hover con zoom y color */
+.demo-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: scale(1.02) translateX(10px); /* Zoom y desplazamiento suave */
+    border-left: 4px solid #4a90e2; /* Borde azul al hacer hover */
+    box-shadow: 0 0 25px 8px rgba(70, 130, 200, 0.25);
+    border-bottom: 1px solid transparent; /* Quitamos la línea al hacer hover */
+}
+
+.demo-card h3 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1.3rem;
+    white-space: nowrap;
+}
+
+.demo-card p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.demo-card .button {
+    margin: 0;
+    min-width: 120px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+.demo-card:hover .button {
+    background: #05172b;
+    border-color: rgba(180, 200, 255, 0.1);
+    color: #ffffff;
+}
+
+.demo-preview {
+    min-height: 200px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    margin-top: 1rem;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Heredamos el estilo del banner principal pero con overlay más oscuro */
+#demos-banner {
+    position: relative;
+    box-shadow: 0 12px 12px -10px rgba(0, 0, 0, 0.78);
+    background:
+        url('../../images/principalimagen.jpg');
+    background-size: auto;
+    background-position: center;
+    padding: 4rem 0 3rem 0;
+}
+
+#demos-banner::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -20px;
+    height: 1px;
+
+    background: linear-gradient(
+        to bottom,
+        rgba(20, 20, 30, 0),
+        rgba(20, 20, 30, 0.65)
+    );
+
+    pointer-events: none;
+}
+
+#demos-banner h2 {
+    color: #ffffff !important;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    line-height:6.5rem;
+
+}
+
+#demos-banner p {
+    color: #f3a022 !important;
+    font-size: 1.2rem;
+}
+
+
+
+
+@media screen and (max-width: 736px) {
+    .demo-card {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    .demo-card h3 {
+        white-space: normal;
+    }
+    
+    .demo-card:hover {
+        transform: scale(1.02) translateX(5px); /* Menos desplazamiento en móvil */
+    }
+}
+
+
+
+
+
+
+
+/*version mejorada*/
+
+.demo-card {
+    background: rgba(25, 25, 35, 0.7);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 1rem;
+    transition: all 0.4s ease;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.demo-card:hover {
+    background: rgba(35, 35, 45, 0.85);
+    transform: scale(1.02) translateY(-3px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    /* Efecto glow + relieve */
+    box-shadow: 
+        0 15px 25px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        0 0 30px 8px rgba(243, 160, 34, 0.35); /* halo anaranjado */
+}
+
+.wrapper.style2 {
+    background:
+        linear-gradient(
+            rgba(20, 20, 30, 0.65),
+            rgba(20, 20, 30, 0.65)
+        ),
+        url('../../images/principalimagen.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.demo-preview {
+    min-height: 150px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    margin: 1rem 0;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Estilo para tablas dentro de las demos */
+.demo-preview table {
+    width: 100%;
+    border-collapse: collapse;
+    color: white;
+}
+
+.demo-preview th {
+    background: rgba(243, 160, 34, 0.2);
+    color: #f3a022;
+    padding: 0.5rem;
+    font-weight: bold;
+}
+
+.demo-preview td {
+    padding: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+/* Estilo para el chat */
+#chat-messages {
+    background: rgba(0, 0, 0, 0.4) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#chat-input {
+    background: rgba(0, 0, 0, 0.5) !important;
+    border: 1px solid rgba(243, 160, 34, 0.3) !important;
+    color: white !important;
+    border-radius: 4px;
+}
+
+#chat-input:focus {
+    outline: none;
+    border-color: #f3a022 !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Estilos para las demos */
+.demo-preview {
+    min-height: 150px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    margin: 1rem 0;
+    padding: 1rem;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    width: 100%;
+}
+
+/* Para la tabla de la Demo 1 */
+.demo-preview table {
+    width: 100%;
+    border-collapse: collapse;
+    color: white;
+    font-size: 0.9rem;
+}
+
+.demo-preview th {
+    background: rgba(243, 160, 34, 0.2);
+    color: #f3a022;
+    padding: 8px;
+}
+
+.demo-preview td {
+    padding: 6px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+/* Para el chat de la Demo 3 */
+#chat-messages {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid #f3a02230;
+    border-radius: 8px;
+    padding: 8px;
+    height: 120px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+#chat-input {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #f3a02250;
+    color: white;
+    padding: 8px;
+    border-radius: 4px;
+    flex: 1;
+}
+
+#chat-input:focus {
+    outline: none;
+    border-color: #f3a022;
+}
+
+/* Para los dashboards de la Demo 4 */
+.demo-preview div[style*="grid"] {
+    margin-bottom: 10px;
+}
+
+.demo-preview div[style*="background: rgba(243,160,34,0.1)"] {
+    transition: transform 0.2s;
+}
+
+.demo-preview div[style*="background: rgba(243,160,34,0.1)"]:hover {
+    transform: scale(1.05);
+}
