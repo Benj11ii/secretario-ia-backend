@@ -1,72 +1,170 @@
-.demo-card {
-    display: grid;
-    grid-template-columns: 320px 1fr auto;
-    align-items: center;
-    gap: 1.5rem;
+/* ============================================
+   demos.css - VERSIÓN ÚNICA Y OPTIMIZADA
+   ============================================ */
 
+/* --------------------------------------------
+   VARIABLES GLOBALES
+   -------------------------------------------- */
+:root {
+    --primary: #f3a022;
+    --primary-dark: #d48b1c;
+    --bg-dark: rgba(20, 20, 30, 0.95);
+    --bg-card: rgba(25, 25, 35, 0.7);
+    --bg-card-hover: rgba(35, 35, 45, 0.85);
+    --text-light: rgba(255, 255, 255, 0.9);
+    --text-muted: rgba(255, 255, 255, 0.7);
+    --border-light: rgba(255, 255, 255, 0.1);
+    --shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* --------------------------------------------
+   TARJETAS DE DEMO (ESTADO NORMAL) - VERSIÓN SUAVE
+   -------------------------------------------- */
+.demo-card {
+    display: flex;
+    flex-direction: column;
     background: rgba(25, 25, 35, 0.7);
     border-radius: 16px;
     padding: 1.5rem 2rem;
     margin-bottom: 1rem;
-    transition: all 0.4s ease;
+    position: relative;
+    z-index: 1;
+    
+    /* Transiciones SUAVES y LENTAS para todos los efectos */
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     border: 1px solid rgba(255, 255, 255, 0.03);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
-/* Efecto hover con zoom y color */
 .demo-card:hover {
-    background: rgba(255, 255, 255, 0.08);
-    transform: scale(1.02) translateX(10px); /* Zoom y desplazamiento suave */
-    border-left: 4px solid #4a90e2; /* Borde azul al hacer hover */
-    box-shadow: 0 0 25px 8px rgba(70, 130, 200, 0.25);
-    border-bottom: 1px solid transparent; /* Quitamos la línea al hacer hover */
+    background: var(--bg-card-hover);
+    transform: scale(1.02) translateY(-5px); /* Un poco más de desplazamiento */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    
+    /* Sombra más suave y difusa */
+    box-shadow: 
+        0 20px 30px -10px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(255, 255, 255, 0.05),
+        0 0 30px 12px rgba(243, 160, 34, 0.3); /* Halo anaranjado más suave */
+    
+    /* Aseguramos que la transición sea lenta también en hover */
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .demo-card h3 {
-    margin: 0;
+    margin: 0 0 0.5rem 0;
     color: #ffffff;
     font-size: 1.3rem;
-    white-space: nowrap;
+    transition: color 0.3s ease;
+}
+
+.demo-card:hover h3 {
+    color: var(--primary); /* El título se vuelve naranja al hacer hover */
 }
 
 .demo-card p {
-    margin: 0;
-    color: rgba(255, 255, 255, 0.7);
+    margin: 0 0 1rem 0;
+    color: var(--text-muted);
+    transition: color 0.3s ease;
 }
 
-.demo-card .button {
-    margin: 0;
-    min-width: 120px;
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #ffffff;
-    transition: all 0.3s ease;
+.demo-card:hover p {
+    color: rgba(255, 255, 255, 0.9); /* El texto se aclara al hacer hover */
 }
 
-.demo-card:hover .button {
-    background: #05172b;
-    border-color: rgba(180, 200, 255, 0.1);
-    color: #ffffff;
-}
-
+/* --------------------------------------------
+   CONTENEDOR DE PREVIEW (DONDE VA LA DEMO)
+   -------------------------------------------- */
 .demo-preview {
-    min-height: 200px;
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
-    margin-top: 1rem;
+    min-height: 150px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    margin: 1rem 0;
     padding: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
+    position: relative;
+    z-index: 1;
 }
 
-/* Heredamos el estilo del banner principal pero con overlay más oscuro */
+
+/* Cuando el modo focus está activo, ocultamos el botón Ver de la tarjeta activa */
+body.focus-mode .demo-card.active .btn-cotizar {
+    display: none !important;
+}
+
+/* --------------------------------------------
+   ESTILOS PARA TABLAS (DEMO 1)
+   -------------------------------------------- */
+.demo-tabla {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.demo-tabla th {
+    background: rgba(243, 160, 34, 0.2);
+    color: var(--primary);
+    padding: 8px;
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 2px solid var(--primary);
+}
+
+.demo-tabla td {
+    padding: 6px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-light);
+    color: white;
+}
+
+.demo-tabla tr:last-child td {
+    border-bottom: none;
+}
+
+.demo-tabla tr:hover td {
+    background: rgba(243, 160, 34, 0.1);
+}
+
+/* --------------------------------------------
+   ESTILOS PARA CHAT (DEMO 3)
+   -------------------------------------------- */
+#chat-messages {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(243, 160, 34, 0.2);
+    border-radius: 8px;
+    padding: 8px;
+    height: 120px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    color: white;
+}
+
+#chat-input {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(243, 160, 34, 0.3);
+    color: white;
+    padding: 8px;
+    border-radius: 4px;
+    flex: 1;
+}
+
+#chat-input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+#chat-messages p {
+    margin: 2px 0;
+}
+
+/* --------------------------------------------
+   BANNER DE DEMOS
+   -------------------------------------------- */
 #demos-banner {
     position: relative;
     box-shadow: 0 12px 12px -10px rgba(0, 0, 0, 0.78);
-    background:
-        url('../../images/principalimagen.jpg');
-    background-size: auto;
+    background: url('../../images/principalimagen.jpg');
+    background-size: cover;
     background-position: center;
     padding: 4rem 0 3rem 0;
 }
@@ -78,13 +176,7 @@
     right: 0;
     bottom: -20px;
     height: 1px;
-
-    background: linear-gradient(
-        to bottom,
-        rgba(20, 20, 30, 0),
-        rgba(20, 20, 30, 0.65)
-    );
-
+    background: linear-gradient(to bottom, rgba(20, 20, 30, 0), rgba(20, 20, 30, 0.65));
     pointer-events: none;
 }
 
@@ -92,215 +184,326 @@
     color: #ffffff !important;
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
-    line-height:6.5rem;
-
 }
 
 #demos-banner p {
-    color: #f3a022 !important;
+    color: var(--primary) !important;
     font-size: 1.2rem;
 }
 
-
-
-
-@media screen and (max-width: 736px) {
-    .demo-card {
-        grid-template-columns: 1fr;
-        gap: 0.75rem;
-    }
-    
-    .demo-card h3 {
-        white-space: normal;
-    }
-    
-    .demo-card:hover {
-        transform: scale(1.02) translateX(5px); /* Menos desplazamiento en móvil */
-    }
-}
-
-
-
-
-
-
-
-/*version mejorada*/
-
-.demo-card {
-    background: rgba(25, 25, 35, 0.7);
-    border-radius: 16px;
-    padding: 1.5rem 2rem;
-    margin-bottom: 1rem;
-    transition: all 0.4s ease;
-    border: 1px solid rgba(255, 255, 255, 0.03);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-}
-
-.demo-card:hover {
-    background: rgba(35, 35, 45, 0.85);
-    transform: scale(1.02) translateY(-3px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    /* Efecto glow + relieve */
-    box-shadow: 
-        0 15px 25px rgba(0, 0, 0, 0.6),
-        0 0 0 1px rgba(255, 255, 255, 0.1),
-        0 0 30px 8px rgba(243, 160, 34, 0.35); /* halo anaranjado */
-}
-
+/* --------------------------------------------
+   FONDO DE LA SECCIÓN DE DEMOS
+   -------------------------------------------- */
 .wrapper.style2 {
-    background:
-        linear-gradient(
-            rgba(20, 20, 30, 0.65),
-            rgba(20, 20, 30, 0.65)
-        ),
+    background: linear-gradient(rgba(20, 20, 30, 0.65), rgba(20, 20, 30, 0.65)),
         url('../../images/principalimagen.jpg');
     background-size: cover;
     background-position: center;
 }
 
+/* --------------------------------------------
+   MODO FOCUS - REORGANIZACIÓN COMPLETA
+   -------------------------------------------- */
+body.focus-mode::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 90;
+    animation: fadeIn 0.3s ease;
+}
+
+body.focus-mode .demo-card:not(.active) {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.8);
+    transition: all 0.4s ease;
+    pointer-events: none;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+body.focus-mode .demo-card.active {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    width: 80%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    z-index: 200;
+    background: var(--bg-dark);
+    border: 2px solid var(--primary);
+    box-shadow: 0 0 50px rgba(243, 160, 34, 0.5);
+    padding: 2.5rem;
+    animation: focusAppear 0.4s ease;
+}
+
+body.focus-mode .demo-card.active h3 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--primary);
+    border-bottom: 2px solid rgba(243, 160, 34, 0.3);
+    padding-bottom: 1rem;
+}
+
+body.focus-mode .demo-card.active>p {
+    font-size: 1.2rem;
+    text-align: center;
+    color: var(--text-light);
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body.focus-mode .demo-card.active .demo-preview {
+    min-height: 300px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(243, 160, 34, 0.3);
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 2rem 0;
+    font-size: 1.1rem;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+body.focus-mode .demo-card.active .btn-cotizar {
+    display: none;
+}
 
 
+body.focus-mode .focus-close-btn {
+    display: block;
+    animation: slideDown 0.3s ease;
+}
 
+/* Ajustes específicos para cada demo en focus */
+body.focus-mode .demo-card.active #demo-data table {
+    font-size: 1.1rem;
+}
 
+body.focus-mode .demo-card.active #demo-data th {
+    padding: 12px;
+    font-size: 1.2rem;
+}
 
+body.focus-mode .demo-card.active #demo-data td {
+    padding: 10px;
+}
 
+body.focus-mode .demo-card.active #demo-auto div[style*="text-align: left"] {
+    font-size: 1.2rem;
+    padding: 20px !important;
+}
 
+body.focus-mode .demo-card.active #demo-auto p {
+    margin: 15px 0 !important;
+}
 
+body.focus-mode .demo-card.active #demo-chat>div {
+    padding: 20px !important;
+}
 
+body.focus-mode .demo-card.active #chat-messages {
+    height: 250px !important;
+    font-size: 1.1rem;
+}
 
+body.focus-mode .demo-card.active #chat-input {
+    padding: 12px !important;
+    font-size: 1.1rem;
+}
 
+body.focus-mode .demo-card.active #demo-dash>div {
+    padding: 25px !important;
+}
 
-.demo-preview {
-    min-height: 150px;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 8px;
-    margin: 1rem 0;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
+body.focus-mode .demo-card.active #demo-dash [style*="font-size: 2rem"] {
+    font-size: 2.5rem !important;
+}
+
+/* --------------------------------------------
+   ANIMACIONES
+   -------------------------------------------- */
+@keyframes focusAppear {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -40%) scale(0.9);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* --------------------------------------------
+   RESPONSIVE (MÓVILES)
+   -------------------------------------------- */
+@media screen and (max-width: 736px) {
+    .demo-card {
+        padding: 1rem;
+    }
+
+    .demo-card h3 {
+        font-size: 1.1rem;
+        white-space: normal;
+    }
+
+    .demo-card p {
+        font-size: 0.9rem;
+    }
+
+    .demo-preview {
+        min-height: 120px;
+        padding: 0.5rem;
+    }
+
+    .demo-tabla {
+        font-size: 0.8rem;
+    }
+
+    .demo-tabla th,
+    .demo-tabla td {
+        padding: 4px;
+    }
+
+    /* Modo focus en móvil */
+    body.focus-mode .demo-card.active {
+        width: 95%;
+        padding: 1.5rem;
+    }
+
+    body.focus-mode .demo-card.active h3 {
+        font-size: 1.8rem;
+    }
+
+    body.focus-mode .demo-card.active>p {
+        font-size: 1rem;
+    }
+
+    body.focus-mode .demo-card.active .demo-preview {
+        min-height: 200px;
+        padding: 1rem;
+    }
+
+}
+
+/* Botón de cierre dentro de la tarjeta (oculto por defecto) */
+.demo-close-btn {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(243, 160, 34, 0.5);
+    color: #f3a022;
+    font-size: 1.3rem;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.2s ease;
+    backdrop-filter: blur(2px);
 }
 
-/* Estilo para tablas dentro de las demos */
-.demo-preview table {
-    width: 100%;
-    border-collapse: collapse;
-    color: white;
+.demo-close-btn:hover {
+    background: #f3a022;
+    color: black;
+    border-color: white;
+    transform: scale(1.1);
 }
 
-.demo-preview th {
-    background: rgba(243, 160, 34, 0.2);
-    color: #f3a022;
-    padding: 0.5rem;
+/* Mostrar solo en la tarjeta activa durante el modo focus */
+body.focus-mode .demo-card.active .demo-close-btn {
+    display: flex; /* o block, pero flex centra mejor el contenido */
+}
+
+/* Ajuste para móviles: botón un poco más pequeño */
+@media screen and (max-width: 736px) {
+    .demo-close-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 1.1rem;
+        top: 5px;
+        right: 5px;
+    }
+}
+
+
+
+
+
+/*Boton ver*/
+
+/* --------------------------------------------
+   BOTÓN VER - ESTILO RECTANGULAR (como Enviar Solicitud)
+   -------------------------------------------- */
+.demo-card .btn-cotizar {
+    display: inline-block;
+    background-color: #f3a022;  /* Fondo naranja */
+    color: #1a1a21 !important;   /* Texto oscuro casi negro */
+    padding: 12px 30px;          /* Padding cómodo */
+    text-align: center;
+    border-radius: 5px;          /* Bordes ligeramente redondeados (rectangular) */
     font-weight: bold;
-}
-
-.demo-preview td {
-    padding: 0.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: center;
-}
-
-/* Estilo para el chat */
-#chat-messages {
-    background: rgba(0, 0, 0, 0.4) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-#chat-input {
-    background: rgba(0, 0, 0, 0.5) !important;
-    border: 1px solid rgba(243, 160, 34, 0.3) !important;
-    color: white !important;
-    border-radius: 4px;
-}
-
-#chat-input:focus {
-    outline: none;
-    border-color: #f3a022 !important;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Estilos para las demos */
-.demo-preview {
-    min-height: 150px;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 8px;
-    margin: 1rem 0;
-    padding: 1rem;
+    font-size: 1em;
     transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    width: 100%;
+    border: none;                /* Sin borde en estado normal */
+    cursor: pointer;
+    margin-top: 15px;
+    width: auto;
+    min-width: 120px;
+    align-self: flex-start;      /* Alineado a la izquierda */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    z-index: 5;
+    position: relative;
 }
 
-/* Para la tabla de la Demo 1 */
-.demo-preview table {
-    width: 100%;
-    border-collapse: collapse;
-    color: white;
-    font-size: 0.9rem;
-}
-
-.demo-preview th {
-    background: rgba(243, 160, 34, 0.2);
-    color: #f3a022;
-    padding: 8px;
-}
-
-.demo-preview td {
-    padding: 6px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: center;
-}
-
-/* Para el chat de la Demo 3 */
-#chat-messages {
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid #f3a02230;
-    border-radius: 8px;
-    padding: 8px;
-    height: 120px;
-    overflow-y: auto;
-    margin-bottom: 10px;
-}
-
-#chat-input {
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid #f3a02250;
-    color: white;
-    padding: 8px;
-    border-radius: 4px;
-    flex: 1;
-}
-
-#chat-input:focus {
-    outline: none;
-    border-color: #f3a022;
-}
-
-/* Para los dashboards de la Demo 4 */
-.demo-preview div[style*="grid"] {
-    margin-bottom: 10px;
-}
-
-.demo-preview div[style*="background: rgba(243,160,34,0.1)"] {
-    transition: transform 0.2s;
-}
-
-.demo-preview div[style*="background: rgba(243,160,34,0.1)"]:hover {
+.demo-card .btn-cotizar:hover {
+    background-color: transparent;  /* Fondo transparente */
+    color: #f3a022 !important;      /* Texto naranja */
+    border: 1px solid #f3a022;      /* Borde naranja en hover */
     transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(243, 160, 34, 0.5);
+}
+
+/* Cuando el modo focus está activo, ocultamos el botón Ver de la tarjeta activa */
+body.focus-mode .demo-card.active .btn-cotizar {
+    display: none !important;
 }

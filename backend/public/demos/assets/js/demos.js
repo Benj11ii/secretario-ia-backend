@@ -1,6 +1,22 @@
 // assets/js/demos.js - VERSIÓN COMPLETA CON 4 DEMOS
 
 // ============================================
+// MANEJADOR DE CLICKS PARA DEMOS
+// ============================================
+function handleDemoClick(button, demoFunctionName) {
+    // Encontrar la tarjeta contenedora
+    const demoCard = button.closest('.demo-card');
+    if (!demoCard) return;
+    
+    // Obtener la función por su nombre
+    const demoFunction = window[demoFunctionName];
+    if (typeof demoFunction !== 'function') return;
+    
+    // Activar modo focus y ejecutar demo
+    focusOnDemo(demoCard, demoFunction);
+}
+
+// ============================================
 // DEMO 1: ORDENAR DATOS
 // ============================================
 function runDataDemo() {
@@ -239,3 +255,96 @@ window.runDataDemo = runDataDemo;
 window.runAutoDemo = runAutoDemo;
 window.runChatDemo = runChatDemo;
 window.runDashDemo = runDashDemo;
+
+// ============================================
+// MODO FOCUS
+// ============================================
+// ============================================
+// MODO FOCUS - VERSIÓN MEJORADA
+// ============================================
+
+let activeDemoCard = null;
+
+function focusOnDemo(demoCard, demoFunction) {
+    // Si ya hay una demo activa, la cerramos primero
+    if (activeDemoCard) {
+        exitFocusMode();
+    }
+    
+    // Guardar el contenido original por si queremos resetear después
+    if (!demoCard.dataset.originalContent) {
+        // No guardamos nada específico, el reset es visual nomás
+    }
+    
+    // Marcar esta tarjeta como activa
+    demoCard.classList.add('active');
+    activeDemoCard = demoCard;
+    
+    // Activar modo focus en el body
+    document.body.classList.add('focus-mode');
+    
+    // Scroll al inicio
+    window.scrollTo(0, 0);
+    
+    // Ejecutar la función de la demo con un pequeño retraso
+    // para que la animación de focus se vea primero
+    setTimeout(() => {
+        demoFunction();
+    }, 100);
+    
+    console.log("🎯 Modo focus activado para:", demoCard.querySelector('h3')?.innerText);
+}
+
+function exitFocusMode() {
+    if (activeDemoCard) {
+        activeDemoCard.classList.remove('active');
+        activeDemoCard = null;
+    }
+    
+    document.body.classList.remove('focus-mode');
+    
+    console.log("👋 Modo focus desactivado");
+}
+
+// Cerrar modo focus con tecla ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && document.body.classList.contains('focus-mode')) {
+        exitFocusMode();
+    }
+});
+
+// ============================================
+// CERRAR MODO FOCUS HACIENDO CLICK FUERA
+// ============================================
+
+document.addEventListener('click', function(event) {
+    // Solo si estamos en modo focus
+    if (!document.body.classList.contains('focus-mode')) return;
+    
+    const activeCard = document.querySelector('.demo-card.active');
+    if (!activeCard) return;
+    
+    // Elementos que NO deben cerrar el modal aunque estén fuera de la tarjeta
+    // (por ejemplo, el botón de cierre ya tiene su propio evento)
+    const isCloseButton = event.target.classList.contains('demo-close-btn');
+    
+    // Si el click NO fue dentro de la tarjeta activa
+    // Y no fue en el botón de cierre (para evitar doble ejecución)
+    if (!activeCard.contains(event.target) && !isCloseButton) {
+        exitFocusMode();
+    }
+});
+
+// Opcional: Prevenir que el click en el botón de cierre se propague
+// (no es necesario, pero por si acaso)
+document.querySelectorAll('.demo-close-btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation(); // Evita que el evento llegue al documento
+    });
+});
+// Prevenir scroll del body cuando el modal está abierto
+document.addEventListener('touchmove', function(e) {
+    if (document.body.classList.contains('focus-mode')) {
+        e.preventDefault();
+    }
+}, { passive: false });

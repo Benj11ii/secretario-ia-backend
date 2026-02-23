@@ -12,6 +12,7 @@
 </head>
 
 <body class="is-preload">
+
     <div id="page-wrapper">
         <header id="header">
             <h1 id="logo">
@@ -47,17 +48,16 @@
             <div class="container">
                 <div class="row gtr-150">
                     <div class="col-12">
-
-                        <!-- DEMO 1: DATOS ORDENADOS (ya funcionando) -->
+                        <!-- DEMO 1: DATOS ORDENADOS -->
                         <div class="demo-card">
                             <h3>📊 Ordena datos en 10 segundos</h3>
                             <p>Sube un Excel desordenado y mira cómo la IA lo transforma al instante</p>
                             <div id="demo-data" class="demo-preview">
-                                <p style="text-align: center; color: #f3a022;">
-                                    ⬇️ Haz clic en "Ver" para ordenar los datos ⬇️
-                                </p>
+                                <p style="text-align: center; color: #f3a022;">⬇️ Haz clic en "Ver" para ordenar los
+                                    datos ⬇️</p>
                             </div>
-                            <button class="btn-cotizar" onclick="runDataDemo()">Ver</button>
+                            <button class="btn-cotizar" onclick="handleDemoClick(this, 'runDataDemo')">Ver</button>
+                            <button class="demo-close-btn" onclick="exitFocusMode()" title="Cerrar">✕</button>
                         </div>
 
                         <!-- DEMO 2: AUTOMATIZACIÓN -->
@@ -65,11 +65,11 @@
                             <h3>🤖 Automatización en acción</h3>
                             <p>Un formulario que dispara múltiples acciones automáticas</p>
                             <div id="demo-auto" class="demo-preview">
-                                <p style="text-align: center; color: #f3a022;">
-                                    ⚡ Presiona "Ver" para simular automatización
-                                </p>
+                                <p style="text-align: center; color: #f3a022;">⚡ Presiona "Ver" para simular
+                                    automatización</p>
                             </div>
-                            <button class="btn-cotizar" onclick="runAutoDemo()">Ver</button>
+                            <button class="btn-cotizar" onclick="handleDemoClick(this, 'runAutoDemo')">Ver</button>
+                            <button class="demo-close-btn" onclick="exitFocusMode()" title="Cerrar">✕</button>
                         </div>
 
                         <!-- DEMO 3: ASISTENTE IA -->
@@ -77,11 +77,11 @@
                             <h3>💬 Asistente 24/7</h3>
                             <p>Conversa con un bot inteligente que entiende contexto</p>
                             <div id="demo-chat" class="demo-preview">
-                                <p style="text-align: center; color: #f3a022;">
-                                    💬 Haz clic en "Ver" para conversar con el bot
-                                </p>
+                                <p style="text-align: center; color: #f3a022;">💬 Haz clic en "Ver" para conversar con
+                                    el bot</p>
                             </div>
-                            <button class="btn-cotizar" onclick="runChatDemo()">Ver</button>
+                            <button class="btn-cotizar" onclick="handleDemoClick(this, 'runChatDemo')">Ver</button>
+                            <button class="demo-close-btn" onclick="exitFocusMode()" title="Cerrar">✕</button>
                         </div>
 
                         <!-- DEMO 4: DATOS QUE HABLAN -->
@@ -89,11 +89,11 @@
                             <h3>📈 Datos que hablan</h3>
                             <p>De números a gráficos claros en un clic</p>
                             <div id="demo-dash" class="demo-preview">
-                                <p style="text-align: center; color: #f3a022;">
-                                    📊 Presiona "Ver" para ver datos en tiempo real
-                                </p>
+                                <p style="text-align: center; color: #f3a022;">📊 Presiona "Ver" para ver datos en
+                                    tiempo real</p>
                             </div>
-                            <button class="btn-cotizar" onclick="runDashDemo()">Ver</button>
+                            <button class="btn-cotizar" onclick="handleDemoClick(this, 'runDashDemo')">Ver</button>
+                            <button class="demo-close-btn" onclick="exitFocusMode()" title="Cerrar">✕</button>
                         </div>
 
                     </div>
