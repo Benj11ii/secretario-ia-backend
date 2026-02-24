@@ -4939,6 +4939,42 @@ input[type="submit"]:active {
 
 
 
+
+/* ============================================================
+   CORRECCIÓN: ELIMINAR LÍNEA EXTRA DEL BOTÓN WHATSAPP
+   ============================================================ */
+
+/* Eliminar cualquier decoración de texto */
+.whatsapp-float,
+.whatsapp-float:hover,
+.whatsapp-float:focus,
+.whatsapp-float:active,
+.whatsapp-float:visited {
+	text-decoration: none !important;
+	border-bottom: none !important;
+	outline: none !important;
+}
+
+/* Asegurar que no haya líneas en los elementos internos */
+.whatsapp-float .outer-circle,
+.whatsapp-float .inner-circle,
+.whatsapp-float i {
+	text-decoration: none !important;
+	border-bottom: none !important;
+}
+
+/* Eliminar cualquier borde o línea residual */
+.whatsapp-float * {
+	border-bottom: none !important;
+	text-decoration: none !important;
+}
+
+/* Para navegadores específicos */
+.whatsapp-float::-moz-focus-inner {
+	border: 0 !important;
+}
+
+
 /* Esto detecta cuando el navegador está aplicando el autocompletado */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
