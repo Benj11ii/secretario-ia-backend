@@ -907,3 +907,24 @@ body.focus-mode .demo-card.active .demo-close-btn {
     height: 60px;
     filter: drop-shadow(0 4px 10px rgba(0,0,0,0.4));
 }
+
+/* ===== WHATSAPP FLOAT — TAMAÑO REAL ===== */
+
+.whatsapp-float .outer-circle {
+    width: 72px;
+    height: 72px;
+}
+
+.whatsapp-float .inner-circle {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.whatsapp-float i.fa-whatsapp {
+    font-size: 36px;
+    color: #25D366;
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.4));
+}
