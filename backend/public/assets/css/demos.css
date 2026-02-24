@@ -900,3 +900,10 @@ body.focus-mode .demo-card.active .demo-close-btn {
     opacity: 1 !important;
     transform: translateY(-50%) translateX(0) !important; /* ← CORREGIDO */
 }
+
+.whatsapp-float img,
+.whatsapp-float svg {
+    width: 60px;
+    height: 60px;
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.4));
+}
