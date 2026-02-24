@@ -5,10 +5,8 @@
     <title>IAsesoria - Demos Interactivas</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <!-- Rutas ABSOLUTAS desde la raíz -->
     <link rel="stylesheet" href="/backend/public/assets/css/main.css" />
     <link rel="stylesheet" href="/backend/public/demos/assets/css/demos.css" />
-</head>
 </head>
 
 <body class="is-preload">
@@ -31,7 +29,6 @@
             </nav>
         </header>
 
-        <!-- Banner de la página de demos -->
         <section id="demos-banner" class="wrapper style1 special fade-up">
             <div class="container">
                 <header class="major">
@@ -41,73 +38,88 @@
             </div>
         </section>
 
-
-
-        <!-- Grid de las 4 demos en modo lista -->
         <section class="wrapper style2">
             <div class="container">
                 <div class="row gtr-150">
                     <div class="col-12">
-                        <!-- DEMO 1: DATOS ORDENADOS -->
+
                         <div class="demo-card">
+                            <button class="demo-close-btn" onclick="exitFocusMode()">✕</button>
                             <h3>Cree la secuencia de pasos para el éxito</h3>
-                            <p>Use formularios inteligentes, basándose en datos tomará decisiones informadas</p>
+                            <p>Utilice formularios inteligentes basados en datos; le permitirán tomar decisiones
+                                acertadas</p>
+                            <div class="demo-media">
+                                <img src="assets/images/dem1.png" class="demo-image" alt="Datos Ordenados">
+                                <button class="demo-hover-btn" onclick="handleDemoClick(this, 'runDataDemo')">Ver
+                                    Demo</button>
+                            </div>
                             <div id="demo-data" class="demo-preview">
-                                <p style="text-align: center; color: #f3a022;">⬇️ Haz clic en "Ver" para ordenar los
-                                    datos ⬇️</p>
+
+                                <div class="demo-content"></div>
                             </div>
-                            <button class="btn-cotizar" onclick="handleDemoClick(this, 'runDataDemo')">Ver</button>
-                            <button class="demo-close-btn" onclick="exitFocusMode()" title="Cerrar">✕</button>
                         </div>
 
-                        <!-- DEMO 2: AUTOMATIZACIÓN -->
                         <div class="demo-card">
-                            <h3>Automatice sus planes, aumente su tiempo disponible</h3>
-                            <p>Entendiendo su proyecto, con nosotros una las piezas, para ejecutará su visión y seguir creciendo</p>
+                            <button class="demo-close-btn" onclick="exitFocusMode()">✕</button>
+                            <h3>Optimice su gestión hoy para ganar libertad mañana</h3>
+                            <p>Conectamos cada pieza de su proyecto para consolidar su presente y futuro</p>
+                            <div class="demo-media">
+                                <img src="assets/images/dem2.png" class="demo-image" alt="Automatización">
+                                <button class="demo-hover-btn" onclick="handleDemoClick(this, 'runAutoDemo')">Ver
+                                    Demo</button>
+                            </div>
                             <div id="demo-auto" class="demo-preview">
-                                <p style="text-align: center; color: #f3a022;">⚡ Presiona "Ver" para simular
-                                    automatización</p>
+
+                                <div class="demo-content"></div>
                             </div>
-                            <button class="btn-cotizar" onclick="handleDemoClick(this, 'runAutoDemo')">Ver</button>
-                            <button class="demo-close-btn" onclick="exitFocusMode()" title="Cerrar">✕</button>
                         </div>
 
-                        <!-- DEMO 3: ASISTENTE IA -->
                         <div class="demo-card">
-                            <h3>Asistente personalizado</h3>
-                            <p>Converse con una IA dedicada a usted, que conozca su ámbito y sepa como encontrar la respuesta correcta a sus consultas</p>
+                            <button class="demo-close-btn" onclick="exitFocusMode()">✕</button>
+                            <h3>Asistente IA personalizado</h3>
+                            <p>Converse con una IA dedicada siempre a usted, que conozca su proyecto y plan de acción
+                            </p>
+                            <div class="demo-media">
+                                <img src="assets/images/dem3.png" class="demo-image" alt="Asistente IA">
+                                <button class="demo-hover-btn" onclick="handleDemoClick(this, 'runChatDemo')">Ver
+                                    Demo</button>
+                            </div>
                             <div id="demo-chat" class="demo-preview">
-                                <p style="text-align: center; color: #f3a022;">Haz clic en "Ver" para conversar con
-                                    el bot</p>
+
+                                <div class="demo-content"></div>
                             </div>
-                            <button class="btn-cotizar" onclick="handleDemoClick(this, 'runChatDemo')">Ver</button>
-                            <button class="demo-close-btn" onclick="exitFocusMode()" title="Cerrar">✕</button>
                         </div>
 
-                        <!-- DEMO 4: DATOS QUE HABLAN -->
                         <div class="demo-card">
+                            <button class="demo-close-btn" onclick="exitFocusMode()">✕</button>
                             <h3>De datos a información con valor</h3>
-                            <p>Aplique con nosotros la visión que quiere lograr, para que sus datos le permitan crecer en la direccion que quiere</p>
+                            <p>Hagamos realidad su visión estratégica para impulsar su crecimiento</p>
+                            <div class="demo-media">
+                                <img src="assets/images/dem4.png" class="demo-image" alt="Dashboards">
+                                <button class="demo-hover-btn" onclick="handleDemoClick(this, 'runDashDemo')">Ver
+                                    Demo</button>
+                            </div>
                             <div id="demo-dash" class="demo-preview">
-                                <p style="text-align: center; color: #f3a022;">📊 Presiona "Ver" para ver datos en
-                                    tiempo real</p>
+
+                                <div class="demo-content"></div>
                             </div>
-                            <button class="btn-cotizar" onclick="handleDemoClick(this, 'runDashDemo')">Ver</button>
-                            <button class="demo-close-btn" onclick="exitFocusMode()" title="Cerrar">✕</button>
                         </div>
-                        <!-- DEMO 5: VISUAL SORT - ORDENAMIENTO ESPECTACULAR -->
+
                         <div class="demo-card">
+                            <button class="demo-close-btn" onclick="exitFocusMode()">✕</button>
                             <h3>Eficiencia y optimización</h3>
-                            <p>Priorice lo que quiere ver, con nuestra asesoria logrará desprenderse de lo aburrido que es organizar datos</p>
-                            <div id="demo-sort" class="demo-preview">
-                                <p style="text-align: center; color: #f3a022;">⬇️ Haz clic en "Ver" para experimentar ⬇️
-                                </p>
+                            <p>Concéntrese en lo esencial; nosotros transformamos la complejidad de sus datos en
+                                claridad</p>
+                            <div class="demo-media">
+                                <img src="assets/images/dem5.png" class="demo-image" alt="Optimización">
+                                <button class="demo-hover-btn" onclick="handleDemoClick(this, 'runSortDemo')">Ver
+                                    Demo</button>
                             </div>
-                            <button class="btn-cotizar" onclick="handleDemoClick(this, 'runSortDemo')">Ver</button>
-                            <button class="demo-close-btn" onclick="exitFocusMode()" title="Cerrar">✕</button>
+                            <div id="demo-sort" class="demo-preview">
+
+                                <div class="demo-content"></div>
+                            </div>
                         </div>
-
-
 
                     </div>
                 </div>
@@ -129,9 +141,15 @@
                 <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
             </ul>
         </footer>
-        <!-- Botón WhatsApp flotante -->
-        <a href="https://wa.me/56926870966?text=Hola%20vi%20su%20página%20y%20me%20gustaría%20solicitar%20información%20sobre..."
-            class="whatsapp-float" target="_blank">
+
+        <a href="https://wa.me/56926870966?text=Hola..." class="whatsapp-float" target="_blank"
+            aria-label="Contacto por WhatsApp">
+
+            <span class="whatsapp-tooltip">
+                ¿Aún no te decides?<br>
+                <strong>Conversemos… de humano a humano.</strong>
+            </span>
+
             <div class="outer-circle">
                 <div class="inner-circle">
                     <i class="fab fa-whatsapp"></i>
@@ -139,7 +157,6 @@
             </div>
         </a>
     </div>
-
 
     <script src="../assets/js/jquery.min.js"></script>
     <script src="../assets/js/jquery.scrolly.min.js"></script>

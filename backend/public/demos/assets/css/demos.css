@@ -29,7 +29,7 @@
     margin-bottom: 1rem;
     position: relative;
     z-index: 1;
-    
+
     /* Transiciones SUAVES y LENTAS para todos los efectos */
     transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     border: 1px solid rgba(255, 255, 255, 0.03);
@@ -38,15 +38,17 @@
 
 .demo-card:hover {
     background: var(--bg-card-hover);
-    transform: scale(1.02) translateY(-5px); /* Un poco más de desplazamiento */
+    transform: scale(1.02) translateY(-5px);
+    /* Un poco más de desplazamiento */
     border: 1px solid rgba(255, 255, 255, 0.2);
-    
+
     /* Sombra más suave y difusa */
-    box-shadow: 
+    box-shadow:
         0 20px 30px -10px rgba(0, 0, 0, 0.7),
         0 0 0 1px rgba(255, 255, 255, 0.05),
-        0 0 30px 12px rgba(243, 160, 34, 0.3); /* Halo anaranjado más suave */
-    
+        0 0 30px 12px rgba(243, 160, 34, 0.3);
+    /* Halo anaranjado más suave */
+
     /* Aseguramos que la transición sea lenta también en hover */
     transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
@@ -59,7 +61,8 @@
 }
 
 .demo-card:hover h3 {
-    color: var(--primary); /* El título se vuelve naranja al hacer hover */
+    color: var(--primary);
+    /* El título se vuelve naranja al hacer hover */
 }
 
 .demo-card p {
@@ -69,7 +72,8 @@
 }
 
 .demo-card:hover p {
-    color: rgba(255, 255, 255, 0.9); /* El texto se aclara al hacer hover */
+    color: rgba(255, 255, 255, 0.9);
+    /* El texto se aclara al hacer hover */
 }
 
 /* --------------------------------------------
@@ -89,7 +93,7 @@
 
 /* Cuando el modo focus está activo, ocultamos el botón Ver de la tarjeta activa */
 /* Solo ocultamos el botón "Ver" original, no los botones de la demo */
-body.focus-mode .demo-card.active > .btn-cotizar {
+body.focus-mode .demo-card.active>.btn-cotizar {
     display: none !important;
 }
 
@@ -188,8 +192,12 @@ body.focus-mode .demo-card.active .demo-preview .btn-cotizar {
 
 #demos-banner h2 {
     color: #ffffff !important;
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+}
+
+#demos-banner p {
+    line-height: 1.4;
 }
 
 #demos-banner p {
@@ -426,26 +434,7 @@ body.focus-mode .demo-card.active #demo-dash [style*="font-size: 2rem"] {
 }
 
 /* Botón de cierre dentro de la tarjeta (oculto por defecto) */
-.demo-close-btn {
-    display: none;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(243, 160, 34, 0.5);
-    color: #f3a022;
-    font-size: 1.3rem;
-    font-weight: bold;
-    cursor: pointer;
-    z-index: 10;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-    backdrop-filter: blur(2px);
-}
+
 
 .demo-close-btn:hover {
     background: #f3a022;
@@ -456,7 +445,8 @@ body.focus-mode .demo-card.active #demo-dash [style*="font-size: 2rem"] {
 
 /* Mostrar solo en la tarjeta activa durante el modo focus */
 body.focus-mode .demo-card.active .demo-close-btn {
-    display: flex; /* o block, pero flex centra mejor el contenido */
+    display: flex;
+    /* o block, pero flex centra mejor el contenido */
 }
 
 /* Ajuste para móviles: botón un poco más pequeño */
@@ -481,20 +471,26 @@ body.focus-mode .demo-card.active .demo-close-btn {
    -------------------------------------------- */
 .demo-card .btn-cotizar {
     display: inline-block;
-    background-color: #f3a022;  /* Fondo naranja */
-    color: #1a1a21 !important;   /* Texto oscuro casi negro */
-    padding: 12px 30px;          /* Padding cómodo */
+    background-color: #f3a022;
+    /* Fondo naranja */
+    color: #1a1a21 !important;
+    /* Texto oscuro casi negro */
+    padding: 12px 30px;
+    /* Padding cómodo */
     text-align: center;
-    border-radius: 5px;          /* Bordes ligeramente redondeados (rectangular) */
+    border-radius: 5px;
+    /* Bordes ligeramente redondeados (rectangular) */
     font-weight: bold;
     font-size: 1em;
     transition: all 0.3s ease;
-    border: none;                /* Sin borde en estado normal */
+    border: none;
+    /* Sin borde en estado normal */
     cursor: pointer;
     margin-top: 15px;
     width: auto;
     min-width: 120px;
-    align-self: flex-start;      /* Alineado a la izquierda */
+    align-self: flex-start;
+    /* Alineado a la izquierda */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     text-decoration: none;
     z-index: 5;
@@ -502,9 +498,12 @@ body.focus-mode .demo-card.active .demo-close-btn {
 }
 
 .demo-card .btn-cotizar:hover {
-    background-color: transparent;  /* Fondo transparente */
-    color: #f3a022 !important;      /* Texto naranja */
-    border: 1px solid #f3a022;      /* Borde naranja en hover */
+    background-color: transparent;
+    /* Fondo transparente */
+    color: #f3a022 !important;
+    /* Texto naranja */
+    border: 1px solid #f3a022;
+    /* Borde naranja en hover */
     transform: scale(1.05);
     box-shadow: 0 0 15px rgba(243, 160, 34, 0.5);
 }
@@ -560,7 +559,7 @@ body.focus-mode .demo-card.active .btn-cotizar {
 }
 
 /* Contenedor de los botones */
-#demo-data > div {
+#demo-data>div {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -649,3 +648,236 @@ body.focus-mode .demo-card.active .btn-cotizar:not(.demo-close-btn) {
 }
 
 
+
+
+/*nuevo enfoque boton ver oculto aparece en zoom*/
+
+.demo-media {
+    position: relative;
+    margin-top: 1rem;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.demo-image {
+    width: 100%;
+    max-height: 220px;
+    object-fit: contain;
+    border-radius: 12px;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.demo-hover-btn {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 140px;
+    height: 48px;
+
+    background: rgba(243, 160, 34, 0.9);
+    color: #1a1a21;
+    font-weight: bold;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.35s ease;
+    z-index: 5;
+}
+
+.demo-card:hover .demo-hover-btn {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.demo-card:hover .demo-image {
+    opacity: 0.35;
+    transform: scale(1.03);
+}
+
+body.focus-mode .demo-hover-btn {
+    display: none !important;
+}
+
+body.focus-mode .demo-media {
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* OCULTAR CONTENIDO DE DEMO POR DEFECTO */
+.demo-preview {
+    display: none;
+}
+
+/* MOSTRAR SOLO EN MODO FOCUS */
+body.focus-mode .demo-card.active .demo-preview {
+    display: block;
+}
+
+body.focus-mode .demo-card.active .demo-media {
+    display: none;
+}
+
+.demo-preview {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+body.focus-mode .demo-card.active .demo-preview {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Hover claro (importante para personas mayores) */
+.demo-close-btn:hover {
+    background: #f3a022;
+    color: #1a1a21;
+    transform: scale(1.1);
+}
+
+/* SOLO visible cuando el modal está activo */
+body.focus-mode .demo-card.active .demo-close-btn {
+    display: flex;
+}
+
+.demo-preview {
+    position: relative;
+}
+
+/* BOTÓN CERRAR (X) — MODAL */
+.demo-close-btn {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+
+    width: 42px;
+    height: 42px;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 1.4rem;
+    font-weight: bold;
+
+    background: rgba(0, 0, 0, 0.7);
+    color: #f3a022;
+
+    border: 1px solid rgba(243, 160, 34, 0.6);
+    border-radius: 50%;
+
+    cursor: pointer;
+    z-index: 1001;
+
+    transition: all 0.25s ease;
+}
+
+/* Hover claro */
+.demo-close-btn:hover {
+    background: #f3a022;
+    color: #1a1a21;
+    transform: scale(1.1);
+}
+
+/* SOLO visible en modo focus */
+body.focus-mode .demo-card.active .demo-close-btn {
+    display: flex;
+}
+
+.demo-card {
+    position: relative;
+}
+
+
+
+
+
+
+
+
+
+/* ================================
+   WHATSAPP FLOAT + TOOLTIP HUMANO
+   ================================ */
+
+.whatsapp-float {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+}
+
+/* Tooltip */
+.whatsapp-tooltip {
+    position: absolute;
+    right: 70px;
+    /* aparece a la izquierda del botón */
+    background: rgba(20, 20, 30, 0.95);
+    color: rgba(255, 255, 255, 0.9);
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid rgba(243, 160, 34, 0.4);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    font-size: 0.95rem;
+    line-height: 1.4;
+    white-space: nowrap;
+
+    opacity: 0;
+    transform: translateX(10px);
+    pointer-events: none;
+
+    transition: all 0.35s ease;
+}
+
+/* Resaltado del mensaje */
+.whatsapp-tooltip strong {
+    color: #f3a022;
+    font-weight: 600;
+}
+
+/* Mostrar tooltip al hover */
+.whatsapp-float:hover .whatsapp-tooltip {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* En móviles no mostramos el tooltip */
+@media screen and (max-width: 768px) {
+    .whatsapp-tooltip {
+        font-size: 0.9rem;
+        opacity: 0.95;
+    }
+}

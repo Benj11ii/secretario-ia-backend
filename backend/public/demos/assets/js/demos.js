@@ -612,8 +612,9 @@ window.runChatDemo = runChatDemo;
 window.runDashDemo = runDashDemo;
 window.runSortDemo = runSortDemo;
 
+
 // ============================================
-// MODO FOCUS (GLOBAL)
+// MODO FOCUS (GLOBAL) - CORREGIDO
 // ============================================
 let activeDemoCard = null;
 
@@ -623,13 +624,22 @@ function focusOnDemo(demoCard, demoFunction) {
     demoCard.classList.add('active');
     activeDemoCard = demoCard;
     document.body.classList.add('focus-mode');
-    window.scrollTo(0, 0);
 
+    // 1. Asegurar que el botón de cierre exista y sea visible
+    // Buscamos el preview dentro de la tarjeta activa
+    const preview = demoCard.querySelector('.demo-preview');
+    if (preview) {
+        // Limpiamos y aseguramos que la X esté siempre presente
+        preview.innerHTML = `
+            <button class="demo-close-btn" onclick="exitFocusMode()">✕</button>
+            <div class="demo-content"></div>
+        `;
+    }
+
+    // 2. Ejecutar la demo (ahora dentro de .demo-content para no borrar la X)
     setTimeout(() => {
         demoFunction();
     }, 100);
-
-    console.log("🎯 Modo focus activado para:", demoCard.querySelector('h3')?.innerText);
 }
 
 function exitFocusMode() {
@@ -638,8 +648,17 @@ function exitFocusMode() {
         activeDemoCard = null;
     }
     document.body.classList.remove('focus-mode');
-    console.log("👋 Modo focus desactivado");
 }
+
+// NUEVO: Cerrar al hacer clic fuera de la tarjeta (en el fondo oscuro)
+document.addEventListener('click', function (e) {
+    if (document.body.classList.contains('focus-mode')) {
+        // Si el clic NO es dentro de una demo-card activa ni en el botón de abrir
+        if (!e.target.closest('.demo-card') && !e.target.closest('.demo-hover-btn')) {
+            exitFocusMode();
+        }
+    }
+});
 
 // Cerrar con ESC
 document.addEventListener('keydown', function (e) {
@@ -647,6 +666,22 @@ document.addEventListener('keydown', function (e) {
         exitFocusMode();
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Prevenir propagación del botón de cierre
 document.querySelectorAll('.demo-close-btn').forEach(btn => {
@@ -661,4 +696,3 @@ document.addEventListener('touchmove', function (e) {
         e.preventDefault();
     }
 }, { passive: false });
-
