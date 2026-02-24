@@ -5682,19 +5682,3 @@ textarea {
 
 
 
-
-
-/* ===============================
-   WHATSAPP AISLADO (ANTI-COLISIÓN)
-   =============================== */
-
-.whatsapp-float {
-    all: unset;
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-}

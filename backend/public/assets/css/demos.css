@@ -1,29 +1,4 @@
 /* ============================================
-   RESET DE CONFLICTOS - AISLAMIENTO DE DEMOS
-   ============================================ */
-
-/* Asegurar que los estilos de main.css no afecten las demos */
-.demo-card,
-.demo-card *,
-.demo-media,
-.demo-preview,
-.demo-hover-btn {
-    all: revert; /* Restaura valores por defecto */
-    box-sizing: border-box;
-}
-
-/* Reset específico para botones */
-.demo-hover-btn {
-    background: #f3a022 !important;
-    color: #1a1a21 !important;
-    border: none !important;
-    font-family: inherit !important;
-}
-
-
-
-
-/* ============================================
    demos.css - VERSIÓN ÚNICA Y OPTIMIZADA
    ============================================ */
 
