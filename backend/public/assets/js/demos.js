@@ -94,15 +94,21 @@ function runDataDemo() {
             };
 
             demoDiv.innerHTML = `
-                <div style="text-align: center; padding: 20px;">
-                    <h3 style="color: #f3a022;">✨ Diagnóstico Express</h3>
-                    <p style="color: white; margin: 20px 0;">${diagnostico[respuestas.desafio] || diagnostico.ventas}</p>
-                   <div style="display: flex; gap: 10px; justify-content: center;">
-                        <button onclick="reiniciarDemo1()" class="btn-cotizar">¿Tienes otra meta?. Vuelve a comenzar</button>
-                        <button <a href="/#five" class="btn-cotizar">Consultános por formulario-IAsesoria</a></button>
-                    </div>
-                </div>
-            `;
+    <div style="text-align: center; padding: 20px;">
+        <h3 style="color: #f3a022;">✨ Diagnóstico Express</h3>
+        <p style="color: white; margin: 20px 0;">
+            ${diagnostico[respuestas.desafio] || diagnostico.ventas}
+        </p>
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+            <button onclick="reiniciarDemo1()" class="btn-cotizar">
+                ¿Tienes otra meta? Vuelve a comenzar
+            </button>
+            <a href="/#five" class="btn-cotizar" style="text-decoration:none;">
+                Consultános por formulario IAsesoria
+            </a>
+        </div>
+    </div>
+`;
         }
     };
 
@@ -123,14 +129,14 @@ function runAutoDemo() {
 
     const demoDiv = document.getElementById('demo-auto');
     if (!demoDiv) return;
-    
+
     // Evitamos problemas de propagación de clics
     demoDiv.addEventListener('click', e => e.stopPropagation());
 
     // 1. Pantalla Inicial (Botón de acción)
-    window.renderAutoInicial = function(e) {
-        if(e) e.stopPropagation();
-        
+    window.renderAutoInicial = function (e) {
+        if (e) e.stopPropagation();
+
         demoDiv.innerHTML = `
             <div style="text-align: center; padding: 20px;">
                 <h4 style="color: #f3a022; margin: 0 0 15px 0;">⚙️ MAGIA EN UN CLIC</h4>
@@ -145,8 +151,8 @@ function runAutoDemo() {
     };
 
     // 2. Ejecución del Flujo (Animación visual simulada)
-    window.ejecutarAutoFlujo = function(e) {
-        if(e) e.stopPropagation();
+    window.ejecutarAutoFlujo = function (e) {
+        if (e) e.stopPropagation();
 
         // Estilos base para los pasos
         const stPending = "padding: 12px 15px; border-radius: 8px; background: rgba(255,255,255,0.05); border-left: 4px solid transparent; display: flex; justify-content: space-between; align-items: center; opacity: 0.5; transition: all 0.3s;";
@@ -203,7 +209,7 @@ function runAutoDemo() {
         setTimeout(() => {
             p1.style.cssText = stDone;
             p1.innerHTML = `<span style="color: white; opacity:0.8;">🗄️ Cliente guardado en CRM</span><span style="color: #4CAF50;">✅</span>`;
-            
+
             p2.style.cssText = stActive;
             p2.innerHTML = `<span style="color: white;">📧 Enviando factura...</span><span style="color: #f3a022;">⏳</span>`;
         }, 800);
@@ -212,7 +218,7 @@ function runAutoDemo() {
         setTimeout(() => {
             p2.style.cssText = stDone;
             p2.innerHTML = `<span style="color: white; opacity:0.8;">📧 Factura enviada al cliente</span><span style="color: #4CAF50;">✅</span>`;
-            
+
             p3.style.cssText = stActive;
             p3.innerHTML = `<span style="color: white;">📱 Notificando a Bodega...</span><span style="color: #f3a022;">⏳</span>`;
         }, 1600);
@@ -221,7 +227,7 @@ function runAutoDemo() {
         setTimeout(() => {
             p3.style.cssText = stDone;
             p3.innerHTML = `<span style="color: white; opacity:0.8;">📱 Bodega notificada</span><span style="color: #4CAF50;">✅</span>`;
-            
+
             // Efecto "Fade In" para los botones finales
             resultado.style.display = 'block';
             resultado.animate([
@@ -360,9 +366,9 @@ function runDashDemo() {
     demoDiv.addEventListener('click', e => e.stopPropagation());
 
     // 1. Pantalla Inicial
-    window.renderDashInicial = function(e) {
-        if(e) e.stopPropagation();
-        
+    window.renderDashInicial = function (e) {
+        if (e) e.stopPropagation();
+
         demoDiv.innerHTML = `
             <div style="text-align: center; padding: 20px;">
                 <h4 style="color: #f3a022; margin: 0 0 15px 0;">📊 DE NÚMEROS A DECISIONES</h4>
@@ -383,8 +389,8 @@ function runDashDemo() {
     };
 
     // 2. Proceso de "Pensamiento" de la IA
-    window.generarDashboard = function(e) {
-        if(e) e.stopPropagation();
+    window.generarDashboard = function (e) {
+        if (e) e.stopPropagation();
 
         demoDiv.innerHTML = `
             <div style="text-align: center; padding: 40px 20px;">
@@ -395,11 +401,11 @@ function runDashDemo() {
         `;
 
         const statusText = document.getElementById('dash-status');
-        
+
         // Simular las fases de análisis
-        setTimeout(() => { if(statusText) statusText.innerText = "Cruzando ventas con inventario..."; }, 800);
-        setTimeout(() => { if(statusText) statusText.innerText = "Generando recomendaciones..."; }, 1600);
-        
+        setTimeout(() => { if (statusText) statusText.innerText = "Cruzando ventas con inventario..."; }, 800);
+        setTimeout(() => { if (statusText) statusText.innerText = "Generando recomendaciones..."; }, 1600);
+
         // 3. Mostrar el Dashboard Final
         setTimeout(() => {
             mostrarResultadosDashboard();
@@ -411,7 +417,7 @@ function runDashDemo() {
         // Generar datos aleatorios chilenizados
         const ventas = Math.floor(Math.random() * 250) + 120;
         const crecimiento = Math.floor(Math.random() * 25) + 10;
-        
+
         // Diccionario de productos con sus "Insights" (Consejos de IA)
         const analisisProductos = [
             { nombre: "Marraqueta", insight: "Alta demanda inusual. Sugerencia: Hornear 50 unidades extra para evitar quiebre de stock a las 18:00." },
@@ -419,7 +425,7 @@ function runDashDemo() {
             { nombre: "Pan Molde", insight: "Poco movimiento hoy. Sugerencia: Ofrecer un 15% de descuento a los próximos 10 clientes." },
             { nombre: "Pasteles", insight: "Margen de ganancia alto. Sugerencia: Instruir a vendedores ofrecer como 'postre' en cada compra." }
         ];
-        
+
         const productoEstrella = analisisProductos[Math.floor(Math.random() * analisisProductos.length)];
 
         demoDiv.innerHTML = `
