@@ -191,7 +191,7 @@ def tarea_fondo_ia(datos):
                 response = requests.post(
                     "http://localhost:11434/api/generate",
                     json={
-                        "model": "gemma3:4b",  # modelo rápido para clasificación local
+                        "model": "qwen3:4b-instruct",  # modelo rápido para clasificación local
                         "prompt": clasificador_etico,
                         "stream": False,
                         "options": {"temperature": 0.0},

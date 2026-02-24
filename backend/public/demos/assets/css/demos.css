@@ -88,8 +88,14 @@
 
 
 /* Cuando el modo focus está activo, ocultamos el botón Ver de la tarjeta activa */
-body.focus-mode .demo-card.active .btn-cotizar {
+/* Solo ocultamos el botón "Ver" original, no los botones de la demo */
+body.focus-mode .demo-card.active > .btn-cotizar {
     display: none !important;
+}
+
+/* Los botones dentro de demo-preview deben ser visibles */
+body.focus-mode .demo-card.active .demo-preview .btn-cotizar {
+    display: inline-block !important;
 }
 
 /* --------------------------------------------
@@ -507,3 +513,139 @@ body.focus-mode .demo-card.active .demo-close-btn {
 body.focus-mode .demo-card.active .btn-cotizar {
     display: none !important;
 }
+
+
+
+
+
+
+
+
+
+
+/* función de demo 1 estilizada */
+
+/* ============================================
+   ESTILOS PARA LOS BOTONES DE LA DEMO 1
+   ============================================ */
+
+/* Estilo para los botones de opción */
+.demo-preview .btn-cotizar,
+#demo-data .btn-cotizar,
+.demo-preview button:not(.demo-close-btn) {
+    display: inline-block;
+    background-color: #f3a022 !important;
+    color: #1a1a21 !important;
+    padding: 12px 20px !important;
+    text-align: center !important;
+    border-radius: 5px !important;
+    font-weight: bold !important;
+    font-size: 1rem !important;
+    transition: all 0.3s ease !important;
+    border: none !important;
+    cursor: pointer !important;
+    margin: 5px 0 !important;
+    width: 100% !important;
+    max-width: 300px !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3) !important;
+    text-decoration: none !important;
+}
+
+.demo-preview .btn-cotizar:hover,
+#demo-data .btn-cotizar:hover,
+.demo-preview button:not(.demo-close-btn):hover {
+    background-color: transparent !important;
+    color: #f3a022 !important;
+    border: 1px solid #f3a022 !important;
+}
+
+/* Contenedor de los botones */
+#demo-data > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+/* Títulos y textos */
+#demo-data h4 {
+    color: #f3a022;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+#demo-data p {
+    color: white;
+    margin-bottom: 15px;
+}
+
+
+/* Asegurar que los botones se vean en modo focus */
+body.focus-mode .demo-card.active .demo-preview button,
+body.focus-mode .demo-card.active .demo-preview .btn-cotizar {
+    display: inline-block !important;
+    background-color: #f3a022 !important;
+    color: #1a1a21 !important;
+    border: none !important;
+    border-radius: 5px !important;
+    padding: 12px 20px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    width: 100% !important;
+    margin: 5px 0 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+body.focus-mode .demo-card.active .demo-preview button:hover,
+body.focus-mode .demo-card.active .demo-preview .btn-cotizar:hover {
+    background-color: transparent !important;
+    color: #f3a022 !important;
+    border: 1px solid #f3a022 !important;
+}
+
+
+
+/* ============================================
+   SOLUCIÓN DEFINITIVA PARA MODO FOCUS
+   ============================================ */
+
+/* Asegurar que los botones SIEMPRE sean visibles en modo focus */
+body.focus-mode .demo-card.active .demo-preview .btn-cotizar,
+body.focus-mode .demo-card.active .demo-preview button {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    background-color: #f3a022 !important;
+    color: #1a1a21 !important;
+    border: none !important;
+    border-radius: 5px !important;
+    padding: 12px 20px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    width: 100% !important;
+    margin: 5px 0 !important;
+    pointer-events: auto !important;
+    position: relative !important;
+    z-index: 9999 !important;
+}
+
+body.focus-mode .demo-card.active .demo-preview .btn-cotizar:hover,
+body.focus-mode .demo-card.active .demo-preview button:hover {
+    background-color: transparent !important;
+    color: #f3a022 !important;
+    border: 1px solid #f3a022 !important;
+}
+
+/* Eliminar cualquier regla que oculte botones en modo focus */
+body.focus-mode .demo-card.active .btn-cotizar:not(.demo-close-btn) {
+    display: inline-block !important;
+}
+
+/* Específico para la demo 1 */
+#demo-data .btn-cotizar {
+    display: inline-block !important;
+}
+
+
