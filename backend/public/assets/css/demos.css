@@ -839,6 +839,7 @@ body.focus-mode .demo-card.active .demo-close-btn {
 
 
 /* estilos para wsp */
+/* estilos para wsp */
 /* ================================
    WHATSAPP FLOAT - VERSIÓN ÚNICA
    ================================ */
@@ -850,50 +851,44 @@ body.focus-mode .demo-card.active .demo-close-btn {
     width: 64px;
     height: 64px;
     border-radius: 50%;
-    background: #f3a022;
+    /* 1. Cambiamos el fondo naranja por transparente (o puede usar un gris muy oscuro como #1a1a21) */
+    background: transparent; 
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     z-index: 9999;
     
-    /* Animación de pulso */
-    box-shadow: 0 0 8px rgba(243,160,34, 0.45);
-    animation: pulse-glow 3s infinite;
+    /* 2. Eliminamos el box-shadow y la animación para quitar el brillo y el pulso */
+    /* box-shadow: 0 0 8px rgba(243,160,34, 0.45); */
+    /* animation: pulse-glow 3s infinite; */
     
     transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
-/* Animación de pulso */
-@keyframes pulse-glow {
-    0% {
-        box-shadow: 0 0 8px rgba(243,160,34, 0.45);
-    }
-    50% {
-        box-shadow: 0 0 18px rgba(243,160,34, 0.65);
-    }
-    100% {
-        box-shadow: 0 0 8px rgba(243,160,34, 0.45);
-    }
-}
+/* Puede eliminar por completo el bloque de @keyframes pulse-glow si ya no lo usará, 
+   o dejarlo ahí, no afectará en nada ya que lo desactivamos arriba. */
 
 /* Hover sobre el botón */
 .whatsapp-float:hover {
     transform: scale(1.08);
-    box-shadow: 0 0 25px rgba(243,160,34, 0.75);
-    animation: none; /* Detiene el pulso al hacer hover */
+    /* 3. Quitamos el brillo exagerado al pasar el ratón (hover) */
+    /* box-shadow: 0 0 25px rgba(243,160,34, 0.75); */
+    animation: none;
 }
 
 /* Ícono de WhatsApp */
 .whatsapp-float i.fa-whatsapp {
     font-size: 36px;
-    color: #1a1a21;
+    /* 4. Cambiamos el color del ícono a naranja para que destaque sin necesidad del fondo */
+    color: #f3a022; 
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
     transition: all 0.35s ease;
 }
 
 .whatsapp-float:hover i.fa-whatsapp {
-    color: #1a1a21;
+    /* 5. Mantenemos el ícono naranja al pasar el ratón */
+    color: #f3a022; 
     transform: scale(1.05);
 }
 
