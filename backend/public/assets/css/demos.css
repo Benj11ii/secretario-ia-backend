@@ -923,3 +923,41 @@ body.focus-mode .demo-card.active .demo-close-btn {
     transform: scale(1.08);
     box-shadow: 0 0 25px rgba(243,160,34,0.45);
 }
+
+
+
+/* mejora icono de wsap*/
+
+.whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: #f3a022;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 999;
+    
+    /* brillo suave permanente */
+    box-shadow:
+        0 0 0 rgba(243,160,34, 0.6);
+    animation: pulse-glow 3s infinite;
+    
+    transition: transform 0.35s ease;
+}
+
+@keyframes pulse-glow {
+    0% {
+        box-shadow: 0 0 8px rgba(243,160,34, 0.45);
+    }
+    50% {
+        box-shadow: 0 0 18px rgba(243,160,34, 0.65);
+    }
+    100% {
+        box-shadow: 0 0 8px rgba(243,160,34, 0.45);
+    }
+}
