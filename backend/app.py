@@ -49,6 +49,11 @@ def pagina_gracias():
     return render_template("gracias.html")
 
 
+@app.route("/demos.html")
+def demos():
+    return render_template("demos.html")
+
+
 # --- CONFIGURACIÓN ---
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
