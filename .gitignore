@@ -33,3 +33,6 @@ __pycache__/
 
 #Reportes locales básicos
 *.Solicitudes.csv
+
+#Revisión de sistemas
+check_services_celeron.sh
