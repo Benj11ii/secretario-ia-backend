@@ -892,16 +892,3 @@ body.focus-mode .demo-card.active .demo-close-btn {
 
 
 
-
-
-.whatsapp-tooltip {
-    all: unset;
-    position: absolute;
-    right: 70px;
-    background: rgba(20,20,30,0.95);
-    color: white;
-    padding: 12px 16px;
-    border-radius: 10px;
-    border: 1px solid rgba(243,160,34,.4);
-    font-family: inherit;
-}
