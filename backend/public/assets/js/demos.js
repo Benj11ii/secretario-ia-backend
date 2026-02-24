@@ -101,10 +101,10 @@ function runDataDemo() {
         </p>
         <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
             <button onclick="reiniciarDemo1()" class="btn-cotizar">
-                ¿Tienes otra meta? Vuelve a comenzar
+                🔄 Probar otra vez
             </button>
             <a href="/#five" class="btn-cotizar" style="text-decoration:none;">
-                Consultános por formulario IAsesoria
+                📝 Solicitar asesoría</a>
             </a>
         </div>
     </div>
