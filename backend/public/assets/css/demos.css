@@ -862,150 +862,229 @@ body.focus-mode .demo-card.active .demo-close-btn {
     transform: translateY(-50%) translateX(0);
 }
 
-
 /* --------------------------------------------
-   RESPONSIVE UNIFICADO (MÓVILES)
+   RESPONSIVE UNIFICADO Y MEJORADO (MÓVILES)
    -------------------------------------------- */
 @media screen and (max-width: 736px) {
-    /* Tarjetas en vista normal */
+    
+    /* ===== CONTENEDOR PRINCIPAL ===== */
+    .wrapper {
+        padding: 1rem !important;
+    }
+    
+    .container {
+        width: 100% !important;
+        padding: 0 0.5rem !important;
+    }
+
+    /* ===== TARJETAS EN VISTA NORMAL ===== */
     .demo-card {
-        padding: 1rem;
+        padding: 1rem !important;
+        margin-bottom: 1rem !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
 
     .demo-card h3 {
-        font-size: 1.1rem;
-        white-space: normal;
+        font-size: 1.1rem !important;
+        white-space: normal !important;
+        word-wrap: break-word !important;
+        margin-right: 30px !important; /* Espacio para la X */
     }
 
     .demo-card p {
-        font-size: 0.9rem;
+        font-size: 0.9rem !important;
+        line-height: 1.4 !important;
+        word-wrap: break-word !important;
     }
 
+    /* ===== CONTENEDOR DE PREVIEW ===== */
     .demo-preview {
-        min-height: 120px;
-        padding: 0.5rem;
+        min-height: 100px !important;
+        padding: 0.8rem !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
     }
 
+    /* ===== BOTÓN DE CIERRE (X) ===== */
+    .demo-close-btn {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 1.2rem !important;
+        top: 8px !important;
+        right: 8px !important;
+        position: absolute !important;
+        z-index: 100 !important;
+    }
+
+    /* ===== WHATSAPP ===== */
+    .whatsapp-tooltip {
+        display: none !important;
+    }
+    
+    .whatsapp-float {
+        bottom: 15px !important;
+        right: 15px !important;
+        width: 50px !important;
+        height: 50px !important;
+    }
+    
+    .whatsapp-float i.fa-whatsapp {
+        font-size: 28px !important;
+    }
+
+    /* ===== TABLAS ===== */
     .demo-tabla {
-        font-size: 0.8rem;
+        font-size: 0.75rem !important;
+        width: 100% !important;
     }
 
     .demo-tabla th,
     .demo-tabla td {
-        padding: 4px;
+        padding: 6px 3px !important;
+        word-break: break-word !important;
     }
 
-    /* Botón de cierre (X) en móvil */
-    .demo-close-btn {
-        width: 30px !important;
-        height: 30px !important;
-        font-size: 1.1rem !important;
-        top: 5px !important;
-        right: 5px !important;
-    }
-
-    /* WhatsApp tooltip oculto en móvil */
-    .whatsapp-tooltip {
-        display: none !important;
-    }
-
-    /* ===== MODO FOCUS EN MÓVIL ===== */
+    /* ===== MODO FOCUS EN MÓVIL (CORREGIDO) ===== */
     body.focus-mode .demo-card.active {
-        width: 95% !important;
-        max-width: 95% !important;
+        position: fixed !important;
+        width: 92% !important;
+        max-width: 92% !important;
         top: 5% !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
+        left: 4% !important;
+        right: 4% !important;
+        transform: none !important;  /* Evita desplazamientos extraños */
         max-height: 90vh !important;
         overflow-y: auto !important;
         padding: 1.2rem !important;
-        border-radius: 12px !important;
+        border-radius: 16px !important;
+        margin: 0 auto !important;
+        box-sizing: border-box !important;
+        z-index: 1000 !important;
     }
 
     body.focus-mode .demo-card.active h3 {
-        font-size: 1.5rem !important;
+        font-size: 1.3rem !important;
         margin-bottom: 0.5rem !important;
+        margin-top: 0 !important;
+        padding-right: 30px !important; /* Espacio para la X */
+        word-wrap: break-word !important;
     }
 
     body.focus-mode .demo-card.active > p {
-        font-size: 0.95rem !important;
+        font-size: 0.9rem !important;
         margin-bottom: 1rem !important;
+        word-wrap: break-word !important;
     }
 
     body.focus-mode .demo-card.active .demo-preview {
-        min-height: 200px !important;
+        min-height: auto !important;
+        max-height: 60vh !important;
+        overflow-y: auto !important;
         padding: 1rem !important;
         font-size: 0.9rem !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        margin: 0 !important;
     }
 
-    body.focus-mode .demo-card.active .demo-close-btn {
-        width: 32px !important;
-        height: 32px !important;
-        top: 8px !important;
-        right: 8px !important;
-        font-size: 1.2rem !important;
-    }
-
-    /* ===== AJUSTES ESPECÍFICOS POR DEMO ===== */
-
-    /* CHAT (Demo 3) */
-    body.focus-mode .demo-card.active #demo-chat > div {
-        padding: 10px !important;
+    /* ===== CHAT (Demo 3) ===== */
+    body.focus-mode .demo-card.active #demo-chat .demo-preview {
+        padding: 0.8rem !important;
     }
 
     body.focus-mode .demo-card.active #demo-chat .demo-content > div[style*="display: flex; gap: 8px;"] {
         flex-direction: column !important;
-        gap: 10px !important;
+        gap: 8px !important;
+        width: 100% !important;
     }
 
     body.focus-mode .demo-card.active #chat-input {
         width: 100% !important;
         padding: 12px !important;
         font-size: 1rem !important;
+        box-sizing: border-box !important;
+        margin: 0 !important;
     }
 
     body.focus-mode .demo-card.active button[onclick="sendChatMessage()"] {
         width: 100% !important;
         padding: 12px !important;
         font-size: 1rem !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    body.focus-mode .demo-card.active #chat-messages {
+        height: 180px !important;
+        margin-bottom: 10px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
 
     body.focus-mode .demo-card.active span[style*="background: rgba(243,160,34,0.2)"] {
-        font-size: 0.75rem !important;
-        padding: 2px 6px !important;
+        font-size: 0.7rem !important;
+        padding: 3px 6px !important;
     }
 
+    /* Mensaje de demo completada */
     body.focus-mode .demo-card.active #chat-bloqueado {
         padding: 12px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
 
     body.focus-mode .demo-card.active #chat-bloqueado a {
-        padding: 10px 20px !important;
+        padding: 10px 15px !important;
         font-size: 0.9rem !important;
+        display: inline-block !important;
+        width: auto !important;
     }
 
-    /* TABLA (Demo 5) */
+    /* ===== TABLA (Demo 5) ===== */
     body.focus-mode .demo-card.active #demo-sort .demo-preview {
         overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding: 0.5rem !important;
     }
     
     body.focus-mode .demo-card.active .demo-tabla {
-        font-size: 0.75rem !important;
-    }
-    
-    body.focus-mode .demo-card.active .demo-tabla th,
-    body.focus-mode .demo-card.active .demo-tabla td {
-        padding: 6px 4px !important;
+        min-width: 500px !important; /* Fuerza scroll horizontal si es necesario */
     }
 
-    /* DASHBOARD (Demo 4) */
+    /* ===== DASHBOARD (Demo 4) ===== */
     body.focus-mode .demo-card.active #demo-dash .demo-preview div[style*="grid-template-columns: 1fr 1fr;"] {
         grid-template-columns: 1fr !important;
+        gap: 8px !important;
     }
 
-    /* DIAGNÓSTICO (Demo 1) */
+    body.focus-mode .demo-card.active #demo-dash .demo-preview [style*="font-size: 1.8rem"] {
+        font-size: 1.5rem !important;
+    }
+
+    /* ===== DIAGNÓSTICO (Demo 1) ===== */
     body.focus-mode .demo-card.active #demo-data .btn-cotizar {
-        padding: 10px 15px !important;
+        padding: 12px 15px !important;
+        font-size: 0.9rem !important;
+        width: 100% !important;
+        margin: 5px 0 !important;
+        white-space: normal !important;
+        word-wrap: break-word !important;
+    }
+
+    body.focus-mode .demo-card.active #demo-data h4 {
+        font-size: 1rem !important;
+        margin-bottom: 10px !important;
+    }
+
+    /* ===== AUTOMATIZACIÓN (Demo 2) ===== */
+    body.focus-mode .demo-card.active #demo-auto .demo-preview {
+        padding: 0.5rem !important;
+    }
+
+    body.focus-mode .demo-card.active #demo-auto [style*="padding: 12px 15px"] {
+        padding: 10px !important;
         font-size: 0.9rem !important;
     }
 }
