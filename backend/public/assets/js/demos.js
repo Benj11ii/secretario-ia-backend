@@ -17,6 +17,24 @@ function handleDemoClick(button, demoFunctionName) {
 }
 
 // ============================================
+// FUNCIÓN PARA DETECTAR MAC (NUEVA - AGREGADA)
+// ============================================
+async function macDisponible() {
+    try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 2000);
+
+        const response = await fetch('https://192.168.1.100:5003/health', {
+            signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+        return response.ok;
+    } catch {
+        return false;
+    }
+}
+
+// ============================================
 // DEMO 1: DIAGNÓSTICO EXPRESS (VERSIÓN SIMPLE)
 // ============================================
 function runDataDemo() {
@@ -298,77 +316,78 @@ function runChatDemo() {
     }
 
     window.sendChatMessage = async function () {
-    const input = document.getElementById('chat-input');
-    const msgDiv = document.getElementById('chat-messages');
-    const contadorSpan = document.querySelector('span[style*="background: rgba(243,160,34,0.2)"]');
+        const input = document.getElementById('chat-input');
+        const msgDiv = document.getElementById('chat-messages');
+        const contadorSpan = document.querySelector('span[style*="background: rgba(243,160,34,0.2)"]');
 
-    if (input.value.trim() === '') return;
-    const sendBtn = document.querySelector('button[onclick="sendChatMessage()"]');
-    sendBtn.disabled = true;
-
-    let restantes = parseInt(sessionStorage.getItem('chatConsultas'));
-    if (restantes <= 0) {
+        if (input.value.trim() === '') return;
+        const sendBtn = document.querySelector('button[onclick="sendChatMessage()"]');
         sendBtn.disabled = true;
-        return;
-    }
 
-    const userMsg = input.value;
-
-    msgDiv.innerHTML += `<p style="margin:5px 0; text-align: right;"><strong style="color:white;">👤 Tú:</strong> ${userMsg}</p>`;
-    input.value = '';
-
-    msgDiv.innerHTML += `<p id="typing-indicator" style="margin:5px 0; color:#f3a022;">🤖 Bot: <span style="opacity:0.7;">⚡ pensando...</span></p>`;
-    msgDiv.scrollTop = msgDiv.scrollHeight;
-
-    // 👇 NUEVA LÓGICA: Verificar Mac primero
-    const macActiva = await macDisponible();
-    let url;
-
-    if (macActiva) {
-        url = 'https://192.168.1.100:5003/chat';
-        console.log('🍎 Usando Mac para IA');
-    } else {
-        url = '/api/chat';
-        console.log('💻 Usando Celeron para IA');
-    }
-
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: userMsg })
-        });
-
-        const data = await response.json();
-        document.getElementById('typing-indicator')?.remove();
-
-        if (data.success) {
-            msgDiv.innerHTML += `<p style="margin:5px 0;"><strong style="color:#f3a022;">🤖 Asistente:</strong> ${data.response}</p>`;
-            
-            restantes--;
-            sessionStorage.setItem('chatConsultas', restantes.toString());
-
-            if (contadorSpan) {
-                contadorSpan.innerHTML = `💬 ${restantes} de 3 consultas`;
-            }
-
-            if (restantes <= 0) {
-                input.disabled = true;
-                sendBtn.disabled = true;
-                document.getElementById('chat-bloqueado').style.display = 'block';
-            }
-        } else {
-            msgDiv.innerHTML += `<p style="margin:5px 0; color:#ff6b6b;">❌ Error en la respuesta</p>`;
+        let restantes = parseInt(sessionStorage.getItem('chatConsultas'));
+        if (restantes <= 0) {
+            sendBtn.disabled = true;
+            return;
         }
-    } catch (error) {
-        document.getElementById('typing-indicator')?.remove();
-        msgDiv.innerHTML += `<p style="margin:5px 0; color:#ff6b6b;">❌ Error de conexión</p>`;
-        console.error('Error:', error);
-    }
 
-    msgDiv.scrollTop = msgDiv.scrollHeight;
-    sendBtn.disabled = false; // Reactivar botón
-};
+        const userMsg = input.value;
+
+        msgDiv.innerHTML += `<p style="margin:5px 0; text-align: right;"><strong style="color:white;">👤 Tú:</strong> ${userMsg}</p>`;
+        input.value = '';
+
+        msgDiv.innerHTML += `<p id="typing-indicator" style="margin:5px 0; color:#f3a022;">🤖 Bot: <span style="opacity:0.7;">⚡ pensando...</span></p>`;
+        msgDiv.scrollTop = msgDiv.scrollHeight;
+
+        // 👇 NUEVA LÓGICA: Verificar Mac primero
+        const macActiva = await macDisponible();
+        let url;
+
+        if (macActiva) {
+            url = 'https://192.168.1.100:5003/chat';
+            console.log('🍎 Usando Mac para IA');
+        } else {
+            url = '/api/chat';
+            console.log('💻 Usando Celeron para IA');
+        }
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: userMsg })
+            });
+
+            const data = await response.json();
+            document.getElementById('typing-indicator')?.remove();
+
+            if (data.success) {
+                msgDiv.innerHTML += `<p style="margin:5px 0;"><strong style="color:#f3a022;">🤖 Asistente:</strong> ${data.response}</p>`;
+
+                restantes--;
+                sessionStorage.setItem('chatConsultas', restantes.toString());
+
+                if (contadorSpan) {
+                    contadorSpan.innerHTML = `💬 ${restantes} de 3 consultas`;
+                }
+
+                if (restantes <= 0) {
+                    input.disabled = true;
+                    sendBtn.disabled = true;
+                    document.getElementById('chat-bloqueado').style.display = 'block';
+                }
+            } else {
+                msgDiv.innerHTML += `<p style="margin:5px 0; color:#ff6b6b;">❌ Error en la respuesta</p>`;
+            }
+        } catch (error) {
+            document.getElementById('typing-indicator')?.remove();
+            msgDiv.innerHTML += `<p style="margin:5px 0; color:#ff6b6b;">❌ Error de conexión</p>`;
+            console.error('Error:', error);
+        }
+
+        msgDiv.scrollTop = msgDiv.scrollHeight;
+        sendBtn.disabled = false; // Reactivar botón
+    };
+}
 
 // ============================================
 // DEMO 4: DATOS QUE HABLAN (DASHBOARD INTELIGENTE)
@@ -499,8 +518,6 @@ function runSortDemo() {
     const demoDiv = document.getElementById('demo-sort');
     if (!demoDiv) return;
 
-    // 🟢 SOLUCIÓN 1: Evitar que los clics dentro de este contenedor se propaguen al body
-    // (Esta línea la tenías en las otras demos pero faltaba aquí)
     demoDiv.addEventListener('click', e => e.stopPropagation());
 
     const productos = [
@@ -562,7 +579,6 @@ function runSortDemo() {
         tablaHTML += `</tbody></table></div>`;
 
         if (mostrarBoton) {
-            // 🟢 SOLUCIÓN 2: Pasar el evento (event) a la función
             tablaHTML += `
                 <div style="display:flex; justify-content:center; margin-top:15px;">
                     <button onclick="ordenarDatos(event)" class="btn-cotizar">⚡ ORDENAR CON IA</button>
@@ -576,7 +592,6 @@ function runSortDemo() {
 
     demoDiv.innerHTML = renderTabla(datosDesordenados, '📊 DATOS DESORDENADOS');
 
-    // 🟢 SOLUCIÓN 3: Recibir el evento y detener su propagación
     window.ordenarDatos = function (e) {
         if (e) e.stopPropagation();
 
@@ -586,6 +601,7 @@ function runSortDemo() {
             const datosOrdenados = [...datosDesordenados].sort((a, b) => b.cantidad - a.cantidad);
             demoDiv.innerHTML = renderTabla(datosOrdenados, '✅ DATOS ORDENADOS', false);
 
+            // ✅ CORREGIDO: Usamos const mensajeDiv aquí
             const mensajeDiv = document.createElement('div');
             mensajeDiv.style.cssText = 'margin-top:15px; padding:15px; background:rgba(76,175,80,0.1); border-radius:8px; text-align:center;';
             mensajeDiv.innerHTML = `
@@ -596,14 +612,13 @@ function runSortDemo() {
                 </div>
             `;
             demoDiv.appendChild(mensajeDiv);
-
-            // 🗑️ Eliminé el setTimeout con el focus-mode aquí porque ya no es necesario
         }, 1500);
     };
 
     window.reiniciarDemo = function (e) {
         if (e) e.stopPropagation();
 
+        // ✅ CORREGIDO: Regeneramos datos
         datosDesordenados = [];
         for (let i = 0; i < 20; i++) {
             datosDesordenados.push({
@@ -613,10 +628,10 @@ function runSortDemo() {
                 venta: Math.floor(Math.random() * 150000) + 20000
             });
         }
+
         demoDiv.innerHTML = renderTabla(datosDesordenados, '📊 DATOS DESORDENADOS');
     };
 }
-
 // ============================================
 // VERIFICACIÓN DE CARGA (GLOBAL - FUERA DE FUNCIONES)
 // ============================================
@@ -635,7 +650,6 @@ window.runChatDemo = runChatDemo;
 window.runDashDemo = runDashDemo;
 window.runSortDemo = runSortDemo;
 
-
 // ============================================
 // MODO FOCUS (GLOBAL) - CORREGIDO
 // ============================================
@@ -648,18 +662,14 @@ function focusOnDemo(demoCard, demoFunction) {
     activeDemoCard = demoCard;
     document.body.classList.add('focus-mode');
 
-    // 1. Asegurar que el botón de cierre exista y sea visible
-    // Buscamos el preview dentro de la tarjeta activa
     const preview = demoCard.querySelector('.demo-preview');
     if (preview) {
-        // Limpiamos y aseguramos que la X esté siempre presente
         preview.innerHTML = `
             <button class="demo-close-btn" onclick="exitFocusMode()">✕</button>
             <div class="demo-content"></div>
         `;
     }
 
-    // 2. Ejecutar la demo (ahora dentro de .demo-content para no borrar la X)
     setTimeout(() => {
         demoFunction();
     }, 100);
@@ -673,40 +683,26 @@ function exitFocusMode() {
     document.body.classList.remove('focus-mode');
 }
 
-// NUEVO: Cerrar al hacer clic fuera de la tarjeta (en el fondo oscuro)
 document.addEventListener('click', function (e) {
     if (document.body.classList.contains('focus-mode')) {
-        // Si el clic NO es dentro de una demo-card activa ni en el botón de abrir
         if (!e.target.closest('.demo-card') && !e.target.closest('.demo-hover-btn')) {
             exitFocusMode();
         }
     }
 });
 
-// Cerrar con ESC
 document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && document.body.classList.contains('focus-mode')) {
         exitFocusMode();
     }
 });
 
-
-
-
-
-
-
-
-
-
-// Prevenir propagación del botón de cierre
 document.querySelectorAll('.demo-close-btn').forEach(btn => {
     btn.addEventListener('click', function (e) {
         e.stopPropagation();
     });
 });
 
-// Prevenir scroll en modo focus
 document.addEventListener('touchmove', function (e) {
     if (document.body.classList.contains('focus-mode')) {
         e.preventDefault();
@@ -715,4 +711,13 @@ document.addEventListener('touchmove', function (e) {
 
 
 
-}
+
+
+
+
+
+
+
+
+
+
