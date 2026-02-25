@@ -248,10 +248,10 @@ function runAutoDemo() {
 }
 
 // ============================================
-// DEMO 3: CHAT CON LÍMITE DE 3 CONSULTAS
+// DEMO 3: CHAT CON LÍMITE DE 3 CONSULTAS (MEJORADO)
 // ============================================
 function runChatDemo() {
-    console.log("✅ Demo 3 ejecutándose - Modo con límite");
+    console.log("✅ Demo 3 ejecutándose - Efecto GPT Mejorado");
 
     const demoDiv = document.getElementById('demo-chat');
     demoDiv.addEventListener('click', e => e.stopPropagation());
@@ -273,7 +273,7 @@ function runChatDemo() {
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                 <span style="color: #f3a022; font-size: 0.9rem;">🤖 Asistente IAsesoria (Demo)</span>
                 <span style="color: rgba(255,255,255,0.5); font-size: 0.8rem; background: rgba(243,160,34,0.2); padding: 3px 8px; border-radius: 12px;">
-                    💬 ${consultasRestantes} de 3 consultas
+                    💬 <span id="chat-contador">${consultasRestantes}</span> de 3 consultas
                 </span>
             </div>
             
@@ -284,7 +284,7 @@ function runChatDemo() {
             <div style="display: flex; gap: 8px;">
                 <input type="text" id="chat-input" placeholder="Escribe tu pregunta..." 
                     style="flex:1; padding: 10px; background: rgba(0,0,0,0.5); color: white; border: 1px solid #f3a02250; border-radius: 4px;">
-                <button onclick="sendChatMessage()" style="padding: 10px 25px; background: #f3a022; color: #1a1a21; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">Enviar</button>
+                <button id="btn-enviar-chat" onclick="sendChatMessage()" style="padding: 10px 25px; background: #f3a022; color: #1a1a21; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">Enviar</button>
             </div>
             
             <div id="chat-bloqueado" style="display: none; margin-top: 15px; padding: 15px; background: rgba(243, 160, 34, 0.15); border-radius: 8px; text-align: center;">
@@ -295,34 +295,45 @@ function runChatDemo() {
         </div>
     `;
 
+    // Si ya no le quedan consultas, bloqueamos
     if (consultasRestantes <= 0) {
         document.getElementById('chat-input').disabled = true;
-        document.querySelector('button[onclick="sendChatMessage()"]').disabled = true;
+        document.getElementById('btn-enviar-chat').disabled = true;
         document.getElementById('chat-bloqueado').style.display = 'block';
         return;
     }
 
+    // Permitir Enviar con la tecla "Enter"
+    document.getElementById('chat-input').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            sendChatMessage();
+        }
+    });
+
     window.sendChatMessage = async function () {
         const input = document.getElementById('chat-input');
         const msgDiv = document.getElementById('chat-messages');
-        const contadorSpan = document.querySelector('span[style*="background: rgba(243,160,34,0.2)"]');
+        const contadorSpan = document.getElementById('chat-contador');
+        const sendBtn = document.getElementById('btn-enviar-chat');
 
         if (input.value.trim() === '') return;
-        const sendBtn = document.querySelector('button[onclick="sendChatMessage()"]');
-        sendBtn.disabled = true;
-
+        
         let restantes = parseInt(sessionStorage.getItem('chatConsultas'));
-        if (restantes <= 0) {
-            sendBtn.disabled = true;
-            return;
-        }
+        if (restantes <= 0) return;
+
+        // Bloquear input y botón mientras la IA responde
+        sendBtn.disabled = true;
+        input.disabled = true; 
 
         const userMsg = input.value;
 
-        msgDiv.innerHTML += `<p style="margin:5px 0; text-align: right;"><strong style="color:white;">👤 Tú:</strong> ${userMsg}</p>`;
+        // Imprimir mensaje del usuario
+        msgDiv.innerHTML += `<p style="margin:5px 0; text-align: right;"><strong style="color:white;">👤 Tú:</strong> <span style="color:rgba(255,255,255,0.9);">${userMsg}</span></p>`;
         input.value = '';
 
-        msgDiv.innerHTML += `<p id="typing-indicator" style="margin:5px 0; color:#f3a022;">🤖 Bot: <span style="opacity:0.7;">⚡ pensando...</span></p>`;
+        // Indicador de "Pensando..."
+        const thinkingId = "typing-" + Date.now();
+        msgDiv.innerHTML += `<p id="${thinkingId}" style="margin:5px 0; color:#f3a022;">🤖 Bot: <span style="opacity:0.7;">⚡ pensando...</span></p>`;
         msgDiv.scrollTop = msgDiv.scrollHeight;
 
         const url = '/api/chat';
@@ -331,57 +342,87 @@ function runChatDemo() {
             const response = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                // 👇 AGREGADO: número de consulta (1, 2 o 3)
                 body: JSON.stringify({
                     message: userMsg,
                     history: chatHistory,
-                    consulta_num: (3 - restantes + 1)  // 1, 2 o 3
+                    consulta_num: (3 - restantes + 1)
                 })
             });
 
             const data = await response.json();
-            document.getElementById('typing-indicator')?.remove();
+            document.getElementById(thinkingId)?.remove();
 
             if (data.success) {
+                // CREAR ELEMENTOS PARA EL EFECTO TIPO CHATGPT
                 const p = document.createElement('p');
-                p.style.cssText = 'margin:5px 0;';
-                p.innerHTML = `<strong style="color:#f3a022;">🤖 Asistente:</strong> `;
+                
+                // white-space: pre-wrap; es VITAL para que los párrafos se separen bien
+                p.style.cssText = 'margin:5px 0; color: white; white-space: pre-wrap; line-height: 1.4;';
+                
+                // Estructura: Nombre + Texto Vacío + Cursor parpadeante
+                p.innerHTML = `<strong style="color:#f3a022;">🤖 Asistente:</strong> <span class="typing-text"></span><span class="cursor" style="font-weight:bold; color:#f3a022; margin-left:2px;">|</span>`;
                 msgDiv.appendChild(p);
 
-                let i = 0;
+                const textSpan = p.querySelector('.typing-text');
+                const cursor = p.querySelector('.cursor');
+                
                 const texto = data.response;
+                let i = 0;
+
+                // Hacer que el cursor parpadee
+                let cursorBlink = setInterval(() => {
+                    cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
+                }, 400);
+
+                // EL EFECTO DE ESCRITURA REAL (18ms)
                 const intervalo = setInterval(() => {
-                    p.innerHTML = `<strong style="color:#f3a022;">🤖 Asistente:</strong> ${texto.slice(0, i)}`;
+                    // textContent previene inyección HTML y es más rápido
+                    textSpan.textContent += texto.charAt(i);
                     i++;
                     msgDiv.scrollTop = msgDiv.scrollHeight;
-                    if (i > texto.length) clearInterval(intervalo);
-                }, 18); // 18ms por letra = velocidad similar a ChatGPT
 
-                chatHistory.push({ role: 'user', content: userMsg });
-                chatHistory.push({ role: 'assistant', content: data.response });
+                    // Cuando termina de escribir
+                    if (i >= texto.length) {
+                        clearInterval(intervalo);
+                        clearInterval(cursorBlink);
+                        cursor.style.display = 'none'; // Ocultar el cursor al terminar
+                        
+                        // Guardar historial
+                        chatHistory.push({ role: 'user', content: userMsg });
+                        chatHistory.push({ role: 'assistant', content: data.response });
 
-                restantes--;
-                sessionStorage.setItem('chatConsultas', restantes.toString());
+                        // Restar consultas
+                        restantes--;
+                        sessionStorage.setItem('chatConsultas', restantes.toString());
 
-                if (contadorSpan) contadorSpan.innerHTML = `💬 ${restantes} de 3 consultas`;
+                        if (contadorSpan) contadorSpan.innerText = restantes;
 
-                if (restantes <= 0) {
-                    input.disabled = true;
-                    sendBtn.disabled = true;
-                    document.getElementById('chat-bloqueado').style.display = 'block';
-                }
+                        // Desbloquear input si quedan consultas
+                        if (restantes <= 0) {
+                            document.getElementById('chat-bloqueado').style.display = 'block';
+                        } else {
+                            input.disabled = false;
+                            sendBtn.disabled = false;
+                            input.focus();
+                        }
+                    }
+                }, 18);
+
             } else {
-                document.getElementById('typing-indicator')?.remove();
+                document.getElementById(thinkingId)?.remove();
                 msgDiv.innerHTML += `<p style="margin:5px 0; color:#ff6b6b;">❌ Error en la respuesta</p>`;
+                input.disabled = false;
+                sendBtn.disabled = false;
             }
         } catch (error) {
-            document.getElementById('typing-indicator')?.remove();
+            document.getElementById(thinkingId)?.remove();
             msgDiv.innerHTML += `<p style="margin:5px 0; color:#ff6b6b;">❌ Error de conexión</p>`;
             console.error('Error:', error);
+            input.disabled = false;
+            sendBtn.disabled = false;
         }
 
         msgDiv.scrollTop = msgDiv.scrollHeight;
-        sendBtn.disabled = false;
     };
 }
 
