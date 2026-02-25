@@ -332,8 +332,8 @@ function runChatDemo() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 // 👇 AGREGADO: número de consulta (1, 2 o 3)
-                body: JSON.stringify({ 
-                    message: userMsg, 
+                body: JSON.stringify({
+                    message: userMsg,
                     history: chatHistory,
                     consulta_num: (3 - restantes + 1)  // 1, 2 o 3
                 })
@@ -343,7 +343,19 @@ function runChatDemo() {
             document.getElementById('typing-indicator')?.remove();
 
             if (data.success) {
-                msgDiv.innerHTML += `<p style="margin:5px 0;"><strong style="color:#f3a022;">🤖 Asistente:</strong> ${data.response}</p>`;
+                const p = document.createElement('p');
+                p.style.cssText = 'margin:5px 0;';
+                p.innerHTML = `<strong style="color:#f3a022;">🤖 Asistente:</strong> `;
+                msgDiv.appendChild(p);
+
+                let i = 0;
+                const texto = data.response;
+                const intervalo = setInterval(() => {
+                    p.innerHTML = `<strong style="color:#f3a022;">🤖 Asistente:</strong> ${texto.slice(0, i)}`;
+                    i++;
+                    msgDiv.scrollTop = msgDiv.scrollHeight;
+                    if (i > texto.length) clearInterval(intervalo);
+                }, 18); // 18ms por letra = velocidad similar a ChatGPT
 
                 chatHistory.push({ role: 'user', content: userMsg });
                 chatHistory.push({ role: 'assistant', content: data.response });
