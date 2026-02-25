@@ -1,5 +1,5 @@
 /* ============================================
-   demos.css - VERSIÓN ÚNICA Y CORREGIDA AL 100%
+   demos.css - VERSIÓN DEFINITIVA (MODAL Y BOTONES)
    ============================================ */
 
 /* --------------------------------------------
@@ -42,217 +42,74 @@
                 0 0 30px 12px rgba(243, 160, 34, 0.3);
 }
 
-.demo-card h3 {
-    margin: 0 0 0.5rem 0;
-    color: #ffffff;
-    font-size: 1.3rem;
-    transition: color 0.3s ease;
-}
-
+.demo-card h3 { margin: 0 0 0.5rem 0; color: #ffffff; font-size: 1.3rem; transition: color 0.3s ease; }
 .demo-card:hover h3 { color: var(--primary); }
-
-.demo-card p {
-    margin: 0 0 1rem 0;
-    color: var(--text-muted);
-    transition: color 0.3s ease;
-}
-
+.demo-card p { margin: 0 0 1rem 0; color: var(--text-muted); transition: color 0.3s ease; }
 .demo-card:hover p { color: rgba(255, 255, 255, 0.9); }
 
 /* --------------------------------------------
    3. IMÁGENES Y BOTÓN HOVER (ESTADO NORMAL)
    -------------------------------------------- */
 .demo-media {
-    position: relative;
-    margin-top: 1rem;
-    border-radius: 12px;
-    overflow: hidden;
-    display: block; /* Visible por defecto */
+    position: relative; margin-top: 1rem;
+    border-radius: 12px; overflow: hidden; display: block;
 }
-
 .demo-image {
-    width: 100%;
-    max-height: 220px;
-    object-fit: cover; /* Cambiado a cover para que llene el espacio bonito */
-    border-radius: 12px;
-    transition: transform 0.5s ease, opacity 0.5s ease;
+    width: 100%; max-height: 220px; object-fit: cover;
+    border-radius: 12px; transition: transform 0.5s ease, opacity 0.5s ease;
 }
-
 .demo-hover-btn {
-    position: absolute;
-    inset: 0;
-    margin: auto;
-    width: 140px;
-    height: 48px;
-    background: rgba(243, 160, 34, 0.9);
-    color: #1a1a21;
-    font-weight: bold;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    opacity: 0;
-    transform: scale(0.9);
-    transition: all 0.35s ease;
-    z-index: 5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: absolute; inset: 0; margin: auto;
+    width: 140px; height: 48px;
+    background: rgba(243, 160, 34, 0.9); color: #1a1a21;
+    font-weight: bold; border-radius: 6px; border: none;
+    cursor: pointer; opacity: 0; transform: scale(0.9);
+    transition: all 0.35s ease; z-index: 5;
+    display: flex; align-items: center; justify-content: center;
 }
+.demo-card:hover .demo-hover-btn { opacity: 1; transform: scale(1); }
+.demo-card:hover .demo-image { opacity: 0.35; transform: scale(1.05); }
 
-.demo-card:hover .demo-hover-btn {
-    opacity: 1;
-    transform: scale(1);
-}
-
-.demo-card:hover .demo-image {
-    opacity: 0.35;
-    transform: scale(1.05);
-}
-
-/* --------------------------------------------
-   4. ELEMENTOS OCULTOS POR DEFECTO
-   -------------------------------------------- */
-/* La caja de la demo y el botón X NO se ven hasta hacer clic */
+/* Elementos Ocultos por defecto */
 .demo-preview { display: none; }
 .demo-close-btn { display: none; }
 
 /* --------------------------------------------
-   5. BOTÓN RECTANGULAR BASE (Cotizar/Ver)
-   -------------------------------------------- */
-.btn-cotizar {
-    display: inline-block;
-    background-color: var(--primary);
-    color: #1a1a21 !important;
-    padding: 12px 30px;
-    text-align: center;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    border: 1px solid var(--primary);
-    cursor: pointer;
-    margin-top: 15px;
-    width: auto;
-    text-decoration: none;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-.btn-cotizar:hover {
-    background-color: transparent;
-    color: var(--primary) !important;
-    transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(243, 160, 34, 0.5);
-}
-
-/* --------------------------------------------
-   6. ESTILOS INTERNOS DE LAS DEMOS (TABLA Y CHAT)
-   -------------------------------------------- */
-.demo-tabla {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.9rem;
-}
-.demo-tabla th {
-    background: rgba(243, 160, 34, 0.2);
-    color: var(--primary);
-    padding: 8px;
-    text-align: center;
-    font-weight: bold;
-    border-bottom: 2px solid var(--primary);
-}
-.demo-tabla td {
-    padding: 6px;
-    text-align: center;
-    border-bottom: 1px solid var(--border-light);
-    color: white;
-}
-.demo-tabla tr:hover td { background: rgba(243, 160, 34, 0.1); }
-
-#chat-messages {
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(243, 160, 34, 0.2);
-    border-radius: 8px;
-    padding: 10px;
-    height: 150px;
-    overflow-y: auto;
-    margin-bottom: 10px;
-    color: white;
-}
-#chat-input {
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(243, 160, 34, 0.3);
-    color: white;
-    padding: 10px;
-    border-radius: 4px;
-    flex: 1;
-}
-#chat-input:focus { outline: none; border-color: var(--primary); }
-#chat-messages p { margin: 5px 0; }
-
-/* --------------------------------------------
-   7. SECCIÓN PRINCIPAL Y BANNER
+   4. SECCIÓN PRINCIPAL Y BANNER
    -------------------------------------------- */
 #demos-banner {
-    position: relative;
-    box-shadow: 0 12px 12px -10px rgba(0, 0, 0, 0.78);
-    background: url('../../images/principalimagen.jpg') center/cover;
-    padding: 4rem 0 3rem 0;
+    position: relative; box-shadow: 0 12px 12px -10px rgba(0, 0, 0, 0.78);
+    background: url('../../images/principalimagen.jpg') center/cover; padding: 4rem 0 3rem 0;
 }
 #demos-banner::after {
-    content: "";
-    position: absolute; left: 0; right: 0; bottom: -20px; height: 1px;
+    content: ""; position: absolute; left: 0; right: 0; bottom: -20px; height: 1px;
     background: linear-gradient(to bottom, rgba(20, 20, 30, 0), rgba(20, 20, 30, 0.65));
 }
 #demos-banner h2 { color: #ffffff !important; font-size: 3.5rem; margin-bottom: 1.5rem; }
 #demos-banner p { color: var(--primary) !important; font-size: 1.2rem; line-height: 1.4; }
 
-.wrapper.style2 {
-    background: linear-gradient(rgba(20, 20, 30, 0.65), rgba(20, 20, 30, 0.65)), url('../../images/principalimagen.jpg') center/cover;
-}
+.wrapper.style2 { background: linear-gradient(rgba(20, 20, 30, 0.65), rgba(20, 20, 30, 0.65)), url('../../images/principalimagen.jpg') center/cover; }
 
 /* --------------------------------------------
-   8. WHATSAPP FLOTANTE
+   5. WHATSAPP FLOTANTE
    -------------------------------------------- */
 .whatsapp-float {
-    position: fixed; bottom: 30px; right: 30px;
-    width: 64px; height: 64px;
-    background: transparent;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer; z-index: 9999;
-    transition: transform 0.35s ease;
+    position: fixed; bottom: 30px; right: 30px; width: 64px; height: 64px;
+    background: transparent; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; z-index: 9999; transition: transform 0.35s ease;
 }
 .whatsapp-float:hover { transform: scale(1.08); }
-.whatsapp-float i.fa-whatsapp {
-    font-size: 36px; color: var(--primary);
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-    transition: all 0.35s ease;
-}
-.whatsapp-tooltip {
-    position: absolute; right: 80px; top: 50%;
-    transform: translateY(-50%) translateX(10px);
-    background: rgba(20,20,30,0.95);
-    color: white; padding: 16px 22px;
-    border-radius: 12px; border: 1px solid var(--primary);
-    white-space: nowrap; font-size: 1rem; opacity: 0;
-    pointer-events: none; transition: all 0.3s ease;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-}
-.whatsapp-float:hover .whatsapp-tooltip {
-    opacity: 1; transform: translateY(-50%) translateX(0);
-}
-
+.whatsapp-float i.fa-whatsapp { font-size: 36px; color: var(--primary); filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); transition: all 0.35s ease; }
+.whatsapp-tooltip { display: none; } /* Oculto en móviles por defecto */
 
 /* ======================================================
-   9. MODO FOCUS (MODAL) - LA SOLUCIÓN MAESTRA
+   6. MODO FOCUS (MODAL) - LA SOLUCIÓN MAESTRA
    ====================================================== */
 
 /* Fondo oscuro y bloqueo de pantalla */
 body.focus-mode::after {
-    content: '';
-    position: fixed; inset: 0;
-    background: rgba(0, 0, 0, 0.85);
-    z-index: 9000;
-    animation: fadeIn 0.3s ease;
+    content: ''; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85);
+    z-index: 9000; animation: fadeIn 0.3s ease;
 }
 body.focus-mode { overflow: hidden !important; }
 body.focus-mode .demo-card:not(.active) { display: none !important; }
@@ -260,110 +117,160 @@ body.focus-mode #page-wrapper, body.focus-mode #wrapper { transform: none !impor
 
 /* ---- MODAL EN ESCRITORIO ---- */
 body.focus-mode .demo-card.active {
-    position: fixed !important;
-    top: 50% !important; left: 50% !important;
+    position: fixed !important; top: 50% !important; left: 50% !important;
     transform: translate(-50%, -50%) !important;
-    width: 90% !important; max-width: 800px !important;
-    max-height: 85vh !important;
-    z-index: 9999 !important;
-    background: var(--bg-dark) !important;
-    border: 2px solid var(--primary) !important;
-    box-shadow: 0 0 50px rgba(243, 160, 34, 0.5) !important;
-    border-radius: 16px !important;
+    width: 90% !important; max-width: 800px !important; max-height: 85vh !important;
+    z-index: 99999 !important; /* Capa ultra alta para tapar el menú amarillo */
+    background: var(--bg-dark) !important; border: 2px solid var(--primary) !important;
+    box-shadow: 0 0 50px rgba(243, 160, 34, 0.5) !important; border-radius: 16px !important;
     display: flex !important; flex-direction: column !important;
-    padding: 30px !important;
-    animation: focusAppear 0.4s ease;
+    padding: 30px !important; animation: focusAppear 0.4s ease;
 }
 
-/* Ocultar Imagen y Botón Ver en el Modal, Mostrar Preview y X */
 body.focus-mode .demo-card.active .demo-media { display: none !important; }
 body.focus-mode .demo-card.active > .btn-cotizar { display: none !important; }
 body.focus-mode .demo-card.active .demo-preview { display: block !important; }
 
-/* Diseño del botón X (Cerrar) en el Modal */
-body.focus-mode .demo-card.active .demo-close-btn {
-    display: flex !important;
-    position: absolute !important;
-    top: 15px !important; right: 15px !important;
-    width: 40px !important; height: 40px !important;
-    align-items: center; justify-content: center;
-    background: #14141e !important;
-    color: var(--primary) !important;
-    border: 2px solid var(--primary) !important;
-    border-radius: 50% !important;
-    font-size: 1.5rem !important; font-weight: bold !important;
-    cursor: pointer !important; z-index: 10000 !important;
-    transition: all 0.3s ease;
-    padding: 0 !important; margin: 0 !important;
-}
-body.focus-mode .demo-card.active .demo-close-btn:hover {
-    background: var(--primary) !important; color: #1a1a21 !important;
-    transform: scale(1.1) !important;
-}
-
 /* Títulos en Modal */
 body.focus-mode .demo-card.active h3 {
     font-size: 2rem !important; margin: 0 0 10px 0 !important;
-    padding-right: 50px !important; /* Espacio para que no choque con la X */
-    text-align: left !important; color: var(--primary) !important;
+    padding-right: 60px !important; text-align: left !important; color: var(--primary) !important;
     border-bottom: 2px solid rgba(243, 160, 34, 0.3); padding-bottom: 10px !important;
 }
 body.focus-mode .demo-card.active > p { margin-bottom: 15px !important; padding-right: 10px !important; }
 
 /* Contenedor de la Demo scrolleable */
 body.focus-mode .demo-card.active .demo-preview {
-    flex: 1 !important;
-    overflow-y: auto !important; overflow-x: hidden !important;
-    background: rgba(0, 0, 0, 0.4) !important;
-    border: 1px solid rgba(243, 160, 34, 0.3) !important;
-    border-radius: 12px !important;
-    padding: 20px !important; margin: 0 !important;
+    flex: 1 !important; overflow-y: auto !important; overflow-x: hidden !important;
+    background: rgba(0, 0, 0, 0.4) !important; border: 1px solid rgba(243, 160, 34, 0.3) !important;
+    border-radius: 12px !important; padding: 20px !important; margin: 0 !important;
 }
 
-/* Asegurar botones interiores del Modal */
-body.focus-mode .demo-card.active .demo-preview button {
+/* ======================================================
+   7. NORMALIZACIÓN DE BOTONES (TAMAÑOS IDÉNTICOS)
+   ====================================================== */
+body.focus-mode .demo-card.active .demo-preview button,
+body.focus-mode .demo-card.active .demo-preview .btn-cotizar {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     background-color: var(--primary) !important;
-    color: #1a1a21 !important; border: 1px solid var(--primary) !important;
-    padding: 10px 20px !important; border-radius: 5px !important;
-    font-weight: bold !important; cursor: pointer !important;
-    margin-top: 5px !important;
-}
-body.focus-mode .demo-card.active .demo-preview button:hover {
-    background-color: transparent !important; color: var(--primary) !important;
+    color: #1a1a21 !important;
+    border: 1px solid var(--primary) !important;
+    padding: 12px 20px !important;
+    border-radius: 8px !important; /* Bordes redondeados elegantes */
+    font-weight: bold !important;
+    font-size: 1rem !important;
+    cursor: pointer !important;
+    min-height: 48px !important; /* Altura estándar ideal para tocar con el dedo */
+    box-sizing: border-box !important;
+    transition: all 0.3s ease !important;
+    margin: 5px !important;
+    text-align: center !important;
 }
 
-/* ---- MODAL EN CELULARES ---- */
+body.focus-mode .demo-card.active .demo-preview button:hover,
+body.focus-mode .demo-card.active .demo-preview .btn-cotizar:hover {
+    background-color: transparent !important;
+    color: var(--primary) !important;
+}
+
+/* Fix específico para botones lado a lado (Probar otra vez / Solicitar asesoría) */
+body.focus-mode .demo-card.active .demo-preview div[style*="display: flex"] {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+    justify-content: center !important;
+    width: 100% !important;
+}
+
+body.focus-mode .demo-card.active .demo-preview div[style*="display: flex"] button {
+    flex: 1 1 calc(50% - 20px) !important; /* Ocupan exactamente el mismo ancho */
+    min-width: 140px !important;
+    margin: 0 !important;
+}
+
+/* ======================================================
+   8. EL BOTÓN "X" (BLINDADO CONTRA HTML5 UP)
+   ====================================================== */
+body.focus-mode .demo-close-btn {
+    display: flex !important;
+    position: fixed !important; 
+    top: 20px !important; 
+    right: 20px !important;
+    
+    /* BLOQUEOS CONTRA LA PLANTILLA HTML5 UP: */
+    width: 45px !important; 
+    min-width: 45px !important; /* Evita que la plantilla lo estire */
+    max-width: 45px !important;
+    height: 45px !important;
+    min-height: 45px !important;
+    padding: 0 !important;      /* Quita el relleno gigante de la plantilla */
+    margin: 0 !important;       /* Quita el margen automático */
+    letter-spacing: 0 !important; /* Quita el espacio entre letras */
+    text-indent: 0 !important;
+    line-height: 1 !important;
+    
+    /* DISEÑO CIRCULAR Y COLORES: */
+    align-items: center !important; 
+    justify-content: center !important;
+    background: #14141e !important;
+    color: var(--primary) !important;
+    border: 2px solid var(--primary) !important;
+    border-radius: 50% !important;
+    font-size: 1.5rem !important; 
+    font-weight: bold !important;
+    cursor: pointer !important; 
+    z-index: 999999 !important; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5) !important;
+    transition: all 0.3s ease;
+}
+
+body.focus-mode .demo-close-btn:hover {
+    background: var(--primary) !important; 
+    color: #1a1a21 !important;
+    transform: scale(1.1) !important;
+}
+
+/* Reafirmar el tamaño blindado en celulares */
 @media (max-width: 768px) {
-    /* Ocultar header principal para que no tape */
-    body.focus-mode #header { display: none !important; }
+    body.focus-mode .demo-close-btn {
+        top: 15px !important;
+        right: 15px !important;
+        width: 42px !important;
+        min-width: 42px !important;
+        max-width: 42px !important;
+        height: 42px !important;
+        min-height: 42px !important;
+    }
+}
 
-    /* Pantalla completa real */
+
+/* ======================================================
+   9. MODAL EN CELULARES (DISEÑO MÓVIL PERFECTO)
+   ====================================================== */
+@media (max-width: 768px) {
+    /* El modal cubre TODA la pantalla tapando el menú amarillo */
     body.focus-mode .demo-card.active {
         top: 0 !important; left: 0 !important;
         transform: none !important;
         width: 100vw !important; height: 100dvh !important;
         max-width: none !important; max-height: none !important;
         border-radius: 0 !important; border: none !important;
-        padding: 60px 15px 15px 15px !important; /* Margen para Notch y X */
+        padding: 70px 15px 15px 15px !important; /* Espacio superior para que la X no tape el título */
     }
 
-    /* X Reposicionada */
-    body.focus-mode .demo-card.active .demo-close-btn {
-        top: 10px !important; right: 15px !important;
-        width: 42px !important; height: 42px !important;
-    }
-
-    body.focus-mode .demo-card.active h3 { font-size: 1.4rem !important; }
+    body.focus-mode .demo-card.active h3 { font-size: 1.3rem !important; }
     body.focus-mode .demo-card.active .demo-preview { padding: 10px !important; }
 
     /* Fix del chat móvil */
     #demo-chat .demo-preview { display: flex !important; flex-direction: column !important; }
-    #chat-messages { flex: 1 !important; min-height: 250px !important; }
-    #demo-chat .demo-content > div { display: flex !important; flex-direction: row !important; gap: 5px !important; width: 100% !important; }
-    #demo-chat #chat-input { flex: 1 !important; width: auto !important; }
-    #demo-chat button[onclick="sendChatMessage()"] { width: auto !important; padding: 10px 15px !important; }
-
-    .whatsapp-tooltip { display: none !important; }
+    #chat-messages { flex: 1 !important; min-height: 200px !important; }
+    #demo-chat .demo-content > div { display: flex !important; flex-direction: column !important; gap: 10px !important; }
+    #demo-chat #chat-input { width: 100% !important; }
+    
+    /* El botón enviar del chat ocupa todo el ancho en móvil */
+    #demo-chat button[onclick="sendChatMessage()"] { width: 100% !important; margin: 0 !important; }
 }
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -371,3 +278,12 @@ body.focus-mode .demo-card.active .demo-preview button:hover {
     0% { opacity: 0; transform: translate(-50%, -40%) scale(0.9); }
     100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
+
+/* Estilos internos de tablas y chat */
+.demo-tabla { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.demo-tabla th { background: rgba(243, 160, 34, 0.2); color: var(--primary); padding: 8px; text-align: center; border-bottom: 2px solid var(--primary); }
+.demo-tabla td { padding: 8px; text-align: center; border-bottom: 1px solid var(--border-light); color: white; }
+.demo-tabla tr:hover td { background: rgba(243, 160, 34, 0.1); }
+#chat-messages { background: rgba(0,0,0,0.4); border: 1px solid rgba(243,160,34,0.2); border-radius: 8px; padding: 10px; height: 150px; overflow-y: auto; color: white; margin-bottom: 10px;}
+#chat-input { background: rgba(0,0,0,0.5); border: 1px solid rgba(243,160,34,0.3); color: white; padding: 12px; border-radius: 8px; flex: 1; font-size: 1rem; }
+#chat-input:focus { outline: none; border-color: var(--primary); }
