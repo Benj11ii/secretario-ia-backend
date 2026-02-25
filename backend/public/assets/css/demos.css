@@ -214,810 +214,188 @@ body.focus-mode .demo-card.active .demo-preview .btn-cotizar {
     background-size: cover;
     background-position: center;
 }
+/* ======================================================
+   MODO FOCUS (MODAL) - SOLUCIÓN DEFINITIVA ESCRITORIO Y MÓVIL
+   ====================================================== */
 
-/* --------------------------------------------
-   MODO FOCUS - REORGANIZACIÓN COMPLETA
-   -------------------------------------------- */
+/* 1. Fondo oscuro global */
 body.focus-mode::after {
     content: '';
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: 0; left: 0; right: 0; bottom: 0;
     background: rgba(0, 0, 0, 0.85);
-    z-index: 90;
+    z-index: 9000;
     animation: fadeIn 0.3s ease;
 }
 
+/* 2. Ocultar el resto de tarjetas y evitar scroll de la página */
+body.focus-mode {
+    overflow: hidden !important;
+}
 body.focus-mode .demo-card:not(.active) {
-    opacity: 0;
-    visibility: hidden;
-    transform: scale(0.8);
-    transition: all 0.4s ease;
-    pointer-events: none;
-    height: 0;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+    display: none !important; 
 }
 
+/* 3. Evitar que la plantilla HTML5UP rompa el 'position: fixed' */
+body.focus-mode #page-wrapper,
+body.focus-mode #wrapper {
+    transform: none !important;
+}
+
+/* =========================================
+   DISEÑO DEL MODAL EN ESCRITORIO (BASE)
+   ========================================= */
 body.focus-mode .demo-card.active {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(1);
-    width: 80%;
-    max-width: 800px;
-    max-height: 90vh;
-    overflow-y: auto;
-    z-index: 200;
-    background: var(--bg-dark);
-    border: 2px solid var(--primary);
-    box-shadow: 0 0 50px rgba(243, 160, 34, 0.5);
-    padding: 2.5rem;
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important; /* Centrado perfecto */
+    width: 90% !important;
+    max-width: 800px !important;
+    max-height: 85vh !important;
+    z-index: 9999 !important;
+    
+    background: var(--bg-dark) !important;
+    border: 2px solid var(--primary) !important;
+    box-shadow: 0 0 50px rgba(243, 160, 34, 0.5) !important;
+    border-radius: 16px !important;
+    
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 30px !important;
     animation: focusAppear 0.4s ease;
 }
 
+/* 4. BOTÓN CERRAR (X) - Siempre visible y fijo a la tarjeta */
+body.focus-mode .demo-card.active .demo-close-btn {
+    display: flex !important;
+    position: absolute !important;
+    top: 15px !important;
+    right: 15px !important;
+    
+    width: 40px !important;
+    height: 40px !important;
+    align-items: center;
+    justify-content: center;
+    
+    background: #14141e !important;
+    color: #f3a022 !important;
+    border: 2px solid #f3a022 !important;
+    border-radius: 50% !important;
+    
+    font-size: 1.5rem !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    z-index: 10000 !important;
+    transition: all 0.3s ease;
+}
+
+body.focus-mode .demo-card.active .demo-close-btn:hover {
+    background: #f3a022 !important;
+    color: #1a1a21 !important;
+    transform: scale(1.1) !important;
+}
+
+/* Títulos y contenido - Evitar que choquen con la X */
 body.focus-mode .demo-card.active h3 {
-    font-size: 2.5rem;
-    text-align: center;
-    margin-bottom: 1rem;
-    color: var(--primary);
+    font-size: 2rem !important;
+    margin: 0 0 10px 0 !important;
+    padding-right: 50px !important; /* IMPORTANTE: Deja espacio para la X */
+    text-align: left !important;
+    color: var(--primary) !important;
     border-bottom: 2px solid rgba(243, 160, 34, 0.3);
-    padding-bottom: 1rem;
+    padding-bottom: 10px !important;
 }
 
-body.focus-mode .demo-card.active>p {
-    font-size: 1.2rem;
-    text-align: center;
-    color: var(--text-light);
-    margin-bottom: 2rem;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+body.focus-mode .demo-card.active > p {
+    margin-bottom: 15px !important;
+    padding-right: 10px !important;
 }
 
+/* Zona de la Demo (Chat, Tablas, etc) scrolleable */
 body.focus-mode .demo-card.active .demo-preview {
-    min-height: 300px;
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(243, 160, 34, 0.3);
-    border-radius: 12px;
-    padding: 2rem;
-    margin: 3rem 0;
-    font-size: 1.1rem;
-    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
-}
-
-body.focus-mode .demo-card.active .btn-cotizar {
-    display: none;
-}
-
-
-body.focus-mode .focus-close-btn {
-    display: block;
-    animation: slideDown 0.3s ease;
-}
-
-/* Ajustes específicos para cada demo en focus */
-body.focus-mode .demo-card.active #demo-data table {
-    font-size: 1.1rem;
-}
-
-body.focus-mode .demo-card.active #demo-data th {
-    padding: 12px;
-    font-size: 1.2rem;
-}
-
-body.focus-mode .demo-card.active #demo-data td {
-    padding: 10px;
-}
-
-body.focus-mode .demo-card.active #demo-auto div[style*="text-align: left"] {
-    font-size: 1.2rem;
+    flex: 1 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    background: rgba(0, 0, 0, 0.4) !important;
+    border: 1px solid rgba(243, 160, 34, 0.3) !important;
+    border-radius: 12px !important;
     padding: 20px !important;
+    margin: 0 !important;
 }
 
-body.focus-mode .demo-card.active #demo-auto p {
-    margin: 15px 0 !important;
-}
-
-body.focus-mode .demo-card.active #demo-chat>div {
-    padding: 20px !important;
-}
-
-body.focus-mode .demo-card.active #chat-messages {
-    height: 250px !important;
-    font-size: 1.1rem;
-}
-
-body.focus-mode .demo-card.active #chat-input {
-    padding: 12px !important;
-    font-size: 1.1rem;
-}
-
-body.focus-mode .demo-card.active #demo-dash>div {
-    padding: 25px !important;
-}
-
-body.focus-mode .demo-card.active #demo-dash [style*="font-size: 2rem"] {
-    font-size: 2.5rem !important;
-}
-
-/* --------------------------------------------
-   ANIMACIONES
-   -------------------------------------------- */
-@keyframes focusAppear {
-    0% {
-        opacity: 0;
-        transform: translate(-50%, -40%) scale(0.9);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes slideDown {
-    from {
-        transform: translateY(-20px);
-        opacity: 0;
-    }
-
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-
-/* Botón de cierre dentro de la tarjeta (oculto por defecto) */
-
-
-.demo-close-btn:hover {
-    background: #f3a022;
-    color: black;
-    border-color: white;
-    transform: scale(1.1);
-}
-
-/* Mostrar solo en la tarjeta activa durante el modo focus */
-body.focus-mode .demo-card.active .demo-close-btn {
-    display: flex;
-    /* o block, pero flex centra mejor el contenido */
-}
-
-/*Boton ver*/
-
-/* --------------------------------------------
-   BOTÓN VER - ESTILO RECTANGULAR (como Enviar Solicitud)
-   -------------------------------------------- */
-.demo-card .btn-cotizar {
-    display: inline-block;
-    background-color: #f3a022;
-    /* Fondo naranja */
-    color: #1a1a21 !important;
-    /* Texto oscuro casi negro */
-    padding: 12px 30px;
-    /* Padding cómodo */
-    text-align: center;
-    border-radius: 5px;
-    /* Bordes ligeramente redondeados (rectangular) */
-    font-weight: bold;
-    font-size: 1em;
-    transition: all 0.3s ease;
-    border: none;
-    /* Sin borde en estado normal */
-    cursor: pointer;
-    margin-top: 15px;
-    width: auto;
-    min-width: 120px;
-    align-self: flex-start;
-    /* Alineado a la izquierda */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    text-decoration: none;
-    z-index: 5;
-    position: relative;
-}
-
-.demo-card .btn-cotizar:hover {
-    background-color: transparent;
-    /* Fondo transparente */
-    color: #f3a022 !important;
-    /* Texto naranja */
-    border: 1px solid #f3a022;
-    /* Borde naranja en hover */
-    transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(243, 160, 34, 0.5);
-}
-
-/* Cuando el modo focus está activo, ocultamos el botón Ver de la tarjeta activa */
-body.focus-mode .demo-card.active .btn-cotizar {
+/* Ocultar elementos no deseados en el modal */
+body.focus-mode .demo-card.active .demo-media,
+body.focus-mode .demo-card.active > .btn-cotizar {
     display: none !important;
 }
 
 
-
-
-
-
-
-
-
-
-/* función de demo 1 estilizada */
-
-/* ============================================
-   ESTILOS PARA LOS BOTONES DE LA DEMO 1
-   ============================================ */
-
-/* Estilo para los botones de opción */
-.demo-preview .btn-cotizar,
-#demo-data .btn-cotizar,
-.demo-preview button:not(.demo-close-btn) {
-    display: inline-block;
-    background-color: #f3a022 !important;
-    color: #1a1a21 !important;
-    padding: 12px 20px !important;
-    text-align: center !important;
-    border-radius: 5px !important;
-    font-weight: bold !important;
-    font-size: 1rem !important;
-    transition: all 0.3s ease !important;
-    border: none !important;
-    cursor: pointer !important;
-    margin: 5px 0 !important;
-    width: 100% !important;
-    max-width: 300px !important;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3) !important;
-    text-decoration: none !important;
-}
-
-.demo-preview .btn-cotizar:hover,
-#demo-data .btn-cotizar:hover,
-.demo-preview button:not(.demo-close-btn):hover {
-    background-color: transparent !important;
-    color: #f3a022 !important;
-    border: 1px solid #f3a022 !important;
-}
-
-/* Contenedor de los botones */
-#demo-data>div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    width: 100%;
-}
-
-/* Títulos y textos */
-#demo-data h4 {
-    color: #f3a022;
-    margin-bottom: 15px;
-    font-size: 1.1rem;
-}
-
-#demo-data p {
-    color: white;
-    margin-bottom: 15px;
-}
-
-
-/* Asegurar que los botones se vean en modo focus */
-body.focus-mode .demo-card.active .demo-preview button,
-body.focus-mode .demo-card.active .demo-preview .btn-cotizar {
-    display: inline-block !important;
-    background-color: #f3a022 !important;
-    color: #1a1a21 !important;
-    border: none !important;
-    border-radius: 5px !important;
-    padding: 12px 20px !important;
-    font-weight: bold !important;
-    cursor: pointer !important;
-    width: 100% !important;
-    margin: 5px 0 !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-
-body.focus-mode .demo-card.active .demo-preview button:hover,
-body.focus-mode .demo-card.active .demo-preview .btn-cotizar:hover {
-    background-color: transparent !important;
-    color: #f3a022 !important;
-    border: 1px solid #f3a022 !important;
-}
-
-
-
-/* ============================================
-   SOLUCIÓN DEFINITIVA PARA MODO FOCUS
-   ============================================ */
-
-/* Asegurar que los botones SIEMPRE sean visibles en modo focus */
-body.focus-mode .demo-card.active .demo-preview .btn-cotizar,
-body.focus-mode .demo-card.active .demo-preview button {
-    display: inline-block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    background-color: #f3a022 !important;
-    color: #1a1a21 !important;
-    border: none !important;
-    border-radius: 5px !important;
-    padding: 12px 20px !important;
-    font-weight: bold !important;
-    cursor: pointer !important;
-    width: 100% !important;
-    margin: 5px 0 !important;
-    pointer-events: auto !important;
-    position: relative !important;
-    z-index: 9999 !important;
-}
-
-body.focus-mode .demo-card.active .demo-preview .btn-cotizar:hover,
-body.focus-mode .demo-card.active .demo-preview button:hover {
-    background-color: transparent !important;
-    color: #f3a022 !important;
-    border: 1px solid #f3a022 !important;
-}
-
-/* Eliminar cualquier regla que oculte botones en modo focus */
-body.focus-mode .demo-card.active .btn-cotizar:not(.demo-close-btn) {
-    display: inline-block !important;
-}
-
-/* Específico para la demo 1 */
-#demo-data .btn-cotizar {
-    display: inline-block !important;
-}
-
-
-
-
-/*nuevo enfoque boton ver oculto aparece en zoom*/
-
-.demo-media {
-    position: relative;
-    margin-top: 1rem;
-    border-radius: 12px;
-    overflow: hidden;
-}
-
-.demo-image {
-    width: 100%;
-    max-height: 220px;
-    object-fit: contain;
-    border-radius: 12px;
-    transition: transform 0.5s ease, opacity 0.5s ease;
-}
-
-.demo-hover-btn {
-    position: absolute;
-    inset: 0;
-    margin: auto;
-    width: 140px;
-    height: 48px;
-
-    background: rgba(243, 160, 34, 0.9);
-    color: #1a1a21;
-    font-weight: bold;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-
-    opacity: 0;
-    transform: scale(0.9);
-    transition: all 0.35s ease;
-    z-index: 5;
-}
-
-.demo-card:hover .demo-hover-btn {
-    opacity: 1;
-    transform: scale(1);
-}
-
-.demo-card:hover .demo-image {
-    opacity: 0.35;
-    transform: scale(1.03);
-}
-
-body.focus-mode .demo-hover-btn {
-    display: none !important;
-}
-
-body.focus-mode .demo-media {
-    display: none;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* OCULTAR CONTENIDO DE DEMO POR DEFECTO */
-.demo-preview {
-    display: none;
-}
-
-/* MOSTRAR SOLO EN MODO FOCUS */
-body.focus-mode .demo-card.active .demo-preview {
-    display: block;
-}
-
-body.focus-mode .demo-card.active .demo-media {
-    display: none;
-}
-
-.demo-preview {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.3s ease;
-}
-
-body.focus-mode .demo-card.active .demo-preview {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Hover claro (importante para personas mayores) */
-.demo-close-btn:hover {
-    background: #f3a022;
-    color: #1a1a21;
-    transform: scale(1.1);
-}
-
-/* SOLO visible cuando el modal está activo */
-body.focus-mode .demo-card.active .demo-close-btn {
-    display: flex;
-}
-
-.demo-preview {
-    position: relative;
-}
-
-/* BOTÓN CERRAR (X) — MODAL */
-.demo-close-btn {
-    position: absolute;
-    top: 18px;
-    right: 18px;
-
-    width: 42px;
-    height: 42px;
-
-    display: none;
-
-    align-items: center;
-    justify-content: center;
-
-    font-size: 1.4rem;
-    font-weight: bold;
-
-    background: rgba(0, 0, 0, 0.7);
-    color: #f3a022;
-
-    border: 1px solid rgba(243, 160, 34, 0.6);
-    border-radius: 50%;
-
-    cursor: pointer;
-    z-index: 1001;
-
-    transition: all 0.25s ease;
-}
-
-/* Hover claro */
-.demo-close-btn:hover {
-    background: #f3a022;
-    color: #1a1a21;
-    transform: scale(1.1);
-}
-
-/* SOLO visible en modo focus */
-body.focus-mode .demo-card.active .demo-close-btn {
-    display: flex;
-}
-
-.demo-card {
-    position: relative;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* estilos para wsp */
-/* estilos para wsp */
-/* ================================
-   WHATSAPP FLOAT - VERSIÓN ÚNICA
-   ================================ */
-
-.whatsapp-float {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    /* 1. Cambiamos el fondo naranja por transparente (o puede usar un gris muy oscuro como #1a1a21) */
-    background: transparent; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 9999;
-    
-    /* 2. Eliminamos el box-shadow y la animación para quitar el brillo y el pulso */
-    /* box-shadow: 0 0 8px rgba(243,160,34, 0.45); */
-    /* animation: pulse-glow 3s infinite; */
-    
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
-}
-
-/* Puede eliminar por completo el bloque de @keyframes pulse-glow si ya no lo usará, 
-   o dejarlo ahí, no afectará en nada ya que lo desactivamos arriba. */
-
-/* Hover sobre el botón */
-.whatsapp-float:hover {
-    transform: scale(1.08);
-    /* 3. Quitamos el brillo exagerado al pasar el ratón (hover) */
-    /* box-shadow: 0 0 25px rgba(243,160,34, 0.75); */
-    animation: none;
-}
-
-/* Ícono de WhatsApp */
-.whatsapp-float i.fa-whatsapp {
-    font-size: 36px;
-    /* 4. Cambiamos el color del ícono a naranja para que destaque sin necesidad del fondo */
-    color: #f3a022; 
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-    transition: all 0.35s ease;
-}
-
-.whatsapp-float:hover i.fa-whatsapp {
-    /* 5. Mantenemos el ícono naranja al pasar el ratón */
-    color: #f3a022; 
-    transform: scale(1.05);
-}
-
-/* ================================
-   TOOLTIP - VERSIÓN CORREGIDA
-   ================================ */
-
-.whatsapp-tooltip {
-    position: absolute;
-    right: 80px; /* Más espacio del botón */
-    top: 50%;
-    transform: translateY(-50%) translateX(10px);
-    background: rgba(20,20,30,0.95);
-    color: white;
-    padding: 16px 22px;
-    border-radius: 12px;
-    border: 1px solid #f3a022;
-    white-space: nowrap;
-    font-size: 1rem;
-    line-height: 1.4;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-    z-index: 10000;
-}
-
-/* Resaltado del mensaje */
-.whatsapp-tooltip strong {
-    color: #f3a022;
-    font-weight: 600;
-}
-
-/* Hover real - aparece el tooltip */
-.whatsapp-float:hover .whatsapp-tooltip {
-    opacity: 1;
-    transform: translateY(-50%) translateX(0);
-}
-
-
-
-
-
-/* parte modal responsive para moviles */
-
-/* ======================================================
-   SOLUCIÓN DEFINITIVA - MODAL Y RESPONSIVIDAD (MÓVIL)
-   ====================================================== */
+/* =========================================
+   DISEÑO DEL MODAL EN MÓVILES Y TABLETS (< 768px)
+   ========================================= */
 @media (max-width: 768px) {
-
-    /* Evitar scroll del body cuando el modal está abierto */
-    body.focus-mode {
-        overflow: hidden !important;
-        padding-top: 0 !important;
-    }
-
-    /* Ocultar el header para que no interfiera */
+    
+    /* ¡VITAL! Ocultar el menú/header principal para que no tape la X */
     body.focus-mode #header {
         display: none !important;
     }
 
-    /* 1. MODAL BASE (El contenedor que ocupa toda la pantalla) */
+    /* Modal a pantalla completa 100% */
     body.focus-mode .demo-card.active {
-        position: fixed !important;
         top: 0 !important;
         left: 0 !important;
+        transform: none !important; /* Quita el centrado de escritorio */
         width: 100vw !important;
-        height: 100vh !important; /* 100dvh es mejor para móviles modernos, pero 100vh es seguro */
-        height: 100dvh !important; 
+        height: 100vh !important;
+        height: 100dvh !important; /* Para Safari/Chrome móvil */
         max-width: none !important;
         max-height: none !important;
-        margin: 0 !important;
         border-radius: 0 !important;
-        z-index: 9999 !important;
-        transform: none !important;
+        border: none !important;
         
-        /* Uso de Flexbox para que no se desborde el contenido */
-        display: flex !important;
-        flex-direction: column !important;
-        
-        /* PADDING CLAVE: Espacio arriba para el botón X y el notch del celular */
-        padding: calc(env(safe-area-inset-top, 10px) + 20px) 15px 15px 15px !important;
-        box-sizing: border-box !important;
+        /* Padding superior grande para el notch y la X */
+        padding: 60px 15px 15px 15px !important; 
     }
 
-    /* 2. BOTÓN CERRAR (X) - Posición absoluta al modal, no a la pantalla */
+    /* Reposicionar la X en móvil */
     body.focus-mode .demo-card.active .demo-close-btn {
-        position: absolute !important;
-        /* Lo bajamos un poco respetando la zona segura del móvil */
-        top: calc(env(safe-area-inset-top, 10px) + 15px) !important;
+        top: 10px !important;
         right: 15px !important;
-        
-        width: 45px !important;
-        height: 45px !important;
-        font-size: 1.6rem !important;
-        
-        /* Fondo más sólido para que no se mezcle con el texto */
-        background: rgba(20, 20, 30, 0.95) !important; 
-        border: 2px solid #f3a022 !important;
-        z-index: 10000 !important;
-        display: flex !important;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
+        width: 42px !important;
+        height: 42px !important;
     }
 
-    /* 3. TÍTULO Y TEXTOS - Evitar que choquen con la X */
     body.focus-mode .demo-card.active h3 {
-        font-size: 1.5rem !important;
-        margin-top: 15px !important; /* Espacio extra arriba */
-        padding-right: 50px !important; /* IMPORTANTE: Obliga al texto a bajar y no tocar la X */
-        text-align: left !important;
-        flex-shrink: 0;
+        font-size: 1.4rem !important;
     }
 
-    body.focus-mode .demo-card.active > p {
-        font-size: 1rem !important;
-        text-align: left !important;
-        margin-bottom: 15px !important;
-        flex-shrink: 0;
-    }
-
-    /* 4. CONTENEDOR INTERNO DE LA DEMO (Hacerlo scrolleable) */
     body.focus-mode .demo-card.active .demo-preview {
-        flex: 1 !important; /* Toma el espacio restante */
-        width: 100% !important;
-        margin: 0 !important;
-        padding: 15px !important;
-        overflow-y: auto !important; /* Si la tabla es muy larga, scrollea aquí adentro */
-        overflow-x: hidden !important;
-        border-radius: 12px !important;
-        box-sizing: border-box !important;
+        padding: 10px !important;
     }
 
-    /* =========================================
-       AJUSTES ESPECÍFICOS DE LAS DEMOS EN MÓVIL
-       ========================================= */
-
-    /* Tablas */
-    .demo-tabla {
-        width: 100%;
-        font-size: 0.85rem;
-    }
-    .demo-preview table {
-        min-width: 500px; /* Para que haga scroll horizontal si no cabe */
-    }
-    .demo-preview {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    /* Chat Demo */
+    /* Ajuste especial para el chat en móvil */
     #demo-chat .demo-preview {
         display: flex !important;
         flex-direction: column !important;
     }
     #chat-messages {
-        flex: 1 !important;
-        min-height: 200px !important;
+        flex: 1 !important; /* Usa el espacio disponible */
+        min-height: 250px !important;
         margin-bottom: 10px !important;
     }
     #demo-chat .demo-content > div {
         display: flex !important;
         flex-direction: row !important;
-        gap: 8px !important;
+        gap: 5px !important;
         width: 100% !important;
     }
     #demo-chat #chat-input {
         flex: 1 !important;
         width: auto !important;
-        padding: 12px !important;
     }
     #demo-chat button[onclick="sendChatMessage()"] {
         width: auto !important;
-        padding: 12px 15px !important;
-        white-space: nowrap !important;
-    }
-
-    /* Botones generales móviles */
-    button, .btn-cotizar {
-        width: 100% !important;
-        padding: 12px !important;
-    }
-
-    /* WhatsApp Flotante móvil */
-    .whatsapp-tooltip {
-        display: none !important;
-    }
-    .whatsapp-float {
-        width: 55px !important;
-        height: 55px !important;
-        bottom: 20px !important;
-        right: 20px !important;
-    }
-    .whatsapp-float i {
-        font-size: 32px !important;
+        padding: 10px 15px !important;
     }
 }
