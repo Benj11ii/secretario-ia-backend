@@ -1016,3 +1016,52 @@ body.focus-mode .demo-card.active .demo-close-btn {
     font-size: 28px;
   }
 }
+
+
+
+
+/* =========================================
+   FIX CHAT DEMO 3 – INPUT + BOTÓN (MÓVIL)
+   ========================================= */
+@media (max-width: 768px) {
+
+  /* Contenedor del chat */
+  #demo-chat .demo-preview {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  /* Mensajes */
+  #demo-chat #chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Barra de escritura */
+  #demo-chat .demo-content > div {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  /* Input */
+  #demo-chat #chat-input {
+    flex: 1;
+    min-width: 0;
+    padding: 12px;
+    font-size: 1rem;
+  }
+
+  /* Botón Enviar */
+  #demo-chat button[onclick="sendChatMessage()"] {
+    width: auto !important;
+    min-width: 90px;
+    padding: 12px 14px;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+}
