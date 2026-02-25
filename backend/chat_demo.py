@@ -9,7 +9,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Configuración de Ollama
-OLLAMA_URL = "http://192.168.1.100:11434/api/generate"
+OLLAMA_URL = "http://localhost:11434/api/generate"
 MODELO = "qwen2.5:0.5b"  # Su modelo Qwen configurado
 FORMULARIO_URL = "https://www.iasesoria.cl/#five"
 
@@ -48,7 +48,7 @@ def chat():
         historial = data.get("history", [])
 
         # Formatear historial para el prompt (últimas 4 para ahorrar contexto en modelos pequeños)
-        # historial_texto = ""  // No es necesario
+        historial_texto = ""
         for msg in historial[-4:]:
             role = "Usuario" if msg["role"] == "user" else "Asistente"
             historial_texto += f"{role}: {msg['content']}\n"
@@ -112,7 +112,7 @@ def chat():
                 {
                     "success": True,
                     "response": respuesta,
-                    "show_form_redirect": true #linea ajustada
+                    "show_form_redirect": True  # ← CORREGIDO (con T mayúscula)
                 }
             )
         else:
