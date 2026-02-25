@@ -328,8 +328,44 @@ function runChatDemo() {
         // 👇 NUEVA LÓGICA: Verificar Mac primero
         const url = '/api/chat';
 
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: userMsg, history: chatHistory })
+            });
+
+            const data = await response.json();
+            document.getElementById('typing-indicator')?.remove();
+
+            if (data.success) {
+                msgDiv.innerHTML += `<p style="margin:5px 0;"><strong style="color:#f3a022;">🤖 Asistente:</strong> ${data.response}</p>`;
+
+                chatHistory.push({ role: 'user', content: userMsg });
+                chatHistory.push({ role: 'assistant', content: data.response });
+
+                restantes--;
+                sessionStorage.setItem('chatConsultas', restantes.toString());
+
+                if (contadorSpan) contadorSpan.innerHTML = `💬 ${restantes} de 3 consultas`;
+
+                if (restantes <= 0) {
+                    input.disabled = true;
+                    sendBtn.disabled = true;
+                    document.getElementById('chat-bloqueado').style.display = 'block';
+                }
+            } else {
+                document.getElementById('typing-indicator')?.remove();
+                msgDiv.innerHTML += `<p style="margin:5px 0; color:#ff6b6b;">❌ Error en la respuesta</p>`;
+            }
+        } catch (error) {
+            document.getElementById('typing-indicator')?.remove();
+            msgDiv.innerHTML += `<p style="margin:5px 0; color:#ff6b6b;">❌ Error de conexión</p>`;
+            console.error('Error:', error);
+        }
+
         msgDiv.scrollTop = msgDiv.scrollHeight;
-        sendBtn.disabled = false; // Reactivar botón
+        sendBtn.disabled = false;
     };
 }
 
