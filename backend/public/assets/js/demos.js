@@ -321,7 +321,7 @@ function runChatDemo() {
         msgDiv.scrollTop = msgDiv.scrollHeight;
 
         try {
-            const response = await fetch('http://192.168.1.100:5003/chat', {
+            const response = await fetch('http://192.168.1.50:5003/chat', {  //Cambiar hacia donde consulta chat_demo hacia mac o celeron
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: userMsg }) // Linea cambiada

@@ -21,19 +21,10 @@ logging.basicConfig(
 # ============================================
 # PROMPT SISTEMA - CORREGIDO
 # ============================================
-PROMPT_SISTEMA = """Eres un asistente de IAsesoria. REGLAS ESTRICTAS:
-1. RESPUESTAS MÁXIMO 5 PALABRAS.
-2. Solo habla de: servicios (automatización, chatbots, ordenar datos)y precios (desde $30.000).
-3. Si la pregunta no es sobre estos temas o es compleja: "Usa el formulario: {formulario_url}"
-
-Ejemplos de respuesta corta:
-Q: ¿Horario? → A: "Lunes a viernes 9-18 hrs"
-Q: ¿Precios? → A: "Desde $50.000 mensuales"
-Q: ¿Servicios? → A: "Automatización, chatbots, datos"
-Q: ¿Cómo lo hacen? → A: "Usa el formulario: {formulario_url}"
-
-Historial de conversación:
-{historial_texto}
+PROMPT_SISTEMA = """Eres asistente de IAsesoria. REGLAS:
+1. Máx 5 palabras
+2. Temas: servicios informáticos, inicia consulta gratis con formulario
+3. Si no: "Usa formulario: {formulario_url}"
 
 Usuario: {mensaje_usuario}
 Asistente:"""
@@ -77,15 +68,15 @@ def chat():
             "prompt": prompt_completo,
             "stream": False,
             "options": {
-                "temperature": 0.0,  # determinista y rápido
-                "num_predict": 18,  # suficiente para 5 palabras + URL
-                "num_ctx": 256,  # MUY importante para Celeron
+                "temperature": 0.0,
+                "num_predict": 10,  # ← REDUCIDO (antes 18)
+                "num_ctx": 128,  # ← REDUCIDO (antes 256)
                 "top_p": 0.9,
                 "stop": ["\n", "Usuario:", "Asistente:", "Q:"],
             },
         }
 
-        response = requests.post(OLLAMA_URL, json=payload, timeout=20)
+        response = requests.post(OLLAMA_URL, json=payload, timeout=60)
 
         if response.status_code == 200:
             result = response.json()
@@ -112,7 +103,7 @@ def chat():
                 {
                     "success": True,
                     "response": respuesta,
-                    "show_form_redirect": True  # ← CORREGIDO (con T mayúscula)
+                    "show_form_redirect": True,  # ← CORREGIDO (con T mayúscula)
                 }
             )
         else:
