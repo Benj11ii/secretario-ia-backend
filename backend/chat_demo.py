@@ -6,7 +6,7 @@ import logging
 
 app = Flask(__name__)
 # Se recomienda en producción: CORS(app, origins=["https://www.iasesoria.cl"])
-CORS(app)
+CORS(app, origins=["https://www.iasesoria.cl", "http://localhost", "http://127.0.0.1"])
 
 # Configuración de Ollama
 OLLAMA_URL = "http://localhost:11434/api/generate"
