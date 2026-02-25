@@ -44,6 +44,7 @@ Asistente:"""
 
 
 @app.route("/chat", methods=["POST"])
+@app.route("/api/chat", methods=["POST"])
 def chat():
     """Endpoint para el chat de la demo usando Qwen"""
     try:
