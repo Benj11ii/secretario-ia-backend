@@ -1065,3 +1065,18 @@ body.focus-mode .demo-card.active .demo-close-btn {
     flex-shrink: 0;
   }
 }
+
+
+/* =========================================
+   FIX CRÍTICO – HTML5 UP + MODAL FIXED
+   ========================================= */
+body.focus-mode #page-wrapper {
+  transform: none !important;
+}
+body.focus-mode .demo-card.active {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: none !important;
+}
