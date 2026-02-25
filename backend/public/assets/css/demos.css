@@ -1080,3 +1080,28 @@ body.focus-mode .demo-card.active {
   bottom: 0;
   transform: none !important;
 }
+
+/* =========================================
+   FIX POSICIÓN MODAL – VISIBILIDAD BOTÓN X
+   ========================================= */
+@media (max-width: 768px) {
+
+  body.focus-mode .demo-card.active {
+    inset: auto;
+    top: env(safe-area-inset-top, 0);
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - env(safe-area-inset-top, 0));
+    padding-top: 3.5rem; /* espacio real para header + X */
+  }
+
+  .demo-close-btn {
+    top: calc(env(safe-area-inset-top, 0) + 12px);
+  }
+}
+
+@media (max-width: 768px) {
+  body.focus-mode #header {
+    display: none;
+  }
+}
