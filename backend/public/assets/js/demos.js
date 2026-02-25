@@ -325,14 +325,18 @@ function runChatDemo() {
         msgDiv.innerHTML += `<p id="typing-indicator" style="margin:5px 0; color:#f3a022;">🤖 Bot: <span style="opacity:0.7;">⚡ pensando...</span></p>`;
         msgDiv.scrollTop = msgDiv.scrollHeight;
 
-        // 👇 NUEVA LÓGICA: Verificar Mac primero
         const url = '/api/chat';
 
         try {
             const response = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: userMsg, history: chatHistory })
+                // 👇 AGREGADO: número de consulta (1, 2 o 3)
+                body: JSON.stringify({ 
+                    message: userMsg, 
+                    history: chatHistory,
+                    consulta_num: (3 - restantes + 1)  // 1, 2 o 3
+                })
             });
 
             const data = await response.json();
