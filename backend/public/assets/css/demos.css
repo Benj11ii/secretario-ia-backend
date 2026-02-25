@@ -200,77 +200,43 @@ body.focus-mode .demo-close-btn {
     right: 20px !important;
     
     /* BLOQUEOS CONTRA LA PLANTILLA HTML5 UP: */
-    width: 45px !important; 
-    min-width: 45px !important; /* Evita que la plantilla lo estire */
-    max-width: 45px !important;
-    height: 45px !important;
-    min-height: 45px !important;
-    padding: 0 !important;      /* Quita el relleno gigante de la plantilla */
-    margin: 0 !important;       /* Quita el margen automático */
-    letter-spacing: 0 !important; /* Quita el espacio entre letras */
-    text-indent: 0 !important;
-    line-height: 1 !important;
+    width: 45px !important; min-width: 45px !important; max-width: 45px !important;
+    height: 45px !important; min-height: 45px !important;
+    padding: 0 !important; margin: 0 !important;
+    letter-spacing: 0 !important; text-indent: 0 !important; line-height: 1 !important;
     
     /* DISEÑO CIRCULAR Y COLORES: */
-    align-items: center !important; 
-    justify-content: center !important;
-    background: #14141e !important;
-    color: var(--primary) !important;
-    border: 2px solid var(--primary) !important;
-    border-radius: 50% !important;
-    font-size: 1.5rem !important; 
-    font-weight: bold !important;
-    cursor: pointer !important; 
-    z-index: 999999 !important; 
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5) !important;
-    transition: all 0.3s ease;
+    align-items: center !important; justify-content: center !important;
+    background: #14141e !important; color: var(--primary) !important;
+    border: 2px solid var(--primary) !important; border-radius: 50% !important;
+    font-size: 1.5rem !important; font-weight: bold !important;
+    cursor: pointer !important; z-index: 999999 !important; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5) !important; transition: all 0.3s ease;
 }
 
-body.focus-mode .demo-close-btn:hover {
-    background: var(--primary) !important; 
-    color: #1a1a21 !important;
-    transform: scale(1.1) !important;
-}
+body.focus-mode .demo-close-btn:hover { background: var(--primary) !important; color: #1a1a21 !important; transform: scale(1.1) !important; }
 
-/* Reafirmar el tamaño blindado en celulares */
 @media (max-width: 768px) {
     body.focus-mode .demo-close-btn {
-        top: 15px !important;
-        right: 15px !important;
-        width: 42px !important;
-        min-width: 42px !important;
-        max-width: 42px !important;
-        height: 42px !important;
-        min-height: 42px !important;
+        top: 15px !important; right: 15px !important;
+        width: 42px !important; min-width: 42px !important; max-width: 42px !important;
+        height: 42px !important; min-height: 42px !important;
     }
 }
-
 
 /* ======================================================
    9. MODAL EN CELULARES (DISEÑO MÓVIL PERFECTO)
    ====================================================== */
 @media (max-width: 768px) {
-    /* El modal cubre TODA la pantalla tapando el menú amarillo */
     body.focus-mode .demo-card.active {
-        top: 0 !important; left: 0 !important;
-        transform: none !important;
+        top: 0 !important; left: 0 !important; transform: none !important;
         width: 100vw !important; height: 100dvh !important;
         max-width: none !important; max-height: none !important;
         border-radius: 0 !important; border: none !important;
-        padding: 70px 15px 15px 15px !important; /* Espacio superior para que la X no tape el título */
+        padding: 70px 15px 15px 15px !important; 
     }
-
     body.focus-mode .demo-card.active h3 { font-size: 1.3rem !important; }
     body.focus-mode .demo-card.active .demo-preview { padding: 10px !important; }
-
-    /* Fix del chat móvil */
-    #demo-chat .demo-preview { display: flex !important; flex-direction: column !important; }
-    #chat-messages { flex: 1 !important; min-height: 200px !important; }
-    #demo-chat .demo-content > div { display: flex !important; flex-direction: column !important; gap: 10px !important; }
-    #demo-chat #chat-input { width: 100% !important; }
-    
-    /* El botón enviar del chat ocupa todo el ancho en móvil */
-    #demo-chat button[onclick="sendChatMessage()"] { width: 100% !important; margin: 0 !important; }
 }
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -279,11 +245,60 @@ body.focus-mode .demo-close-btn:hover {
     100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
 
-/* Estilos internos de tablas y chat */
+/* ======================================================
+   10. ESTILOS INTERNOS DE TABLAS Y CHAT (ARREGLADO)
+   ====================================================== */
 .demo-tabla { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
 .demo-tabla th { background: rgba(243, 160, 34, 0.2); color: var(--primary); padding: 8px; text-align: center; border-bottom: 2px solid var(--primary); }
 .demo-tabla td { padding: 8px; text-align: center; border-bottom: 1px solid var(--border-light); color: white; }
 .demo-tabla tr:hover td { background: rgba(243, 160, 34, 0.1); }
-#chat-messages { background: rgba(0,0,0,0.4); border: 1px solid rgba(243,160,34,0.2); border-radius: 8px; padding: 10px; height: 150px; overflow-y: auto; color: white; margin-bottom: 10px;}
-#chat-input { background: rgba(0,0,0,0.5); border: 1px solid rgba(243,160,34,0.3); color: white; padding: 12px; border-radius: 8px; flex: 1; font-size: 1rem; }
+
+/* CONTENEDOR DEL CHAT */
+#demo-chat .demo-preview { display: flex !important; flex-direction: column !important; }
+
+/* ÁREA DE MENSAJES */
+#chat-messages { 
+    background: rgba(0,0,0,0.4); 
+    border: 1px solid rgba(243,160,34,0.2); 
+    border-radius: 8px; 
+    padding: 10px; 
+    height: 180px; /* Un poco más alto para mejor visibilidad */
+    overflow-y: auto; 
+    color: white; 
+    margin-bottom: 10px;
+    flex: 1;
+}
+
+/* BARRA INFERIOR (INPUT + BOTÓN ENVIAR) - UNO AL LADO DEL OTRO */
+#demo-chat .demo-content > div { 
+    display: flex !important; 
+    flex-direction: row !important; /* Siempre en línea */
+    gap: 10px !important; 
+    align-items: center !important;
+    width: 100% !important;
+}
+
+#chat-input { 
+    background: rgba(0,0,0,0.5); 
+    border: 1px solid rgba(243,160,34,0.3); 
+    color: white; 
+    padding: 0 15px !important; 
+    border-radius: 8px; 
+    flex: 1 !important; /* Ocupa el espacio libre */
+    font-size: 1rem; 
+    height: 48px !important; 
+    margin: 0 !important;
+    box-sizing: border-box !important;
+}
+
 #chat-input:focus { outline: none; border-color: var(--primary); }
+
+/* BOTÓN "ENVIAR" DEL CHAT - TAMAÑO PROPORCIONAL */
+#demo-chat button[onclick="sendChatMessage()"] { 
+    width: auto !important; 
+    min-width: 100px !important; /* Ancho fijo prudente */
+    height: 48px !important; /* Misma altura que el input */
+    margin: 0 !important; 
+    flex-shrink: 0 !important; /* Evita que el botón se aplaste si el input crece */
+    padding: 0 20px !important;
+}
