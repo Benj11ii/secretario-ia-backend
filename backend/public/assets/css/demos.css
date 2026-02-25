@@ -1105,3 +1105,43 @@ body.focus-mode .demo-card.active {
     display: none;
   }
 }
+
+
+
+
+/* =========================================
+   FIX FINAL – MODAL ARRIBA + BOTÓN X VISIBLE
+   ========================================= */
+@media (max-width: 768px) {
+
+  /* El body NO debe empujar el modal */
+  body.focus-mode {
+    padding-top: 0 !important;
+  }
+
+  /* Ignorar completamente el header */
+  body.focus-mode #header {
+    position: static !important;
+    transform: none !important;
+  }
+
+  /* Modal siempre visible desde el borde real */
+  body.focus-mode .demo-card.active {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 100vw;
+    height: 100vh;
+
+    padding-top: 4rem; /* espacio garantizado para la X */
+  }
+
+  /* La X se fija al viewport, no al card */
+  body.focus-mode .demo-close-btn {
+    position: fixed !important;
+    top: 12px !important;
+    right: 12px !important;
+    z-index: 2000;
+  }
+}
