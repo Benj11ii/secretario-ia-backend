@@ -19,20 +19,7 @@ function handleDemoClick(button, demoFunctionName) {
 // ============================================
 // FUNCIÓN PARA DETECTAR MAC (NUEVA - AGREGADA)
 // ============================================
-async function macDisponible() {
-    try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 2000);
 
-        const response = await fetch('https://192.168.1.100:5004/health', {
-            signal: controller.signal
-        });
-        clearTimeout(timeoutId);
-        return response.ok;
-    } catch {
-        return false;
-    }
-}
 
 // ============================================
 // DEMO 1: DIAGNÓSTICO EXPRESS (VERSIÓN SIMPLE)
@@ -339,50 +326,7 @@ function runChatDemo() {
         msgDiv.scrollTop = msgDiv.scrollHeight;
 
         // 👇 NUEVA LÓGICA: Verificar Mac primero
-        const macActiva = await macDisponible();
-        let url;
-
-        if (macActiva) {
-            url = 'https://192.168.1.100:5004/chat';
-            console.log('🍎 Usando Mac para IA');
-        } else {
-            url = '/api/chat';
-            console.log('💻 Usando Celeron para IA');
-        }
-
-        try {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: userMsg })
-            });
-
-            const data = await response.json();
-            document.getElementById('typing-indicator')?.remove();
-
-            if (data.success) {
-                msgDiv.innerHTML += `<p style="margin:5px 0;"><strong style="color:#f3a022;">🤖 Asistente:</strong> ${data.response}</p>`;
-
-                restantes--;
-                sessionStorage.setItem('chatConsultas', restantes.toString());
-
-                if (contadorSpan) {
-                    contadorSpan.innerHTML = `💬 ${restantes} de 3 consultas`;
-                }
-
-                if (restantes <= 0) {
-                    input.disabled = true;
-                    sendBtn.disabled = true;
-                    document.getElementById('chat-bloqueado').style.display = 'block';
-                }
-            } else {
-                msgDiv.innerHTML += `<p style="margin:5px 0; color:#ff6b6b;">❌ Error en la respuesta</p>`;
-            }
-        } catch (error) {
-            document.getElementById('typing-indicator')?.remove();
-            msgDiv.innerHTML += `<p style="margin:5px 0; color:#ff6b6b;">❌ Error de conexión</p>`;
-            console.error('Error:', error);
-        }
+        const url = '/api/chat';
 
         msgDiv.scrollTop = msgDiv.scrollHeight;
         sendBtn.disabled = false; // Reactivar botón
