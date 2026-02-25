@@ -24,7 +24,7 @@ async function macDisponible() {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 2000);
 
-        const response = await fetch('https://192.168.1.100:5003/health', {
+        const response = await fetch('https://192.168.1.100:5004/health', {
             signal: controller.signal
         });
         clearTimeout(timeoutId);
@@ -343,7 +343,7 @@ function runChatDemo() {
         let url;
 
         if (macActiva) {
-            url = 'https://192.168.1.100:5003/chat';
+            url = 'https://192.168.1.100:5004/chat';
             console.log('🍎 Usando Mac para IA');
         } else {
             url = '/api/chat';
