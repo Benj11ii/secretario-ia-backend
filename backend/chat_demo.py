@@ -23,7 +23,7 @@ CORS(
 
 # Configuración de Ollama
 OLLAMA_URL = "http://localhost:11434/api/generate"
-MODELO = "gemma2:2b"  # Su modelo Gemma configurado
+MODELO = "qwen2.5:3b"  # Su modelo Gemma configurado
 FORMULARIO_URL = "https://www.iasesoria.cl/#five"
 
 # Configuración de logging
