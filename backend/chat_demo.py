@@ -1,4 +1,4 @@
-# chat_demo_ollama.py - Chat con IA usando Gemma (Ollama) para IAsesoria
+# chat_demo_ollama.py - Chat con IA usando Qwen (Ollama) para IAsesoria
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import requests
@@ -23,7 +23,7 @@ CORS(
 
 # Configuración de Ollama
 OLLAMA_URL = "http://localhost:11434/api/generate"
-MODELO = "qwen2.5:3b"  # Su modelo Gemma configurado
+MODELO = "qwen2.5:0.5b"  # Su modelo qwen configurado
 FORMULARIO_URL = "https://www.iasesoria.cl/#five"
 
 # Configuración de logging
@@ -34,27 +34,19 @@ logging.basicConfig(
 # ============================================
 # PROMPT SISTEMA - CORREGIDO
 # ============================================
-PROMPT_SISTEMA = """Eres el asistente demo de IAsesoria, empresa de servicios tecnológicos.
+PROMPT_SISTEMA = """Eres asistente de IAsesoria.cl, empresa tecnológica chilena.
+Responde SOLO sobre: web, software, automatización, IA.
+Respuesta: máximo 1 oración + invita a visitar {formulario_url}
+Si consulta {numero_consulta} es 3, di: "Para más info visita {formulario_url}"
+Tema no tecnológico: "Solo respondo temas tech. Visita {formulario_url}"
 
-REGLAS ESTRICTAS:
-1. Responde SOLO preguntas sobre: tecnología, software, páginas web, automatización, IA, sistemas informáticos
-2. Si preguntan algo NO tecnológico, responde exactamente: "Solo respondo temas tecnológicos. Para consultas personalizadas: {formulario_url}"
-3. Respuestas máximo 2 oraciones, directo al punto
-4. En cada respuesta menciona que IAsesoria puede ayudarles
-
-CONSULTA NÚMERO: {numero_consulta}
-Si numero_consulta es 3, termina tu respuesta con: "¿Listo para comenzar? Visita: {formulario_url}"
-
-Historial:
-{historial_texto}
 Usuario: {mensaje_usuario}
 Asistente:"""
-
 
 @app.route("/chat", methods=["POST"])
 @app.route("/api/chat", methods=["POST"])
 def chat():
-    """Endpoint para el chat de la demo usando gemma"""
+    """Endpoint para el chat de la demo usando qwen"""
     try:
         data = request.json
         mensaje_usuario = data.get("message", "")
@@ -93,9 +85,9 @@ def chat():
             "stream": False,
             "options": {
                 "temperature": 0.0,
-                "num_predict": 20,  # ← REDUCIDO (antes 18)
+                "num_predict": 40,  # ← REDUCIDO (antes 18)
                 "num_ctx": 256,  # ← REDUCIDO (antes 256)
-                "top_p": 0.9,
+                "top_p": 0.1,
                 "stop": ["\n", "Usuario:", "Asistente:", "Q:"],
             },
         }
@@ -110,7 +102,7 @@ def chat():
             if "Asistente:" in respuesta:
                 respuesta = respuesta.split("Asistente:")[-1].strip()
 
-            logging.info(f"🤖 Gemma: {respuesta}")
+            logging.info(f"🤖 Qwen: {respuesta}")
 
             # Lógica para detectar si se envió al formulario (para la interfaz frontend)
             palabras_clave_redireccion = [
