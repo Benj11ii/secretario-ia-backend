@@ -381,57 +381,6 @@ body.focus-mode .demo-card.active #demo-dash [style*="font-size: 2rem"] {
     }
 }
 
-/* --------------------------------------------
-   RESPONSIVE (MÓVILES)
-   -------------------------------------------- */
-@media screen and (max-width: 736px) {
-    .demo-card {
-        padding: 1rem;
-    }
-
-    .demo-card h3 {
-        font-size: 1.1rem;
-        white-space: normal;
-    }
-
-    .demo-card p {
-        font-size: 0.9rem;
-    }
-
-    .demo-preview {
-        min-height: 120px;
-        padding: 0.5rem;
-    }
-
-    .demo-tabla {
-        font-size: 0.8rem;
-    }
-
-    .demo-tabla th,
-    .demo-tabla td {
-        padding: 4px;
-    }
-
-    /* Modo focus en móvil */
-    body.focus-mode .demo-card.active {
-        width: 95%;
-        padding: 1.5rem;
-    }
-
-    body.focus-mode .demo-card.active h3 {
-        font-size: 1.8rem;
-    }
-
-    body.focus-mode .demo-card.active>p {
-        font-size: 1rem;
-    }
-
-    body.focus-mode .demo-card.active .demo-preview {
-        min-height: 200px;
-        padding: 1rem;
-    }
-
-}
 
 /* Botón de cierre dentro de la tarjeta (oculto por defecto) */
 
@@ -448,21 +397,6 @@ body.focus-mode .demo-card.active .demo-close-btn {
     display: flex;
     /* o block, pero flex centra mejor el contenido */
 }
-
-/* Ajuste para móviles: botón un poco más pequeño */
-@media screen and (max-width: 736px) {
-    .demo-close-btn {
-        width: 30px;
-        height: 30px;
-        font-size: 1.1rem;
-        top: 5px;
-        right: 5px;
-    }
-}
-
-
-
-
 
 /*Boton ver*/
 
@@ -928,9 +862,150 @@ body.focus-mode .demo-card.active .demo-close-btn {
     transform: translateY(-50%) translateX(0);
 }
 
-/* En móviles: oculto siempre */
-@media screen and (max-width: 768px) {
+
+/* --------------------------------------------
+   RESPONSIVE UNIFICADO (MÓVILES)
+   -------------------------------------------- */
+@media screen and (max-width: 736px) {
+    /* Tarjetas en vista normal */
+    .demo-card {
+        padding: 1rem;
+    }
+
+    .demo-card h3 {
+        font-size: 1.1rem;
+        white-space: normal;
+    }
+
+    .demo-card p {
+        font-size: 0.9rem;
+    }
+
+    .demo-preview {
+        min-height: 120px;
+        padding: 0.5rem;
+    }
+
+    .demo-tabla {
+        font-size: 0.8rem;
+    }
+
+    .demo-tabla th,
+    .demo-tabla td {
+        padding: 4px;
+    }
+
+    /* Botón de cierre (X) en móvil */
+    .demo-close-btn {
+        width: 30px !important;
+        height: 30px !important;
+        font-size: 1.1rem !important;
+        top: 5px !important;
+        right: 5px !important;
+    }
+
+    /* WhatsApp tooltip oculto en móvil */
     .whatsapp-tooltip {
-        display: none;
+        display: none !important;
+    }
+
+    /* ===== MODO FOCUS EN MÓVIL ===== */
+    body.focus-mode .demo-card.active {
+        width: 95% !important;
+        max-width: 95% !important;
+        top: 5% !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        max-height: 90vh !important;
+        overflow-y: auto !important;
+        padding: 1.2rem !important;
+        border-radius: 12px !important;
+    }
+
+    body.focus-mode .demo-card.active h3 {
+        font-size: 1.5rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    body.focus-mode .demo-card.active > p {
+        font-size: 0.95rem !important;
+        margin-bottom: 1rem !important;
+    }
+
+    body.focus-mode .demo-card.active .demo-preview {
+        min-height: 200px !important;
+        padding: 1rem !important;
+        font-size: 0.9rem !important;
+    }
+
+    body.focus-mode .demo-card.active .demo-close-btn {
+        width: 32px !important;
+        height: 32px !important;
+        top: 8px !important;
+        right: 8px !important;
+        font-size: 1.2rem !important;
+    }
+
+    /* ===== AJUSTES ESPECÍFICOS POR DEMO ===== */
+
+    /* CHAT (Demo 3) */
+    body.focus-mode .demo-card.active #demo-chat > div {
+        padding: 10px !important;
+    }
+
+    body.focus-mode .demo-card.active #demo-chat .demo-content > div[style*="display: flex; gap: 8px;"] {
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+
+    body.focus-mode .demo-card.active #chat-input {
+        width: 100% !important;
+        padding: 12px !important;
+        font-size: 1rem !important;
+    }
+
+    body.focus-mode .demo-card.active button[onclick="sendChatMessage()"] {
+        width: 100% !important;
+        padding: 12px !important;
+        font-size: 1rem !important;
+    }
+
+    body.focus-mode .demo-card.active span[style*="background: rgba(243,160,34,0.2)"] {
+        font-size: 0.75rem !important;
+        padding: 2px 6px !important;
+    }
+
+    body.focus-mode .demo-card.active #chat-bloqueado {
+        padding: 12px !important;
+    }
+
+    body.focus-mode .demo-card.active #chat-bloqueado a {
+        padding: 10px 20px !important;
+        font-size: 0.9rem !important;
+    }
+
+    /* TABLA (Demo 5) */
+    body.focus-mode .demo-card.active #demo-sort .demo-preview {
+        overflow-x: auto !important;
+    }
+    
+    body.focus-mode .demo-card.active .demo-tabla {
+        font-size: 0.75rem !important;
+    }
+    
+    body.focus-mode .demo-card.active .demo-tabla th,
+    body.focus-mode .demo-card.active .demo-tabla td {
+        padding: 6px 4px !important;
+    }
+
+    /* DASHBOARD (Demo 4) */
+    body.focus-mode .demo-card.active #demo-dash .demo-preview div[style*="grid-template-columns: 1fr 1fr;"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* DIAGNÓSTICO (Demo 1) */
+    body.focus-mode .demo-card.active #demo-data .btn-cotizar {
+        padding: 10px 15px !important;
+        font-size: 0.9rem !important;
     }
 }
