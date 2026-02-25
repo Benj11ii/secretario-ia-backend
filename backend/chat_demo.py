@@ -1,4 +1,4 @@
-# chat_demo_ollama.py - Chat con IA usando Qwen (Ollama) para IAsesoria
+# chat_demo_ollama.py - Chat con IA usando Gemma (Ollama) para IAsesoria
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import requests
@@ -23,7 +23,7 @@ CORS(
 
 # Configuración de Ollama
 OLLAMA_URL = "http://localhost:11434/api/generate"
-MODELO = "qwen2.5:0.5b"  # Su modelo Qwen configurado
+MODELO = "gemma2:2b"  # Su modelo Gemma configurado
 FORMULARIO_URL = "https://www.iasesoria.cl/#five"
 
 # Configuración de logging
@@ -34,11 +34,19 @@ logging.basicConfig(
 # ============================================
 # PROMPT SISTEMA - CORREGIDO
 # ============================================
-PROMPT_SISTEMA = """Eres asistente de IAsesoria. REGLAS:
-1. Máx 5 palabras
-2. Temas: servicios informáticos, inicia consulta gratis con formulario
-3. Si no: "Usa formulario: {formulario_url}"
+PROMPT_SISTEMA = """Eres el asistente demo de IAsesoria, empresa de servicios tecnológicos.
 
+REGLAS ESTRICTAS:
+1. Responde SOLO preguntas sobre: tecnología, software, páginas web, automatización, IA, sistemas informáticos
+2. Si preguntan algo NO tecnológico, responde exactamente: "Solo respondo temas tecnológicos. Para consultas personalizadas: {formulario_url}"
+3. Respuestas máximo 2 oraciones, directo al punto
+4. En cada respuesta menciona que IAsesoria puede ayudarles
+
+CONSULTA NÚMERO: {numero_consulta}
+Si numero_consulta es 3, termina tu respuesta con: "¿Listo para comenzar? Visita: {formulario_url}"
+
+Historial:
+{historial_texto}
 Usuario: {mensaje_usuario}
 Asistente:"""
 
@@ -46,11 +54,12 @@ Asistente:"""
 @app.route("/chat", methods=["POST"])
 @app.route("/api/chat", methods=["POST"])
 def chat():
-    """Endpoint para el chat de la demo usando Qwen"""
+    """Endpoint para el chat de la demo usando gemma"""
     try:
         data = request.json
         mensaje_usuario = data.get("message", "")
         historial = data.get("history", [])
+        numero_consulta = data.get("consulta_num", 1)  # ← AGREGAR
 
         # Formatear historial para el prompt (últimas 4 para ahorrar contexto en modelos pequeños)
         historial_texto = ""
@@ -64,6 +73,7 @@ def chat():
                 formulario_url=FORMULARIO_URL,
                 historial_texto=historial_texto,
                 mensaje_usuario=mensaje_usuario,
+                numero_consulta=numero_consulta,  # ← AGREGAR
             )
         except KeyError as e:
             logging.error(f"Error en llaves del prompt: {e}")
@@ -83,8 +93,8 @@ def chat():
             "stream": False,
             "options": {
                 "temperature": 0.0,
-                "num_predict": 10,  # ← REDUCIDO (antes 18)
-                "num_ctx": 128,  # ← REDUCIDO (antes 256)
+                "num_predict": 20,  # ← REDUCIDO (antes 18)
+                "num_ctx": 256,  # ← REDUCIDO (antes 256)
                 "top_p": 0.9,
                 "stop": ["\n", "Usuario:", "Asistente:", "Q:"],
             },
@@ -100,7 +110,7 @@ def chat():
             if "Asistente:" in respuesta:
                 respuesta = respuesta.split("Asistente:")[-1].strip()
 
-            logging.info(f"🤖 Qwen: {respuesta}")
+            logging.info(f"🤖 Gemma: {respuesta}")
 
             # Lógica para detectar si se envió al formulario (para la interfaz frontend)
             palabras_clave_redireccion = [
