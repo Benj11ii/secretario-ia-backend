@@ -324,7 +324,7 @@ function runChatDemo() {
             const response = await fetch('http://localhost:5003/chat', {//Cambiar hacia donde consulta chat_demo hacia mac o celeron
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: userMsg }) // Linea cambiada
+                body: JSON.stringify({ message: userMsg, history: chatHistory }) // Linea cambiada
             });
 
             const data = await response.json();

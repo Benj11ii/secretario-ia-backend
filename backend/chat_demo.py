@@ -6,7 +6,20 @@ import logging
 
 app = Flask(__name__)
 # Se recomienda en producción: CORS(app, origins=["https://www.iasesoria.cl"])
-CORS(app, origins=["https://www.iasesoria.cl", "http://localhost", "http://127.0.0.1"])
+CORS(
+    app,
+    resources={
+        r"/*": {
+            "origins": [
+                "https://www.iasesoria.cl",
+                "http://localhost:5003",
+                "http://127.0.0.1:5003",
+                "http://localhost",
+                "http://127.0.0.1",
+            ]
+        }
+    },
+)
 
 # Configuración de Ollama
 OLLAMA_URL = "http://localhost:11434/api/generate"
@@ -103,7 +116,7 @@ def chat():
                 {
                     "success": True,
                     "response": respuesta,
-                    "show_form_redirect": True,  # ← CORREGIDO (con T mayúscula)
+                    "show_form_redirect": contiene_redireccion,  # ← CORREGIDO (con T mayúscula)
                 }
             )
         else:
