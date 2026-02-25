@@ -212,3 +212,5 @@ body.focus-mode .demo-close-btn:hover { background: var(--primary) !important; c
     transform: scale(1.05) !important; 
     background-color: var(--primary-dark) !important; 
 }
+
+/* Forzando el nuevo commit con los mismos parametros de conf */
