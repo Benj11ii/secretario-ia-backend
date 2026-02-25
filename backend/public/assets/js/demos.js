@@ -303,9 +303,14 @@ function runChatDemo() {
         const contadorSpan = document.querySelector('span[style*="background: rgba(243,160,34,0.2)"]');
 
         if (input.value.trim() === '') return;
+        const sendBtn = document.querySelector('button[onclick="sendChatMessage()"]');
+        sendBtn.disabled = true;
 
         let restantes = parseInt(sessionStorage.getItem('chatConsultas'));
-        if (restantes <= 0) return;
+        if (restantes <= 0) {
+            sendBtn.disabled = true;
+            return;
+        }
 
         const userMsg = input.value;
 
@@ -319,7 +324,7 @@ function runChatDemo() {
             const response = await fetch('http://192.168.1.100:5003/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: userMsg, history: chatHistory.slice(-4) })
+                body: JSON.stringify({ message: userMsg }) // Linea cambiada
             });
 
             const data = await response.json();
@@ -327,6 +332,11 @@ function runChatDemo() {
 
             if (data.success) {
                 msgDiv.innerHTML += `<p style="margin:5px 0;"><strong style="color:#f3a022;">🤖 Asistente:</strong> ${data.response}</p>`;
+                if (data.show_form_redirect) {
+                    setTimeout(() => {
+                        window.location.href = "/#five";
+                    }, 1200);
+                }
 
                 restantes--;
                 sessionStorage.setItem('chatConsultas', restantes.toString());
@@ -339,9 +349,10 @@ function runChatDemo() {
                 chatHistory.push({ role: 'assistant', content: data.response });
 
                 if (restantes <= 0) {
-                    document.getElementById('chat-input').disabled = true;
-                    document.querySelector('button[onclick="sendChatMessage()"]').disabled = true;
+                    input.disabled = true;
+                    sendBtn.disabled = true;
                     document.getElementById('chat-bloqueado').style.display = 'block';
+                    return; // 👈 evita que se reactive
                 }
             }
         } catch (error) {
@@ -351,6 +362,7 @@ function runChatDemo() {
 
         msgDiv.scrollTop = msgDiv.scrollHeight;
     };
+
 }
 
 // ============================================

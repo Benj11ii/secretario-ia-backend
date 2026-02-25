@@ -14,7 +14,9 @@ MODELO = "qwen2.5:0.5b"  # Su modelo Qwen configurado
 FORMULARIO_URL = "https://www.iasesoria.cl/#five"
 
 # Configuración de logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
 # ============================================
 # PROMPT SISTEMA - CORREGIDO
@@ -36,18 +38,19 @@ Historial de conversación:
 Usuario: {mensaje_usuario}
 Asistente:"""
 
-@app.route('/chat', methods=['POST'])
+
+@app.route("/chat", methods=["POST"])
 def chat():
     """Endpoint para el chat de la demo usando Qwen"""
     try:
         data = request.json
-        mensaje_usuario = data.get('message', '')
-        historial = data.get('history', [])
+        mensaje_usuario = data.get("message", "")
+        historial = data.get("history", [])
 
         # Formatear historial para el prompt (últimas 4 para ahorrar contexto en modelos pequeños)
-        historial_texto = ""
+        # historial_texto = ""  // No es necesario
         for msg in historial[-4:]:
-            role = "Usuario" if msg['role'] == 'user' else "Asistente"
+            role = "Usuario" if msg["role"] == "user" else "Asistente"
             historial_texto += f"{role}: {msg['content']}\n"
 
         # Construcción del prompt con manejo de errores de formato
@@ -55,11 +58,16 @@ def chat():
             prompt_completo = PROMPT_SISTEMA.format(
                 formulario_url=FORMULARIO_URL,
                 historial_texto=historial_texto,
-                mensaje_usuario=mensaje_usuario
+                mensaje_usuario=mensaje_usuario,
             )
         except KeyError as e:
             logging.error(f"Error en llaves del prompt: {e}")
-            return jsonify({"success": False, "response": "Error interno de configuración."}), 500
+            return (
+                jsonify(
+                    {"success": False, "response": "Error interno de configuración."}
+                ),
+                500,
+            )
 
         logging.info(f"📨 Usuario: {mensaje_usuario[:50]}")
 
@@ -69,18 +77,19 @@ def chat():
             "prompt": prompt_completo,
             "stream": False,
             "options": {
-                "temperature": 0.1,      # Alta precisión
-                "num_predict": 35,        # Suficiente para la URL y 5 palabras
-                "num_ctx": 512,           # Contexto ligero para rapidez
-                "stop": ["\n", "Usuario:", "Asistente:", "Q:"]
-            }
+                "temperature": 0.0,  # determinista y rápido
+                "num_predict": 18,  # suficiente para 5 palabras + URL
+                "num_ctx": 256,  # MUY importante para Celeron
+                "top_p": 0.9,
+                "stop": ["\n", "Usuario:", "Asistente:", "Q:"],
+            },
         }
 
         response = requests.post(OLLAMA_URL, json=payload, timeout=20)
 
         if response.status_code == 200:
             result = response.json()
-            respuesta = result.get('response', '').strip()
+            respuesta = result.get("response", "").strip()
 
             # Limpieza de seguridad por si el modelo repite el prefijo
             if "Asistente:" in respuesta:
@@ -89,43 +98,76 @@ def chat():
             logging.info(f"🤖 Qwen: {respuesta}")
 
             # Lógica para detectar si se envió al formulario (para la interfaz frontend)
-            palabras_clave_redireccion = ['formulario', 'iasesoria.cl', 'contactar', 'solicitud']
-            contiene_redireccion = any(p in respuesta.lower() for p in palabras_clave_redireccion)
+            palabras_clave_redireccion = [
+                "formulario",
+                "iasesoria.cl",
+                "contactar",
+                "solicitud",
+            ]
+            contiene_redireccion = any(
+                p in respuesta.lower() for p in palabras_clave_redireccion
+            )
 
-            return jsonify({
-                "success": True,
-                "response": respuesta,
-                "show_form_redirect": contiene_redireccion
-            })
+            return jsonify(
+                {
+                    "success": True,
+                    "response": respuesta,
+                    "show_form_redirect": true #linea ajustada
+                }
+            )
         else:
             logging.error(f"Error Ollama: {response.status_code}")
-            return jsonify({
-                "success": False,
-                "response": "Servicio temporalmente fuera de línea. Por favor, use nuestro formulario."
-            }), 500
+            return (
+                jsonify(
+                    {
+                        "success": False,
+                        "response": "Servicio temporalmente fuera de línea. Por favor, use nuestro formulario.",
+                    }
+                ),
+                500,
+            )
 
     except requests.exceptions.Timeout:
         logging.error("Timeout al conectar con Ollama")
-        return jsonify({"success": False, "response": "La IA está tardando en responder. Intente de nuevo."}), 504
+        return (
+            jsonify(
+                {
+                    "success": False,
+                    "response": "La IA está tardando en responder. Intente de nuevo.",
+                }
+            ),
+            504,
+        )
 
     except Exception as e:
         logging.exception("❌ Error crítico en el servidor")
-        return jsonify({"success": False, "response": "Error interno. Contacte a soporte."}), 500
+        return (
+            jsonify(
+                {"success": False, "response": "Error interno. Contacte a soporte."}
+            ),
+            500,
+        )
 
-@app.route('/health', methods=['GET'])
+
+@app.route("/health", methods=["GET"])
 def health():
     """Verificación de estado del servicio"""
     try:
-        ollama_test = requests.get(f"{OLLAMA_URL.replace('/generate', '/tags')}", timeout=5)
-        return jsonify({
-            "status": "online",
-            "ollama_connected": ollama_test.status_code == 200,
-            "model": MODELO
-        })
+        ollama_test = requests.get(
+            f"{OLLAMA_URL.replace('/generate', '/tags')}", timeout=5
+        )
+        return jsonify(
+            {
+                "status": "online",
+                "ollama_connected": ollama_test.status_code == 200,
+                "model": MODELO,
+            }
+        )
     except:
         return jsonify({"status": "error", "ollama_connected": False}), 500
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     print("-" * 30)
     print("🚀 SERVIDOR IASESORIA ACTIVO")
     print(f"📍 Escuchando en http://0.0.0.0:5003")
@@ -133,4 +175,4 @@ if __name__ == '__main__':
     print(f"🔗 Endpoint chat: http://0.0.0.0:5003/chat")
     print(f"🔗 Health check: http://0.0.0.0:5003/health")
     print("-" * 30)
-    app.run(host='0.0.0.0', port=5003, debug=True)
+    app.run(host="0.0.0.0", port=5003, debug=True)
