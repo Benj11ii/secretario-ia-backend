@@ -290,6 +290,10 @@ function runChatDemo() {
             <div id="chat-bloqueado" style="display: none; margin-top: 15px; padding: 15px; background: rgba(243, 160, 34, 0.15); border-radius: 8px; text-align: center;">
                 <p style="color: #f3a022; font-weight: bold;">✨ Demo completada</p>
                 <p style="color: white;">Gracias por probar la demo.</p>
+                <div style="margin-top: 15px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.5; text-align: center;">
+    <strong style="color: #f2a61f; font-style: italic;">Nota:</strong>
+    <span style="font-style: italic;"> Este asistente IA funciona en un computador normal, sin servidores costosos. Usted puede tenerlo personalizado como usted quiera. <strong style="color: #f2a61f;">Conversemos.</strong></span>
+</div>
                 <a href="/#five" class="btn-cotizar" style="text-decoration: none; display: inline-block; margin-top: 10px;">Ir al formulario</a>
             </div>
         </div>
@@ -317,13 +321,13 @@ function runChatDemo() {
         const sendBtn = document.getElementById('btn-enviar-chat');
 
         if (input.value.trim() === '') return;
-        
+
         let restantes = parseInt(sessionStorage.getItem('chatConsultas'));
         if (restantes <= 0) return;
 
         // Bloquear input y botón mientras la IA responde
         sendBtn.disabled = true;
-        input.disabled = true; 
+        input.disabled = true;
 
         const userMsg = input.value;
 
@@ -355,17 +359,17 @@ function runChatDemo() {
             if (data.success) {
                 // CREAR ELEMENTOS PARA EL EFECTO TIPO CHATGPT
                 const p = document.createElement('p');
-                
+
                 // white-space: pre-wrap; es VITAL para que los párrafos se separen bien
                 p.style.cssText = 'margin:5px 0; color: white; white-space: pre-wrap; line-height: 1.4;';
-                
+
                 // Estructura: Nombre + Texto Vacío + Cursor parpadeante
                 p.innerHTML = `<strong style="color:#f3a022;">🤖 Asistente:</strong> <span class="typing-text"></span><span class="cursor" style="font-weight:bold; color:#f3a022; margin-left:2px;">|</span>`;
                 msgDiv.appendChild(p);
 
                 const textSpan = p.querySelector('.typing-text');
                 const cursor = p.querySelector('.cursor');
-                
+
                 const texto = data.response;
                 let i = 0;
 
@@ -386,7 +390,7 @@ function runChatDemo() {
                         clearInterval(intervalo);
                         clearInterval(cursorBlink);
                         cursor.style.display = 'none'; // Ocultar el cursor al terminar
-                        
+
                         // Guardar historial
                         chatHistory.push({ role: 'user', content: userMsg });
                         chatHistory.push({ role: 'assistant', content: data.response });
