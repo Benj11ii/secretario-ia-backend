@@ -214,3 +214,12 @@ body.focus-mode .demo-close-btn:hover { background: var(--primary) !important; c
 }
 
 /* Forzando el nuevo commit con los mismos parametros de conf */
+
+
+@media (max-width: 768px) {
+    #chat-messages {
+        -webkit-overflow-scrolling: touch !important;
+        overflow-y: scroll !important;
+        touch-action: pan-y !important;
+    }
+}
