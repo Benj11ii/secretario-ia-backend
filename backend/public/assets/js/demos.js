@@ -288,7 +288,7 @@ function runChatDemo() {
             </div>
             
             <div id="chat-bloqueado" style="display: none; margin-top: 15px; padding: 15px; background: rgba(243, 160, 34, 0.15); border-radius: 8px; text-align: center;">
-                <p style="color: #f3a022; font-weight: bold;">✨ Demo completada</p>
+                <p style="color: #f3a022; font-weight: bold;">Demo completada</p>
                 <p style="color: white;">Gracias por probar la demo.</p>
                 <div style="margin-top: 15px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.5; text-align: center;">
     <strong style="color: #f2a61f; font-style: italic;">Nota:</strong>
