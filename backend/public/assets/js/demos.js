@@ -278,7 +278,7 @@ function runChatDemo() {
             </div>
             
             <div id="chat-messages" style="height: 200px; overflow-y: auto; margin-bottom: 15px; padding: 10px; background: rgba(0,0,0,0.4); border-radius: 8px;">
-                <p style="margin:5px 0; color:#f3a022;">🤖 Bot: ¡Hola! Soy el asistente de IAsesoria.</p>
+                <p style="margin:5px 0; color:#f3a022;">🤖 Asistente IA: ¡Hola! Soy el asistente de IAsesoria.</p>
             </div>
             
             <div style="display: flex; gap: 8px;">
@@ -364,7 +364,7 @@ function runChatDemo() {
                 p.style.cssText = 'margin:5px 0; color: white; white-space: pre-wrap; line-height: 1.4;';
 
                 // Estructura: Nombre + Texto Vacío + Cursor parpadeante
-                p.innerHTML = `<strong style="color:#f3a022;">🤖 Asistente:</strong> <span class="typing-text"></span><span class="cursor" style="font-weight:bold; color:#f3a022; margin-left:2px;">|</span>`;
+                p.innerHTML = `<strong style="color:#f3a022;">🤖 Asistente IA:</strong> <span class="typing-text"></span><span class="cursor" style="font-weight:bold; color:#f3a022; margin-left:2px;">|</span>`;
                 msgDiv.appendChild(p);
 
                 const textSpan = p.querySelector('.typing-text');
