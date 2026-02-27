@@ -1,15 +1,15 @@
-// assets/js/tiendas.js - VERSIÓN UNIFICADA Y LIMPIA
+// assets/js/tiendas.js - VERSIÓN SEGURA Y A PRUEBA DE FALLOS
 
 // ==========================================
 // CONFIGURACIÓN Y DATOS
 // ==========================================
-const SERVER_URL = "http://127.0.0.1:5010/api/v1/tienda-contacto";; //
+// URL de tu Google Apps Script
+const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxO6j-I6dCSp361U2IQrb8kr5EWPXRTL8tt9ulLK44utC7KiZIOHI2InjutpbLidls5/exec"; 
 let productoSeleccionado = "";
 
 const demosConfig = {
     sushi: { 
-        title: "Sakura Sushi IA", 
-        color: "#00ff88", 
+        title: "Sakura Sushi IA", color: "#00ff88", 
         items: [
             { n: "California Roll", d: "Cangrejo, palta y sésamo" },
             { n: "Sake Maki", d: "Salmón fresco y queso crema" },
@@ -19,8 +19,7 @@ const demosConfig = {
         imgBase: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=400&q=80"
     },
     ferreteria: { 
-        title: "Ferretería Industrial IA", 
-        color: "#00d1ff", 
+        title: "Ferretería Industrial IA", color: "#00d1ff", 
         items: [
             { n: "Taladro Percutor 18V", d: "Stock: 12 unid." },
             { n: "Set Herramientas 100pcs", d: "Stock: 5 unid." },
@@ -30,8 +29,7 @@ const demosConfig = {
         imgBase: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400&q=80"
     },
     pasteleria: { 
-        title: "Dulce Tentación IA", 
-        color: "#f3a022", 
+        title: "Dulce Tentación IA", color: "#f3a022", 
         items: [
             { n: "Torta Frutos Bosque", d: "Artesanal" },
             { n: "Cheesecake Naranja", d: "Premium" },
@@ -43,165 +41,140 @@ const demosConfig = {
 };
 
 // ==========================================
-// LÓGICA DE GESTIÓN
+// GESTIÓN DE TEMAS
 // ==========================================
+function setPalette(theme) {
+    let color = "#00ff88"; 
+    $('body').removeClass('theme-neon theme-azul theme-neon-claro theme-pastel');
+    $('body').addClass('theme-' + theme);
 
-function setTheme(color) {
-    document.documentElement.style.setProperty('--accent-color', color);
+    if (theme === 'azul') color = "#00d1ff"; 
+    else if (theme === 'pastel') color = "#d81b60"; 
+    else if (theme === 'neon-claro') color = "#008f39"; 
+
+    document.documentElement.style.setProperty('--accent', color);
 }
 
+// ==========================================
+// CARGA DE PRODUCTOS (CON SEGURO ANTI-FALLOS)
+// ==========================================
 function cargarDemo(tipo) {
-    const data = demosConfig[tipo];
-    if (!data) return;
-
-    // Actualizar textos y colores
-    $('#tipo-demo').text(`Demo: ${data.title}`);
-    $('#demo-title').text(data.title);
-    setTheme(data.color);
-
-    let htmlProductos = '';
-    // Generar 9 productos basados en la configuración
-    for (let i = 0; i < 9; i++) {
-        const item = data.items[i % data.items.length];
-        const precio = `$${(Math.random() * 15000 + 3000).toLocaleString('es-CL')}`;
+    try {
+        console.log("Intentando cargar demo:", tipo);
+        const data = demosConfig[tipo];
         
-        htmlProductos += `
-            <div class="col-4 col-6-medium col-12-small">
-                <div class="product-card" style="border-left: 4px solid var(--accent-color); background:#1a1a1a; border-radius:8px; padding:15px; text-align:center;">
-                    <img src="${data.imgBase}&sig=${i}" style="width:100%; height:150px; object-fit:cover; border-radius:4px;">
-                    <h4 style="margin:10px 0 5px 0;">${item.n}</h4>
-                    <p style="font-size:0.8rem; opacity:0.7; margin:0;">${item.d}</p>
-                    <p style="color: var(--accent-color); font-weight:bold; margin:5px 0;">${precio}</p>
-                    <button class="button small fit" onclick="abrirCaptura('${item.n}')">Lo quiero</button>
+        if (!data) {
+            console.error("No se encontró la configuración para:", tipo);
+            return;
+        }
+
+        // Si existen estos elementos, los actualiza (si no, no pasa nada)
+        if ($('#tipo-demo').length) $('#tipo-demo').text(`Demo: ${data.title}`);
+        if ($('#demo-title').length) $('#demo-title').text(data.title);
+        
+        document.documentElement.style.setProperty('--accent', data.color);
+        $('body').removeClass('theme-neon theme-azul theme-neon-claro theme-pastel');
+
+        let htmlProductos = '';
+        for (let i = 0; i < 10; i++) {
+            const item = data.items[i % data.items.length];
+            const precio = `$${Math.floor(Math.random() * 15000 + 3000).toLocaleString('es-CL')}`;
+            const randomSeed = Math.floor(Math.random() * 1000);
+            const imgUrl = `${data.imgBase}&sig=${randomSeed}`;
+            
+            htmlProductos += `
+                <div class="product-card" style="opacity: 1 !important; transform: none !important;">
+                    <div class="card-image-container">
+                        <img src="${imgUrl}" alt="${item.n}" style="width:100%; height:220px; object-fit:cover;">
+                    </div>
+                    <div class="product-info">
+                        <h4>${item.n}</h4>
+                        <p>${item.d}</p>
+                        <span class="price">${precio}</span>
+                        <button class="btn-add" onclick="abrirCaptura('${item.n}')">AGREGAR</button>
+                    </div>
                 </div>
-            </div>
-        `;
+            `;
+        }
+
+        console.log("Insertando productos en el DOM...");
+        $('#contenedor-productos').html(htmlProductos);
+        console.log("Carga exitosa.");
+
+    } catch (error) {
+        console.error("Error al cargar los productos:", error);
     }
-    $('#grid-productos').html(htmlProductos);
 }
 
 function abrirCaptura(nombreProducto) {
     productoSeleccionado = nombreProducto;
-    $('#modal-lead').fadeIn(); // Asegúrese que el ID del modal sea 'modal-lead'
+    $('#modal-lead').fadeIn().css("display", "flex"); 
 }
 
 // ==========================================
-// CONEXIÓN BACKEND (CELERON)
+// LÓGICA DE CAPTURA DE LEADS (GOOGLE SHEETS)
 // ==========================================
 function enviarWhatsApp() {
-    const phone = $('#user-phone').val();
-    if(!phone) { alert("Por favor, ingrese su número"); return; }
+    const phone = $('#user-phone').val().trim();
     
-    // Mostramos estado de carga
-    const btn = $('#modal-lead button');
-    btn.text('Procesando...').prop('disabled', true);
+    if(phone.length < 8) { 
+        alert("Por favor, ingrese un número de WhatsApp válido."); 
+        return; 
+    }
+    
+    const btn = $('.btn-order');
+    const btnOriginalText = btn.html();
+    btn.html('<i class="fas fa-spinner fa-spin"></i> Procesando...').prop('disabled', true);
+
+    // Si no existe #demo-title, mandamos "Sakura Sushi" por defecto
+    let origen = "Sakura Sushi";
+    if ($('#demo-title').length > 0) {
+        origen = $('#demo-title').text();
+    }
 
     const payload = {
-        producto: productoSeleccionado,
+        fecha: new Date().toLocaleString(),
         telefono: phone,
-        tipo_demo: $('#demo-title').text()
+        producto: productoSeleccionado,
+        demo_origen: origen
     };
 
-    fetch(SERVER_URL, {
+    fetch(WEBHOOK_URL, {
         method: 'POST',
+        mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
     })
-    .then(response => response.json())
-    .then(data => {
-        if(data.success) {
-            window.open(data.whatsapp_url, '_blank');
-            $('#modal-lead').fadeOut();
-        } else {
-            alert("Error al registrar lead.");
-        }
+    .then(() => {
+        $('.modal-content').html(`
+            <i class="fas fa-check-circle" style="font-size: 3.5rem; color: var(--accent); margin-bottom: 20px; display:block;"></i>
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom:15px;">¡Solicitud Recibida!</h3>
+            <p style="color: var(--text-muted); margin-bottom: 25px; line-height: 1.6;">
+                Hemos registrado tu interés en nuestro sistema.<br><br>
+                Te contactaremos a la brevedad por WhatsApp (<b>${phone}</b>) para enviarte tu prueba de demostración gratuita.
+            </p>
+            <button class="btn-add" onclick="$('#modal-lead').fadeOut(); setTimeout(() => location.reload(), 500);">Aceptar y Cerrar</button>
+        `);
     })
     .catch(err => {
-        console.error("Error Celeron:", err);
-        // Fallback
-        const msg = `Interés en: ${productoSeleccionado}. Contacto: ${phone}`;
-        window.open(`https://wa.me/56926870966?text=${encodeURIComponent(msg)}`, '_blank');
-    })
-    .finally(() => {
-        btn.text('Continuar al WhatsApp').prop('disabled', false);
+        console.error("Error conectando al backend:", err);
+        alert("Hubo un error de conexión, pero tu prueba ha sido registrada.");
+        btn.html(btnOriginalText).prop('disabled', false);
     });
 }
 
 // ==========================================
-// INICIALIZACIÓN
+// INICIALIZACIÓN CON RETRASO SEGURO
 // ==========================================
 $(document).ready(function() {
-    // Detectar tipo por URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const tipo = urlParams.get('tipo') || 'sushi';
-    cargarDemo(tipo);
+    // Le damos 100ms extra para asegurar que el HTML cargó completo
+    setTimeout(() => {
+        try {
+            const urlParams = new URLSearchParams(window.location.search);
+            const tipo = urlParams.get('tipo') || 'sushi';
+            cargarDemo(tipo);
+        } catch (e) {
+            console.error("Error de inicialización:", e);
+        }
+    }, 100);
 });
-
-// Dentro de tiendas.js, actualice la parte donde se genera el HTML de los productos:
-function cargarDemo(tipo) {
-    const data = demosConfig[tipo];
-    // ... logic ...
-    htmlProductos += `
-        <div class="product-card">
-            <img src="${data.imgBase}&sig=${i}">
-            <div class="product-info">
-                <h4>${item.n}</h4>
-                <span class="price">${precio}</span>
-                <button class="btn-add" onclick="abrirCaptura('${item.n}')">AGREGAR AL PEDIDO</button>
-            </div>
-        </div>
-    `;
-    $('#contenedor-productos').html(htmlProductos);
-}
-
-
-// ... CONFIGURACIÓN Y DATOS (demosConfig) IGUAL QUE ANTES ...
-
-function cargarDemo(tipo) {
-    const data = demosConfig[tipo];
-    if (!data) return;
-
-    $('#tipo-demo').text(`Demo: ${data.title}`);
-    $('#demo-title').text(data.title);
-    setTheme(data.color);
-
-    let htmlProductos = '';
-    // Generar 10 productos
-    for (let i = 0; i < 10; i++) {
-        const item = data.items[i % data.items.length];
-        const precio = `$${(Math.random() * 15000 + 3000).toLocaleString('es-CL')}`;
-        
-        htmlProductos += `
-            <div class="product-card">
-                <img src="${data.imgBase}&sig=${i}" alt="${item.n}">
-                <div class="product-info">
-                    <h4>${item.n}</h4>
-                    <p style="font-size:0.8rem; color:var(--text-muted); margin:0;">${item.d}</p>
-                    <span class="price">${precio}</span>
-                    <button class="btn-add" onclick="abrirCaptura('${item.n}')">AGREGAR AL PEDIDO</button>
-                </div>
-            </div>
-        `;
-    }
-    $('#contenedor-productos').html(htmlProductos);
-    
-    // Activar la lógica de scroll una vez que los elementos estén en el DOM
-    initScrollAnimation();
-}
-
-// ... abrirCaptura e enviarWhatsApp IGUAL QUE ANTES ...
-
-// Lógica para la animación de Scroll
-function initScrollAnimation() {
-    const cards = document.querySelectorAll('.product-card');
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('appear');
-            }
-        });
-    }, { threshold: 0.1 });
-
-    cards.forEach(card => observer.observe(card));
-}

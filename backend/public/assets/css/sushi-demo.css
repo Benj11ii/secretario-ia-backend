@@ -1,202 +1,492 @@
+/* =========================================
+   VARIABLES Y CONFIGURACIÓN DE TEMAS
+   ========================================= */
 :root {
+    /* Por defecto: Neon Oscuro */
+    --bg-body: #0a0a0a;
+    --bg-card: rgba(255, 255, 255, 0.03);
+    --text-main: #ffffff;
+    --text-muted: #a0a0a0;
     --accent: #00ff88;
-    --dark: #0a0a0a;
-    --glass: rgba(255, 255, 255, 0.05);
+    --nav-bg: rgba(10, 10, 10, 0.8);
+    --hero-overlay: rgba(0, 0, 0, 0.6);
+}
+
+/* --- CLASES PARA JS (tiendas.js) --- */
+body.theme-neon {
+    /* Ya está en el root por defecto, pero lo aseguramos */
+    --bg-body: #0a0a0a;
+    --accent: #00ff88;
+    --text-main: #ffffff;
+    --bg-card: rgba(255, 255, 255, 0.05);
+}
+
+body.theme-azul {
+    --bg-body: #050a15;
+    --accent: #00d1ff;
+    --text-main: #ffffff;
+    --bg-card: rgba(255, 255, 255, 0.05);
+}
+
+body.theme-neon-claro {
+    --bg-body: #f0fdf4;
+    --accent: #008f39;
+    --text-main: #111827;
+    --text-muted: #4b5563;
+    --bg-card: #ffffff;
+    --nav-bg: rgba(240, 253, 244, 0.8);
+    --hero-overlay: rgba(255, 255, 255, 0.2);
+}
+
+body.theme-pastel {
+    --bg-body: #fff5f6;
+    --accent: #d81b60;
+    --text-main: #331d24;
+    --text-muted: #6b7280;
+    --bg-card: #ffffff;
+    --nav-bg: rgba(255, 245, 246, 0.8);
+    --hero-overlay: rgba(255, 255, 255, 0.1);
+}
+
+/* =========================================
+   ESTILOS BASE
+   ========================================= */
+* {
+    box-sizing: border-box;
 }
 
 body {
     margin: 0;
-    padding: 0;
-    background-color: var(--dark);
     font-family: 'Inter', sans-serif;
-    color: white;
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    transition: all 0.5s ease;
+    overflow-x: hidden;
 }
 
-/* Nav Independiente */
+/* =========================================
+   NAVEGACIÓN (Arreglado)
+   ========================================= */
 .sushi-nav {
     position: fixed;
-    top: 0; width: 100%; height: 70px;
-    background: rgba(10, 10, 10, 0.8);
+    top: 0;
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    z-index: 1000;
+    background: var(--nav-bg);
     backdrop-filter: blur(10px);
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 50px; z-index: 1000; box-sizing: border-box;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.1);
 }
 
-.logo { font-weight: 700; letter-spacing: 2px; }
-.logo span { color: var(--accent); font-weight: 300; }
-.back-link { color: #888; text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
-.back-link:hover { color: var(--accent); }
-
-/* Hero Section */
-.sushi-hero {
-    height: 45vh;
-    background: url('https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=1200&q=80') center/cover;
-    display: flex; align-items: center; justify-content: center; position: relative;
+.logo {
+    font-weight: 700;
+    letter-spacing: 3px;
+    font-size: 1.1rem;
 }
 
-.overlay-dark {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(to bottom, rgba(10,10,10,0.4), var(--dark));
+.logo span {
+    color: var(--accent);
+    transition: color 0.3s;
 }
 
-.hero-content { position: relative; text-align: center; }
-.hero-content h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin: 0; }
-
-/* Grid de Productos */
-.menu-container { padding: 50px 10%; }
-.grid-sushi {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 30px;
+.nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 25px;
 }
 
-.product-card {
-    background: var(--glass);
-    border-radius: 20px;
-    overflow: hidden;
-    transition: 0.4s;
-    border: 1px solid rgba(255,255,255,0.1);
-    cursor: default;
+/* Selector de temas corregido */
+.theme-selector {
+    position: relative;
 }
 
-.product-card:hover { transform: translateY(-10px); border-color: var(--accent); }
-.product-card img { width: 100%; height: 200px; object-fit: cover; }
-.product-info { padding: 20px; }
-.product-info h4 { margin: 0; font-size: 1.2rem; }
-.price { color: var(--accent); font-weight: 700; margin: 10px 0; display: block; }
-
-.btn-add {
-    width: 100%; background: transparent; border: 1px solid var(--accent);
-    color: var(--accent); padding: 10px; border-radius: 10px; cursor: pointer;
-    transition: 0.3s; font-weight: 700;
+.theme-btn {
+    background: transparent;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    color: var(--text-main);
+    padding: 8px 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: 0.3s;
 }
 
-.btn-add:hover { background: var(--accent); color: black; }
-
-/* Modal Premium */
-.sushi-modal {
-    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.95); z-index: 2000; align-items: center; justify-content: center;
-}
-
-.modal-content {
-    background: #151515; padding: 40px; border-radius: 30px; text-align: center;
-    max-width: 400px; border: 1px solid var(--accent);
-}
-
-:root {
-    --accent: #00ff88;
-    --dark: #0a0a0a;
-    --glass: rgba(255, 255, 255, 0.03);
-    --text-muted: #888;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    background-color: var(--dark);
-    font-family: 'Inter', sans-serif;
-    color: white;
-}
-
-/* Nav */
-.sushi-nav {
-    position: fixed;
-    top: 0; width: 100%; height: 70px;
-    background: rgba(10, 10, 10, 0.9);
-    backdrop-filter: blur(10px);
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 50px; z-index: 1000; box-sizing: border-box;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-
-.logo { font-weight: 700; letter-spacing: 2px; font-size: 1.2rem; }
-.logo span { color: var(--accent); font-weight: 300; }
-.back-link { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
-.back-link:hover { color: var(--accent); }
-
-/* Hero */
-.sushi-hero {
-    height: 40vh;
-    background: url('https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=1200&q=80') center/cover;
-    display: flex; align-items: center; justify-content: center; position: relative;
-    margin-top: 70px;
-}
-.overlay-dark {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(to bottom, transparent, var(--dark));
-}
-.hero-content { position: relative; text-align: center; }
-.hero-content h1 { font-family: 'Playfair Display', serif; font-size: 3rem; margin: 0; }
-.hero-content p { color: var(--text-muted); font-weight: 300; }
-
-/* Grid de Productos y Animación */
-.menu-container { padding: 50px 10%; }
-.category-header { text-align: center; margin-bottom: 50px; }
-.category-header h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin: 0; }
-.underline { width: 50px; height: 2px; background: var(--accent); margin: 10px auto; }
-
-.grid-sushi {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 40px;
-}
-
-/* Efecto Scroll - Estado inicial */
-.product-card {
-    background: var(--glass);
-    border-radius: 15px;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.05);
+.theme-menu {
+    position: absolute;
+    top: 45px;
+    right: 0;
+    background: var(--bg-body);
+    border: 1px solid rgba(128, 128, 128, 0.2);
+    border-radius: 12px;
+    padding: 8px;
+    width: 160px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: 0.3s ease;
 }
 
-/* Clase que se añadirá con JS al hacer scroll */
-.product-card.appear {
+.theme-selector:hover .theme-menu {
     opacity: 1;
+    visibility: visible;
     transform: translateY(0);
 }
 
-.product-card:hover { border-color: rgba(0,255,136,0.3); }
-.product-card img { width: 100%; height: 200px; object-fit: cover; }
-.product-info { padding: 20px; }
-.product-info h4 { margin: 0; font-size: 1.1rem; font-weight: 400; }
-.price { color: var(--accent); font-weight: 700; margin: 10px 0; display: block; }
+.theme-option {
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.2s;
+}
+
+.theme-option:hover {
+    background: rgba(128, 128, 128, 0.15);
+}
+
+.theme-option::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--p-color);
+}
+
+.back-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+
+/* =========================================
+   HERO SECTION (Corregido: Imagen visible)
+   ========================================= */
+.sushi-hero {
+    height: 45vh;
+    min-height: 350px;
+    background-image: url('https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=1200&q=80');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-top: 0;
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Oscurecemos la imagen para que el texto blanco "brille" */
+.overlay-dark {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    color: #ffffff; /* Obligamos a que sea blanco en el Hero para máximo contraste */
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 700;
+    font-style: italic;
+    letter-spacing: -1px;
+    margin-bottom: 5px;
+    /* Sombras suaves para separar el texto del fondo */
+    text-shadow: 0 4px 15px rgba(0,0,0,0.5); 
+}
+
+.hero-content p {
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.9;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+/* =========================================
+   CATÁLOGO Y TARJETAS
+   ========================================= */
+.menu-container {
+    padding: 60px 8%;
+    max-width: 1400px;
+    margin: auto;
+}
+
+.category-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.category-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    margin: 0;
+    font-weight: 400;
+}
+
+.underline {
+    width: 40px;
+    height: 3px;
+    background: var(--accent);
+    margin: 15px auto;
+    border-radius: 2px;
+}
+
+.grid-sushi {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 35px;
+}
+
+/* Tarjeta Minimalista Japonesa */
+.product-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(128, 128, 128, 0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.product-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transition: 0.5s;
+}
+
+.product-card:hover img {
+    transform: scale(1.05);
+}
+
+.product-info {
+    padding: 25px;
+}
+
+.product-info h4 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.product-info p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin: 10px 0 20px 0;
+    line-height: 1.4;
+}
+
+.price {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--text-main);
+}
 
 .btn-add {
-    width: 100%; background: transparent; border: 1px solid var(--accent);
-    color: var(--accent); padding: 12px; border-radius: 8px; cursor: pointer;
-    transition: 0.3s; font-weight: 700; font-size: 0.8rem; letter-spacing: 1px;
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1.5px solid var(--accent);
+    background: transparent;
+    color: var(--accent);
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+    text-transform: uppercase;
+    font-size: 0.75rem;
 }
-.btn-add:hover { background: var(--accent); color: black; }
 
-/* Botón WhatsApp Final */
-.footer-cta { text-align: center; margin-top: 80px; padding-bottom: 50px; }
+.btn-add:hover {
+    background: var(--accent);
+    color: #000;
+}
+
+/* =========================================
+   FOOTER Y MODAL
+   ========================================= */
+.footer-cta {
+    text-align: center;
+    padding: 80px 0;
+}
+
 .btn-whatsapp {
-    background: white; color: black;
-    padding: 15px 30px; border-radius: 50px;
-    text-decoration: none; font-weight: 700;
-    transition: 0.3s; display: inline-flex; align-items: center; gap: 10px;
+    background: var(--text-main);
+    color: var(--bg-body);
+    padding: 16px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    transition: 0.3s;
 }
-.btn-whatsapp:hover { background: var(--accent); }
 
-/* Modal */
+.btn-whatsapp:hover {
+    transform: scale(1.05);
+    background: var(--accent);
+    color: #000;
+}
+
 .sushi-modal {
-    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.9); z-index: 2000; align-items: center; justify-content: center;
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
 }
+
 .modal-content {
-    background: #111; padding: 40px; border-radius: 20px; text-align: center;
-    max-width: 400px; border: 1px solid var(--accent);
+    background: var(--bg-body);
+    padding: 40px;
+    border-radius: 25px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    border: 1px solid var(--accent);
 }
+
+
+
+
+/* =========================================
+   MODAL (Corregido y Centrado)
+   ========================================= */
+.sushi-modal {
+    display: none;
+    /* jQuery lo cambiará a block al abrir */
+    position: fixed;
+    inset: 0;
+    /* Cubre toda la pantalla */
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    z-index: 9999;
+}
+
+/* El truco para centrar siempre, incluso con fadeIn() */
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background: var(--bg-body);
+    padding: 40px 30px;
+    border-radius: 30px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    border: 1px solid var(--accent);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilo para el icono de cubiertos */
+.modal-content i.fa-utensils {
+    font-size: 2.5rem;
+    color: var(--accent);
+    margin-bottom: 20px;
+    display: block;
+}
+
+.modal-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    margin: 0 0 15px 0;
+}
+
+.modal-content p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 25px;
+}
+
+/* Estilo para el input de WhatsApp */
+.input-group {
+    margin-bottom: 25px;
+}
+
+#user-phone {
+    width: 100%;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-main);
+    font-size: 1rem;
+    text-align: center;
+    outline: none;
+    transition: 0.3s;
+}
+
+#user-phone:focus {
+    border-color: var(--accent);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Botones del Modal */
 .btn-order {
-    width: 100%; background: white; color: black; border: none;
-    padding: 15px; border-radius: 8px; cursor: pointer; font-weight: 700;
-    margin-top: 20px;
+    width: 100%;
+    background: var(--accent);
+    color: #000;
+    border: none;
+    padding: 16px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: 0.3s;
 }
+
+.btn-order:hover {
+    transform: scale(1.02);
+    filter: brightness(1.1);
+}
+
 .btn-close {
-    background: transparent; border: none; color: var(--text-muted);
-    margin-top: 15px; cursor: pointer; font-size: 0.9rem;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    margin-top: 20px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    text-decoration: underline;
+    opacity: 0.7;
+}
+
+.btn-close:hover {
+    opacity: 1;
+    color: var(--text-main);
 }

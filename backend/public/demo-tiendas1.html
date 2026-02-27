@@ -1,18 +1,36 @@
 <!DOCTYPE HTML>
 <html lang="es">
+
 <head>
     <title>Sakura Sushi | Menú Digital IA</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Playfair+Display:ital@1&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/sushi-demo.css" />
 </head>
+
 <body>
 
     <header class="sushi-nav">
         <div class="logo">SAKURA <span>SUSHI</span></div>
-        <a href="/demos.html" class="back-link"><i class="fas fa-arrow-left"></i> Volver</a>
+
+        <div class="nav-controls">
+            <div class="theme-selector">
+                <button class="theme-btn">🎨 Personalizar <i class="fas fa-chevron-down"></i></button>
+                <div class="theme-menu">
+                    <div class="theme-option" onclick="setPalette('neon')" style="--p-color: #00ff88;">Neon Oscuro</div>
+                    <div class="theme-option" onclick="setPalette('azul')" style="--p-color: #00d1ff;">Azul Oscuro</div>
+                    <div class="theme-option" onclick="setPalette('neon-claro')" style="--p-color: #00ff88;">Neón Claro
+                    </div>
+                    <div class="theme-option" onclick="setPalette('pastel')" style="--p-color: #ffb7c5;">Pastel Claro
+                    </div>
+                </div>
+            </div>
+            <a href="/demos.html" class="back-link"><i class="fas fa-arrow-left"></i> Volver</a>
+        </div>
     </header>
 
     <main class="sushi-hero">
@@ -29,9 +47,8 @@
             <div class="underline"></div>
         </div>
 
-        <div class="grid-sushi" id="contenedor-productos">
-            </div>
-        
+        <div class="grid-sushi" id="contenedor-productos"></div>
+
         <div class="footer-cta">
             <a href="javascript:void(0)" onclick="$('#modal-lead').fadeIn()" class="btn-whatsapp">
                 <i class="fab fa-whatsapp"></i> Realizar Pedido
@@ -51,11 +68,12 @@
                 <span>ORDENAR AHORA</span>
                 <i class="fab fa-whatsapp"></i>
             </button>
-            <button class="btn-close" onclick="$('#modal-lead').fadeOut()">Cerrar</button>
+            <button class="btn-close" onclick="$('#modal-lead').fadeOut()">Cancelar</button>
         </div>
     </div>
 
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/tiendas.js"></script>
 </body>
+
 </html>
