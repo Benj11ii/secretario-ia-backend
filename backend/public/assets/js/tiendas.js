@@ -3,7 +3,7 @@
 // ==========================================
 // CONFIGURACIÓN Y DATOS
 // ==========================================
-const SERVER_URL = "http://su-ip-servidor:5010/api/v1/tienda-contacto"; // 🔥 REEMPLAZAR 'su-ip-servidor'
+const SERVER_URL = "http://127.0.0.1:5010/api/v1/tienda-contacto";; //
 let productoSeleccionado = "";
 
 const demosConfig = {
