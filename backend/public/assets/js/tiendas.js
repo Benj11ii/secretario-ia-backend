@@ -136,3 +136,20 @@ $(document).ready(function() {
     const tipo = urlParams.get('tipo') || 'sushi';
     cargarDemo(tipo);
 });
+
+// Dentro de tiendas.js, actualice la parte donde se genera el HTML de los productos:
+function cargarDemo(tipo) {
+    const data = demosConfig[tipo];
+    // ... logic ...
+    htmlProductos += `
+        <div class="product-card">
+            <img src="${data.imgBase}&sig=${i}">
+            <div class="product-info">
+                <h4>${item.n}</h4>
+                <span class="price">${precio}</span>
+                <button class="btn-add" onclick="abrirCaptura('${item.n}')">AGREGAR AL PEDIDO</button>
+            </div>
+        </div>
+    `;
+    $('#contenedor-productos').html(htmlProductos);
+}

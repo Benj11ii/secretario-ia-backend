@@ -1,0 +1,85 @@
+:root {
+    --accent: #00ff88;
+    --dark: #0a0a0a;
+    --glass: rgba(255, 255, 255, 0.05);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--dark);
+    font-family: 'Inter', sans-serif;
+    color: white;
+}
+
+/* Nav Independiente */
+.sushi-nav {
+    position: fixed;
+    top: 0; width: 100%; height: 70px;
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(10px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 50px; z-index: 1000; box-sizing: border-box;
+}
+
+.logo { font-weight: 700; letter-spacing: 2px; }
+.logo span { color: var(--accent); font-weight: 300; }
+.back-link { color: #888; text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
+.back-link:hover { color: var(--accent); }
+
+/* Hero Section */
+.sushi-hero {
+    height: 45vh;
+    background: url('https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=1200&q=80') center/cover;
+    display: flex; align-items: center; justify-content: center; position: relative;
+}
+
+.overlay-dark {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.4), var(--dark));
+}
+
+.hero-content { position: relative; text-align: center; }
+.hero-content h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin: 0; }
+
+/* Grid de Productos */
+.menu-container { padding: 50px 10%; }
+.grid-sushi {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.product-card {
+    background: var(--glass);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: 0.4s;
+    border: 1px solid rgba(255,255,255,0.1);
+    cursor: default;
+}
+
+.product-card:hover { transform: translateY(-10px); border-color: var(--accent); }
+.product-card img { width: 100%; height: 200px; object-fit: cover; }
+.product-info { padding: 20px; }
+.product-info h4 { margin: 0; font-size: 1.2rem; }
+.price { color: var(--accent); font-weight: 700; margin: 10px 0; display: block; }
+
+.btn-add {
+    width: 100%; background: transparent; border: 1px solid var(--accent);
+    color: var(--accent); padding: 10px; border-radius: 10px; cursor: pointer;
+    transition: 0.3s; font-weight: 700;
+}
+
+.btn-add:hover { background: var(--accent); color: black; }
+
+/* Modal Premium */
+.sushi-modal {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.95); z-index: 2000; align-items: center; justify-content: center;
+}
+
+.modal-content {
+    background: #151515; padding: 40px; border-radius: 30px; text-align: center;
+    max-width: 400px; border: 1px solid var(--accent);
+}
