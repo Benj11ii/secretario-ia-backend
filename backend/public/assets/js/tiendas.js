@@ -153,3 +153,55 @@ function cargarDemo(tipo) {
     `;
     $('#contenedor-productos').html(htmlProductos);
 }
+
+
+// ... CONFIGURACIÓN Y DATOS (demosConfig) IGUAL QUE ANTES ...
+
+function cargarDemo(tipo) {
+    const data = demosConfig[tipo];
+    if (!data) return;
+
+    $('#tipo-demo').text(`Demo: ${data.title}`);
+    $('#demo-title').text(data.title);
+    setTheme(data.color);
+
+    let htmlProductos = '';
+    // Generar 10 productos
+    for (let i = 0; i < 10; i++) {
+        const item = data.items[i % data.items.length];
+        const precio = `$${(Math.random() * 15000 + 3000).toLocaleString('es-CL')}`;
+        
+        htmlProductos += `
+            <div class="product-card">
+                <img src="${data.imgBase}&sig=${i}" alt="${item.n}">
+                <div class="product-info">
+                    <h4>${item.n}</h4>
+                    <p style="font-size:0.8rem; color:var(--text-muted); margin:0;">${item.d}</p>
+                    <span class="price">${precio}</span>
+                    <button class="btn-add" onclick="abrirCaptura('${item.n}')">AGREGAR AL PEDIDO</button>
+                </div>
+            </div>
+        `;
+    }
+    $('#contenedor-productos').html(htmlProductos);
+    
+    // Activar la lógica de scroll una vez que los elementos estén en el DOM
+    initScrollAnimation();
+}
+
+// ... abrirCaptura e enviarWhatsApp IGUAL QUE ANTES ...
+
+// Lógica para la animación de Scroll
+function initScrollAnimation() {
+    const cards = document.querySelectorAll('.product-card');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('appear');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    cards.forEach(card => observer.observe(card));
+}

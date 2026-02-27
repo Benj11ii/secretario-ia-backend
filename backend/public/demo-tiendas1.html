@@ -6,14 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
     <link rel="stylesheet" href="assets/css/sushi-demo.css" />
 </head>
 <body>
 
     <header class="sushi-nav">
         <div class="logo">SAKURA <span>SUSHI</span></div>
-        <a href="/demos.html" class="back-link"><i class="fas fa-arrow-left"></i> Volver a Demos</a>
+        <a href="/demos.html" class="back-link"><i class="fas fa-arrow-left"></i> Volver</a>
     </header>
 
     <main class="sushi-hero">
@@ -32,13 +31,19 @@
 
         <div class="grid-sushi" id="contenedor-productos">
             </div>
+        
+        <div class="footer-cta">
+            <a href="javascript:void(0)" onclick="$('#modal-lead').fadeIn()" class="btn-whatsapp">
+                <i class="fab fa-whatsapp"></i> Realizar Pedido
+            </a>
+        </div>
     </section>
 
     <div id="modal-lead" class="sushi-modal">
         <div class="modal-content">
             <i class="fas fa-utensils"></i>
             <h3>Confirmar Pedido</h3>
-            <p>Su selección será enviada directamente al sistema de preparación vía WhatsApp.</p>
+            <p>Su selección será enviada al sistema vía WhatsApp.</p>
             <div class="input-group">
                 <input type="tel" id="user-phone" placeholder="Su WhatsApp (ej: 56912345678)">
             </div>
@@ -46,7 +51,7 @@
                 <span>ORDENAR AHORA</span>
                 <i class="fab fa-whatsapp"></i>
             </button>
-            <button class="btn-close" onclick="$('#modal-lead').fadeOut()">Tal vez luego</button>
+            <button class="btn-close" onclick="$('#modal-lead').fadeOut()">Cerrar</button>
         </div>
     </div>
 
