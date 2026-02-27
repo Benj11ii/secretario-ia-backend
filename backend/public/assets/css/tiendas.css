@@ -1,0 +1,55 @@
+:root {
+    --accent-color: #00ff88; /* Color inicial */
+    --bg-overlay: rgba(0, 0, 0, 0.7); /* Oscuridad del 70% solicitada */
+}
+
+body.demo-tienda {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(var(--bg-overlay), var(--bg-overlay)), url('../images/principalimagen.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #ffffff;
+    font-family: 'Source Sans Pro', sans-serif;
+    transition: background 0.5s ease;
+}
+
+/* Panel de control superior (Toolbar) */
+.demo-toolbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    border-bottom: 1px solid var(--accent-color);
+}
+
+.color-dot {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+    margin: 0 5px;
+    border: 2px solid #fff;
+}
+
+/* Estilo para los productos */
+.product-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    border-color: var(--accent-color);
+    transform: translateY(-5px);
+}
+

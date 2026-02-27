@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html lang="es">
+<head>
+    <title>Vista Previa: Catálogo Pastelería Boutique</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/tiendas.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body.demo-tienda {
+            background-color: #121212;
+            font-family: 'Playfair Display', serif; /* Estilo elegante */
+        }
+        .header-demo {
+            background: rgba(0, 0, 0, 0.9);
+            border-bottom: 1px solid var(--accent-color);
+        }
+        .tienda-container {
+            max-width: 1200px;
+            margin: 120px auto 50px;
+            padding: 0 20px;
+        }
+        /* Galería Estilo Boutique */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .cake-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            height: 400px;
+            cursor: pointer;
+        }
+        .cake-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .cake-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            padding: 30px;
+            text-align: center;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+        .cake-card:hover img {
+            transform: scale(1.1);
+        }
+        .cake-card:hover .cake-overlay {
+            transform: translateY(0);
+        }
+        .admin-bar {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background: #f3a022; /* Dorado/Naranja */
+            color: #000;
+            padding: 8px;
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 999;
+        }
+    </style>
+</head>
+<body class="demo-tienda">
+
+    <header id="header" class="header-demo">
+        <h1 id="logo"><a href="/">IAsesoria</a></h1>
+        <nav id="nav">
+            <ul>
+                <li><a href="/demos.html" class="button primary">Volver a Demos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="admin-bar">
+        DEMO: Catálogo Visual de Alta Gama - Experiencia de Usuario Premium
+    </div>
+
+    <div class="tienda-container">
+        <header class="major">
+            <h2 style="font-family: serif; letter-spacing: 2px;">Dulce Tentación IA</h2>
+            <p style="font-style: italic;">Artesanía en pastelería con pedidos automatizados de alta prioridad.</p>
+        </header>
+
+        <div class="gallery-grid" id="contenedor-pasteleria">
+            </div>
+    </div>
+
+    <div id="modal-lead" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:2000; align-items:center; justify-content:center;">
+        <div style="background:#1a1a1a; padding:40px; border-radius:15px; max-width:400px; text-align:center; border:1px solid #f3a022;">
+            <i class="fas fa-utensils" style="font-size: 3rem; color: #f3a022; margin-bottom: 20px;"></i>
+            <h3>Reserva de Pedido</h3>
+            <p>Nuestra IA agendará su entrega. Por favor, ingrese su número de contacto:</p>
+            <input type="tel" id="user-phone" placeholder="569 1234 5678" style="width:100%; margin-bottom:20px; padding:10px; background:#222; border:1px solid #333; color:#fff;">
+            <button class="button primary fit" style="background:#f3a022 !important; color:#000 !important;" onclick="enviarWhatsApp()">Confirmar Interés</button>
+            <br><br>
+            <a href="javascript:void(0)" onclick="$('#modal-lead').css('display','none')" style="color:#888; font-size:0.8rem;">Volver al catálogo</a>
+        </div>
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script>
+        const tortas = [
+            { n: "Torta de Frutos del Bosque", p: "$22.900", img: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=500&q=80" },
+            { n: "Cheesecake de Naranja", p: "$18.500", img: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=500&q=80" },
+            { n: "Macarons Selección IA", p: "$12.000", img: "https://images.unsplash.com/photo-1569864358642-9d16197022c3?w=500&q=80" },
+            { n: "Mousse de Chocolate Amargo", p: "$15.900", img: "https://images.unsplash.com/photo-1528451632951-56e18131ec62?w=500&q=80" }
+        ];
+
+        let productoTxt = "";
+
+        function initPasteleria() {
+            let html = '';
+            for (let i = 0; i < 9; i++) {
+                const t = tortas[i % tortas.length];
+                html += `
+                    <div class="cake-card" onclick="abrirPedido('${t.n}')">
+                        <img src="${t.img}" alt="Pastelería">
+                        <div class="cake-overlay">
+                            <h4 style="color:#f3a022; margin:0;">${t.n}</h4>
+                            <p style="margin:10px 0;">${t.p}</p>
+                            <span style="font-size:0.7rem; text-transform:uppercase; letter-spacing:1px;">Click para encargar</span>
+                        </div>
+                    </div>
+                `;
+            }
+            $('#contenedor-pasteleria').html(html);
+        }
+
+        function abrirPedido(nombre) {
+            productoTxt = nombre;
+            $('#modal-lead').css('display', 'flex');
+        }
+
+        function enviarWhatsApp() {
+            const phone = $('#user-phone').val();
+            if(!phone) return alert("Ingrese su número");
+            const msg = encodeURIComponent(`¡Hola! Deseo encargar la ${productoTxt}. Vi la demo en IAsesoria y me encantó el formato.`);
+            window.open(`https://wa.me/56926870966?text=${msg}`, '_blank');
+        }
+
+        $(document).ready(() => {
+            document.documentElement.style.setProperty('--accent-color', '#f3a022');
+            initPasteleria();
+        });
+    </script>
+</body>
+</html>

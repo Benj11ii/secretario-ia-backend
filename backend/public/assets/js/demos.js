@@ -751,6 +751,24 @@ document.addEventListener('touchmove', function (e) {
 }, { passive: false });
 
 
+// DEMO 5: SELECTOR DE ECOSISTEMAS DE VENTA
+function runTiendaDemo() {
+    const demoDiv = document.querySelector('.active .demo-content');
+    if (!demoDiv) return;
+
+    demoDiv.innerHTML = `
+        <div style="text-align: center; padding: 20px;">
+            <h3 style="color: #f3a022; margin-bottom: 15px;">Seleccione un modelo de negocio</h3>
+            <p style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">Explore cómo la IA gestiona ventas y pedidos en tiempo real.</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+                <button class="button primary fit" onclick="location.href='demo-tienda.html?tipo=sushi'">🍱 Tienda de Sushi (Ventas)</button>
+                <button class="button fit" onclick="location.href='demo-tienda.html?tipo=ferreteria'" style="box-shadow: inset 0 0 0 2px #00d1ff; color: #00d1ff;">🛠️ Ferretería (Inventario)</button>
+                <button class="button fit" onclick="location.href='demo-tienda.html?tipo=pasteleria'" style="box-shadow: inset 0 0 0 2px #f3a022; color: #f3a022;">🍰 Pastelería (Catálogo Visual)</button>
+            </div>
+        </div>
+    `;
+}
 
 
 

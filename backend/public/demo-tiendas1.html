@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html lang="es">
+<head>
+    <title>Vista Previa: Ecosistema Tienda Sushi</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/tiendas.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Estilos específicos para la limpieza visual de la demo */
+        body.demo-tienda {
+            background-color: var(--bg-primary); /* Se ajustará por JS */
+            color: #fff;
+        }
+        .header-demo {
+            background: rgba(0,0,0,0.9);
+            padding: 10px 0;
+            border-bottom: 1px solid var(--accent-color);
+        }
+        .tienda-container {
+            max-width: 1000px;
+            margin: 120px auto 50px;
+            padding: 0 20px;
+        }
+        .grid-productos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .card-sushi {
+            background: #1a1a1a;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .card-sushi:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+        }
+        .card-sushi img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        .card-content {
+            padding: 20px;
+        }
+        .price {
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        /* Toolbar de control para el cliente */
+        .admin-bar {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background: var(--accent-color);
+            color: #000;
+            padding: 8px;
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 999;
+        }
+    </style>
+</head>
+<body class="demo-tienda">
+
+    <header id="header" class="header-demo">
+        <h1 id="logo"><a href="/">IAsesoria</a></h1>
+        <nav id="nav">
+            <ul>
+                <li><a href="/demos.html" class="button primary">Volver a Demos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="admin-bar">
+        MODO DEMO: Personalice los colores y simule un pedido por WhatsApp
+    </div>
+
+    <div class="tienda-container">
+        <header class="major">
+            <h2 id="titulo-tienda">Sakura Sushi IA</h2>
+            <p>Pida directamente a nuestro WhatsApp con gestión inteligente de stock.</p>
+            
+            <div style="margin-top: 20px;">
+                <button onclick="setTheme('#00ff88')" style="background:#00ff88; border:none; border-radius:50%; width:30px; height:30px; cursor:pointer;"></button>
+                <button onclick="setTheme('#00d1ff')" style="background:#00d1ff; border:none; border-radius:50%; width:30px; height:30px; cursor:pointer; margin-left:10px;"></button>
+                <button onclick="setTheme('#f3a022')" style="background:#f3a022; border:none; border-radius:50%; width:30px; height:30px; cursor:pointer; margin-left:10px;"></button>
+            </div>
+        </header>
+
+        <div class="grid-productos" id="contenedor-sushi">
+            </div>
+    </div>
+
+    <div id="modal-lead" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:2000; align-items:center; justify-content:center;">
+        <div style="background:#222; padding:40px; border-radius:15px; max-width:400px; text-align:center; border:1px solid var(--accent-color);">
+            <i class="fab fa-whatsapp" style="font-size: 3rem; color: #25d366; margin-bottom: 20px;"></i>
+            <h3>Finalizar Demostración</h3>
+            <p>Para ver cómo el mensaje llega al dueño del negocio, ingrese su número:</p>
+            <input type="tel" id="user-phone" placeholder="569 1234 5678" style="width:100%; margin-bottom:20px; padding:10px; background:#333; border:none; color:#fff;">
+            <button class="button primary fit" onclick="enviarWhatsApp()">Continuar al WhatsApp</button>
+            <br><br>
+            <a href="javascript:void(0)" onclick="$('#modal-lead').css('display','none')" style="color:#888; font-size:0.8rem;">Cancelar</a>
+        </div>
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/tiendas.js"></script>
+</body>
+</html>

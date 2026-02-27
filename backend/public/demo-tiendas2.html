@@ -1,0 +1,174 @@
+<!DOCTYPE HTML>
+<html lang="es">
+<head>
+    <title>Vista Previa: Ecosistema Inventario Ferretero</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/tiendas.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body.demo-tienda {
+            background-color: #0d1117; /* Fondo tipo dashboard */
+            color: #e6edf3;
+        }
+        .header-demo {
+            background: rgba(13, 17, 23, 0.95);
+            border-bottom: 1px solid var(--accent-color);
+        }
+        .tienda-container {
+            max-width: 1100px;
+            margin: 120px auto 50px;
+            padding: 0 20px;
+        }
+        /* Estilo de Tabla/Lista para Inventario */
+        .inventory-table {
+            width: 100%;
+            background: #161b22;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #30363d;
+        }
+        .inventory-header {
+            background: #21262d;
+            padding: 15px;
+            display: grid;
+            grid-template-columns: 80px 1fr 120px 120px 150px;
+            font-weight: bold;
+            border-bottom: 1px solid #30363d;
+            font-size: 0.9rem;
+        }
+        .inventory-item {
+            padding: 15px;
+            display: grid;
+            grid-template-columns: 80px 1fr 120px 120px 150px;
+            align-items: center;
+            border-bottom: 1px solid #30363d;
+            transition: background 0.2s;
+        }
+        .inventory-item:hover {
+            background: #1c2128;
+        }
+        .stock-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            background: rgba(0, 209, 255, 0.1);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+        }
+        .admin-bar {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background: #00d1ff; /* Celeste */
+            color: #000;
+            padding: 8px;
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 999;
+        }
+        .img-mini {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body class="demo-tienda">
+
+    <header id="header" class="header-demo">
+        <h1 id="logo"><a href="/">IAsesoria</a></h1>
+        <nav id="nav">
+            <ul>
+                <li><a href="/demos.html" class="button primary">Volver a Demos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="admin-bar">
+        DEMO: Sistema de Inventario Inteligente - Gestión de Stock y Pedidos
+    </div>
+
+    <div class="tienda-container">
+        <header class="major" style="text-align: left;">
+            <h2 id="titulo-tienda">Ferretería Industrial IA</h2>
+            <p>Control de existencias automatizado con enlace directo de reposición.</p>
+        </header>
+
+        <div class="inventory-table">
+            <div class="inventory-header">
+                <div>Imagen</div>
+                <div>Producto</div>
+                <div>Stock</div>
+                <div>Precio</div>
+                <div>Acción</div>
+            </div>
+            <div id="contenedor-inventario">
+                </div>
+        </div>
+    </div>
+
+    <div id="modal-lead" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:2000; align-items:center; justify-content:center;">
+        <div style="background:#161b22; padding:40px; border-radius:15px; max-width:400px; text-align:center; border:1px solid #00d1ff;">
+            <i class="fas fa-boxes" style="font-size: 3rem; color: #00d1ff; margin-bottom: 20px;"></i>
+            <h3>Solicitud de Cotización</h3>
+            <p>Se generará un ticket automático para el producto seleccionado vía WhatsApp.</p>
+            <input type="tel" id="user-phone" placeholder="569 1234 5678" style="width:100%; margin-bottom:20px; padding:10px; background:#0d1117; border:1px solid #30363d; color:#fff;">
+            <button class="button primary fit" style="background:#00d1ff !important; color:#000 !important;" onclick="enviarWhatsApp()">Generar Pedido</button>
+            <br><br>
+            <a href="javascript:void(0)" onclick="$('#modal-lead').css('display','none')" style="color:#888; font-size:0.8rem;">Cerrar</a>
+        </div>
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script>
+        // Lógica específica para Ferretería
+        const productosFerreteria = [
+            { n: "Taladro Percutor 18V", s: "12 unidades", p: "$89.990", img: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=100&q=80" },
+            { n: "Set de Herramientas 100pcs", s: "5 unidades", p: "$45.500", img: "https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=100&q=80" },
+            { n: "Esmeril Angular 4 1/2", s: "8 unidades", p: "$55.000", img: "https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=100&q=80" },
+            { n: "Sierra Circular Pro", s: "3 unidades", p: "$110.000", img: "https://images.unsplash.com/photo-1540104200428-36067b57b6f6?w=100&q=80" }
+        ];
+
+        let itemPedido = "";
+
+        function initInventario() {
+            let html = '';
+            for (let i = 0; i < 10; i++) {
+                const prod = productosFerreteria[i % productosFerreteria.length];
+                html += `
+                    <div class="inventory-item">
+                        <div><img src="${prod.img}" class="img-mini"></div>
+                        <div style="font-weight:bold;">${prod.n}</div>
+                        <div><span class="stock-badge">${prod.s}</span></div>
+                        <div class="price">${prod.p}</div>
+                        <div><button class="button small fit" onclick="abrirPedido('${prod.n}')">Pedir</button></div>
+                    </div>
+                `;
+            }
+            $('#contenedor-inventario').html(html);
+        }
+
+        function abrirPedido(nombre) {
+            itemPedido = nombre;
+            $('#modal-lead').css('display', 'flex');
+        }
+
+        function enviarWhatsApp() {
+            const phone = $('#user-phone').val();
+            if(!phone) return alert("Ingrese su número");
+            const msg = encodeURIComponent(`ORDEN DE COMPRA: Deseo solicitar cotización por ${itemPedido}. (Demo IAsesoria Ferretería)`);
+            window.open(`https://wa.me/56926870966?text=${msg}`, '_blank');
+        }
+
+        $(document).ready(() => {
+            document.documentElement.style.setProperty('--accent-color', '#00d1ff');
+            initInventario();
+        });
+    </script>
+</body>
+</html>
