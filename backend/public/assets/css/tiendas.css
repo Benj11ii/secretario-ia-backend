@@ -53,3 +53,25 @@ body.demo-tienda {
     transform: translateY(-5px);
 }
 
+
+/* Ajuste para que las tarjetas de productos se vean bien en celulares */
+@media screen and (max-width: 736px) {
+    .tienda-container {
+        margin-top: 100px; /* Menos margen arriba en móvil */
+        padding: 0 15px;
+    }
+    
+    .grid-productos, .gallery-grid {
+        grid-template-columns: 1fr; /* Una sola columna en teléfonos */
+    }
+
+    .inventory-header {
+        display: none; /* Escondemos cabecera de tabla en móviles */
+    }
+
+    .inventory-item {
+        grid-template-columns: 1fr; /* Apilamos datos de ferretería */
+        text-align: center;
+        gap: 10px;
+    }
+}
