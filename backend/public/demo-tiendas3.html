@@ -1,159 +1,469 @@
 <!DOCTYPE HTML>
 <html lang="es">
 <head>
-    <title>Vista Previa: Catálogo Pastelería Boutique</title>
+    <title>Turismo Premium IA | Villarrica & Pucón</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <link rel="stylesheet" href="assets/css/tiendas.css" />
+    
+    <!-- Fuentes Premium -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
-        body.demo-tienda {
-            background-color: #121212;
-            font-family: 'Playfair Display', serif; /* Estilo elegante */
+        /* =========================================
+           VARIABLES DE LUJO
+           ========================================= */
+        :root {
+            --forest-dark: #051009; 
+            --forest-mid: #102A1A;
+            --gold-accent: #D4AF37; 
+            --text-light: #F7F5F0;
+            --transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
-        .header-demo {
-            background: rgba(0, 0, 0, 0.9);
-            border-bottom: 1px solid var(--accent-color);
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        /* OVERFLOW-X HIDDEN ES VITAL para que las imágenes fuera de pantalla no creen scroll horizontal */
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--forest-dark);
+            color: var(--text-light);
+            overflow-x: hidden; 
         }
-        .tienda-container {
-            max-width: 1200px;
-            margin: 120px auto 50px;
-            padding: 0 20px;
+
+        /* =========================================
+           HEADER
+           ========================================= */
+        .premium-header {
+            position: fixed; top: 0; width: 100%; height: 80px;
+            background: rgba(5, 16, 9, 0.2);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 5%; z-index: 1000; transition: 0.4s;
         }
-        /* Galería Estilo Boutique */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+        .premium-header.scrolled { background: rgba(5, 16, 9, 0.95); }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem; color: var(--text-light); text-decoration: none;
+            letter-spacing: 2px;
         }
-        .cake-card {
-            position: relative;
-            overflow: hidden;
-            border-radius: 20px;
-            height: 400px;
-            cursor: pointer;
+        .logo span { color: var(--gold-accent); font-style: italic; }
+
+        .btn-back {
+            background: transparent; border: 1px solid var(--gold-accent);
+            color: var(--gold-accent); padding: 8px 20px; border-radius: 30px;
+            text-decoration: none; font-size: 0.8rem; letter-spacing: 1px;
+            transition: var(--transition); text-transform: uppercase;
         }
-        .cake-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
+        .btn-back:hover { background: var(--gold-accent); color: var(--forest-dark); font-weight: bold; }
+
+        /* =========================================
+           HERO SECTION
+           ========================================= */
+        .hero {
+            height: 100vh;
+            background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2000');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            display: flex; align-items: center; justify-content: center;
+            position: relative; text-align: center;
         }
-        .cake-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.9));
-            padding: 30px;
-            text-align: center;
-            transform: translateY(20px);
-            transition: all 0.3s ease;
+        .hero::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(to bottom, rgba(5,16,9,0.3) 0%, var(--forest-dark) 100%);
         }
-        .cake-card:hover img {
-            transform: scale(1.1);
+
+        .hero-content { position: relative; z-index: 2; padding: 0 20px; max-width: 800px; }
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif; font-size: 5rem;
+            font-weight: 400; margin-bottom: 10px; line-height: 1.1;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
-        .cake-card:hover .cake-overlay {
-            transform: translateY(0);
+        .hero-content p {
+            font-size: 1.2rem; font-weight: 300; letter-spacing: 4px;
+            text-transform: uppercase; color: var(--gold-accent);
         }
-        .admin-bar {
-            position: fixed;
-            top: 70px;
-            left: 0;
-            width: 100%;
-            background: #f3a022; /* Dorado/Naranja */
-            color: #000;
-            padding: 8px;
-            text-align: center;
-            font-size: 0.8rem;
-            font-weight: bold;
-            z-index: 999;
+
+        /* =========================================
+           TEXTO INTRODUCTORIO
+           ========================================= */
+        .story-text-container { padding: 100px 10% 50px; text-align: center; }
+        .story-text {
+            font-family: 'Playfair Display', serif; font-size: 2.2rem;
+            line-height: 1.6; max-width: 900px; margin: 0 auto; color: #e0e0e0;
+        }
+        .story-text span { color: var(--gold-accent); font-style: italic; }
+
+        /* =========================================
+           GALERÍA EDITORIAL ASIMÉTRICA (MAGIA)
+           ========================================= */
+        .editorial-gallery {
+            padding: 50px 0; display: flex; flex-direction: column; gap: 80px;
+        }
+
+        /* Contenedor de cada imagen */
+        .ed-item {
+            position: relative; overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+        }
+        .ed-item img {
+            width: 100%; height: 60vh; object-fit: cover; display: block;
+            filter: brightness(0.7); transition: transform 2s ease, filter 0.5s ease;
+        }
+        .ed-item:hover img { filter: brightness(1.1); transform: scale(1.05); }
+
+        /* Textos sobre la imagen */
+        .ed-caption {
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            padding: 60px 40px 30px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            color: white; font-family: 'Playfair Display', serif;
+        }
+        .ed-caption h3 { font-size: 2.5rem; color: var(--gold-accent); font-weight: 400; font-style: italic; }
+        .ed-caption p { font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase; margin-top: 5px; opacity: 0.8; }
+
+        /* Clases de Posición y Tamaño */
+        .ed-right { margin-left: auto; border-radius: 40px 0 0 40px; }
+        .ed-left { margin-right: auto; border-radius: 0 40px 40px 0; }
+        .ed-center { margin: 0 auto; border-radius: 40px; }
+
+        .w-50 { width: 50%; }
+        .w-70 { width: 75%; }
+        .w-90 { width: 90%; }
+        .w-100 { width: 95%; height: 80vh; } /* Imagen Clímax Final */
+
+        /* =========================================
+           ANIMACIONES DE ENTRADA DESDE LOS BORDES
+           ========================================= */
+        .slide-left { transform: translateX(-120%); opacity: 0; transition: all 1.5s cubic-bezier(0.22, 1, 0.36, 1); }
+        .slide-right { transform: translateX(120%); opacity: 0; transition: all 1.5s cubic-bezier(0.22, 1, 0.36, 1); }
+        .slide-up { transform: translateY(100px); opacity: 0; transition: all 1.5s cubic-bezier(0.22, 1, 0.36, 1); }
+        
+        /* Cuando la clase "active" se añade por JS, la imagen entra a la pantalla */
+        .slide-left.active, .slide-right.active, .slide-up.active { transform: translate(0); opacity: 1; }
+
+        /* =========================================
+           CLÍMAX Y LLAMADO A LA ACCIÓN
+           ========================================= */
+        .climax-cta {
+            text-align: center; padding: 80px 20px 20px;
+        }
+        .climax-cta h2 { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: var(--gold-accent); }
+        .climax-cta p { font-size: 1.2rem; letter-spacing: 3px; text-transform: uppercase; margin: 15px 0 40px; }
+        
+        .arrow-bounce {
+            font-size: 2.5rem; color: var(--gold-accent);
+            animation: bounce 2s infinite; display: block; margin-bottom: 50px;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+
+        /* =========================================
+           PLANES DE RESERVA
+           ========================================= */
+        .packages-section { padding: 50px 5% 100px; text-align: center; background: var(--forest-dark); }
+        
+        .grid-tours {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px; max-width: 1200px; margin: 0 auto;
+        }
+
+        .tour-card {
+            background: var(--forest-mid); border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: 20px; padding: 50px 30px; transition: var(--transition);
+        }
+        .tour-card.featured {
+            border-color: var(--gold-accent); transform: scale(1.05);
+            background: linear-gradient(145deg, #1A3827, #0A1912);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .tour-card:hover { transform: translateY(-10px); border-color: var(--gold-accent); }
+        .tour-card.featured:hover { transform: scale(1.05) translateY(-10px); }
+
+        .tour-icon { font-size: 2.5rem; color: var(--gold-accent); margin-bottom: 20px; }
+        .tour-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 10px; }
+        .tour-price { font-size: 2rem; font-weight: 700; margin-bottom: 25px; }
+        
+        .tour-features { list-style: none; margin-bottom: 40px; text-align: left; }
+        .tour-features li { margin-bottom: 15px; font-size: 0.95rem; color: #ccc; display: flex; align-items: center; gap: 10px; }
+        .tour-features i { color: var(--gold-accent); font-size: 0.8rem; }
+
+        .btn-book {
+            background: transparent; color: var(--gold-accent);
+            border: 1px solid var(--gold-accent); padding: 15px 0; width: 100%;
+            border-radius: 8px; font-size: 1rem; cursor: pointer; transition: var(--transition);
+            text-transform: uppercase; letter-spacing: 2px;
+        }
+        .tour-card.featured .btn-book, .btn-book:hover {
+            background: var(--gold-accent); color: var(--forest-dark); font-weight: bold;
+        }
+
+        /* =========================================
+           MODALES
+           ========================================= */
+        .modal-overlay {
+            display: none; position: fixed; inset: 0; background: rgba(5, 16, 9, 0.9);
+            backdrop-filter: blur(10px); z-index: 2000; align-items: center; justify-content: center;
+        }
+        .modal-box {
+            background: var(--forest-mid); padding: 50px 40px; border-radius: 20px;
+            width: 90%; max-width: 450px; text-align: center; border: 1px solid var(--gold-accent);
+        }
+        .modal-input {
+            width: 100%; padding: 15px; margin: 25px 0; border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.3); background: var(--forest-dark);
+            color: white; font-size: 1rem; text-align: center; outline: none; transition: 0.3s;
+        }
+        .modal-input:focus { border-color: var(--gold-accent); }
+        .btn-action {
+            background: var(--gold-accent); color: var(--forest-dark); width: 100%;
+            padding: 16px; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 1px; text-decoration: none;
+            display: inline-block; transition: 0.3s;
+        }
+        .btn-action:hover { background: white; }
+
+        /* Responsivo: En celulares todas ocupan el 90% para que se vean bien */
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 3.5rem; }
+            .w-50, .w-70, .w-90 { width: 90%; border-radius: 20px; margin: 0 auto; }
+            .ed-right { margin-left: auto; margin-right: auto; }
+            .ed-left { margin-right: auto; margin-left: auto; }
+            .tour-card.featured { transform: scale(1); }
         }
     </style>
 </head>
-<body class="demo-tienda">
+<body>
 
-    <header id="header" class="header-demo">
-        <h1 id="logo"><a href="/">IAsesoria</a></h1>
-        <nav id="nav">
-            <ul>
-                <li><a href="/demos.html" class="button primary">Volver a Demos</a></li>
-            </ul>
-        </nav>
+    <!-- NAVEGACIÓN -->
+    <header class="premium-header" id="header">
+        <a href="#" class="logo">Sur<span>Mágico</span></a>
+        <a href="https://www.iasesoria.cl/" class="btn-back">Volver a IAsesoria</a>
     </header>
 
-    <div class="admin-bar">
-        DEMO: Catálogo Visual de Alta Gama - Experiencia de Usuario Premium
-    </div>
-
-    <div class="tienda-container">
-        <header class="major">
-            <h2 style="font-family: serif; letter-spacing: 2px;">Dulce Tentación IA</h2>
-            <p style="font-style: italic;">Artesanía en pastelería con pedidos automatizados de alta prioridad.</p>
-        </header>
-
-        <div class="gallery-grid" id="contenedor-pasteleria">
-            </div>
-    </div>
-
-    <div id="modal-lead" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:2000; align-items:center; justify-content:center;">
-        <div style="background:#1a1a1a; padding:40px; border-radius:15px; max-width:400px; text-align:center; border:1px solid #f3a022;">
-            <i class="fas fa-utensils" style="font-size: 3rem; color: #f3a022; margin-bottom: 20px;"></i>
-            <h3>Reserva de Pedido</h3>
-            <p>Nuestra IA agendará su entrega. Por favor, ingrese su número de contacto:</p>
-            <input type="tel" id="user-phone" placeholder="569 1234 5678" style="width:100%; margin-bottom:20px; padding:10px; background:#222; border:1px solid #333; color:#fff;">
-            <button class="button primary fit" style="background:#f3a022 !important; color:#000 !important;" onclick="enviarWhatsApp()">Confirmar Interés</button>
-            <br><br>
-            <a href="javascript:void(0)" onclick="$('#modal-lead').css('display','none')" style="color:#888; font-size:0.8rem;">Volver al catálogo</a>
+    <!-- HERO SECTION PARALLAX -->
+    <section class="hero">
+        <div class="hero-content slide-up">
+            <h1>Descubre tu Naturaleza</h1>
+            <p>Villarrica & Pucón</p>
         </div>
+    </section>
+
+    <!-- TEXTO INTRO -->
+    <section class="story-text-container">
+        <p class="story-text slide-up">
+            Imagina despertar rodeado de milenarias araucarias, respirar el aire puro de la montaña y sentir la inmensidad de la naturaleza intacta. <span>La aventura que mereces te espera.</span>
+        </p>
+    </section>
+
+<!-- ==========================================
+         GALERÍA EDITORIAL CORREGIDA (IMÁGENES DEL SUR)
+         ========================================== -->
+    <section class="editorial-gallery">
+        
+        <!-- Imagen 1: Araucarias Reales -->
+        <div class="ed-item ed-right w-50 slide-right">
+            <img src="https://images.unsplash.com/photo-1679672033772-fa8a6cb17d04?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?w=1200&q=80" alt="Bosque Araucarias">
+            <div class="ed-caption">
+                <h3>Bosques Nativos</h3>
+                <p>Milenarias Araucarias de la Araucanía</p>
+            </div>
+        </div>
+
+        <!-- Imagen 2: Lago y Montaña -->
+        <div class="ed-item ed-left w-70 slide-left">
+            <img src="https://images.unsplash.com/photo-1587435797512-0702b23883c9?q=80&w=1190&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?w=1400&q=80" alt="Lago Villarrica">
+            <div class="ed-caption">
+                <h3>Lagos de Cristal</h3>
+                <p>Navegación en el Lago Villarrica</p>
+            </div>
+        </div>
+
+        <!-- Imagen 3: Termas / Ríos -->
+        <div class="ed-item ed-right w-90 slide-right">
+            <img src="https://denomades-blog.imgix.net/blog/wp-content/uploads/2015/10/05163940/mejores_termas_pucon_geometricas.jpg?auto=compress%2Cformat&ixlib=php-3.3.1?w=1600&q=80" alt="Termas">
+            <div class="ed-caption">
+                <h3>Desconexión Total</h3>
+                <p>Relajo en Aguas Termales</p>
+            </div>
+        </div>
+
+        <!-- Imagen 4: Volcán Villarrica (Erupción/Nieve) -->
+        <div class="ed-item ed-left w-50 slide-left">
+            <img src="https://mawidadventures.cl/wp-content/uploads/2020/05/descenso-del-volcan-villarrica-1.jpg?w=1200&q=80" alt="Volcán Villarrica">
+            <div class="ed-caption">
+                <h3>Energía Viva</h3>
+                <p>Cumbre del Volcán Villarrica</p>
+            </div>
+        </div>
+
+        <!-- Imagen 5: CLÍMAX - Noche Estrellada Sur -->
+        <div class="ed-item ed-center w-100 slide-up" style="margin-top: 50px;">
+            <img src="https://laderasur.com/wp-content/uploads/2022/11/volcan-villarrica-y-chemamull-araucania.jpg?w=1800&q=80" alt="Cielo Estrellado Chile">
+            <div class="ed-caption" style="text-align: center;">
+                <h3 style="font-size: 3.5rem;">Cielos del Sur</h3>
+                <p style="font-size: 1.5rem;">Un espectáculo estelar sobre los Andes</p>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ==========================================
+         CLÍMAX Y PLANES
+         ========================================== -->
+    <div class="climax-cta slide-up">
+        <h2>Sé parte de este paraíso</h2>
+        <p>Continúa tu inmersión</p>
+        <i class="fas fa-chevron-down arrow-bounce"></i>
     </div>
 
+    <!-- PAQUETES DE RESERVA -->
+    <section class="packages-section">
+        <div class="grid-tours">
+            <!-- Plan Basic -->
+            <div class="tour-card slide-up">
+                <i class="fas fa-compass tour-icon"></i>
+                <h3 class="tour-title">Classic Tour</h3>
+                <div class="tour-price">$45.000</div>
+                <ul class="tour-features">
+                    <li><i class="fas fa-check"></i> City Tour Pucón & Villarrica</li>
+                    <li><i class="fas fa-check"></i> Visita Ojos del Caburgua</li>
+                    <li><i class="fas fa-check"></i> Guía local certificado</li>
+                </ul>
+                <button class="btn-book" onclick="abrirReserva('Classic Tour')">Reservar</button>
+            </div>
+
+            <!-- Plan Premium -->
+            <div class="tour-card featured slide-up">
+                <i class="fas fa-mountain tour-icon"></i>
+                <h3 class="tour-title">Aventura Volcán</h3>
+                <div class="tour-price">$95.000</div>
+                <ul class="tour-features">
+                    <li><i class="fas fa-check"></i> Ascenso guiado al cráter</li>
+                    <li><i class="fas fa-check"></i> Equipo técnico incluido</li>
+                    <li><i class="fas fa-check"></i> Entrada Termas para relajo</li>
+                    <li><i class="fas fa-check"></i> Box Lunch Gourmet</li>
+                </ul>
+                <button class="btn-book" onclick="abrirReserva('Aventura Volcán')">Reservar Ahora</button>
+            </div>
+
+            <!-- Plan VIP -->
+            <div class="tour-card slide-up">
+                <i class="fas fa-helicopter tour-icon"></i>
+                <h3 class="tour-title">Experiencia VIP</h3>
+                <div class="tour-price">$250.000</div>
+                <ul class="tour-features">
+                    <li><i class="fas fa-check"></i> Vuelo panorámico sobre el lago</li>
+                    <li><i class="fas fa-check"></i> Cena maridaje en Lodge</li>
+                    <li><i class="fas fa-check"></i> Traslado privado en SUV</li>
+                </ul>
+                <button class="btn-book" onclick="abrirReserva('Experiencia VIP')">Reservar</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODALES DE RESERVA -->
+    <div id="modal-container" class="modal-overlay">
+        
+        <!-- PASO 1: Captura -->
+        <div id="step-1" class="modal-box">
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--gold-accent);">Tu Reserva</h3>
+            <p style="color: #ccc; margin-top: 10px;">Estás seleccionando: <br><strong id="tour-name" style="color:white; font-size: 1.2rem;">-</strong></p>
+            <input type="tel" id="user-phone" class="modal-input" placeholder="Tu número WhatsApp (Ej: 56912345678)">
+            <button class="btn-action" id="btn-procesar" onclick="procesarReserva()">Solicitar Disponibilidad</button>
+            <a href="javascript:void(0)" onclick="$('#modal-container').hide()" style="display:block; margin-top:20px; color:#888; text-decoration:none;">Cancelar</a>
+        </div>
+
+        <!-- PASO 2: Éxito + Venta de IA (CORREGIDO) -->
+        <div id="step-success" class="modal-box" style="display:none; text-align: center;">
+            <i class="fas fa-concierge-bell" style="font-size: 4rem; color: var(--gold-accent); margin-bottom: 20px;"></i>
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 2rem; color: white; margin-bottom: 15px;">¡Solicitud Recibida!</h3>
+            <p style="color: #ccc; font-size:1rem; line-height: 1.6; margin-bottom: 25px;">
+                Tus futuros turistas podrían ver esta misma elegancia y reservar sus tours <b>automáticamente 24/7</b> a través de WhatsApp o tu web.
+            </p>
+            
+            <!-- CTA FINAL: Abre en pestaña nueva para asegurar la navegación -->
+            <a href="https://www.iasesoria.cl/#five" target="_blank" rel="noopener noreferrer" class="btn-action" style="display: block; text-decoration: none; line-height: 1.2; padding: 18px;">
+                Quiero digitalizar mi negocio
+            </a>
+
+            <a href="javascript:void(0)" onclick="location.reload()" style="display:block; margin-top:25px; color:var(--gold-accent); text-decoration:underline; font-size:0.85rem; opacity: 0.7;">
+                Realizar otra prueba
+            </a>
+        </div>
+
+    <!-- SCRIPTS -->
     <script src="assets/js/jquery.min.js"></script>
     <script>
-        const tortas = [
-            { n: "Torta de Frutos del Bosque", p: "$22.900", img: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=500&q=80" },
-            { n: "Cheesecake de Naranja", p: "$18.500", img: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=500&q=80" },
-            { n: "Macarons Selección IA", p: "$12.000", img: "https://images.unsplash.com/photo-1569864358642-9d16197022c3?w=500&q=80" },
-            { n: "Mousse de Chocolate Amargo", p: "$15.900", img: "https://images.unsplash.com/photo-1528451632951-56e18131ec62?w=500&q=80" }
-        ];
+        const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxO6j-I6dCSp361U2IQrb8kr5EWPXRTL8tt9ulLK44utC7KiZIOHI2InjutpbLidls5/exec"; 
+        let tourSeleccionado = "";
 
-        let productoTxt = "";
-
-        function initPasteleria() {
-            let html = '';
-            for (let i = 0; i < 9; i++) {
-                const t = tortas[i % tortas.length];
-                html += `
-                    <div class="cake-card" onclick="abrirPedido('${t.n}')">
-                        <img src="${t.img}" alt="Pastelería">
-                        <div class="cake-overlay">
-                            <h4 style="color:#f3a022; margin:0;">${t.n}</h4>
-                            <p style="margin:10px 0;">${t.p}</p>
-                            <span style="font-size:0.7rem; text-transform:uppercase; letter-spacing:1px;">Click para encargar</span>
-                        </div>
-                    </div>
-                `;
-            }
-            $('#contenedor-pasteleria').html(html);
-        }
-
-        function abrirPedido(nombre) {
-            productoTxt = nombre;
-            $('#modal-lead').css('display', 'flex');
-        }
-
-        function enviarWhatsApp() {
-            const phone = $('#user-phone').val();
-            if(!phone) return alert("Ingrese su número");
-            const msg = encodeURIComponent(`¡Hola! Deseo encargar la ${productoTxt}. Vi la demo en IAsesoria y me encantó el formato.`);
-            window.open(`https://wa.me/56926870966?text=${msg}`, '_blank');
-        }
-
-        $(document).ready(() => {
-            document.documentElement.style.setProperty('--accent-color', '#f3a022');
-            initPasteleria();
+        // 1. Efecto Scroll Header
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 50) $('#header').addClass('scrolled');
+            else $('#header').removeClass('scrolled');
         });
+
+        // 2. Animación de Deslizamiento desde los lados (Magia)
+        function revealOnScroll() {
+            var reveals = document.querySelectorAll('.slide-left, .slide-right, .slide-up');
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150; // Se activa cuando asoma 150px en la pantalla
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        window.addEventListener('scroll', revealOnScroll);
+        setTimeout(revealOnScroll, 100);
+
+        // 3. Funciones de Reserva
+        function abrirReserva(nombreTour) {
+            tourSeleccionado = nombreTour;
+            $('#tour-name').text(nombreTour);
+            $('#step-1').show();
+            $('#step-success').hide();
+            $('#modal-container').css('display', 'flex');
+        }
+
+        function procesarReserva() {
+            const phone = $('#user-phone').val().trim();
+            if(phone.length < 8) return alert("Por favor, ingresa un WhatsApp válido.");
+            
+            const btn = $('#btn-procesar');
+            btn.html('<i class="fas fa-spinner fa-spin"></i> Conectando...').prop('disabled', true);
+
+            const payload = {
+                fecha: new Date().toLocaleString(),
+                telefono: phone,
+                producto: tourSeleccionado,
+                demo_origen: "Turismo Premium Villarrica"
+            };
+
+            fetch(WEBHOOK_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                setTimeout(() => {
+                    $('#step-1').hide();
+                    $('#step-success').fadeIn();
+                }, 1500);
+            }).catch(err => {
+                setTimeout(() => {
+                    $('#step-1').hide();
+                    $('#step-success').fadeIn();
+                }, 1500);
+            });
+        }
     </script>
 </body>
 </html>

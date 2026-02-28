@@ -1,174 +1,572 @@
 <!DOCTYPE HTML>
 <html lang="es">
+
 <head>
-    <title>Vista Previa: Ecosistema Inventario Ferretero</title>
+    <title>Demo Ferretería | Integración de Pagos IA</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <link rel="stylesheet" href="assets/css/tiendas.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <style>
-        body.demo-tienda {
-            background-color: #0d1117; /* Fondo tipo dashboard */
-            color: #e6edf3;
+        /* =========================================
+           VARIABLES DE TEMA (INDUSTRIAL & CONFIANZA)
+           ========================================= */
+        :root {
+            /* TEMA OSCURO (Por defecto) */
+            --bg-main: #0d1117;
+            --bg-header: rgba(13, 17, 23, 0.95);
+            --bg-card: #161b22;
+            --bg-hover: #1c2128;
+            --border-color: #30363d;
+            --text-main: #e6edf3;
+            --text-muted: #8b949e;
+            --accent: #00d1ff;
+            /* Celeste tecnológico */
+
+            /* Colores Mercado Pago */
+            --mp-blue: #009ee3;
+            --mp-green: #00a650;
         }
+
+        body.light-theme {
+            /* TEMA CLARO */
+            --bg-main: #f4f6f8;
+            --bg-header: rgba(255, 255, 255, 0.95);
+            --bg-card: #ffffff;
+            --bg-hover: #f9fafb;
+            --border-color: #dfe3e8;
+            --text-main: #212b36;
+            --text-muted: #637381;
+            --accent: #0052cc;
+            /* Azul industrial corporativo */
+        }
+
+        /* =========================================
+           ESTILOS BASE
+           ========================================= */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            transition: all 0.3s ease;
+        }
+
+        /* =========================================
+           HEADER Y BARRAS
+           ========================================= */
         .header-demo {
-            background: rgba(13, 17, 23, 0.95);
-            border-bottom: 1px solid var(--accent-color);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 70px;
+            background: var(--bg-header);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            z-index: 1000;
         }
+
+        .logo a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 800;
+            letter-spacing: 1px;
+            font-size: 1.2rem;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .btn-theme,
+        .btn-back {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .btn-theme:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .admin-bar {
+            margin-top: 70px;
+            background: var(--accent);
+            color: #000000;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        body.light-theme .admin-bar {
+            color: #fff;
+        }
+
+        /* =========================================
+           CONTENEDOR PRINCIPAL Y TABLA
+           ========================================= */
         .tienda-container {
-            max-width: 1100px;
-            margin: 120px auto 50px;
+            max-width: 1000px;
+            margin: 40px auto;
             padding: 0 20px;
         }
-        /* Estilo de Tabla/Lista para Inventario */
+
+        .page-title {
+            margin-bottom: 30px;
+        }
+
+        .page-title h2 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .page-title p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
         .inventory-table {
-            width: 100%;
-            background: #161b22;
-            border-radius: 10px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
             overflow: hidden;
-            border: 1px solid #30363d;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
         }
+
         .inventory-header {
-            background: #21262d;
-            padding: 15px;
+            background: var(--bg-hover);
+            padding: 15px 20px;
             display: grid;
-            grid-template-columns: 80px 1fr 120px 120px 150px;
-            font-weight: bold;
-            border-bottom: 1px solid #30363d;
-            font-size: 0.9rem;
+            grid-template-columns: 60px 2fr 1fr 1fr 120px;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
         }
+
         .inventory-item {
-            padding: 15px;
+            padding: 15px 20px;
             display: grid;
-            grid-template-columns: 80px 1fr 120px 120px 150px;
             align-items: center;
-            border-bottom: 1px solid #30363d;
-            transition: background 0.2s;
+            grid-template-columns: 60px 2fr 1fr 1fr 120px;
+            border-bottom: 1px solid var(--border-color);
+            transition: 0.2s;
         }
+
+        .inventory-item:last-child {
+            border-bottom: none;
+        }
+
         .inventory-item:hover {
-            background: #1c2128;
+            background: var(--bg-hover);
         }
+
+        .img-mini {
+            width: 45px;
+            height: 45px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+
+        .prod-name {
+            font-weight: 600;
+        }
+
         .stock-badge {
+            display: inline-block;
             padding: 4px 8px;
             border-radius: 4px;
             font-size: 0.75rem;
-            background: rgba(0, 209, 255, 0.1);
-            color: var(--accent-color);
-            border: 1px solid var(--accent-color);
+            font-weight: 600;
+            background: rgba(0, 166, 80, 0.1);
+            color: var(--mp-green);
         }
-        .admin-bar {
-            position: fixed;
-            top: 70px;
-            left: 0;
-            width: 100%;
-            background: #00d1ff; /* Celeste */
+
+        .price {
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .btn-pedir {
+            background: var(--accent);
             color: #000;
-            padding: 8px;
-            text-align: center;
-            font-size: 0.8rem;
-            font-weight: bold;
-            z-index: 999;
+            /* CAMBIADO: Texto negro para mejor contraste */
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-weight: 700;
+            /* Aumentamos un poco el grosor para que destaque más */
+            cursor: pointer;
+            width: 100%;
+            transition: 0.2s;
         }
-        .img-mini {
-            width: 50px;
-            height: 50px;
-            border-radius: 5px;
-            object-fit: cover;
+
+        body.light-theme .btn-pedir {
+            color: #fff;
+        }
+
+        .btn-pedir:hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Table */
+        @media (max-width: 768px) {
+            .inventory-header {
+                display: none;
+            }
+
+            .inventory-item {
+                grid-template-columns: 60px 1fr;
+                gap: 10px;
+                padding: 20px;
+                position: relative;
+            }
+
+            .stock-badge,
+            .price {
+                grid-column: 2;
+                margin-bottom: 5px;
+            }
+
+            .btn-pedir {
+                grid-column: 1 / span 2;
+                margin-top: 10px;
+            }
+        }
+
+        /* =========================================
+           MODALES Y SIMULADOR MERCADO PAGO
+           ========================================= */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Modal Lead Estándar */
+        .modal-box {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 12px;
+            margin: 20px 0;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-main);
+            color: var(--text-main);
+            font-size: 1rem;
+            outline: none;
+            text-align: center;
+        }
+
+        .modal-input:focus {
+            border-color: var(--accent);
+        }
+
+        /* Simulador Mercado Pago (Siempre Blanco para realismo) */
+        .mp-simulator {
+            background: #ffffff;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 12px;
+            overflow: hidden;
+            display: none;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            color: #333;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .mp-header {
+            background: var(--mp-blue);
+            color: white;
+            padding: 20px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .mp-body {
+            padding: 30px 20px;
+        }
+
+        .mp-price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 15px 0;
+            color: #000;
+        }
+
+        .btn-mp {
+            background: var(--mp-blue);
+            color: white;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.2s;
+        }
+
+        .btn-mp:hover {
+            background: #007eb5;
         }
     </style>
 </head>
-<body class="demo-tienda">
 
-    <header id="header" class="header-demo">
-        <h1 id="logo"><a href="/">IAsesoria</a></h1>
-        <nav id="nav">
-            <ul>
-                <li><a href="/demos.html" class="button primary">Volver a Demos</a></li>
-            </ul>
-        </nav>
+<body>
+
+    <!-- Header -->
+    <header class="header-demo">
+        <div class="logo"><a href="#">IA<span>sesoria</span></a></div>
+        <div class="nav-controls">
+            <button class="btn-theme" onclick="toggleTheme()"><i class="fas fa-moon"></i> Tema</button>
+            <a href="https://www.iasesoria.cl/" class="btn-back"><i class="fas fa-arrow-left"></i> Volver a IAsesoria</a>
+        </div>
     </header>
 
     <div class="admin-bar">
-        DEMO: Sistema de Inventario Inteligente - Gestión de Stock y Pedidos
+        DEMO: Sistema de Inventario Inteligente con Checkout Integrado
     </div>
 
+    <!-- Contenido Principal -->
     <div class="tienda-container">
-        <header class="major" style="text-align: left;">
-            <h2 id="titulo-tienda">Ferretería Industrial IA</h2>
-            <p>Control de existencias automatizado con enlace directo de reposición.</p>
-        </header>
+        <div class="page-title">
+            <h2>Ferretería Industrial</h2>
+            <p>Selecciona un producto para simular el proceso de pago seguro.</p>
+        </div>
 
         <div class="inventory-table">
             <div class="inventory-header">
-                <div>Imagen</div>
+                <div>Img</div>
                 <div>Producto</div>
                 <div>Stock</div>
                 <div>Precio</div>
                 <div>Acción</div>
             </div>
             <div id="contenedor-inventario">
+                <!-- Se llena con JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         ZONA DE MODALES (FLUX DE PAGO)
+         ========================================== -->
+    <div id="modal-container" class="modal-overlay">
+
+        <!-- PASO 1: Captura de Datos -->
+        <div id="step-1" class="modal-box">
+            <i class="fas fa-shield-alt" style="font-size: 3rem; color: var(--accent); margin-bottom: 15px;"></i>
+            <h3 style="margin-bottom:10px;">Iniciar Compra Segura</h3>
+            <p style="color: var(--text-muted); font-size:0.9rem;">Ingrese su WhatsApp para enviarle el comprobante
+                simulado de pago.</p>
+            <input type="tel" id="user-phone" class="modal-input" placeholder="Ej: 56912345678">
+            <button class="btn-pedir" onclick="iniciarPagoSimulado()">Continuar al Pago</button>
+            <a href="javascript:void(0)" onclick="cerrarModal()"
+                style="display:block; margin-top:15px; color:var(--text-muted); font-size:0.8rem;">Cancelar</a>
+        </div>
+
+        <!-- PASO 2: Simulador Mercado Pago -->
+        <div id="step-mp" class="mp-simulator">
+            <div class="mp-header">
+                <i class="fas fa-handshake"></i> Mercado Pago
+            </div>
+            <div class="mp-body">
+                <p style="color:#666; font-size:0.9rem;">Estás pagando a <b>Ferretería IAsesoria</b></p>
+                <h2 id="mp-item-name" style="margin-top:10px; font-size:1.1rem;">Producto</h2>
+                <div class="mp-price" id="mp-item-price">$0</div>
+
+                <div
+                    style="background:#f5f5f5; padding:15px; border-radius:6px; text-align:left; font-size:0.85rem; color:#666; margin-top:20px;">
+                    <i class="fas fa-credit-card"></i> Simulación de pago con Tarjeta. <br>
+                    *No se realizarán cobros reales.
                 </div>
+
+                <button class="btn-mp" id="btn-procesar" onclick="procesarPago()">Pagar Simulación</button>
+                <a href="javascript:void(0)" onclick="cerrarModal()"
+                    style="display:block; margin-top:20px; color:#999; font-size:0.8rem; text-decoration:none;">Volver a
+                    la tienda</a>
+            </div>
         </div>
-    </div>
 
-    <div id="modal-lead" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:2000; align-items:center; justify-content:center;">
-        <div style="background:#161b22; padding:40px; border-radius:15px; max-width:400px; text-align:center; border:1px solid #00d1ff;">
-            <i class="fas fa-boxes" style="font-size: 3rem; color: #00d1ff; margin-bottom: 20px;"></i>
-            <h3>Solicitud de Cotización</h3>
-            <p>Se generará un ticket automático para el producto seleccionado vía WhatsApp.</p>
-            <input type="tel" id="user-phone" placeholder="569 1234 5678" style="width:100%; margin-bottom:20px; padding:10px; background:#0d1117; border:1px solid #30363d; color:#fff;">
-            <button class="button primary fit" style="background:#00d1ff !important; color:#000 !important;" onclick="enviarWhatsApp()">Generar Pedido</button>
-            <br><br>
-            <a href="javascript:void(0)" onclick="$('#modal-lead').css('display','none')" style="color:#888; font-size:0.8rem;">Cerrar</a>
+        <!-- PASO 3: Éxito (Actualizado para captar clientes) -->
+        <div id="step-success" class="modal-box" style="display:none;">
+            <i class="fas fa-check-circle" style="font-size: 4rem; color: var(--mp-green); margin-bottom: 20px;"></i>
+            <h3 style="margin-bottom:15px;">¡Pago Aprobado!</h3>
+            <p style="color: var(--text-muted); font-size:0.95rem; line-height: 1.5;">
+                Su simulación fue 100% exitosa.<br><br>
+                ¿Te imaginas a tus clientes comprando así de rápido, seguro y automático en tu propio negocio?
+            </p>
+            <!-- Botón Principal: Lleva al formulario -->
+            <a href="https://www.iasesoria.cl/#five" class="btn-pedir"
+                style="background: var(--mp-green); margin-top:20px; text-decoration: none; display: inline-block; color: #fff; font-weight: 800; font-size: 1rem;">Quiero
+                esto para mi negocio</a>
+
+            <!-- Link Secundario: Por si quiere seguir jugando -->
+            <a href="javascript:void(0)" onclick="location.reload()"
+                style="display:block; margin-top:20px; color:var(--text-muted); font-size:0.8rem; text-decoration:underline;">Realizar
+                otra prueba</a>
         </div>
-    </div>
 
-    <script src="assets/js/jquery.min.js"></script>
-    <script>
-        // Lógica específica para Ferretería
-        const productosFerreteria = [
-            { n: "Taladro Percutor 18V", s: "12 unidades", p: "$89.990", img: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=100&q=80" },
-            { n: "Set de Herramientas 100pcs", s: "5 unidades", p: "$45.500", img: "https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=100&q=80" },
-            { n: "Esmeril Angular 4 1/2", s: "8 unidades", p: "$55.000", img: "https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=100&q=80" },
-            { n: "Sierra Circular Pro", s: "3 unidades", p: "$110.000", img: "https://images.unsplash.com/photo-1540104200428-36067b57b6f6?w=100&q=80" }
-        ];
+        <!-- Scripts -->
+        <script src="assets/js/jquery.min.js"></script>
+        <script>
+            // --- CONFIGURACIÓN BACKEND ---
+            // URL de tu Google Apps Script (Webhook)
+            const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxO6j-I6dCSp361U2IQrb8kr5EWPXRTL8tt9ulLK44utC7KiZIOHI2InjutpbLidls5/exec";
 
-        let itemPedido = "";
+            // --- VARIABLES GLOBALES ---
+            let prodSeleccionado = "";
+            let precioSeleccionado = "";
 
-        function initInventario() {
-            let html = '';
-            for (let i = 0; i < 10; i++) {
-                const prod = productosFerreteria[i % productosFerreteria.length];
-                html += `
+            // --- DATOS INVENTARIO ACTUALIZADOS ---
+            const productosFerreteria = [
+                { n: "Taladro Percutor Bosch 18V", s: "En Stock", p: "$89.990", img: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=150&q=80" },
+                { n: "Set Herramientas Acero (100pcs)", s: "Últimos 5", p: "$45.500", img: "https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=150&q=80" },
+                { n: "Esmeril Angular Makita 4 1/2", s: "En Stock", p: "$55.000", img: "https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=150&q=80" },
+                { n: "Sierra Circular Industrial Pro", s: "Poco Stock", p: "$110.000", img: "https://images.unsplash.com/photo-1513467655676-561b7d489a88?w=150&q=80" }, // Imagen Corregida
+                { n: "Generador Eléctrico 2000W", s: "A pedido", p: "$250.000", img: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=150&q=80" }
+            ];
+
+            // --- FUNCIONES INTERFAZ ---
+            function initInventario() {
+                let html = '';
+                productosFerreteria.forEach(prod => {
+                    let colorStock = prod.s.includes("Stock") ? "var(--mp-green)" : "#ff9800";
+
+                    html += `
                     <div class="inventory-item">
                         <div><img src="${prod.img}" class="img-mini"></div>
-                        <div style="font-weight:bold;">${prod.n}</div>
-                        <div><span class="stock-badge">${prod.s}</span></div>
+                        <div class="prod-name">${prod.n}</div>
+                        <div><span class="stock-badge" style="color:${colorStock}; border: 1px solid ${colorStock}33; background: ${colorStock}11;">${prod.s}</span></div>
                         <div class="price">${prod.p}</div>
-                        <div><button class="button small fit" onclick="abrirPedido('${prod.n}')">Pedir</button></div>
+                        <div><button class="btn-pedir" onclick="abrirCheckout('${prod.n}', '${prod.p}')">Comprar</button></div>
                     </div>
                 `;
+                });
+                $('#contenedor-inventario').html(html);
             }
-            $('#contenedor-inventario').html(html);
-        }
 
-        function abrirPedido(nombre) {
-            itemPedido = nombre;
-            $('#modal-lead').css('display', 'flex');
-        }
+            function toggleTheme() {
+                document.body.classList.toggle('light-theme');
+            }
 
-        function enviarWhatsApp() {
-            const phone = $('#user-phone').val();
-            if(!phone) return alert("Ingrese su número");
-            const msg = encodeURIComponent(`ORDEN DE COMPRA: Deseo solicitar cotización por ${itemPedido}. (Demo IAsesoria Ferretería)`);
-            window.open(`https://wa.me/56926870966?text=${msg}`, '_blank');
-        }
+            // --- FLUJO DE PAGO SIMULADO ---
+            function abrirCheckout(nombre, precio) {
+                prodSeleccionado = nombre;
+                precioSeleccionado = precio;
 
-        $(document).ready(() => {
-            document.documentElement.style.setProperty('--accent-color', '#00d1ff');
-            initInventario();
-        });
-    </script>
+                // Llenar datos en el simulador de MP
+                $('#mp-item-name').text(nombre);
+                $('#mp-item-price').text(precio);
+
+                // Mostrar Paso 1
+                $('#step-1').show();
+                $('#step-mp').hide();
+                $('#step-success').hide();
+                $('#modal-container').css('display', 'flex');
+            }
+
+            function cerrarModal() {
+                $('#modal-container').hide();
+            }
+
+            function iniciarPagoSimulado() {
+                const phone = $('#user-phone').val().trim();
+                if (phone.length < 8) return alert("Por favor, ingrese un teléfono válido.");
+
+                // Ocultar paso 1, mostrar Simulador MP
+                $('#step-1').hide();
+                $('#step-mp').fadeIn();
+            }
+
+            function procesarPago() {
+                const phone = $('#user-phone').val().trim();
+                const btn = $('#btn-procesar');
+
+                // Animación visual de proceso
+                btn.html('<i class="fas fa-spinner fa-spin"></i> Procesando pago...');
+                btn.css('background', '#999').prop('disabled', true);
+
+                // Preparar datos para Google Sheets
+                const payload = {
+                    fecha: new Date().toLocaleString(),
+                    telefono: phone,
+                    producto: prodSeleccionado + " (PAGADO)",
+                    demo_origen: "Ferretería Integración Pagos"
+                };
+
+                // Enviar webhook silencioso
+                fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                }).then(() => {
+                    // Simular un delay de banco de 2 segundos para dar realismo
+                    setTimeout(() => {
+                        $('#step-mp').hide();
+                        $('#step-success').fadeIn();
+                    }, 2000);
+                }).catch(err => {
+                    console.error(err);
+                    // Si falla, mostramos éxito igual para no romper la demo visual
+                    setTimeout(() => {
+                        $('#step-mp').hide();
+                        $('#step-success').fadeIn();
+                    }, 2000);
+                });
+            }
+
+            // --- INICIALIZAR ---
+            $(document).ready(() => {
+                initInventario();
+            });
+        </script>
 </body>
+
 </html>

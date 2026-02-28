@@ -6,17 +6,404 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Playfair+Display:ital@1&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/demo-tienda1.css" />
+
+    <style>
+        /* =========================================
+           VARIABLES Y CONFIGURACIÓN DE TEMAS
+           ========================================= */
+        :root {
+            --bg-body: #0a0a0a;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --accent: #00ff88;
+            --nav-bg: rgba(10, 10, 10, 0.8);
+            --hero-overlay: rgba(0, 0, 0, 0.6);
+        }
+
+        body.theme-azul {
+            --bg-body: #050a15;
+            --accent: #00d1ff;
+            --text-main: #ffffff;
+            --bg-card: rgba(255, 255, 255, 0.05);
+        }
+
+        body.theme-neon-claro {
+            --bg-body: #f0fdf4;
+            --accent: #008f39;
+            --text-main: #111827;
+            --text-muted: #4b5563;
+            --bg-card: #ffffff;
+            --nav-bg: rgba(240, 253, 244, 0.8);
+            --hero-overlay: rgba(255, 255, 255, 0.2);
+        }
+
+        body.theme-pastel {
+            --bg-body: #fff5f6;
+            --accent: #d81b60;
+            --text-main: #331d24;
+            --text-muted: #6b7280;
+            --bg-card: #ffffff;
+            --nav-bg: rgba(255, 245, 246, 0.8);
+            --hero-overlay: rgba(255, 255, 255, 0.1);
+        }
+
+        /* =========================================
+           ESTILOS BASE
+           ========================================= */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            transition: all 0.5s ease;
+            overflow-x: hidden;
+        }
+
+        /* NAVEGACIÓN */
+        .sushi-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            z-index: 1000;
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(128, 128, 128, 0.1);
+        }
+
+        .logo {
+            font-weight: 700;
+            letter-spacing: 3px;
+            font-size: 1.1rem;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .theme-selector {
+            position: relative;
+        }
+
+        .theme-btn {
+            background: transparent;
+            border: 1px solid rgba(128, 128, 128, 0.3);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .theme-menu {
+            position: absolute;
+            top: 45px;
+            right: 0;
+            background: var(--bg-body);
+            border: 1px solid rgba(128, 128, 128, 0.2);
+            border-radius: 12px;
+            padding: 8px;
+            width: 160px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: 0.3s ease;
+        }
+
+        .theme-selector:hover .theme-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .theme-option {
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .theme-option:hover {
+            background: rgba(128, 128, 128, 0.15);
+        }
+
+        .theme-option::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--p-color);
+        }
+
+        .back-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        /* HERO */
+        .sushi-hero {
+            height: 50vh;
+            background-image: url('https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .overlay-dark {
+            position: absolute;
+            inset: 0;
+            background: var(--hero-overlay);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-style: italic;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            margin: 0;
+        }
+
+        .hero-content p {
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+
+        /* CONTENEDOR PRODUCTOS */
+        .menu-container {
+            padding: 60px 8%;
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        .category-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .category-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin: 0;
+        }
+
+        .underline {
+            width: 40px;
+            height: 3px;
+            background: var(--accent);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+
+        .grid-sushi {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 35px;
+        }
+
+        .product-card {
+            overflow: hidden;
+            /* Esto es vital */
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            /* Sombra más suave */
+        }
+
+        /* El efecto de la imagen */
+        .product-card img {
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            /* Zoom suave y lento */
+        }
+
+        /* Cuando pasas el mouse por la TARJETA, la IMAGEN crece */
+        .product-card:hover img {
+            transform: scale(1.1);
+            /* Zoom del 10% */
+        }
+
+        /* Opcional: Que la tarjeta también se eleve un poco */
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border-color: var(--accent);
+        }
+
+
+
+        .product-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 25px;
+        }
+
+        .product-info h4 {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .product-info p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin: 10px 0 20px 0;
+            line-height: 1.4;
+        }
+
+        .price {
+            display: block;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-main);
+        }
+
+        .btn-add {
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1.5px solid var(--accent);
+            background: transparent;
+            color: var(--accent);
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            transition: 0.3s;
+        }
+
+        .btn-add:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        /* MODAL */
+        .sushi-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--bg-body);
+            padding: 40px 30px;
+            border-radius: 30px;
+            width: 95%;
+            max-width: 400px;
+            text-align: center;
+            border: 1px solid var(--accent);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .modal-content i.fa-utensils {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .modal-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .input-group {
+            margin: 25px 0;
+        }
+
+        #user-phone {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(128, 128, 128, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+            font-size: 1rem;
+            text-align: center;
+            outline: none;
+        }
+
+        .btn-order {
+            width: 100%;
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-close {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            margin-top: 20px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    </style>
 </head>
 
 <body>
 
     <header class="sushi-nav">
-        <div class="logo">SAKURA <span>SUSHI</span></div>
-
+        <a href="#" class="logo">SAKURA <span>SUSHI</span></a>
         <div class="nav-controls">
             <div class="theme-selector">
                 <button class="theme-btn">🎨 Personalizar <i class="fas fa-chevron-down"></i></button>
@@ -29,7 +416,7 @@
                     </div>
                 </div>
             </div>
-            <a href="/demos.html" class="back-link"><i class="fas fa-arrow-left"></i> Volver</a>
+            <a href="https://www.iasesoria.cl/" class="back-link"><i class="fas fa-arrow-left"></i> Volver</a>
         </div>
     </header>
 
@@ -46,34 +433,115 @@
             <h2>Nuestra Carta</h2>
             <div class="underline"></div>
         </div>
-
         <div class="grid-sushi" id="contenedor-productos"></div>
-
-        <div class="footer-cta">
-            <a href="javascript:void(0)" onclick="$('#modal-lead').fadeIn()" class="btn-whatsapp">
-                <i class="fab fa-whatsapp"></i> Realizar Pedido
-            </a>
-        </div>
     </section>
 
+    <!-- MODAL -->
     <div id="modal-lead" class="sushi-modal">
-        <div class="modal-content">
+        <div class="modal-content" id="modal-inner">
             <i class="fas fa-utensils"></i>
             <h3>Confirmar Pedido</h3>
-            <p>Su selección será enviada al sistema vía WhatsApp.</p>
+            <p style="color:var(--text-muted); font-size: 0.9rem;">Tu selección se registrará en nuestro sistema de
+                demostración.</p>
             <div class="input-group">
-                <input type="tel" id="user-phone" placeholder="Su WhatsApp (ej: 56912345678)">
+                <input type="tel" id="user-phone" placeholder="Tu WhatsApp (ej: 56912345678)">
             </div>
-            <button class="btn-order" onclick="enviarWhatsApp()">
-                <span>ORDENAR AHORA</span>
-                <i class="fab fa-whatsapp"></i>
-            </button>
+            <button class="btn-order" onclick="enviarWhatsApp()">ORDENAR AHORA</button>
             <button class="btn-close" onclick="$('#modal-lead').fadeOut()">Cancelar</button>
         </div>
     </div>
 
+    <!-- 1. Carga jQuery -->
     <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/tiendas.js"></script>
+
+    <!-- 2. NO pongas el script de tiendas.js aquí, usa solo este código interno: -->
+    <script>
+        // CONFIGURACIÓN BACKEND
+        const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxoNcX2uxRv8kvjYS8JwNQU2BT7vM8WCDTdgw_nYQtNYTm5kL5OmPp4cveTuQqIge3_/exec";
+        let productoSeleccionado = "";
+
+        const sushiItems = [
+            { n: "California Roll", d: "Cangrejo, palta y sésamo", img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=400&q=80" },
+            { n: "Sake Maki", d: "Salmón fresco y queso crema", img: "https://images.unsplash.com/photo-1583623025817-d180a2221d0a?w=400&q=80" },
+            { n: "Ebi Tempura", d: "Camarón frito crocante", img: "https://images.unsplash.com/photo-1617196034183-421b4917c92d?w=400&q=80" },
+            { n: "Handroll Mix", d: "Ideal para comer al paso", img: "https://images.unsplash.com/photo-1553621042-f6e147245754?w=400&q=80" }
+        ];
+
+        function setPalette(theme) {
+            $('body').removeClass('theme-neon theme-azul theme-neon-claro theme-pastel');
+            if (theme !== 'neon') $('body').addClass('theme-' + theme);
+
+            let accent = "#00ff88";
+            if (theme === 'azul') accent = "#00d1ff";
+            if (theme === 'neon-claro') accent = "#008f39";
+            if (theme === 'pastel') accent = "#d81b60";
+            document.documentElement.style.setProperty('--accent', accent);
+        }
+
+        function cargarProductos() {
+            let html = '';
+            for (let i = 0; i < 8; i++) {
+                const item = sushiItems[i % sushiItems.length];
+                const precio = `$${Math.floor(Math.random() * 8000 + 4000).toLocaleString('es-CL')}`;
+                html += `
+                    <div class="product-card">
+                        <img src="${item.img}" alt="${item.n}">
+                        <div class="product-info">
+                            <h4>${item.n}</h4>
+                            <p>${item.d}</p>
+                            <span class="price">${precio}</span>
+                            <button class="btn-add" onclick="abrirCaptura('${item.n}')">AGREGAR</button>
+                        </div>
+                    </div>`;
+            }
+            $('#contenedor-productos').html(html);
+        }
+
+        function abrirCaptura(nombre) {
+            productoSeleccionado = nombre;
+            $('#modal-lead').css('display', 'flex').hide().fadeIn();
+        }
+
+        function enviarWhatsApp() {
+            const phone = $('#user-phone').val().trim();
+            if (phone.length < 8) return alert("Ingrese un número válido");
+
+            // Mostrar estado de carga
+            $('.btn-order').html('<i class="fas fa-spinner fa-spin"></i> PROCESANDO...').prop('disabled', true);
+
+            // Crear el paquete de datos EXACTO que espera Google Sheets
+            const payload = {
+                fecha: new Date().toLocaleString(),
+                telefono: phone,
+                producto: productoSeleccionado,
+                demo_origen: "Sakura Sushi (Premium)"
+            };
+
+            fetch(WEBHOOK_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                // Al terminar, mostramos el CTA hacia tu web
+                $('#modal-inner').html(`
+                    <i class="fas fa-check-circle" style="font-size: 3.5rem; color: var(--accent); margin-bottom: 20px; display:block;"></i>
+                    <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom:15px;">¡Pedido Registrado!</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 25px; line-height: 1.6;">
+                        ¿Te imaginas a tus clientes pidiendo así de fácil? <br>
+                        <b>IAsesoria</b> automatiza tu negocio.
+                    </p>
+                    <a href="https://www.iasesoria.cl/#five" target="_blank" rel="noopener noreferrer" class="btn-order" style="text-decoration:none;">Quiero esto para mi local</a>
+                    <button class="btn-close" onclick="location.reload()">Hacer otra prueba</button>
+                `);
+            }).catch(err => {
+                console.error("Error al enviar:", err);
+                alert("Ocurrió un error, pero tu prueba fue procesada.");
+            });
+        }
+
+        $(document).ready(cargarProductos);
+    </script>
 </body>
 
 </html>
