@@ -53,6 +53,18 @@ def pagina_gracias():
 def demos():
     return render_template("demos.html")
 
+@app.route("/demo-tiendas1.html")
+def demo_sushi():
+    return render_template("demo-tiendas1.html")
+
+@app.route("/demo-tiendas2.html")
+def demo_ferreteria():
+    return render_template("demo-tiendas2.html")
+
+@app.route("/demo-tiendas3.html")
+def demo_turismo():
+    return render_template("demo-tiendas3.html")
+
 
 # --- CONFIGURACIÓN ---
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
