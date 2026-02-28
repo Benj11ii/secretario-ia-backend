@@ -1,572 +1,1031 @@
 <!DOCTYPE HTML>
 <html lang="es">
-
 <head>
-    <title>Demo Ferretería | Integración de Pagos IA</title>
+    <title>Ferretería Industrial | Sistema de Inventario</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
         /* =========================================
-           VARIABLES DE TEMA (INDUSTRIAL & CONFIANZA)
+           CURSOR
+           ========================================= */
+        * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
+        .c-dot {
+            width: 8px; height: 8px; background: var(--accent);
+            border-radius: 50%; position: fixed; top:0; left:0;
+            pointer-events: none; z-index: 99999; transform: translate(-50%,-50%);
+            transition: width .25s, height .25s;
+        }
+        .c-ring {
+            width: 32px; height: 32px; border: 1.5px solid var(--accent);
+            border-radius: 50%; position: fixed; top:0; left:0;
+            pointer-events: none; z-index: 99998; transform: translate(-50%,-50%);
+            opacity: .5; transition: width .25s, height .25s, opacity .25s;
+        }
+        body.ch .c-dot { width:12px; height:12px; }
+        body.ch .c-ring { width:48px; height:48px; opacity:.3; }
+
+        /* =========================================
+           VARIABLES
            ========================================= */
         :root {
-            /* TEMA OSCURO (Por defecto) */
-            --bg-main: #0d1117;
-            --bg-header: rgba(13, 17, 23, 0.95);
-            --bg-card: #161b22;
-            --bg-hover: #1c2128;
-            --border-color: #30363d;
-            --text-main: #e6edf3;
-            --text-muted: #8b949e;
-            --accent: #00d1ff;
-            /* Celeste tecnológico */
-
-            /* Colores Mercado Pago */
-            --mp-blue: #009ee3;
-            --mp-green: #00a650;
+            --bg:        #0e0f0f;
+            --bg2:       #141516;
+            --bg3:       #1a1b1c;
+            --border:    rgba(255,255,255,0.07);
+            --border2:   rgba(255,255,255,0.12);
+            --text:      #e8e4de;
+            --muted:     #6a6560;
+            --accent:    #e8923a;
+            --accent-rgb:232,146,58;
+            --accent2:   #ffb347;
+            --nav-bg:    rgba(14,15,15,0.88);
+            --mp-blue:   #009ee3;
+            --mp-green:  #00a650;
+            --success:   #22c55e;
         }
-
-        body.light-theme {
-            /* TEMA CLARO */
-            --bg-main: #f4f6f8;
-            --bg-header: rgba(255, 255, 255, 0.95);
-            --bg-card: #ffffff;
-            --bg-hover: #f9fafb;
-            --border-color: #dfe3e8;
-            --text-main: #212b36;
-            --text-muted: #637381;
-            --accent: #0052cc;
-            /* Azul industrial corporativo */
+        body.theme-claro {
+            --bg:        #f2ede8;
+            --bg2:       #faf7f4;
+            --bg3:       #ffffff;
+            --border:    rgba(0,0,0,0.08);
+            --border2:   rgba(0,0,0,0.15);
+            --text:      #1a1714;
+            --muted:     #8a7e74;
+            --accent:    #c8620a;
+            --accent-rgb:200,98,10;
+            --nav-bg:    rgba(242,237,232,0.9);
         }
 
         /* =========================================
-           ESTILOS BASE
+           BASE
            ========================================= */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        html { scroll-behavior: smooth; }
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            transition: all 0.3s ease;
+            font-family: 'Barlow', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            transition: background .5s, color .5s;
+            overflow-x: hidden;
         }
 
         /* =========================================
-           HEADER Y BARRAS
+           NAV
            ========================================= */
-        .header-demo {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            height: 70px;
-            background: var(--bg-header);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 5%;
-            z-index: 1000;
+        .f-nav {
+            position: fixed; top:0; width:100%; height:68px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 5%; z-index: 1000; transition: background .5s;
         }
-
-        .logo a {
-            color: var(--text-main);
-            text-decoration: none;
-            font-weight: 800;
-            letter-spacing: 1px;
-            font-size: 1.2rem;
+        .f-logo {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 900; font-size: 1.5rem;
+            letter-spacing: 2px; text-transform: uppercase;
+            text-decoration: none; color: var(--text);
+            display: flex; align-items: center; gap: 10px;
         }
-
-        .logo span {
-            color: var(--accent);
-        }
-
-        .nav-controls {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .btn-theme,
-        .btn-back {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 8px 15px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .btn-theme:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        .admin-bar {
-            margin-top: 70px;
+        .f-logo .logo-icon {
+            width: 36px; height: 36px;
             background: var(--accent);
-            color: #000000;
-            padding: 10px;
-            text-align: center;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 1px;
+            border-radius: 6px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem; color: #000;
         }
+        .f-logo span { color: var(--accent); }
 
-        body.light-theme .admin-bar {
-            color: #fff;
+        .f-nav-right { display: flex; align-items: center; gap: 12px; }
+
+        /* Contador carrito */
+        .cart-wrap {
+            position: relative;
+            background: transparent;
+            border: 1px solid var(--border2);
+            color: var(--text);
+            width: 42px; height: 42px; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.95rem; transition: .3s;
         }
+        .cart-wrap:hover { border-color: var(--accent); color: var(--accent); }
+        .cart-count {
+            position: absolute; top:-6px; right:-6px;
+            background: var(--accent); color: #000;
+            font-size: 0.55rem; font-weight: 800;
+            width: 16px; height: 16px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; transition: .3s; font-family: 'Barlow Condensed', sans-serif;
+        }
+        .cart-count.on { opacity: 1; }
+
+        .btn-nav {
+            background: transparent; border: 1px solid var(--border2);
+            color: var(--text); padding: 9px 16px; border-radius: 8px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 600; font-size: 0.8rem; letter-spacing: 1.5px;
+            text-transform: uppercase; text-decoration: none;
+            display: flex; align-items: center; gap: 7px;
+            transition: .25s;
+        }
+        .btn-nav:hover { border-color: var(--accent); color: var(--accent); }
 
         /* =========================================
-           CONTENEDOR PRINCIPAL Y TABLA
+           BANDA DE ANUNCIO
            ========================================= */
-        .tienda-container {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .page-title {
-            margin-bottom: 30px;
-        }
-
-        .page-title h2 {
-            font-size: 2rem;
-            margin-bottom: 5px;
-        }
-
-        .page-title p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        .inventory-table {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-        }
-
-        .inventory-header {
-            background: var(--bg-hover);
-            padding: 15px 20px;
-            display: grid;
-            grid-template-columns: 60px 2fr 1fr 1fr 120px;
-            font-weight: 600;
-            border-bottom: 1px solid var(--border-color);
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--text-muted);
-        }
-
-        .inventory-item {
-            padding: 15px 20px;
-            display: grid;
-            align-items: center;
-            grid-template-columns: 60px 2fr 1fr 1fr 120px;
-            border-bottom: 1px solid var(--border-color);
-            transition: 0.2s;
-        }
-
-        .inventory-item:last-child {
-            border-bottom: none;
-        }
-
-        .inventory-item:hover {
-            background: var(--bg-hover);
-        }
-
-        .img-mini {
-            width: 45px;
-            height: 45px;
-            border-radius: 4px;
-            object-fit: cover;
-        }
-
-        .prod-name {
-            font-weight: 600;
-        }
-
-        .stock-badge {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            background: rgba(0, 166, 80, 0.1);
-            color: var(--mp-green);
-        }
-
-        .price {
-            font-weight: 800;
-            color: var(--text-main);
-        }
-
-        .btn-pedir {
+        .promo-band {
+            margin-top: 68px;
             background: var(--accent);
             color: #000;
-            /* CAMBIADO: Texto negro para mejor contraste */
-            border: none;
-            padding: 10px 15px;
-            border-radius: 6px;
-            font-weight: 700;
-            /* Aumentamos un poco el grosor para que destaque más */
-            cursor: pointer;
-            width: 100%;
-            transition: 0.2s;
+            padding: 9px 5%;
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase;
+        }
+        .promo-band .blink {
+            animation: blink 1.6s ease-in-out infinite;
+        }
+        @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.4;} }
+
+        /* =========================================
+           HERO
+           ========================================= */
+        .f-hero {
+            height: 72vh; min-height: 480px;
+            background-image: url('https://images.unsplash.com/photo-1504148455328-c376907d081c?w=1400&q=85');
+            background-size: cover; background-position: center 40%;
+            position: relative; display: flex; align-items: flex-end;
+            padding-bottom: 60px;
+            overflow: hidden;
+        }
+        /* Gradiente dramático desde abajo */
+        .f-hero::before {
+            content:''; position:absolute; inset:0;
+            background: linear-gradient(to top, var(--bg) 0%, rgba(14,15,15,.6) 50%, rgba(14,15,15,.2) 100%);
+            z-index:1;
+        }
+        /* Textura grain */
+        .f-hero::after {
+            content:''; position:absolute; inset:0; z-index:2; pointer-events:none; opacity:.35;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+        }
+        .hero-inner {
+            position: relative; z-index:3;
+            padding: 0 5%; width:100%;
+            display: flex; align-items: flex-end; justify-content: space-between;
+            flex-wrap: wrap; gap: 30px;
+        }
+        .hero-text {}
+        .hero-tag {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 0.72rem; letter-spacing: 5px; text-transform: uppercase;
+            color: var(--accent); margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
+            opacity: 0; animation: fadeUp .8s .2s forwards;
+        }
+        .hero-tag::before { content:''; width:30px; height:1px; background:var(--accent); }
+        .hero-text h1 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: clamp(3.5rem, 8vw, 7.5rem);
+            font-weight: 900; line-height: .92;
+            letter-spacing: -1px; text-transform: uppercase;
+            opacity: 0; animation: fadeUp .8s .35s forwards;
+        }
+        .hero-text h1 em { font-style: normal; color: var(--accent); }
+        .hero-sub {
+            font-size: .9rem; color: var(--muted); letter-spacing: 1px;
+            margin-top: 18px; max-width: 380px; line-height: 1.6;
+            opacity: 0; animation: fadeUp .8s .5s forwards;
+        }
+        .hero-stats {
+            display: flex; gap: 30px; flex-wrap: wrap;
+            opacity: 0; animation: fadeUp .8s .65s forwards;
+        }
+        .stat-item { text-align: right; }
+        .stat-num {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 2.4rem; font-weight: 900; line-height: 1;
+            color: var(--accent);
+        }
+        .stat-label { font-size: 0.7rem; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; }
+
+        @keyframes fadeUp { from{opacity:0;transform:translateY(25px);} to{opacity:1;transform:translateY(0);} }
+
+        /* =========================================
+           BARRA CATEGORÍAS
+           ========================================= */
+        .cat-bar {
+            position: sticky; top:68px; z-index:100;
+            background: var(--bg2); border-bottom: 1px solid var(--border);
+            padding: 0 5%; transition: background .5s;
+        }
+        .cat-inner {
+            display: flex; overflow-x: auto; scrollbar-width: none;
+            max-width: 1200px; margin: auto;
+        }
+        .cat-inner::-webkit-scrollbar { display:none; }
+        .cat-tab {
+            padding: 16px 22px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 0.78rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+            border: none; background: transparent; color: var(--muted);
+            white-space: nowrap; position: relative; transition: color .3s;
+        }
+        .cat-tab::after {
+            content:''; position:absolute; bottom:0; left:50%; right:50%;
+            height:2px; background:var(--accent); transition: left .3s, right .3s;
+        }
+        .cat-tab:hover, .cat-tab.active { color: var(--text); }
+        .cat-tab.active::after, .cat-tab:hover::after { left:22px; right:22px; }
+
+        /* =========================================
+           CONTENIDO PRINCIPAL
+           ========================================= */
+        .f-main {
+            max-width: 1200px; margin: 0 auto; padding: 60px 5%;
         }
 
-        body.light-theme .btn-pedir {
-            color: #fff;
+        /* Cabecera de sección */
+        .sec-head {
+            display: flex; align-items: flex-end; justify-content: space-between;
+            margin-bottom: 36px; gap: 20px; flex-wrap: wrap;
         }
-
-        .btn-pedir:hover {
-            filter: brightness(1.1);
-            transform: translateY(-2px);
+        .sec-head-left {}
+        .sec-eyebrow {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase;
+            color: var(--accent); margin-bottom: 6px;
         }
-
-        /* Responsive Table */
-        @media (max-width: 768px) {
-            .inventory-header {
-                display: none;
-            }
-
-            .inventory-item {
-                grid-template-columns: 60px 1fr;
-                gap: 10px;
-                padding: 20px;
-                position: relative;
-            }
-
-            .stock-badge,
-            .price {
-                grid-column: 2;
-                margin-bottom: 5px;
-            }
-
-            .btn-pedir {
-                grid-column: 1 / span 2;
-                margin-top: 10px;
-            }
+        .sec-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 2.4rem; font-weight: 800; text-transform: uppercase;
+            letter-spacing: -.5px; line-height: 1;
+        }
+        .sec-count {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: .75rem; letter-spacing: 2px; color: var(--muted);
+            text-transform: uppercase; padding: 6px 14px;
+            border: 1px solid var(--border2); border-radius: 4px;
+            white-space: nowrap;
         }
 
         /* =========================================
-           MODALES Y SIMULADOR MERCADO PAGO
+           GRID PRODUCTOS
+           ========================================= */
+        .prod-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 20px;
+        }
+
+        /* Card destacada */
+        .prod-card {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 12px; overflow: hidden;
+            transition: transform .45s cubic-bezier(.16,1,.3,1),
+                        box-shadow .45s cubic-bezier(.16,1,.3,1),
+                        border-color .3s;
+            opacity: 0; transform: translateY(20px);
+            animation: cardIn .6s forwards;
+            position: relative;
+        }
+        @keyframes cardIn { to { opacity:1; transform:translateY(0); } }
+        .prod-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0,0,0,.4), 0 0 0 1px rgba(var(--accent-rgb),.25);
+            border-color: rgba(var(--accent-rgb),.3);
+        }
+
+        /* Card destacada (primera) */
+        .prod-card.featured {
+            grid-column: 1 / -1;
+            display: grid; grid-template-columns: 1.1fr 1fr;
+            min-height: 280px;
+        }
+        .prod-card.featured .card-img { height: 100%; min-height: 280px; }
+        .prod-card.featured .card-img img { height: 100%; }
+        .prod-card.featured .card-body { padding: 36px; display:flex; flex-direction:column; justify-content:center; }
+        .prod-card.featured .card-name { font-size: 1.8rem; }
+        .prod-card.featured .card-footer { margin-top: auto; padding-top: 24px; }
+        .featured-tag {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: .62rem; letter-spacing: 3px; text-transform: uppercase;
+            color: var(--accent); margin-bottom: 10px;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .featured-tag::before { content:'★'; }
+
+        /* Imagen */
+        .card-img { overflow: hidden; position: relative; }
+        .prod-card:not(.featured) .card-img { height: 200px; }
+        .card-img img {
+            width:100%; height:100%; object-fit:cover; display:block;
+            transition: transform .8s cubic-bezier(.16,1,.3,1);
+        }
+        .prod-card:hover .card-img img { transform: scale(1.07); }
+
+        /* Badge stock */
+        .stock-pill {
+            position: absolute; top:12px; left:12px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: .6rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+            padding: 5px 10px; border-radius: 4px;
+        }
+        .stock-ok   { background:rgba(34,197,94,.15); color:#22c55e; border:1px solid rgba(34,197,94,.3); }
+        .stock-low  { background:rgba(251,146,60,.15); color:#fb923c; border:1px solid rgba(251,146,60,.3); }
+        .stock-ask  { background:rgba(148,163,184,.1);  color:#94a3b8; border:1px solid rgba(148,163,184,.2); }
+
+        /* Cuerpo */
+        .card-body { padding: 22px; }
+        .card-cat {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: .62rem; letter-spacing: 3px; text-transform: uppercase;
+            color: var(--muted); margin-bottom: 6px;
+        }
+        .card-name {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.2rem; font-weight: 800; text-transform: uppercase;
+            letter-spacing: .5px; line-height: 1.15;
+        }
+        .card-desc { font-size: .8rem; color: var(--muted); margin-top: 6px; line-height:1.5; }
+
+        /* Footer de card */
+        .card-footer {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 12px; margin-top: 18px;
+        }
+        .card-price {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.5rem; font-weight: 900; line-height:1;
+            color: var(--text);
+        }
+        .card-price sub { font-size: .7rem; font-weight: 600; vertical-align: bottom; color: var(--muted); }
+
+        .btn-buy {
+            flex-shrink:0; padding: 9px 18px;
+            background: var(--accent); color: #000;
+            border: none; border-radius: 7px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 800; font-size: .72rem; letter-spacing: 2px; text-transform: uppercase;
+            display: flex; align-items: center; gap: 6px;
+            transition: .25s; white-space:nowrap;
+        }
+        .btn-buy:hover { background: var(--accent2); transform: translateY(-1px); }
+        .btn-buy i { font-size: .6rem; }
+
+        /* =========================================
+           BANNER SERVICIOS
+           ========================================= */
+        .services-band {
+            background: var(--bg2);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 40px 5%; margin: 40px 0;
+        }
+        .services-inner {
+            max-width: 1200px; margin: auto;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;
+        }
+        .svc-item { display: flex; align-items: flex-start; gap: 16px; }
+        .svc-icon {
+            width: 44px; height: 44px; flex-shrink:0;
+            background: rgba(var(--accent-rgb),.1);
+            border-radius: 10px; display: flex; align-items:center; justify-content:center;
+            font-size: 1.1rem; color: var(--accent);
+        }
+        .svc-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700; font-size: .95rem; text-transform:uppercase; letter-spacing:1px;
+            margin-bottom: 4px;
+        }
+        .svc-desc { font-size: .78rem; color: var(--muted); line-height: 1.5; }
+
+        /* =========================================
+           TABLA INVENTARIO (alternativa lista)
+           ========================================= */
+        .view-toggle {
+            display: flex; gap: 8px;
+        }
+        .vt-btn {
+            width:34px; height:34px; border-radius:7px;
+            border: 1px solid var(--border2); background:transparent;
+            color: var(--muted); font-size:.8rem;
+            display:flex; align-items:center; justify-content:center;
+            transition:.25s;
+        }
+        .vt-btn.active, .vt-btn:hover { border-color:var(--accent); color:var(--accent); }
+
+        /* Vista tabla */
+        .inv-table {
+            display: none;
+            background: var(--bg2); border:1px solid var(--border);
+            border-radius:12px; overflow:hidden;
+        }
+        .inv-table.visible { display:block; }
+        .prod-grid.hidden { display:none; }
+
+        .inv-head {
+            display:grid; grid-template-columns: 56px 2.5fr 1fr 1fr 1fr 130px;
+            padding:12px 20px; background:var(--bg3);
+            border-bottom:1px solid var(--border);
+            font-family:'Barlow Condensed',sans-serif;
+            font-size:.7rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted);
+        }
+        .inv-row {
+            display:grid; grid-template-columns: 56px 2.5fr 1fr 1fr 1fr 130px;
+            padding:14px 20px; align-items:center;
+            border-bottom:1px solid var(--border); transition:.2s;
+        }
+        .inv-row:last-child { border-bottom:none; }
+        .inv-row:hover { background: var(--bg3); }
+        .inv-img { width:44px; height:44px; border-radius:6px; object-fit:cover; }
+        .inv-name { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:.95rem; text-transform:uppercase; }
+        .inv-cat  { font-size:.75rem; color:var(--muted); }
+        .inv-price { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:1.1rem; }
+        .inv-btn {
+            padding:8px 14px; background:var(--accent); color:#000;
+            border:none; border-radius:6px;
+            font-family:'Barlow Condensed',sans-serif;
+            font-weight:800; font-size:.68rem; letter-spacing:2px; text-transform:uppercase;
+            transition:.2s; white-space:nowrap; width:100%;
+        }
+        .inv-btn:hover { background:var(--accent2); }
+
+        @media(max-width:768px){
+            .inv-head { display:none; }
+            .inv-row  { grid-template-columns:56px 1fr; gap:10px; }
+            .inv-row > *:not(:first-child):not(:nth-child(2)) { grid-column:2; }
+            .inv-btn  { grid-column:1/-1; margin-top:8px; }
+        }
+
+        /* =========================================
+           FOOTER
+           ========================================= */
+        .f-footer {
+            padding: 40px 5%; margin-top: 60px;
+            border-top: 1px solid var(--border);
+            display:flex; align-items:center; justify-content:space-between;
+            flex-wrap:wrap; gap:20px;
+        }
+        .footer-logo {
+            font-family:'Barlow Condensed',sans-serif;
+            font-size:1.2rem; font-weight:900; letter-spacing:3px; text-transform:uppercase;
+        }
+        .footer-logo span { color:var(--accent); }
+        .footer-mid { font-size:.75rem; color:var(--muted); letter-spacing:1px; text-align:center; }
+        .footer-right { font-size:.75rem; color:var(--muted); text-align:right; }
+        .footer-right a { color:var(--accent); text-decoration:none; }
+        .footer-right a:hover { text-decoration:underline; }
+
+        /* =========================================
+           MODALES
            ========================================= */
         .modal-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
+            display:none; position:fixed; inset:0;
+            background:rgba(0,0,0,.88); backdrop-filter:blur(14px);
+            z-index:2000; align-items:center; justify-content:center;
         }
 
-        /* Modal Lead Estándar */
-        .modal-box {
-            background: var(--bg-card);
-            padding: 30px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            border: 1px solid var(--border-color);
+        /* Step 1 */
+        .m-box {
+            background:var(--bg2); border:1px solid var(--border2);
+            border-radius:20px; padding:44px 36px; width:95%; max-width:420px;
+            text-align:center;
+            box-shadow:0 40px 80px rgba(0,0,0,.6);
+            animation: modalIn .4s cubic-bezier(.16,1,.3,1);
+        }
+        @keyframes modalIn { from{opacity:0;transform:scale(.92) translateY(20px);} to{opacity:1;transform:scale(1) translateY(0);} }
+
+        .m-icon {
+            width:64px; height:64px;
+            background:rgba(var(--accent-rgb),.12);
+            border-radius:14px;
+            display:flex; align-items:center; justify-content:center;
+            margin:0 auto 22px; font-size:1.6rem; color:var(--accent);
+        }
+        .m-title {
+            font-family:'Barlow Condensed',sans-serif;
+            font-size:1.8rem; font-weight:800; text-transform:uppercase;
+            letter-spacing:1px; margin-bottom:8px;
+        }
+        .m-sub { font-size:.82rem; color:var(--muted); line-height:1.6; margin-bottom:24px; }
+        .m-product-tag {
+            display:inline-block;
+            font-family:'Barlow Condensed',sans-serif;
+            font-size:.68rem; letter-spacing:3px; text-transform:uppercase;
+            color:var(--accent); border:1px solid rgba(var(--accent-rgb),.3);
+            padding:5px 14px; border-radius:4px; margin-bottom:24px;
         }
 
-        .modal-input {
-            width: 100%;
-            padding: 12px;
-            margin: 20px 0;
-            border-radius: 6px;
-            border: 1px solid var(--border-color);
-            background: var(--bg-main);
-            color: var(--text-main);
-            font-size: 1rem;
-            outline: none;
-            text-align: center;
+        .m-label {
+            font-size:.65rem; letter-spacing:2px; text-transform:uppercase;
+            color:var(--muted); display:block; margin-bottom:10px; text-align:left;
+        }
+        #user-phone {
+            width:100%; padding:14px 18px; border-radius:10px;
+            border:1px solid var(--border2); background:rgba(255,255,255,.04);
+            color:var(--text); font-size:.95rem; text-align:center;
+            font-family:'Barlow',sans-serif; outline:none; transition:border-color .3s;
+        }
+        #user-phone:focus { border-color:var(--accent); }
+
+        .btn-confirm {
+            width:100%; margin-top:18px; padding:15px;
+            background:var(--accent); color:#000; border:none; border-radius:10px;
+            font-family:'Barlow Condensed',sans-serif;
+            font-weight:900; font-size:.85rem; letter-spacing:3px; text-transform:uppercase;
+            display:flex; align-items:center; justify-content:center; gap:10px;
+            transition:opacity .3s;
+        }
+        .btn-confirm:hover { opacity:.88; }
+        .btn-cancel {
+            background:transparent; border:none; color:var(--muted);
+            margin-top:14px; font-size:.75rem; letter-spacing:1px;
+            font-family:'Barlow',sans-serif; text-decoration:underline;
         }
 
-        .modal-input:focus {
-            border-color: var(--accent);
+        /* Simulador Mercado Pago (siempre blanco) */
+        .mp-sim {
+            background:#fff; width:100%; max-width:420px;
+            border-radius:16px; overflow:hidden;
+            display:none;
+            box-shadow:0 30px 60px rgba(0,0,0,.5);
+            color:#333; font-family:Arial,sans-serif;
+            animation: modalIn .4s cubic-bezier(.16,1,.3,1);
         }
-
-        /* Simulador Mercado Pago (Siempre Blanco para realismo) */
-        .mp-simulator {
-            background: #ffffff;
-            width: 100%;
-            max-width: 400px;
-            border-radius: 12px;
-            overflow: hidden;
-            display: none;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-            color: #333;
-            text-align: center;
-            font-family: Arial, sans-serif;
+        .mp-top { background:var(--mp-blue); color:#fff; padding:22px 28px; }
+        .mp-top-logo { font-size:1.3rem; font-weight:bold; letter-spacing:.5px; }
+        .mp-top-logo span { opacity:.7; font-weight:400; font-size:.9rem; }
+        .mp-body { padding:28px; text-align:center; }
+        .mp-seller { font-size:.8rem; color:#888; }
+        .mp-item-name { font-size:1rem; font-weight:700; margin:8px 0; color:#111; }
+        .mp-amount { font-size:3rem; font-weight:900; color:#000; line-height:1; margin:16px 0; }
+        .mp-card-box {
+            background:#f5f7fa; border-radius:10px; padding:16px;
+            font-size:.82rem; color:#777; text-align:left; margin-top:16px;
+            display:flex; align-items:center; gap:10px;
         }
-
-        .mp-header {
-            background: var(--mp-blue);
-            color: white;
-            padding: 20px;
-            font-weight: bold;
-            font-size: 1.2rem;
+        .mp-card-box i { color:var(--mp-blue); font-size:1.1rem; }
+        .btn-mp-pay {
+            width:100%; margin-top:20px; padding:16px;
+            background:var(--mp-blue); color:#fff; border:none; border-radius:8px;
+            font-weight:700; font-size:1rem;
+            display:flex; align-items:center; justify-content:center; gap:8px;
+            transition:.2s;
         }
+        .btn-mp-pay:hover { background:#007eb5; }
+        .mp-cancel { display:block; margin-top:14px; color:#aaa; font-size:.78rem; text-decoration:none; }
 
-        .mp-body {
-            padding: 30px 20px;
+        /* Success */
+        .m-success {
+            background:var(--bg2); border:1px solid rgba(34,197,94,.3);
+            border-radius:20px; padding:50px 36px; width:95%; max-width:420px;
+            text-align:center; display:none;
+            box-shadow:0 40px 80px rgba(0,0,0,.6);
+            animation: modalIn .4s cubic-bezier(.16,1,.3,1);
         }
-
-        .mp-price {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin: 15px 0;
-            color: #000;
+        .success-icon {
+            width:72px; height:72px; background:rgba(34,197,94,.12);
+            border-radius:50%; display:flex; align-items:center; justify-content:center;
+            margin:0 auto 24px; font-size:2rem; color:#22c55e;
         }
-
-        .btn-mp {
-            background: var(--mp-blue);
-            color: white;
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: 0.2s;
+        .btn-cta {
+            display:flex; align-items:center; justify-content:center; gap:8px;
+            width:100%; margin-top:24px; padding:16px;
+            background:var(--success); color:#000; border:none; border-radius:10px;
+            font-family:'Barlow Condensed',sans-serif;
+            font-weight:900; font-size:.85rem; letter-spacing:2px; text-transform:uppercase;
+            text-decoration:none; transition:opacity .3s;
         }
+        .btn-cta:hover { opacity:.88; }
 
-        .btn-mp:hover {
-            background: #007eb5;
+        /* =========================================
+           RESPONSIVE
+           ========================================= */
+        @media(max-width:768px){
+            .prod-card.featured { grid-template-columns:1fr; }
+            .prod-card.featured .card-img { min-height:220px; height:220px; }
+            .hero-stats { display:none; }
+            .hero-text h1 { font-size:3.2rem; }
+            .f-footer { flex-direction:column; text-align:center; }
+            .footer-right { text-align:center; }
         }
     </style>
 </head>
-
 <body>
 
-    <!-- Header -->
-    <header class="header-demo">
-        <div class="logo"><a href="#">IA<span>sesoria</span></a></div>
-        <div class="nav-controls">
-            <button class="btn-theme" onclick="toggleTheme()"><i class="fas fa-moon"></i> Tema</button>
-            <a href="https://www.iasesoria.cl/" class="btn-back"><i class="fas fa-arrow-left"></i> Volver a IAsesoria</a>
-        </div>
-    </header>
+<div class="c-dot" id="cd"></div>
+<div class="c-ring" id="cr"></div>
 
-    <div class="admin-bar">
-        DEMO: Sistema de Inventario Inteligente con Checkout Integrado
+<!-- NAV -->
+<header class="f-nav">
+    <a href="#" class="f-logo">
+        <div class="logo-icon"><i class="fas fa-wrench"></i></div>
+        Ferretería <span>Pro</span>
+    </a>
+    <div class="f-nav-right">
+        <button class="cart-wrap" id="cart-btn" title="Pedidos">
+            <i class="fas fa-shopping-cart" style="font-size:.85rem;"></i>
+            <span class="cart-count" id="cart-count">0</span>
+        </button>
+        <button class="btn-nav" onclick="toggleTheme()"><i class="fas fa-circle-half-stroke"></i> Tema</button>
+        <a href="https://www.iasesoria.cl/" class="btn-nav"><i class="fas fa-arrow-left"></i> Volver</a>
+    </div>
+</header>
+
+<!-- BANDA PROMO -->
+<div class="promo-band">
+    <span class="blink">●</span>
+    DEMO SISTEMA — Inventario Inteligente con Checkout Integrado
+    <span class="blink">●</span>
+</div>
+
+<!-- HERO -->
+<section class="f-hero">
+    <div class="hero-inner">
+        <div class="hero-text">
+            <div class="hero-tag">Ferretería Industrial — Villarrica</div>
+            <h1>Todo lo que<br>tu obra <em>necesita</em></h1>
+            <p class="hero-sub">Más de 500 productos en stock. Atención especializada, despacho a domicilio y cotización inmediata por WhatsApp.</p>
+        </div>
+        <div class="hero-stats">
+            <div class="stat-item">
+                <div class="stat-num">500+</div>
+                <div class="stat-label">Productos</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">12</div>
+                <div class="stat-label">Años</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">24h</div>
+                <div class="stat-label">Despacho</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CATEGORÍAS -->
+<div class="cat-bar">
+    <div class="cat-inner">
+        <button class="cat-tab active" onclick="setCategoria(this,'todo')">Todo</button>
+        <button class="cat-tab" onclick="setCategoria(this,'electricidad')">Electricidad</button>
+        <button class="cat-tab" onclick="setCategoria(this,'herramientas')">Herramientas</button>
+        <button class="cat-tab" onclick="setCategoria(this,'construccion')">Construcción</button>
+        <button class="cat-tab" onclick="setCategoria(this,'plomeria')">Plomería</button>
+        <button class="cat-tab" onclick="setCategoria(this,'seguridad')">Seguridad</button>
+    </div>
+</div>
+
+<!-- SERVICIOS -->
+<div class="services-band">
+    <div class="services-inner">
+        <div class="svc-item">
+            <div class="svc-icon"><i class="fas fa-truck"></i></div>
+            <div>
+                <div class="svc-title">Despacho 24h</div>
+                <div class="svc-desc">Envío a domicilio en toda la región de La Araucanía.</div>
+            </div>
+        </div>
+        <div class="svc-item">
+            <div class="svc-icon"><i class="fab fa-whatsapp"></i></div>
+            <div>
+                <div class="svc-title">Cotización Inmediata</div>
+                <div class="svc-desc">Respuesta en menos de 30 minutos por WhatsApp.</div>
+            </div>
+        </div>
+        <div class="svc-item">
+            <div class="svc-icon"><i class="fas fa-tags"></i></div>
+            <div>
+                <div class="svc-title">Precios de Bodega</div>
+                <div class="svc-desc">Descuentos especiales para contratistas y constructoras.</div>
+            </div>
+        </div>
+        <div class="svc-item">
+            <div class="svc-icon"><i class="fas fa-shield-alt"></i></div>
+            <div>
+                <div class="svc-title">Garantía Total</div>
+                <div class="svc-desc">Todos nuestros productos cuentan con garantía del fabricante.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- INVENTARIO -->
+<div class="f-main">
+    <div class="sec-head">
+        <div class="sec-head-left">
+            <div class="sec-eyebrow">Inventario actualizado</div>
+            <div class="sec-title">Nuestros Productos</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+            <span class="sec-count" id="prod-count">5 productos</span>
+            <div class="view-toggle">
+                <button class="vt-btn active" id="btn-grid" onclick="setView('grid')" title="Vista grid"><i class="fas fa-grip"></i></button>
+                <button class="vt-btn" id="btn-list" onclick="setView('list')" title="Vista lista"><i class="fas fa-list"></i></button>
+            </div>
+        </div>
     </div>
 
-    <!-- Contenido Principal -->
-    <div class="tienda-container">
-        <div class="page-title">
-            <h2>Ferretería Industrial</h2>
-            <p>Selecciona un producto para simular el proceso de pago seguro.</p>
-        </div>
+    <!-- VISTA GRID -->
+    <div class="prod-grid" id="grid-view"></div>
 
-        <div class="inventory-table">
-            <div class="inventory-header">
-                <div>Img</div>
-                <div>Producto</div>
-                <div>Stock</div>
-                <div>Precio</div>
-                <div>Acción</div>
+    <!-- VISTA TABLA -->
+    <div class="inv-table" id="list-view">
+        <div class="inv-head">
+            <div></div>
+            <div>Producto</div>
+            <div>Categoría</div>
+            <div>Stock</div>
+            <div>Precio</div>
+            <div>Acción</div>
+        </div>
+        <div id="list-body"></div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="f-footer">
+    <div class="footer-logo">Ferretería <span>Pro</span></div>
+    <div class="footer-mid">Villarrica, La Araucanía · Lun–Sáb 8:30–18:30</div>
+    <div class="footer-right">Demo por <a href="https://www.iasesoria.cl/" target="_blank">IAsesoria.cl</a></div>
+</footer>
+
+<!-- ===== MODALES ===== -->
+<div id="modal-overlay" class="modal-overlay">
+
+    <!-- Paso 1: datos -->
+    <div id="step-1" class="m-box">
+        <div class="m-icon"><i class="fas fa-bolt"></i></div>
+        <div class="m-title">Iniciar Compra</div>
+        <p class="m-sub">Ingresa tu WhatsApp y te enviamos el comprobante de pago simulado al instante.</p>
+        <span class="m-product-tag" id="modal-prod-label">—</span>
+        <label class="m-label">Tu número WhatsApp</label>
+        <input type="tel" id="user-phone" placeholder="56 9 1234 5678">
+        <button class="btn-confirm" onclick="iniciarPago()">
+            <i class="fas fa-lock"></i> Continuar al pago seguro
+        </button>
+        <button class="btn-cancel" onclick="cerrarModal()">Cancelar</button>
+    </div>
+
+    <!-- Paso 2: simulador MP -->
+    <div id="step-mp" class="mp-sim">
+        <div class="mp-top">
+            <div class="mp-top-logo">mercadopago <span>| checkout</span></div>
+        </div>
+        <div class="mp-body">
+            <p class="mp-seller">Estás pagando a <b>Ferretería Pro</b></p>
+            <div class="mp-item-name" id="mp-name">Producto</div>
+            <div class="mp-amount" id="mp-price">$0</div>
+            <div class="mp-card-box">
+                <i class="fas fa-credit-card"></i>
+                <span>Simulación de pago con Tarjeta.<br><b>No se realizarán cobros reales.</b></span>
             </div>
-            <div id="contenedor-inventario">
-                <!-- Se llena con JS -->
-            </div>
+            <button class="btn-mp-pay" id="btn-procesar" onclick="procesarPago()">
+                <i class="fas fa-lock"></i> Pagar simulación
+            </button>
+            <a href="javascript:void(0)" class="mp-cancel" onclick="cerrarModal()">← Volver a la tienda</a>
         </div>
     </div>
 
-    <!-- ==========================================
-         ZONA DE MODALES (FLUX DE PAGO)
-         ========================================== -->
-    <div id="modal-container" class="modal-overlay">
+    <!-- Paso 3: éxito -->
+    <div id="step-success" class="m-success">
+        <div class="success-icon"><i class="fas fa-check"></i></div>
+        <div class="m-title" style="color:#22c55e;">¡Pago Aprobado!</div>
+        <p class="m-sub" style="margin-top:12px;">
+            Tu simulación fue 100% exitosa.<br><br>
+            ¿Imaginas a tus clientes comprando así de rápido y automático en tu propio local?
+        </p>
+        <a href="https://www.iasesoria.cl/#five" class="btn-cta" target="_blank">
+            <i class="fas fa-rocket"></i> Quiero esto para mi negocio
+        </a>
+        <button class="btn-cancel" onclick="location.reload()" style="margin-top:14px;">Realizar otra prueba</button>
+    </div>
+</div>
 
-        <!-- PASO 1: Captura de Datos -->
-        <div id="step-1" class="modal-box">
-            <i class="fas fa-shield-alt" style="font-size: 3rem; color: var(--accent); margin-bottom: 15px;"></i>
-            <h3 style="margin-bottom:10px;">Iniciar Compra Segura</h3>
-            <p style="color: var(--text-muted); font-size:0.9rem;">Ingrese su WhatsApp para enviarle el comprobante
-                simulado de pago.</p>
-            <input type="tel" id="user-phone" class="modal-input" placeholder="Ej: 56912345678">
-            <button class="btn-pedir" onclick="iniciarPagoSimulado()">Continuar al Pago</button>
-            <a href="javascript:void(0)" onclick="cerrarModal()"
-                style="display:block; margin-top:15px; color:var(--text-muted); font-size:0.8rem;">Cancelar</a>
-        </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    /* ----- CURSOR ----- */
+    const cd=document.getElementById('cd'), cr=document.getElementById('cr');
+    let mx=0,my=0;
+    document.addEventListener('mousemove',e=>{ mx=e.clientX;my=e.clientY; cd.style.left=mx+'px';cd.style.top=my+'px'; });
+    (function(){ let rx=0,ry=0; function loop(){ rx+=(mx-rx)*.12;ry+=(my-ry)*.12; cr.style.left=rx+'px';cr.style.top=ry+'px'; requestAnimationFrame(loop); } loop(); })();
+    function bindCursor(){ document.querySelectorAll('button,a,.cat-tab,.vt-btn').forEach(el=>{ el.addEventListener('mouseenter',()=>document.body.classList.add('ch')); el.addEventListener('mouseleave',()=>document.body.classList.remove('ch')); }); }
 
-        <!-- PASO 2: Simulador Mercado Pago -->
-        <div id="step-mp" class="mp-simulator">
-            <div class="mp-header">
-                <i class="fas fa-handshake"></i> Mercado Pago
-            </div>
-            <div class="mp-body">
-                <p style="color:#666; font-size:0.9rem;">Estás pagando a <b>Ferretería IAsesoria</b></p>
-                <h2 id="mp-item-name" style="margin-top:10px; font-size:1.1rem;">Producto</h2>
-                <div class="mp-price" id="mp-item-price">$0</div>
+    /* ----- BACKEND ----- */
+    const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxO6j-I6dCSp361U2IQrb8kr5EWPXRTL8tt9ulLK44utC7KiZIOHI2InjutpbLidls5/exec";
+    let prodSeleccionado="", precioSeleccionado="", cartCount=0;
 
-                <div
-                    style="background:#f5f5f5; padding:15px; border-radius:6px; text-align:left; font-size:0.85rem; color:#666; margin-top:20px;">
-                    <i class="fas fa-credit-card"></i> Simulación de pago con Tarjeta. <br>
-                    *No se realizarán cobros reales.
-                </div>
+    /* ----- DATOS ----- */
+    const productos = [
+    { 
+        n: "Taladro Percutor Bosch 18V", 
+        d: "Batería incluida, maletín profesional y 2 brocas de concreto.", 
+        p: "$89.990", 
+        s: "En Stock", 
+        cat: "herramientas", 
+        img: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=600&q=80" 
+    },
+    { 
+        n: "Set Herramientas Acero 100 piezas", 
+        d: "Incluye llaves combinadas, destornilladores cr-v y alicates.", 
+        p: "$45.500", 
+        s: "Últimas 5", 
+        cat: "herramientas", 
+        img: "https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=600&q=80" 
+    },
+    { 
+        n: "Esmeril Angular Makita 4½\"", 
+        d: "900W de potencia, incluye mango lateral y disco de corte.", 
+        p: "$55.000", 
+        s: "En Stock", 
+        cat: "herramientas", 
+        img: "https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=600&q=80" 
+    },
+    { 
+        n: "Sierra Circular Industrial Pro", 
+        d: "1400W, guía láser incorporada y hoja de carburo 7¼\".", 
+        p: "$110.000", 
+        s: "Poco Stock", 
+        cat: "herramientas", 
+        img: "https://dojiw2m9tvv09.cloudfront.net/69412/product/X_522200dd-8bf8-4b47-a182-97ba7835685f-5007nk-a-1500px1356.jpg?290&t=1771117956?w=600&q=80" 
+    },
+    { 
+        n: "Generador Eléctrico 2000W", 
+        d: "Motor 4 tiempos silencioso, ideal para respaldo en casa.", 
+        p: "$250.000", 
+        s: "A pedido", 
+        cat: "electricidad", 
+        img: "https://www.triplee.cl/30893-medium_default/generador-electrico-gasolina-flowmak-gh2500-220v-2000w-pm.jpg?w=600&q=80" 
+    },
+    { 
+        n: "Tubería PVC 4\" x 3m", 
+        d: "Clase 10 para alta presión, ideal para alcantarillado.", 
+        p: "$8.900", 
+        s: "En Stock", 
+        cat: "plomeria", 
+        img: "https://dojiw2m9tvv09.cloudfront.net/44838/product/tubos-pvc-para-canalizaciones-electricas011631.jpg?w=600&q=80" 
+    },
+    { 
+        n: "Saco Cemento Melón 25kg", 
+        d: "Mezcla lista de alta resistencia para pilares y losas.", 
+        p: "$7.200", 
+        s: "En Stock", 
+        cat: "construccion", 
+        img: "https://homemaxpa.com/wp-content/uploads/2024/03/9e332e_463b0c9552ac45e9bc57fae2bb07ab1bmv2-1.webp?w=600&q=80" 
+    },
+    { 
+        /* Imagen corregida: Casco de seguridad claro */
+        n: "Casco Seguridad Certificado", 
+        d: "Certificación ANSI Z89.1, arnés de 6 puntas ajustable.", 
+        p: "$12.500", 
+        s: "En Stock", 
+        cat: "seguridad", 
+        img: "https://i0.wp.com/www.segusa.com.mx/wp-content/uploads/2023/06/cascos-de-seguridad-industrial-scaled.jpg?resize=1140%2C641&ssl=1?w=600&q=80"
+    },
+];
 
-                <button class="btn-mp" id="btn-procesar" onclick="procesarPago()">Pagar Simulación</button>
-                <a href="javascript:void(0)" onclick="cerrarModal()"
-                    style="display:block; margin-top:20px; color:#999; font-size:0.8rem; text-decoration:none;">Volver a
-                    la tienda</a>
-            </div>
-        </div>
+    function stockClass(s){
+        if(s.toLowerCase().includes('stock') && !s.toLowerCase().includes('poco')) return 'stock-ok';
+        if(s.toLowerCase().includes('poco') || s.toLowerCase().includes('últim')) return 'stock-low';
+        return 'stock-ask';
+    }
 
-        <!-- PASO 3: Éxito (Actualizado para captar clientes) -->
-        <div id="step-success" class="modal-box" style="display:none;">
-            <i class="fas fa-check-circle" style="font-size: 4rem; color: var(--mp-green); margin-bottom: 20px;"></i>
-            <h3 style="margin-bottom:15px;">¡Pago Aprobado!</h3>
-            <p style="color: var(--text-muted); font-size:0.95rem; line-height: 1.5;">
-                Su simulación fue 100% exitosa.<br><br>
-                ¿Te imaginas a tus clientes comprando así de rápido, seguro y automático en tu propio negocio?
-            </p>
-            <!-- Botón Principal: Lleva al formulario -->
-            <a href="https://www.iasesoria.cl/#five" class="btn-pedir"
-                style="background: var(--mp-green); margin-top:20px; text-decoration: none; display: inline-block; color: #fff; font-weight: 800; font-size: 1rem;">Quiero
-                esto para mi negocio</a>
-
-            <!-- Link Secundario: Por si quiere seguir jugando -->
-            <a href="javascript:void(0)" onclick="location.reload()"
-                style="display:block; margin-top:20px; color:var(--text-muted); font-size:0.8rem; text-decoration:underline;">Realizar
-                otra prueba</a>
-        </div>
-
-        <!-- Scripts -->
-        <script src="assets/js/jquery.min.js"></script>
-        <script>
-            // --- CONFIGURACIÓN BACKEND ---
-            // URL de tu Google Apps Script (Webhook)
-            const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxO6j-I6dCSp361U2IQrb8kr5EWPXRTL8tt9ulLK44utC7KiZIOHI2InjutpbLidls5/exec";
-
-            // --- VARIABLES GLOBALES ---
-            let prodSeleccionado = "";
-            let precioSeleccionado = "";
-
-            // --- DATOS INVENTARIO ACTUALIZADOS ---
-            const productosFerreteria = [
-                { n: "Taladro Percutor Bosch 18V", s: "En Stock", p: "$89.990", img: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=150&q=80" },
-                { n: "Set Herramientas Acero (100pcs)", s: "Últimos 5", p: "$45.500", img: "https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=150&q=80" },
-                { n: "Esmeril Angular Makita 4 1/2", s: "En Stock", p: "$55.000", img: "https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=150&q=80" },
-                { n: "Sierra Circular Industrial Pro", s: "Poco Stock", p: "$110.000", img: "https://images.unsplash.com/photo-1513467655676-561b7d489a88?w=150&q=80" }, // Imagen Corregida
-                { n: "Generador Eléctrico 2000W", s: "A pedido", p: "$250.000", img: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=150&q=80" }
-            ];
-
-            // --- FUNCIONES INTERFAZ ---
-            function initInventario() {
-                let html = '';
-                productosFerreteria.forEach(prod => {
-                    let colorStock = prod.s.includes("Stock") ? "var(--mp-green)" : "#ff9800";
-
-                    html += `
-                    <div class="inventory-item">
-                        <div><img src="${prod.img}" class="img-mini"></div>
-                        <div class="prod-name">${prod.n}</div>
-                        <div><span class="stock-badge" style="color:${colorStock}; border: 1px solid ${colorStock}33; background: ${colorStock}11;">${prod.s}</span></div>
-                        <div class="price">${prod.p}</div>
-                        <div><button class="btn-pedir" onclick="abrirCheckout('${prod.n}', '${prod.p}')">Comprar</button></div>
+    /* ----- RENDER GRID ----- */
+    function renderGrid(lista){
+        let html='';
+        lista.forEach((p,i)=>{
+            const delay=(i%4)*.08;
+            const sc=stockClass(p.s);
+            if(i===0){
+                html+=`
+                <div class="prod-card featured" style="animation-delay:${delay}s;">
+                    <div class="card-img">
+                        <img src="${p.img}" alt="${p.n}">
+                        <span class="stock-pill ${sc}">${p.s}</span>
                     </div>
-                `;
-                });
-                $('#contenedor-inventario').html(html);
+                    <div class="card-body">
+                        <div class="featured-tag">Destacado del mes</div>
+                        <div class="card-cat">${p.cat.charAt(0).toUpperCase()+p.cat.slice(1)}</div>
+                        <div class="card-name">${p.n}</div>
+                        <div class="card-desc">${p.d}</div>
+                        <div class="card-footer">
+                            <div class="card-price">${p.p}<sub> CLP</sub></div>
+                            <button class="btn-buy" onclick="abrirCheckout('${p.n}','${p.p}')"><i class="fas fa-bolt"></i> Comprar</button>
+                        </div>
+                    </div>
+                </div>`;
+            } else {
+                html+=`
+                <div class="prod-card" style="animation-delay:${delay}s;">
+                    <div class="card-img">
+                        <img src="${p.img}" alt="${p.n}">
+                        <span class="stock-pill ${sc}">${p.s}</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-cat">${p.cat.charAt(0).toUpperCase()+p.cat.slice(1)}</div>
+                        <div class="card-name">${p.n}</div>
+                        <div class="card-desc">${p.d}</div>
+                        <div class="card-footer">
+                            <div class="card-price">${p.p}<sub> CLP</sub></div>
+                            <button class="btn-buy" onclick="abrirCheckout('${p.n}','${p.p}')"><i class="fas fa-cart-plus"></i> Comprar</button>
+                        </div>
+                    </div>
+                </div>`;
             }
+        });
+        if(!html) html=`<div style="grid-column:1/-1;text-align:center;padding:60px 0;color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:1rem;letter-spacing:3px;text-transform:uppercase;">Sin productos en esta categoría</div>`;
+        $('#grid-view').html(html);
+    }
 
-            function toggleTheme() {
-                document.body.classList.toggle('light-theme');
-            }
+    /* ----- RENDER LISTA ----- */
+    function renderList(lista){
+        let html='';
+        lista.forEach(p=>{
+            const sc=stockClass(p.s);
+            html+=`
+            <div class="inv-row">
+                <div><img src="${p.img}" class="inv-img" alt="${p.n}"></div>
+                <div>
+                    <div class="inv-name">${p.n}</div>
+                    <div class="inv-cat">${p.d}</div>
+                </div>
+                <div class="inv-cat" style="text-transform:capitalize;">${p.cat}</div>
+                <div><span class="stock-pill ${sc}">${p.s}</span></div>
+                <div class="inv-price">${p.p}</div>
+                <div><button class="inv-btn" onclick="abrirCheckout('${p.n}','${p.p}')">Comprar</button></div>
+            </div>`;
+        });
+        if(!html) html=`<div style="text-align:center;padding:40px;color:var(--muted);font-family:'Barlow Condensed',sans-serif;letter-spacing:2px;text-transform:uppercase;font-size:.85rem;">Sin productos</div>`;
+        $('#list-body').html(html);
+    }
 
-            // --- FLUJO DE PAGO SIMULADO ---
-            function abrirCheckout(nombre, precio) {
-                prodSeleccionado = nombre;
-                precioSeleccionado = precio;
+    /* ----- FILTRO CATEGORÍA ----- */
+    let categoriaActual='todo';
+    function setCategoria(el,cat){
+        document.querySelectorAll('.cat-tab').forEach(t=>t.classList.remove('active'));
+        el.classList.add('active');
+        categoriaActual=cat;
+        const lista=cat==='todo'?productos:productos.filter(p=>p.cat===cat);
+        $('#prod-count').text(lista.length+' producto'+(lista.length!==1?'s':''));
+        renderGrid(lista);
+        renderList(lista);
+        bindCursor();
+    }
 
-                // Llenar datos en el simulador de MP
-                $('#mp-item-name').text(nombre);
-                $('#mp-item-price').text(precio);
+    /* ----- VISTA GRID/LISTA ----- */
+    function setView(v){
+        if(v==='grid'){
+            $('#grid-view').removeClass('hidden');
+            $('#list-view').removeClass('visible');
+            $('#btn-grid').addClass('active'); $('#btn-list').removeClass('active');
+        } else {
+            $('#grid-view').addClass('hidden');
+            $('#list-view').addClass('visible');
+            $('#btn-list').addClass('active'); $('#btn-grid').removeClass('active');
+        }
+    }
 
-                // Mostrar Paso 1
-                $('#step-1').show();
-                $('#step-mp').hide();
-                $('#step-success').hide();
-                $('#modal-container').css('display', 'flex');
-            }
+    /* ----- TEMA ----- */
+    function toggleTheme(){ document.body.classList.toggle('theme-claro'); }
 
-            function cerrarModal() {
-                $('#modal-container').hide();
-            }
+    /* ----- CHECKOUT ----- */
+    function abrirCheckout(nombre,precio){
+        prodSeleccionado=nombre; precioSeleccionado=precio;
+        $('#modal-prod-label').text(nombre);
+        $('#mp-name').text(nombre); $('#mp-price').text(precio);
+        $('#step-1').show(); $('#step-mp').hide(); $('#step-success').hide();
+        $('#modal-overlay').css('display','flex');
+        cartCount++; $('#cart-count').text(cartCount).addClass('on');
+    }
+    function cerrarModal(){ $('#modal-overlay').fadeOut(200); }
 
-            function iniciarPagoSimulado() {
-                const phone = $('#user-phone').val().trim();
-                if (phone.length < 8) return alert("Por favor, ingrese un teléfono válido.");
+    function iniciarPago(){
+        const phone=$('#user-phone').val().trim();
+        if(phone.length<8) return alert("Por favor ingrese un teléfono válido.");
+        $('#step-1').hide(); $('#step-mp').fadeIn();
+    }
 
-                // Ocultar paso 1, mostrar Simulador MP
-                $('#step-1').hide();
-                $('#step-mp').fadeIn();
-            }
+    function procesarPago(){
+        const phone=$('#user-phone').val().trim();
+        const btn=$('#btn-procesar');
+        btn.html('<i class="fas fa-spinner fa-spin"></i> Procesando pago...').css('background','#aaa').prop('disabled',true);
+        const payload={ fecha:new Date().toLocaleString(), telefono:phone, producto:prodSeleccionado+" (PAGADO)", demo_origen:"Ferretería Pro IAsesoria" };
+        fetch(WEBHOOK_URL,{ method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) })
+        .then(()=>{ setTimeout(()=>{ $('#step-mp').hide(); $('#step-success').fadeIn(); },2000); })
+        .catch(()=>{ setTimeout(()=>{ $('#step-mp').hide(); $('#step-success').fadeIn(); },2000); });
+    }
 
-            function procesarPago() {
-                const phone = $('#user-phone').val().trim();
-                const btn = $('#btn-procesar');
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape') cerrarModal(); });
 
-                // Animación visual de proceso
-                btn.html('<i class="fas fa-spinner fa-spin"></i> Procesando pago...');
-                btn.css('background', '#999').prop('disabled', true);
-
-                // Preparar datos para Google Sheets
-                const payload = {
-                    fecha: new Date().toLocaleString(),
-                    telefono: phone,
-                    producto: prodSeleccionado + " (PAGADO)",
-                    demo_origen: "Ferretería Integración Pagos"
-                };
-
-                // Enviar webhook silencioso
-                fetch(WEBHOOK_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                }).then(() => {
-                    // Simular un delay de banco de 2 segundos para dar realismo
-                    setTimeout(() => {
-                        $('#step-mp').hide();
-                        $('#step-success').fadeIn();
-                    }, 2000);
-                }).catch(err => {
-                    console.error(err);
-                    // Si falla, mostramos éxito igual para no romper la demo visual
-                    setTimeout(() => {
-                        $('#step-mp').hide();
-                        $('#step-success').fadeIn();
-                    }, 2000);
-                });
-            }
-
-            // --- INICIALIZAR ---
-            $(document).ready(() => {
-                initInventario();
-            });
-        </script>
+    /* ----- INIT ----- */
+    $(document).ready(()=>{
+        renderGrid(productos); renderList(productos);
+        $('#prod-count').text(productos.length+' productos');
+        bindCursor();
+    });
+</script>
 </body>
-
 </html>
