@@ -54,7 +54,6 @@
 			z-index: 0;
 			background:
 				radial-gradient(ellipse 80% 60% at 50% 40%, rgba(243, 160, 34, 0.06) 0%, transparent 70%),
-				/* Subimos la opacidad de este gradiente negro a 0.80 y 0.90 */
 				linear-gradient(rgba(0, 0, 0, 0.80), rgba(5, 5, 5, 0.90)),
 				url('assets/images/principalimagen.jpg');
 			background-size: cover;
@@ -63,7 +62,6 @@
 			overflow: hidden;
 		}
 
-		/* Partículas / red neuronal CSS */
 		.global-bg::before {
 			content: '';
 			position: absolute;
@@ -76,7 +74,6 @@
 			animation: bgDrift 30s linear infinite;
 		}
 
-		/* Líneas diagonales suaves */
 		.global-bg::after {
 			content: '';
 			position: absolute;
@@ -89,16 +86,10 @@
 		}
 
 		@keyframes bgDrift {
-			from {
-				transform: translate(0, 0);
-			}
-
-			to {
-				transform: translate(60px, 60px);
-			}
+			from { transform: translate(0, 0); }
+			to { transform: translate(60px, 60px); }
 		}
 
-		/* Grain overlay */
 		.grain {
 			position: fixed;
 			inset: 0;
@@ -122,12 +113,10 @@
 			align-items: center;
 			justify-content: space-between;
 			padding: 0 5%;
-			/* Sin fondo visible inicialmente */
 			background: transparent;
 			transition: background 0.5s ease;
 		}
 
-		/* Cuando hay scroll o slide activa ≥ 1, el nav toma fondo oscuro */
 		.ia-nav.solid {
 			background: rgba(0, 0, 0, 0.75);
 			backdrop-filter: blur(20px);
@@ -135,7 +124,6 @@
 			border-bottom: 1px solid var(--border);
 		}
 
-		/* Logo */
 		.nav-logo {
 			display: flex;
 			align-items: center;
@@ -149,7 +137,6 @@
 			width: 36px;
 			object-fit: contain;
 			border-radius: 8px;
-			/* Fallback si no carga la imagen: círculo naranja con IA */
 			background: var(--orange);
 		}
 
@@ -157,7 +144,6 @@
 			font-size: 1rem;
 			font-weight: 600;
 			letter-spacing: 1px;
-			/* Tenue sin hover */
 			color: rgba(255, 255, 255, 0.45);
 			transition: color 0.3s ease;
 		}
@@ -166,7 +152,6 @@
 			color: var(--white);
 		}
 
-		/* Links nav */
 		.nav-links {
 			display: flex;
 			align-items: center;
@@ -182,25 +167,21 @@
 			letter-spacing: 1.5px;
 			text-transform: uppercase;
 			text-decoration: none;
-			/* Tenue por defecto — se ve pero no destaca */
 			color: rgba(255, 255, 255, 0.32);
 			border-radius: 6px;
 			transition: color 0.25s ease, background 0.25s ease;
 			position: relative;
 		}
 
-		/* Hover: casi brillante */
 		.nav-links a:hover {
 			color: rgba(255, 255, 255, 0.95);
 			background: rgba(255, 255, 255, 0.06);
 		}
 
-		/* Link activo */
 		.nav-links a.active {
 			color: var(--orange);
 		}
 
-		/* Línea inferior naranja al hover */
 		.nav-links a::after {
 			content: '';
 			position: absolute;
@@ -218,7 +199,6 @@
 			right: 14px;
 		}
 
-		/* CTA contacto */
 		.nav-cta {
 			font-size: 0.72rem !important;
 			border: 1px solid rgba(243, 160, 34, 0.35) !important;
@@ -238,7 +218,6 @@
 			display: none !important;
 		}
 
-		/* Botón hamburguesa móvil */
 		.nav-hamburger {
 			display: none;
 			background: transparent;
@@ -268,6 +247,67 @@
 			}
 		}
 
+		/* Menú móvil desplegable */
+		.mobile-menu {
+			display: none;
+			position: fixed;
+			top: 64px;
+			left: 0;
+			right: 0;
+			z-index: 999;
+			background: rgba(5, 5, 5, 0.97);
+			backdrop-filter: blur(24px);
+			-webkit-backdrop-filter: blur(24px);
+			border-bottom: 1px solid rgba(243, 160, 34, 0.15);
+			flex-direction: column;
+			padding: 12px 0 16px;
+			gap: 2px;
+			transform: translateY(-8px);
+			opacity: 0;
+			transition: transform 0.3s var(--ease), opacity 0.3s ease;
+		}
+
+		.mobile-menu.open {
+			display: flex;
+			transform: translateY(0);
+			opacity: 1;
+		}
+
+		.mobile-menu a {
+			display: block;
+			padding: 13px 24px;
+			font-size: 0.8rem;
+			font-weight: 500;
+			letter-spacing: 2px;
+			text-transform: uppercase;
+			text-decoration: none;
+			color: rgba(255, 255, 255, 0.5);
+			border-left: 2px solid transparent;
+			transition: all 0.2s ease;
+		}
+
+		.mobile-menu a:hover,
+		.mobile-menu a.active {
+			color: var(--orange);
+			border-left-color: var(--orange);
+			background: rgba(243, 160, 34, 0.04);
+		}
+
+		.mobile-menu a.nav-cta-mobile {
+			margin: 8px 24px 0;
+			border: 1px solid rgba(243, 160, 34, 0.4) !important;
+			border-left: 1px solid rgba(243, 160, 34, 0.4) !important;
+			color: var(--orange) !important;
+			border-radius: 40px !important;
+			text-align: center;
+			padding: 11px 20px !important;
+		}
+
+		.mobile-menu a.nav-cta-mobile:hover {
+			background: rgba(243, 160, 34, 0.1) !important;
+			border-left-color: rgba(243, 160, 34, 0.4) !important;
+		}
+
 		/* =========================================
            VIEWPORT DE LA NORIA
            ========================================= */
@@ -280,7 +320,7 @@
 		}
 
 		/* =========================================
-           SLIDES BASE (Optimizados sin lag)
+           SLIDES BASE
            ========================================= */
 		.slide {
 			position: absolute;
@@ -290,15 +330,10 @@
 			align-items: center;
 			justify-content: center;
 			padding: 80px 5% 60px;
-			/* will-change le avisa al navegador que use la tarjeta gráfica */
 			will-change: transform, opacity;
-
 			opacity: 0;
 			visibility: hidden;
 			transform: translateZ(300px) scale(1.1);
-			/* Reduje el scale un poco para que sea más suave */
-
-			/* Eliminamos el filter: blur() pesado que causa lag sobre imágenes */
 			transition:
 				transform var(--duration) var(--ease),
 				opacity var(--duration) var(--ease);
@@ -362,7 +397,6 @@
 			background: rgba(255, 255, 255, 0.5);
 		}
 
-		/* Etiqueta tooltip en dots */
 		.ndot-label {
 			position: absolute;
 			right: 20px;
@@ -382,7 +416,6 @@
 			opacity: 1;
 		}
 
-		/* Contador de slide */
 		.slide-counter {
 			position: fixed;
 			bottom: 28px;
@@ -398,7 +431,6 @@
 			color: var(--orange);
 		}
 
-		/* Hint scroll */
 		.scroll-hint {
 			position: fixed;
 			bottom: 28px;
@@ -428,20 +460,12 @@
 		}
 
 		@keyframes hintPulse {
-
-			0%,
-			100% {
-				opacity: 0.4;
-				transform: scaleY(1);
-			}
-
-			50% {
-				opacity: 1;
-				transform: scaleY(0.7);
-			}
+			0%, 100% { opacity: 0.4; transform: scaleY(1); }
+			50% { opacity: 1; transform: scaleY(0.7); }
 		}
+
 		/* =========================================
-           WHATSAPP: GLOBO DE TEXTO CORREGIDO
+           WHATSAPP
            ========================================= */
         .wa-float {
             position: fixed;
@@ -450,10 +474,10 @@
             z-index: 2000;
             width: 60px;
             height: 60px;
-            background: rgba(15, 15, 15, 0.8) !important; 
+            background: rgba(15, 15, 15, 0.8) !important;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            color: var(--orange) !important; 
+            color: var(--orange) !important;
             border: 2px solid var(--orange) !important;
             display: flex;
             align-items: center;
@@ -466,17 +490,15 @@
 
         .wa-msg {
             position: absolute;
-            right: 75px; /* Espacio desde el botón */
-            top: 50%;    /* Centrado vertical */
-            transform: translateY(-50%) translateX(20px); /* Alineación perfecta */
-            
+            right: 75px;
+            top: 50%;
+            transform: translateY(-50%) translateX(20px);
             background: rgba(10, 10, 10, 0.95);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(243, 160, 34, 0.5);
             color: #ffffff;
             padding: 12px 18px;
-            border-radius: 12px; /* Esquinas simétricas más modernas */
-            
+            border-radius: 12px;
             font-size: 0.85rem;
             line-height: 1.4;
             white-space: nowrap;
@@ -487,14 +509,13 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.6);
         }
 
-        /* Triangulito indicador centrado */
         .wa-msg::after {
             content: '';
             position: absolute;
             right: -6px;
             top: 50%;
             transform: translateY(-50%);
-            width: 0; 
+            width: 0;
             height: 0;
             border-left: 6px solid rgba(243, 160, 34, 0.5);
             border-top: 6px solid transparent;
@@ -507,14 +528,12 @@
             font-weight: 700;
         }
 
-        /* Animación al hacer Hover */
         .wa-float:hover .wa-msg {
             opacity: 1;
             visibility: visible;
-            transform: translateY(-50%) translateX(0); /* Se desliza suavemente */
+            transform: translateY(-50%) translateX(0);
         }
-        
-        /* Ajuste de hover para el botón mismo */
+
         .wa-float:hover {
             transform: scale(1.1);
             background: var(--orange) !important;
@@ -525,7 +544,6 @@
            SLIDE 1 — HERO
            ========================================= */
 		#slide-0 {
-			/* Solo dejamos el brillo naranja, quitamos el var(--black) */
 			background: radial-gradient(circle at center, rgba(243, 160, 34, 0.12) 0%, transparent 60%);
 		}
 
@@ -539,15 +557,14 @@
 		}
 
 		.hero-logo-wrap {
-            width: 100px !important; /* Aumentado de 140px a 180px */
+            width: 100px !important;
             height: 100px !important;
-            border-radius: 45px !important; /* Esquinas un poco más suaves */
+            border-radius: 45px !important;
             background: rgba(255, 255, 255, 0.05) !important;
             backdrop-filter: blur(15px) !important;
             -webkit-backdrop-filter: blur(15px) !important;
-            border: 1px solid rgba(243, 160, 34, 0.3) !important; /* Borde con toque naranja */
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5), 
-                        0 0 30px rgba(243, 160, 34, 0.15) !important;
+            border: 1px solid rgba(243, 160, 34, 0.3) !important;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 30px rgba(243, 160, 34, 0.15) !important;
             margin-bottom: 30px;
             display: flex;
             align-items: center;
@@ -555,26 +572,19 @@
         }
 
 		@keyframes logoPulse {
-
-			0%,
-			100% {
-				box-shadow: 0 0 0 0 rgba(243, 160, 34, 0);
-			}
-
-			50% {
-				box-shadow: 0 0 32px 6px rgba(243, 160, 34, 0.18);
-			}
+			0%, 100% { box-shadow: 0 0 0 0 rgba(243, 160, 34, 0); }
+			50% { box-shadow: 0 0 32px 6px rgba(243, 160, 34, 0.18); }
 		}
 
 		.hero-logo {
-            width: 230px !important; /* Imagen interna más grande */
+            width: 230px !important;
             height: 230px !important;
             object-fit: contain;
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3)); /* Sombra a la imagen misma */
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
         }
 
 		.hero-title {
-            font-size: clamp(2.5rem, 6vw, 4rem) !important; /* Tamaño dinámico imponente */
+            font-size: clamp(2.5rem, 6vw, 4rem) !important;
             font-weight: 200 !important;
             letter-spacing: -1px !important;
             line-height: 1.1 !important;
@@ -589,11 +599,11 @@
 
 		.hero-sub {
             font-size: 1.2rem !important;
-            color: rgba(255, 255, 255, 0.9) !important; /* Casi blanco puro */
+            color: rgba(255, 255, 255, 0.9) !important;
             max-width: 800px;
             line-height: 1.6 !important;
             font-weight: 300 !important;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5); /* Sombra para despegarlo del fondo */
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
 		.hero-cta {
@@ -625,15 +635,8 @@
 		}
 
 		@keyframes arrowBounce {
-
-			0%,
-			100% {
-				transform: translateY(0);
-			}
-
-			50% {
-				transform: translateY(4px);
-			}
+			0%, 100% { transform: translateY(0); }
+			50% { transform: translateY(4px); }
 		}
 
 		/* =========================================
@@ -734,11 +737,8 @@
 
 		.sol-item p {
 			font-size: 0.95rem !important;
-			/* De 0.73 a 0.95 (Mucho más legible) */
 			color: rgba(255, 255, 255, 0.55) !important;
-			/* De 0.32 a 0.85 (Mucho más blanco) */
 			line-height: 1.6 !important;
-			/* Más espacio entre líneas */
 			text-align: center;
 		}
 
@@ -755,7 +755,7 @@
 		}
 
 		/* =========================================
-           SLIDE 3 — DEMOS (grilla iPhone)
+           SLIDE 3 — DEMOS
            ========================================= */
 		#slide-2 {
 			background: transparent;
@@ -837,30 +837,22 @@
 		}
 
 		.demo-icon-wrap {
-            /* 1. Aumentamos el tamaño del círculo/contenedor */
-            width: 85px !important; 
+            width: 85px !important;
             height: 85px !important;
             margin-bottom: 20px !important;
-            
-            /* 2. Fondo y bordes más nítidos */
             background: rgba(243, 160, 34, 0.05) !important;
             border: 1.5px solid rgba(243, 160, 34, 0.4) !important;
-            border-radius: 22px !important; /* Esquinas más modernas */
-            
+            border-radius: 22px !important;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.4s ease !important;
-            
-            /* Brillo interno para efecto HD */
             box-shadow: inset 0 0 15px rgba(243, 160, 34, 0.1) !important;
         }
-		/* 3. Ajuste específico del icono (HD Glow) */
+
         .demo-icon-wrap i {
-            font-size: 2.4rem !important; /* Icono mucho más grande */
+            font-size: 2.4rem !important;
             color: var(--orange) !important;
-            
-            /* EFECTO HD: Sombra de alta definición que hace que el icono "brille" */
             filter: drop-shadow(0 0 10px rgba(243, 160, 34, 0.5)) !important;
             -webkit-filter: drop-shadow(0 0 10px rgba(243, 160, 34, 0.5)) !important;
         }
@@ -874,15 +866,13 @@
 
 		.demo-cell:hover .demo-icon-wrap i {
             color: #000000 !important;
-            filter: none !important; /* Quitamos el brillo cuando el fondo es naranja sólido */
+            filter: none !important;
         }
 
-		/* Ajuste del nombre para que no quede pegado al icono grande */
         .demo-name {
             font-size: 1rem !important;
             margin-top: 5px;
         }
-
 
 		/* =========================================
            SLIDE 4 — PLANES
@@ -953,7 +943,6 @@
 			transform: translateY(-5px) !important;
 		}
 
-
 		.plan-icon {
 			width: 44px !important;
 			height: 44px !important;
@@ -962,12 +951,9 @@
 			align-items: center;
 			justify-content: center;
 			font-size: 1.2rem !important;
-
-			/* Colores neutros */
 			background: rgba(255, 255, 255, 0.05) !important;
 			border: 1px solid rgba(255, 255, 255, 0.1) !important;
 			color: rgba(255, 255, 255, 0.4) !important;
-
 			margin-bottom: 20px !important;
 			transition: all 0.3s ease !important;
 		}
@@ -1023,7 +1009,6 @@
 
 		.plan-features {
 			flex-grow: 1 !important;
-			/* Esto empuja todo lo que esté abajo hacia el fondo */
 			list-style: none;
 			padding: 0;
 			margin-bottom: 25px !important;
@@ -1048,7 +1033,6 @@
 
 		.plan-btn {
 			margin-top: auto !important;
-			/* ¡ESTO es lo que alinea todos los botones abajo! */
 			background: rgba(243, 160, 34, 0.1) !important;
 			border: 1px solid var(--orange) !important;
 			color: var(--orange) !important;
@@ -1064,17 +1048,11 @@
 		}
 
 		.plan-btn:hover {
-			background: rgba(243, 160, 34, 0.12);
-			border-color: var(--orange);
-		}
-
-		.plan-btn:hover {
 			background: var(--orange) !important;
 			color: #000000 !important;
 			transform: scale(1.02);
 		}
 
-		/* Card confianza (última) */
 		.plan-card.trust {
 			border-color: rgba(255, 255, 255, 0.06);
 			background: rgba(255, 255, 255, 0.015);
@@ -1254,7 +1232,7 @@
 		}
 
 		/* =========================================
-           MODALES DE DEMO — OVERLAY
+           MODALES DE DEMO
            ========================================= */
 		.demo-overlay {
 			position: fixed;
@@ -1280,9 +1258,9 @@
             background: #0c0c0c;
             border: 1px solid rgba(243, 160, 34, 0.2);
             border-radius: 28px;
-            width: 95%;           /* Casi todo el ancho en móviles */
-            max-width: 700px;     /* Aumentado de 500px a 700px para PC/Mac */
-            max-height: 85vh;     /* Altura máxima basada en la pantalla */
+            width: 95%;
+            max-width: 700px;
+            max-height: 85vh;
             overflow-y: auto;
             position: relative;
             transform: scale(.92) translateY(20px);
@@ -1291,8 +1269,7 @@
             box-shadow: 0 30px 60px rgba(0,0,0,0.8);
         }
 
-		/* Agrandar contenidos internos del modal para que no se vean vacíos */
-        .dm-title { font-size: 1.3rem !important; } /* Título más grande */
+        .dm-title { font-size: 1.3rem !important; }
         .auto-step-name { font-size: 1rem !important; }
         .chat-bubble { font-size: 0.95rem !important; }
         .diag-question { font-size: 1.1rem !important; }
@@ -1378,7 +1355,6 @@
 			padding: 0 24px 24px;
 		}
 
-		/* Diagnóstico */
 		.diag-question {
 			font-size: .88rem;
 			color: rgba(255, 255, 255, 0.7);
@@ -1496,7 +1472,6 @@
 			background: var(--orange);
 		}
 
-		/* Automatización */
 		.auto-desc {
 			font-size: .82rem;
 			color: rgba(255, 255, 255, 0.45);
@@ -1622,7 +1597,6 @@
 			opacity: .4;
 		}
 
-		/* Chat */
 		.chat-messages {
 			height: 220px;
 			overflow-y: auto;
@@ -1644,15 +1618,8 @@
 		}
 
 		@keyframes bubbleIn {
-			from {
-				opacity: 0;
-				transform: translateY(8px);
-			}
-
-			to {
-				opacity: 1;
-				transform: translateY(0);
-			}
+			from { opacity: 0; transform: translateY(8px); }
+			to { opacity: 1; transform: translateY(0); }
 		}
 
 		.chat-bubble.ia {
@@ -1687,26 +1654,12 @@
 			animation: typingPulse 1.2s infinite;
 		}
 
-		.typing-dot:nth-child(2) {
-			animation-delay: .2s;
-		}
-
-		.typing-dot:nth-child(3) {
-			animation-delay: .4s;
-		}
+		.typing-dot:nth-child(2) { animation-delay: .2s; }
+		.typing-dot:nth-child(3) { animation-delay: .4s; }
 
 		@keyframes typingPulse {
-
-			0%,
-			100% {
-				opacity: .2;
-				transform: scale(1);
-			}
-
-			50% {
-				opacity: 1;
-				transform: scale(1.3);
-			}
+			0%, 100% { opacity: .2; transform: scale(1); }
+			50% { opacity: 1; transform: scale(1.3); }
 		}
 
 		.chat-input-row {
@@ -1728,13 +1681,8 @@
 			transition: border-color .3s;
 		}
 
-		.chat-input:focus {
-			border-color: rgba(243, 160, 34, 0.35);
-		}
-
-		.chat-input::placeholder {
-			color: rgba(255, 255, 255, 0.2);
-		}
+		.chat-input:focus { border-color: rgba(243, 160, 34, 0.35); }
+		.chat-input::placeholder { color: rgba(255, 255, 255, 0.2); }
 
 		.chat-send {
 			width: 40px;
@@ -1751,9 +1699,7 @@
 			transition: opacity .3s;
 		}
 
-		.chat-send:hover {
-			opacity: .85;
-		}
+		.chat-send:hover { opacity: .85; }
 
 		.chat-status {
 			font-size: .58rem;
@@ -1764,7 +1710,6 @@
 			margin-top: 10px;
 		}
 
-		/* Dashboard */
 		.dash-kpis {
 			display: grid;
 			grid-template-columns: repeat(3, 1fr);
@@ -1847,11 +1792,8 @@
 			line-height: 1.6;
 		}
 
-		.dash-insight strong {
-			color: var(--orange);
-		}
+		.dash-insight strong { color: var(--orange); }
 
-		/* Optimización */
 		.sort-desc {
 			font-size: .82rem;
 			color: rgba(255, 255, 255, 0.4);
@@ -1892,9 +1834,7 @@
 			transition: color .5s;
 		}
 
-		.sort-row.highlight .sort-rank {
-			color: var(--orange);
-		}
+		.sort-row.highlight .sort-rank { color: var(--orange); }
 
 		.sort-name {
 			flex: 1;
@@ -1917,9 +1857,7 @@
 			transition: width 1s cubic-bezier(.22, 1, .36, 1), background .5s;
 		}
 
-		.sort-row.highlight .sort-bar-fill {
-			background: var(--orange);
-		}
+		.sort-row.highlight .sort-bar-fill { background: var(--orange); }
 
 		.sort-val {
 			font-size: .72rem;
@@ -1930,9 +1868,7 @@
 			transition: color .5s;
 		}
 
-		.sort-row.highlight .sort-val {
-			color: var(--orange);
-		}
+		.sort-row.highlight .sort-val { color: var(--orange); }
 
 		.sort-run-btn {
 			width: 100%;
@@ -1953,11 +1889,8 @@
 			transition: all .3s;
 		}
 
-		.sort-run-btn:hover {
-			background: rgba(243, 160, 34, 0.15);
-		}
+		.sort-run-btn:hover { background: rgba(243, 160, 34, 0.15); }
 
-		/* Ecosistema */
 		.eco-desc {
 			font-size: .82rem;
 			color: rgba(255, 255, 255, 0.4);
@@ -1985,24 +1918,10 @@
 			transition: all .3s;
 		}
 
-		.eco-link:hover {
-			transform: translateX(4px);
-		}
-
-		.eco-link.sushi:hover {
-			border-color: rgba(243, 160, 34, 0.4);
-			background: rgba(243, 160, 34, 0.05);
-		}
-
-		.eco-link.ferr:hover {
-			border-color: rgba(0, 209, 255, 0.3);
-			background: rgba(0, 209, 255, 0.04);
-		}
-
-		.eco-link.tur:hover {
-			border-color: rgba(201, 168, 76, 0.35);
-			background: rgba(201, 168, 76, 0.05);
-		}
+		.eco-link:hover { transform: translateX(4px); }
+		.eco-link.sushi:hover { border-color: rgba(243, 160, 34, 0.4); background: rgba(243, 160, 34, 0.05); }
+		.eco-link.ferr:hover { border-color: rgba(0, 209, 255, 0.3); background: rgba(0, 209, 255, 0.04); }
+		.eco-link.tur:hover { border-color: rgba(201, 168, 76, 0.35); background: rgba(201, 168, 76, 0.05); }
 
 		.eco-link-ico {
 			width: 44px;
@@ -2018,31 +1937,12 @@
 			transition: all .3s;
 		}
 
-		.eco-link.sushi:hover .eco-link-ico {
-			background: rgba(243, 160, 34, 0.12);
-			border-color: rgba(243, 160, 34, 0.3);
-		}
+		.eco-link.sushi:hover .eco-link-ico { background: rgba(243, 160, 34, 0.12); border-color: rgba(243, 160, 34, 0.3); }
+		.eco-link.ferr:hover .eco-link-ico { background: rgba(0, 209, 255, 0.1); border-color: rgba(0, 209, 255, 0.3); }
+		.eco-link.tur:hover .eco-link-ico { background: rgba(201, 168, 76, 0.1); border-color: rgba(201, 168, 76, 0.3); }
 
-		.eco-link.ferr:hover .eco-link-ico {
-			background: rgba(0, 209, 255, 0.1);
-			border-color: rgba(0, 209, 255, 0.3);
-		}
-
-		.eco-link.tur:hover .eco-link-ico {
-			background: rgba(201, 168, 76, 0.1);
-			border-color: rgba(201, 168, 76, 0.3);
-		}
-
-		.eco-link-name {
-			font-size: .85rem;
-			font-weight: 500;
-			margin-bottom: 3px;
-		}
-
-		.eco-link-sub {
-			font-size: .7rem;
-			color: rgba(255, 255, 255, 0.3);
-		}
+		.eco-link-name { font-size: .85rem; font-weight: 500; margin-bottom: 3px; }
+		.eco-link-sub { font-size: .7rem; color: rgba(255, 255, 255, 0.3); }
 
 		.eco-link-arrow {
 			margin-left: auto;
@@ -2051,11 +1951,7 @@
 			transition: all .3s;
 		}
 
-		.eco-link:hover .eco-link-arrow {
-			color: var(--white);
-			transform: translateX(3px);
-		}
-
+		.eco-link:hover .eco-link-arrow { color: var(--white); transform: translateX(3px); }
 
 		/* Ajuste global de legibilidad */
 		.sol-sub,
@@ -2064,30 +1960,19 @@
 		.form-sub,
 		.plan-desc {
 			color: rgb(255, 255, 255) !important;
-			/* Antes estaba en 0.35, muy tenue */
 			font-size: 0.85rem !important;
-			/* Un poco más grande */
 			font-weight: 400 !important;
-			/* Un poco más de peso */
 		}
 
 		.demo-name {
 			font-size: 0.8rem !important;
-			/* Antes 0.68rem */
 			color: rgba(255, 255, 255, 0.9) !important;
-			/* Más brillante */
 		}
 
-		/* =========================================
-           CORRECCIONES DE LEGIBILIDAD (FORMULARIOS, DEMOS Y TEXTOS)
-           ========================================= */
-
-		/* 1. EL FORMULARIO (Labels, Inputs y Placeholders) */
+		/* Correcciones de legibilidad */
 		.form-field label {
 			color: rgba(255, 255, 255, 0.95) !important;
-			/* Blanco casi puro */
 			font-size: 0.75rem !important;
-			/* Más grande */
 			font-weight: 600 !important;
 			letter-spacing: 1px !important;
 		}
@@ -2096,40 +1981,30 @@
 		.form-field textarea,
 		.form-field select {
 			background: rgba(0, 0, 0, 0.9) !important;
-			/* Fondo más oscurito para que resalte la caja */
 			border: 1px solid rgba(255, 255, 255, 0.3) !important;
-			/* Borde mucho más visible */
 			color: #ffffff !important;
-			/* Texto que escribe el usuario blanco puro */
 			font-size: 0.95rem !important;
 		}
 
 		.form-field input::placeholder,
 		.form-field textarea::placeholder {
 			color: rgba(255, 255, 255, 0.65) !important;
-			/* El texto de ayuda "Tu nombre" mucho más claro */
 		}
 
-		/* 2. LAS DEMOS Y TÍTULOS PEQUEÑOS */
 		.demo-name {
 			color: #ffffff !important;
-			/* Blanco puro siempre (ya no solo al pasar el mouse) */
 			font-size: 0.95rem !important;
-			/* Más grande en PC */
 			font-weight: 900 !important;
 		}
 
-		/* Las "cejas" (textos naranjas pequeños arriba de los títulos) */
 		.demos-eyebrow,
 		.planes-eyebrow,
 		.form-eyebrow {
 			font-size: 0.75rem !important;
 			font-weight: 600 !important;
 			opacity: 1 !important;
-			/* Le quitamos la transparencia para que el naranja brille */
 		}
 
-		/* 3. SUBTÍTULOS, DESCRIPCIONES Y LISTAS EN GENERAL */
 		.sol-sub,
 		.demos-hint,
 		.planes-sub,
@@ -2138,48 +2013,16 @@
 		.plan-features li,
 		.form-legal {
 			color: rgba(255, 255, 255, 0.85) !important;
-			/* De pálidos a casi blancos */
 			font-size: 0.9rem !important;
-			/* Agrandamos el texto base */
 			font-weight: 400 !important;
-		}
-
-		/* 4. ADAPTACIÓN PARA CELULARES (Pantallas menores a 768px) */
-		@media (max-width: 768px) {
-			.form-field label {
-				font-size: 0.65rem !important;
-			}
-
-			.form-field input,
-			.form-field textarea {
-				font-size: 0.85rem !important;
-			}
-
-			.demo-name {
-				font-size: 0.8rem !important;
-			}
-
-			.sol-sub,
-			.demos-hint,
-			.planes-sub,
-			.form-sub,
-			.plan-desc,
-			.plan-features li,
-			.form-legal {
-				font-size: 0.8rem !important;
-				/* Lo mantenemos legible pero adaptado a móviles */
-			}
 		}
 
 		/* =========================================
            NAVEGACIÓN INTERNA DE SLIDES
            ========================================= */
-
-		/* Botón Volver (Arriba) */
 		.slide-nav-prev {
 			position: absolute;
 			top: 85px;
-			/* Justo debajo del nav fijo */
 			left: 50%;
 			transform: translateX(-50%);
 			background: rgba(255, 255, 255, 0.05);
@@ -2203,13 +2046,10 @@
 			color: #fff;
 			border-color: rgba(255, 255, 255, 0.3);
 			top: 80px;
-			/* Pequeño salto hacia arriba */
 		}
 
-		/* Botón Siguiente (Abajo) */
 		.slide-nav-next {
 			margin-top: 40px;
-			/* Espacio después del contenido */
 			background: transparent;
 			border: 1px solid rgba(243, 160, 34, 0.4);
 			color: var(--orange);
@@ -2230,7 +2070,6 @@
 			background: rgba(243, 160, 34, 0.1);
 			border-color: var(--orange);
 			transform: translateY(5px);
-			/* Salto hacia abajo */
 		}
 
 		.slide-nav-next i {
@@ -2239,69 +2078,349 @@
 		}
 
 		@keyframes arrowNextPulse {
-
-			0%,
-			100% {
-				transform: translateY(0);
-			}
-
-			50% {
-				transform: translateY(5px);
-			}
+			0%, 100% { transform: translateY(0); }
+			50% { transform: translateY(5px); }
 		}
 
 		/* =========================================
-   AJUSTES CRÍTICOS PARA MÓVIL (Smart Scroll)
-   ========================================= */
-@media (max-width: 768px) {
-    html, body {
-        overflow: hidden; /* Evita rebotes extraños */
-    }
+		   MOBILE — AJUSTES VISUALES COMPLETOS
+		   ========================================= */
+		@media (max-width: 768px) {
 
-    .slide {
-        padding: 70px 20px 100px !important; /* Más aire para que no tape el Nav ni el WA */
-        justify-content: flex-start !important; /* Alinea al inicio para permitir scroll */
-        overflow-y: auto !important; /* PERMITE SCROLL INTERNO */
-        -webkit-overflow-scrolling: touch;
-    }
+			/* --- BASE: Slides con scroll interno --- */
+			html, body {
+				overflow: hidden;
+			}
 
-    /* Reducir el Hero Logo que ocupa media pantalla */
-    .hero-logo-wrap {
-        width: 100px !important;
-        height: 100px !important;
-        margin-top: 20px;
-    }
-    .hero-logo { width: 70px !important; height: 70px !important; }
-    .hero-title { font-size: 1.8rem !important; margin-top: 10px; }
+			.slide {
+				padding: 72px 16px 90px !important;
+				justify-content: flex-start !important;
+				overflow-y: auto !important;
+				-webkit-overflow-scrolling: touch;
+				align-items: center;
+			}
 
-    /* Grillas: Una sola columna para que se lea bien */
-    .sol-grid, .demos-grid, .planes-grid {
-        grid-template-columns: 1fr !important;
-        gap: 15px !important;
-    }
+			/* --- SLIDE 1: HERO --- */
+			.hero-wrap {
+				gap: 16px !important;
+				padding-top: 10px;
+			}
 
-    /* Modales: Que ocupen casi toda la pantalla */
-    .demo-modal {
-        width: 95% !important;
-        max-height: 90vh !important;
-    }
+			.hero-logo-wrap {
+				width: 80px !important;
+				height: 80px !important;
+				border-radius: 28px !important;
+				margin-bottom: 8px !important;
+			}
 
-    /* Botones de navegación interna */
-    .slide-nav-prev { top: 65px !important; font-size: 0.55rem !important; }
-    .slide-nav-next { margin-top: 20px !important; margin-bottom: 40px !important; }
+			.hero-logo {
+				width: 60px !important;
+				height: 60px !important;
+			}
 
-    /* Ocultar elementos que molestan en móvil */
-    .nav-dots { right: 10px !important; transform: translateY(-50%) scale(0.8); }
-    .slide-counter { bottom: 15px !important; font-size: 0.5rem !important; }
-    
-    /* WhatsApp: un poco más pequeño para no tapar el formulario */
-    .wa-float {
-        width: 50px !important;
-        height: 50px !important;
-        bottom: 15px !important;
-        right: 15px !important;
-    }
-}
+			.hero-title {
+				font-size: clamp(1.7rem, 7vw, 2.2rem) !important;
+				line-height: 1.15 !important;
+				letter-spacing: -0.5px !important;
+				margin-bottom: 8px !important;
+			}
+
+			.hero-sub {
+				font-size: 0.92rem !important;
+				line-height: 1.5 !important;
+				padding: 0 4px;
+			}
+
+			.slide-nav-next {
+				margin-top: 20px !important;
+				padding: 11px 22px !important;
+				font-size: 0.68rem !important;
+				letter-spacing: 1.5px !important;
+			}
+
+			/* --- SLIDE 2: SOLUCIONES --- */
+			.sol-wrap {
+				gap: 18px !important;
+			}
+
+			.sol-title {
+				font-size: clamp(1.2rem, 5vw, 1.6rem) !important;
+			}
+
+			.sol-sub {
+				font-size: 0.82rem !important;
+			}
+
+			.sol-grid {
+				grid-template-columns: 1fr 1fr !important;
+				gap: 10px !important;
+			}
+
+			.sol-item {
+				padding: 16px 12px !important;
+			}
+
+			.sol-icon {
+				width: 48px !important;
+				height: 48px !important;
+				font-size: 1.2rem !important;
+				margin-bottom: 10px !important;
+			}
+
+			.sol-item h3 {
+				font-size: 0.78rem !important;
+				margin-bottom: 6px !important;
+			}
+
+			.sol-item p {
+				font-size: 0.75rem !important;
+				line-height: 1.5 !important;
+			}
+
+			/* --- SLIDE 3: DEMOS --- */
+			.demos-wrap {
+				gap: 12px !important;
+			}
+
+			.demos-title {
+				font-size: clamp(1.2rem, 5vw, 1.6rem) !important;
+			}
+
+			.demos-grid {
+				grid-template-columns: repeat(3, 1fr) !important;
+				gap: 10px !important;
+				margin-top: 10px !important;
+			}
+
+			.demo-cell {
+				aspect-ratio: 1 !important;
+				border-radius: 14px !important;
+				gap: 6px !important;
+			}
+
+			.demo-icon-wrap {
+				width: 44px !important;
+				height: 44px !important;
+				border-radius: 12px !important;
+				margin-bottom: 0 !important;
+			}
+
+			.demo-icon-wrap i {
+				font-size: 1.3rem !important;
+			}
+
+			.demo-name {
+				font-size: 0.65rem !important;
+				font-weight: 600 !important;
+				text-align: center;
+				line-height: 1.2;
+			}
+
+			/* --- SLIDE 4: PLANES --- */
+			.planes-wrap {
+				gap: 14px !important;
+			}
+
+			.planes-title {
+				font-size: clamp(1.2rem, 5vw, 1.6rem) !important;
+			}
+
+			.planes-sub {
+				font-size: 0.78rem !important;
+			}
+
+			.planes-grid {
+				grid-template-columns: 1fr 1fr !important;
+				gap: 10px !important;
+			}
+
+			.plan-card {
+				padding: 16px 14px 14px !important;
+				gap: 8px !important;
+				border-radius: 14px !important;
+			}
+
+			.plan-icon {
+				width: 36px !important;
+				height: 36px !important;
+				font-size: 1rem !important;
+				margin-bottom: 6px !important;
+				border-radius: 9px !important;
+			}
+
+			.plan-name {
+				font-size: 0.85rem !important;
+			}
+
+			.plan-desc {
+				font-size: 0.72rem !important;
+				line-height: 1.4 !important;
+				margin-bottom: 8px !important;
+			}
+
+			.plan-amount {
+				font-size: 1.1rem !important;
+			}
+
+			.plan-desde {
+				font-size: 0.6rem !important;
+			}
+
+			.plan-features {
+				margin-bottom: 10px !important;
+			}
+
+			.plan-features li {
+				font-size: 0.65rem !important;
+				line-height: 1.3 !important;
+			}
+
+			.plan-btn {
+				padding: 10px !important;
+				font-size: 0.65rem !important;
+				border-radius: 10px !important;
+			}
+
+			/* --- SLIDE 5: FORMULARIO --- */
+			.form-wrap {
+				gap: 16px !important;
+				padding: 0 2px;
+			}
+
+			.form-title {
+				font-size: clamp(1.2rem, 5vw, 1.6rem) !important;
+			}
+
+			.form-sub {
+				font-size: 0.78rem !important;
+			}
+
+			.ia-form {
+				gap: 10px !important;
+			}
+
+			.form-row {
+				grid-template-columns: 1fr 1fr !important;
+				gap: 10px !important;
+			}
+
+			.form-field input,
+			.form-field textarea,
+			.form-field select {
+				padding: 10px 12px !important;
+				font-size: 0.85rem !important;
+			}
+
+			.form-field textarea {
+				height: 75px !important;
+			}
+
+			.btn-submit {
+				padding: 13px !important;
+				font-size: 0.72rem !important;
+			}
+
+			.form-legal {
+				font-size: 0.58rem !important;
+			}
+
+			/* --- BOTONES DE NAVEGACIÓN INTERNA --- */
+			.slide-nav-prev {
+				top: 70px !important;
+				font-size: 0.52rem !important;
+				padding: 5px 12px !important;
+				letter-spacing: 1px !important;
+				/* Desplazamos al borde izquierdo para no solapar el título */
+				left: 16px !important;
+				transform: none !important;
+				right: auto !important;
+			}
+
+			/* El contenido del slide arranca después del botón volver */
+			.sol-wrap,
+			.demos-wrap,
+			.planes-wrap,
+			.form-wrap {
+				margin-top: 38px !important;
+			}
+
+			/* --- MODALES: Ocupar bien la pantalla --- */
+			.demo-modal {
+				width: 96% !important;
+				max-height: 88vh !important;
+				border-radius: 20px !important;
+			}
+
+			.dm-head { padding: 18px 18px 0 !important; }
+			.dm-body { padding: 0 18px 18px !important; }
+			.dm-title { font-size: 0.95rem !important; }
+			.diag-question { font-size: 0.88rem !important; }
+			.diag-btn { padding: 11px 14px !important; font-size: 0.8rem !important; }
+			.auto-step-name { font-size: 0.78rem !important; }
+
+			/* --- NAV DOTS: Discreta en móvil --- */
+			.nav-dots {
+				right: 8px !important;
+			}
+
+			.ndot {
+				width: 5px !important;
+				height: 5px !important;
+			}
+
+			.ndot-label {
+				display: none !important;
+			}
+
+			/* --- CONTADOR: Más pequeño --- */
+			.slide-counter {
+				bottom: 12px !important;
+				font-size: 0.5rem !important;
+				left: 50% !important;
+				transform: translateX(-50%) !important;
+			}
+
+			/* --- SCROLL HINT: Oculto en móvil (usan botones) --- */
+			.scroll-hint {
+				display: none !important;
+			}
+
+			/* --- WHATSAPP: Compacto para no obstruir --- */
+			.wa-float {
+				width: 48px !important;
+				height: 48px !important;
+				bottom: 14px !important;
+				right: 14px !important;
+				font-size: 1.4rem !important;
+			}
+
+			.wa-msg {
+				display: none !important;
+			}
+		}
+
+		/* Pantallas muy pequeñas (320px–374px) */
+		@media (max-width: 374px) {
+			.sol-grid {
+				grid-template-columns: 1fr !important;
+			}
+
+			.planes-grid {
+				grid-template-columns: 1fr !important;
+			}
+
+			.form-row {
+				grid-template-columns: 1fr !important;
+			}
+
+			.demos-grid {
+				grid-template-columns: repeat(2, 1fr) !important;
+			}
+
+			.hero-title {
+				font-size: 1.5rem !important;
+			}
+		}
 	</style>
 </head>
 
@@ -2314,7 +2433,6 @@
 	<!-- NAV -->
 	<nav class="ia-nav solid" id="ia-nav">
 		<a href="/" class="nav-logo">
-			<!-- Imagen del logo — si no carga, muestra fondo naranja -->
 			<img src="assets/images/logoprincipal.jpeg" alt="IAsesoria" onerror="this.style.display='none'">
 			<span class="nav-logo-text">IAsesoria</span>
 		</a>
@@ -2327,10 +2445,19 @@
 			<li><a href="#" onclick="goTo(4,event)" class="nav-cta">Contacto</a></li>
 		</ul>
 
-		<button class="nav-hamburger" onclick="toggleMobileMenu()" title="Menú">
-			<i class="fas fa-bars"></i>
+		<button class="nav-hamburger" onclick="toggleMobileMenu()" title="Menú" id="nav-hamburger">
+			<i class="fas fa-bars" id="hamburger-icon"></i>
 		</button>
 	</nav>
+
+	<!-- MENÚ MÓVIL DESPLEGABLE -->
+	<div class="mobile-menu" id="mobile-menu">
+		<a href="#" onclick="goTo(0,event);closeMobileMenu()">Inicio</a>
+		<a href="#" onclick="goTo(1,event);closeMobileMenu()">Soluciones</a>
+		<a href="#" onclick="goTo(2,event);closeMobileMenu()">Demos</a>
+		<a href="#" onclick="goTo(3,event);closeMobileMenu()">Planes</a>
+		<a href="#" onclick="goTo(4,event);closeMobileMenu()" class="nav-cta-mobile">Contacto</a>
+	</div>
 
 	<!-- VIEWPORT NORIA -->
 	<div class="noria-viewport" id="noria">
@@ -2346,10 +2473,9 @@
 					Impulsamos su <em>visión</em>,<br>para crear la <em>solución</em>
 				</h1>
 				<p class="hero-sub">
-					Con innovación e inteligencia, nacen soluciones<br>
-					nos comprometemos con su desarrollo para alcanzar sus metas
+					Con innovación e inteligencia, nacen soluciones.<br>
+					Nos comprometemos con su desarrollo para alcanzar sus metas.
 				</p>
-				<!-- Botón Siguiente -->
 				<button class="slide-nav-next" onclick="goTo(1)">
 					Descubrir soluciones <i class="fas fa-arrow-down"></i>
 				</button>
@@ -2358,7 +2484,6 @@
 
 		<!-- ======= SLIDE 2: SOLUCIONES ======= -->
 		<div class="slide" id="slide-1">
-			<!-- Botón Volver -->
 			<button class="slide-nav-prev" onclick="goTo(0)">
 				<i class="fas fa-arrow-up"></i> Volver al Inicio
 			</button>
@@ -2396,7 +2521,6 @@
 							especializado por horas para optimizar cada proceso de su negocio.</p>
 					</div>
 				</div>
-				<!-- Botón Siguiente -->
 				<button class="slide-nav-next" onclick="goTo(2)">
 					Probar Demos Interactivas <i class="fas fa-arrow-down"></i>
 				</button>
@@ -2405,7 +2529,6 @@
 
 		<!-- ======= SLIDE 3: DEMOS ======= -->
 		<div class="slide" id="slide-2">
-			<!-- Botón Volver -->
 			<button class="slide-nav-prev" onclick="goTo(1)">
 				<i class="fas fa-arrow-up"></i> Ver Soluciones
 			</button>
@@ -2441,8 +2564,7 @@
 						<span class="demo-name">Ecosistema</span>
 					</a>
 				</div>
-				<p class="demos-hint">Selecciona una demo para explorarla</p>
-				<!-- Botón Siguiente -->
+				<p class="demos-hint">Seleccione una demo para explorarla</p>
 				<button class="slide-nav-next" onclick="goTo(3)">
 					Ver Planes y Precios <i class="fas fa-arrow-down"></i>
 				</button>
@@ -2451,7 +2573,6 @@
 
 		<!-- ======= SLIDE 4: PLANES ======= -->
 		<div class="slide" id="slide-3">
-			<!-- Botón Volver -->
 			<button class="slide-nav-prev" onclick="goTo(2)">
 				<i class="fas fa-arrow-up"></i> Volver a Demos
 			</button>
@@ -2459,17 +2580,16 @@
 			<div class="planes-wrap">
 				<div class="planes-head">
 					<p class="planes-eyebrow">Servicios de Eficiencia Digital</p>
-					<h2 class="planes-title">Planes a tu medida</h2>
-					<p class="planes-sub">Soluciones diseñadas para escalar tus procesos con Inteligencia Artificial.
+					<h2 class="planes-title">Planes a su medida</h2>
+					<p class="planes-sub">Soluciones diseñadas para escalar sus procesos con Inteligencia Artificial.
 					</p>
 				</div>
 
 				<div class="planes-grid">
-					<!-- Plan 1 -->
 					<div class="plan-card">
 						<div class="plan-icon"><i class="fas fa-database"></i></div>
 						<div class="plan-name">Gestión de Datos</div>
-						<div class="plan-desc">Transforma tus datos en información con valor y accionable.</div>
+						<div class="plan-desc">Transforme sus datos en información con valor y accionable.</div>
 						<div class="plan-price">
 							<span class="plan-desde">Desde</span>
 							<span class="plan-amount">$140.000</span>
@@ -2483,11 +2603,10 @@
 						<a href="/?servicio=gestion-datos#five" class="plan-btn">Consultar IA</a>
 					</div>
 
-					<!-- Plan 2 -->
 					<div class="plan-card">
 						<div class="plan-icon"><i class="fas fa-robot"></i></div>
 						<div class="plan-name">Gestión Ágil e Inteligente</div>
-						<div class="plan-desc">Asiste a tu negocio con IA, libérate de tareas repetitivas.</div>
+						<div class="plan-desc">Asista a su negocio con IA, libérese de tareas repetitivas.</div>
 						<div class="plan-price">
 							<span class="plan-desde">Desde</span>
 							<span class="plan-amount">$90.000</span>
@@ -2501,11 +2620,10 @@
 						<a href="/?servicio=automatizacion#five" class="plan-btn">Consultar IA</a>
 					</div>
 
-					<!-- Plan 3 -->
 					<div class="plan-card">
 						<div class="plan-icon"><i class="fas fa-handshake"></i></div>
 						<div class="plan-name">Consultoría Estratégica</div>
-						<div class="plan-desc">Asesoría personalizada para digitalizar tu negocio.</div>
+						<div class="plan-desc">Asesoría personalizada para digitalizar su negocio.</div>
 						<div class="plan-price">
 							<span class="plan-desde">Desde</span>
 							<span class="plan-amount">$30.000</span>
@@ -2519,11 +2637,10 @@
 						<a href="/?servicio=consultoria#five" class="plan-btn">Consultar IA</a>
 					</div>
 
-					<!-- Plan 4 -->
 					<div class="plan-card trust">
 						<div class="plan-icon"><i class="fas fa-comments"></i></div>
 						<div class="plan-name">¿Primera vez con IA?</div>
-						<div class="plan-desc">Conversemos sin compromiso. Nuestra IA responderá en minutos.</div>
+						<div class="plan-desc">Conversemos sin compromiso. Nuestra IA le responderá en minutos.</div>
 						<div class="plan-price">
 							<span class="plan-amount" style="font-size:1.5rem;">Gratis</span>
 						</div>
@@ -2535,7 +2652,6 @@
 						<a href="/?servicio=consulta-rapida#five" class="plan-btn">Consultar IA</a>
 					</div>
 				</div>
-				<!-- Botón Siguiente -->
 				<button class="slide-nav-next" onclick="goTo(4)">
 					Iniciar Transformación <i class="fas fa-arrow-down"></i>
 				</button>
@@ -2544,7 +2660,6 @@
 
 		<!-- ======= SLIDE 5: FORMULARIO ======= -->
 		<div class="slide" id="slide-4">
-			<!-- Botón Volver -->
 			<button class="slide-nav-prev" onclick="goTo(3)">
 				<i class="fas fa-arrow-up"></i> Revisar Planes
 			</button>
@@ -2554,7 +2669,7 @@
 					<br>
 					<p class="form-eyebrow"><br>Inicio de transformación</p>
 					<h2 class="form-title">Inicie su transformación</h2>
-					<p class="form-sub">Cuéntenos su necesidad y deje que nuestra IA le ayude con una solución.</p>
+					<p class="form-sub">Cuéntenos su necesidad y deje que nuestra IA le ayude con una solución personalizada.</p>
 					<br>
 				</div>
 
@@ -2563,7 +2678,7 @@
 					<div class="form-row">
 						<div class="form-field">
 							<label>Nombre</label>
-							<input type="text" name="nombre" placeholder="Tu nombre" required>
+							<input type="text" name="nombre" placeholder="Su nombre" required>
 						</div>
 						<div class="form-field">
 							<label>Teléfono</label>
@@ -2572,11 +2687,11 @@
 					</div>
 					<div class="form-field">
 						<label>Email</label>
-						<input type="email" name="correo" placeholder="tu@correo.cl" required>
+						<input type="email" name="correo" placeholder="su@correo.cl" required>
 					</div>
 					<div class="form-field">
-						<label>¿En qué podemos ayudarte?</label>
-						<textarea name="texto_original" placeholder="Describe tu necesidad o proyecto..."
+						<label>¿En qué podemos ayudarle?</label>
+						<textarea name="texto_original" placeholder="Describa su necesidad o proyecto..."
 							required></textarea>
 					</div>
 					<button type="submit" class="btn-submit">
@@ -2594,7 +2709,7 @@
 		</div>
 	</div>
 
-	<!-- DOTS NAVEGACIÓN — se generan en Paso 3 con JS -->
+	<!-- DOTS NAVEGACIÓN -->
 	<div class="nav-dots" id="nav-dots"></div>
 
 	<!-- CONTADOR -->
@@ -2608,20 +2723,19 @@
 		<span></span>
 	</div>
 
-	<!-- WHATSAPP FLOTANTE CON MENSAJE HUMANIZADO -->
+	<!-- WHATSAPP FLOTANTE -->
     <a href="https://wa.me/56926870966?text=Hola, me interesa conocer más sobre IAsesoria"
        class="wa-float" target="_blank" rel="noopener">
         <i class="fab fa-whatsapp"></i>
-        <!-- El mensaje secreto que aparece al hacer hover -->
         <span class="wa-msg">
-            ¿Aún no te decides?<br>
-            <strong>Conversemos de humano a humano</strong>
+            ¿Aún no se decide?<br>
+            <strong>Conversemos de persona a persona</strong>
         </span>
     </a>
 
 
 	<!-- =============================================
-         6 MODALES DE DEMO — OVERLAY SOBRE LA NORIA
+         6 MODALES DE DEMO
          ============================================= -->
 
 	<!-- MODAL 1: DIAGNÓSTICO EXPRESS -->
@@ -2659,8 +2773,7 @@
 			</div>
 			<div class="dm-divider"></div>
 			<div class="dm-body">
-				<p class="auto-desc">Presiona el botón y observa cómo la IA ejecuta un flujo de venta completo en
-					segundos — sin intervención humana.</p>
+				<p class="auto-desc">Presione el botón y observe cómo la IA ejecuta un flujo de venta completo en segundos — sin intervención humana.</p>
 				<div class="auto-pipeline" id="auto-pipeline">
 					<div class="auto-step" id="as-1">
 						<div class="auto-step-ico"><i class="fas fa-user-check"></i></div>
@@ -2719,10 +2832,10 @@
 			<div class="dm-divider"></div>
 			<div class="dm-body">
 				<div class="chat-messages" id="chat-messages">
-					<div class="chat-bubble ia">Hola, soy el asistente de IAsesoria. ¿En qué puedo ayudarte hoy?</div>
+					<div class="chat-bubble ia">Hola, soy el asistente de IAsesoria. ¿En qué puedo ayudarle hoy?</div>
 				</div>
 				<div class="chat-input-row">
-					<input class="chat-input" id="chat-input" type="text" placeholder="Escribe tu pregunta..."
+					<input class="chat-input" id="chat-input" type="text" placeholder="Escriba su pregunta..."
 						onkeydown="if(event.key==='Enter') sendChat()">
 					<button class="chat-send" onclick="sendChat()">
 						<i class="fas fa-paper-plane"></i>
@@ -2790,8 +2903,7 @@
 			</div>
 			<div class="dm-divider"></div>
 			<div class="dm-body">
-				<p class="sort-desc">La IA analiza tu base de datos y reordena los registros por prioridad de negocio en
-					tiempo real.</p>
+				<p class="sort-desc">La IA analiza su base de datos y reordena los registros por prioridad de negocio en tiempo real.</p>
 				<div class="sort-board" id="sort-board">
 					<!-- generado por JS -->
 				</div>
@@ -2817,8 +2929,7 @@
 			</div>
 			<div class="dm-divider"></div>
 			<div class="dm-body">
-				<p class="eco-desc">Visualiza tu catálogo conectado a WhatsApp. Elige un modelo de negocio y experimenta
-					el sistema en vivo.</p>
+				<p class="eco-desc">Visualice su catálogo conectado a WhatsApp. Elija un modelo de negocio y experimente el sistema en vivo.</p>
 				<div class="eco-options">
 					<a class="eco-link sushi" href="demo-tiendas1.html">
 						<div class="eco-link-ico">🍣</div>
@@ -2887,7 +2998,7 @@
 		}
 
 		// =========================================
-		// HINT SCROLL — ocultar en última slide
+		// HINT SCROLL
 		// =========================================
 		function updateHint(idx) {
 			const hint = document.getElementById('scroll-hint');
@@ -2895,14 +3006,13 @@
 		}
 
 		// =========================================
-		// NAV LINKS — sincronizar activo
+		// NAV LINKS
 		// =========================================
 		function updateNavLinks(idx) {
 			NAV_LINKS.forEach((a, i) => {
 				a.classList.toggle('active', i === idx);
 			});
 		}
-
 
 		// =========================================
 		// SISTEMA DE MODALES
@@ -2929,18 +3039,15 @@
 			if (!ov) return;
 			ov.classList.remove('open');
 			document.body.style.overflow = '';
-			// reset chat history si es chat
 			if (id === 'modal-chat') chatHistory = [];
 		}
 
-		// Cerrar al click fuera del modal
 		document.querySelectorAll('.demo-overlay').forEach(ov => {
 			ov.addEventListener('click', e => {
 				if (e.target === ov) closeModal(ov.id);
 			});
 		});
 
-		// ESC cierra el modal abierto
 		document.addEventListener('keydown', e => {
 			if (e.key === 'Escape') {
 				document.querySelectorAll('.demo-overlay.open').forEach(ov => closeModal(ov.id));
@@ -2948,12 +3055,12 @@
 		});
 
 		// =========================================
-		// DEMO 1 — DIAGNÓSTICO EXPRESS (3 pasos)
+		// DEMO 1 — DIAGNÓSTICO EXPRESS
 		// =========================================
 		const diagData = [
 			{
 				label: 'Paso 1 de 3',
-				question: '¿Cuál es tu principal desafío hoy?',
+				question: '¿Cuál es su principal desafío hoy?',
 				opts: [
 					{ ico: '📉', text: 'Aumentar ventas', val: 'ventas' },
 					{ ico: '⏰', text: 'Tengo poco tiempo para todo', val: 'tiempo' },
@@ -2962,7 +3069,7 @@
 			},
 			{
 				label: 'Paso 2 de 3',
-				question: '¿Cuánto tiempo dedicas a tareas manuales?',
+				question: '¿Cuánto tiempo dedica a tareas manuales?',
 				opts: [
 					{ ico: '🔥', text: 'Más de 3 horas al día', val: 'mucho' },
 					{ ico: '⏳', text: 'Entre 1 y 3 horas', val: 'medio' },
@@ -2971,7 +3078,7 @@
 			},
 			{
 				label: 'Paso 3 de 3',
-				question: '¿Usas alguna herramienta digital hoy?',
+				question: '¿Usa alguna herramienta digital hoy?',
 				opts: [
 					{ ico: '📊', text: 'Excel / Google Sheets', val: 'excel' },
 					{ ico: '💬', text: 'WhatsApp para ventas', val: 'wp' },
@@ -2984,9 +3091,9 @@
 		let diagAnswers = [];
 
 		const diagResults = {
-			ventas: { num: '+40%', lbl: 'aumento de ventas estimado', txt: 'Con un catálogo digital conectado a WhatsApp, tus clientes pueden comprar solos, 24/7, sin que tengas que estar presente.' },
-			tiempo: { num: '15h', lbl: 'horas semanales recuperadas', txt: 'Automatizando notificaciones, formularios y seguimientos, tu equipo se libera de tareas repetitivas al instante.' },
-			clientes: { num: '×3', lbl: 'más clientes gestionables', txt: 'Un CRM conectado a IA puede organizar, priorizar y hacer seguimiento de todos tus contactos sin esfuerzo manual.' }
+			ventas: { num: '+40%', lbl: 'aumento de ventas estimado', txt: 'Con un catálogo digital conectado a WhatsApp, sus clientes pueden comprar solos, 24/7, sin que usted deba estar presente.' },
+			tiempo: { num: '15h', lbl: 'horas semanales recuperadas', txt: 'Automatizando notificaciones, formularios y seguimientos, su equipo se libera de tareas repetitivas al instante.' },
+			clientes: { num: '×3', lbl: 'más clientes gestionables', txt: 'Un CRM conectado a IA puede organizar, priorizar y hacer seguimiento de todos sus contactos sin esfuerzo manual.' }
 		};
 
 		function initDiag() {
@@ -3073,15 +3180,13 @@
 		}
 
 		// =========================================
-		// DEMO 3 — CHAT IA (conecta a tu Flask)
+		// DEMO 3 — CHAT IA
 		// =========================================
 		const CHAT_URL = 'https://www.iasesoria.cl/chat';
 		let chatHistory = [];
 		let chatConsulta = 0;
 
-		function initChat() {
-			// El chat ya tiene el mensaje inicial en el HTML
-		}
+		function initChat() { }
 
 		async function sendChat() {
 			const input = document.getElementById('chat-input');
@@ -3093,13 +3198,11 @@
 			input.value = '';
 			chatConsulta++;
 
-			// Burbuja del usuario
 			const userBubble = document.createElement('div');
 			userBubble.className = 'chat-bubble user';
 			userBubble.textContent = msg;
 			box.appendChild(userBubble);
 
-			// Burbuja typing
 			const typing = document.createElement('div');
 			typing.className = 'chat-bubble ia typing';
 			typing.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
@@ -3150,12 +3253,10 @@
 		const dashVals = [42, 58, 51, 73, 68, 91];
 
 		function initDash() {
-			// KPIs con animación de conteo
 			animateCount('kpi-1', 0, 24, '$', 'K', 1200);
 			animateCount('kpi-2', 0, 137, '', '', 1000);
 			animateCount('kpi-3', 0, 68, '', '%', 1400);
 
-			// Barras del gráfico
 			const container = document.getElementById('dash-bars');
 			if (!container) return;
 			container.innerHTML = dashMonths.map((m, i) => {
@@ -3168,14 +3269,12 @@
                     </div>`;
 			}).join('');
 
-			// Animar barras
 			setTimeout(() => {
 				container.querySelectorAll('.dash-bar').forEach(bar => {
 					bar.style.height = bar.dataset.h;
 				});
 			}, 100);
 
-			// Insight IA
 			setTimeout(() => {
 				const ins = document.getElementById('dash-insight');
 				if (ins) ins.innerHTML = '📈 <strong>+33% vs mes anterior.</strong> El modelo detecta un patrón de crecimiento sostenido. Se recomienda aumentar capacidad de atención en las próximas 3 semanas.';
@@ -3244,7 +3343,6 @@
 			}, 1400);
 		}
 
-
 		// =========================================
 		// FUNCIÓN PRINCIPAL DE NAVEGACIÓN
 		// =========================================
@@ -3259,24 +3357,19 @@
 			const next = SLIDES[index];
 			const dots = getDots();
 
-			// Salida de slide actual
 			prev.classList.remove('active');
 			prev.classList.add('exit');
 
-			// Entrada de nueva slide
 			next.classList.remove('exit');
 			next.classList.add('active');
 
-			// Actualizar dots
 			dots[current].classList.remove('active');
 			dots[index].classList.add('active');
 
-			// Actualizar nav, contador, hint
 			updateNavLinks(index);
 			updateCounter(index);
 			updateHint(index);
 
-			// Limpieza tras animación
 			setTimeout(() => {
 				prev.classList.remove('exit');
 				current = index;
@@ -3302,53 +3395,42 @@
 		// =========================================
 		window.addEventListener('keydown', (e) => {
 			if (animating) return;
+			if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 			if (e.key === 'ArrowDown' || e.key === 'ArrowRight') goTo(current + 1);
 			if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') goTo(current - 1);
 		});
 
 		// =========================================
-// TOUCH / SWIPE MÓVIL INTELIGENTE
-// =========================================
-let touchStartY = 0;
+		// TOUCH / SWIPE MÓVIL INTELIGENTE
+		// =========================================
+		let touchStartY = 0;
 
-window.addEventListener('touchstart', (e) => {
-    touchStartY = e.touches[0].clientY;
-}, { passive: true });
+		window.addEventListener('touchstart', (e) => {
+			touchStartY = e.touches[0].clientY;
+		}, { passive: true });
 
-window.addEventListener('touchend', (e) => {
-    if (animating) return;
-    
-    const touchEndY = e.changedTouches[0].clientY;
-    const dy = touchStartY - touchEndY;
-    const currentSlide = SLIDES[current];
-    
-    // Si el movimiento es muy pequeño, lo ignoramos
-    if (Math.abs(dy) < 60) return;
+		window.addEventListener('touchend', (e) => {
+			if (animating) return;
 
-    // DETECTAR SI EL SLIDE TIENE SCROLL INTERNO
-    const isAtTop = currentSlide.scrollTop <= 0;
-    const isAtBottom = currentSlide.scrollHeight - currentSlide.scrollTop <= currentSlide.clientHeight + 1;
+			const touchEndY = e.changedTouches[0].clientY;
+			const dy = touchStartY - touchEndY;
+			const currentSlide = SLIDES[current];
 
-    if (dy > 0) { // Intento de ir hacia abajo (Siguiente Slide)
-        if (isAtBottom && current < TOTAL - 1) {
-            goTo(current + 1);
-        }
-        // Si no está al fondo, el navegador simplemente hará scroll normal dentro del slide
-    } else { // Intento de ir hacia arriba (Slide Anterior)
-        if (isAtTop && current > 0) {
-            goTo(current - 1);
-        }
-    }
-}, { passive: true });
+			if (Math.abs(dy) < 60) return;
 
-// También desactivamos el scroll del teclado si está en un campo de texto
-window.addEventListener('keydown', (e) => {
-    if (animating) return;
-    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-    
-    if (e.key === 'ArrowDown') goTo(current + 1);
-    if (e.key === 'ArrowUp')   goTo(current - 1);
-});
+			const isAtTop = currentSlide.scrollTop <= 0;
+			const isAtBottom = currentSlide.scrollHeight - currentSlide.scrollTop <= currentSlide.clientHeight + 1;
+
+			if (dy > 0) {
+				if (isAtBottom && current < TOTAL - 1) {
+					goTo(current + 1);
+				}
+			} else {
+				if (isAtTop && current > 0) {
+					goTo(current - 1);
+				}
+			}
+		}, { passive: true });
 
 		// =========================================
 		// INICIALIZAR
@@ -3356,6 +3438,62 @@ window.addEventListener('keydown', (e) => {
 		updateCounter(0);
 		updateHint(0);
 		updateNavLinks(0);
+
+		// =========================================
+		// MENÚ HAMBURGUESA MÓVIL
+		// =========================================
+		let mobileMenuOpen = false;
+
+		function toggleMobileMenu() {
+			const menu = document.getElementById('mobile-menu');
+			const icon = document.getElementById('hamburger-icon');
+			mobileMenuOpen = !mobileMenuOpen;
+			if (mobileMenuOpen) {
+				menu.classList.add('open');
+				icon.className = 'fas fa-times';
+			} else {
+				menu.classList.remove('open');
+				icon.className = 'fas fa-bars';
+			}
+		}
+
+		function closeMobileMenu() {
+			const menu = document.getElementById('mobile-menu');
+			const icon = document.getElementById('hamburger-icon');
+			mobileMenuOpen = false;
+			menu.classList.remove('open');
+			icon.className = 'fas fa-bars';
+		}
+
+		// Cerrar menú al tocar fuera de él
+		document.addEventListener('click', (e) => {
+			const menu = document.getElementById('mobile-menu');
+			const hamburger = document.getElementById('nav-hamburger');
+			if (mobileMenuOpen && !menu.contains(e.target) && !hamburger.contains(e.target)) {
+				closeMobileMenu();
+			}
+		});
+
+		// Sincronizar el estado activo del menú móvil
+		function updateMobileMenuActive(idx) {
+			const mLinks = document.querySelectorAll('#mobile-menu a');
+			mLinks.forEach((a, i) => a.classList.toggle('active', i === idx));
+		}
+
+		// Extender updateNavLinks para también actualizar el menú móvil
+		const _origUpdateNavLinks = updateNavLinks;
+		// Sobrescribimos para incluir menú móvil
+		window.updateNavLinksExtended = function(idx) {
+			NAV_LINKS.forEach((a, i) => a.classList.toggle('active', i === idx));
+			updateMobileMenuActive(idx);
+		};
+
+		// Patch goTo para actualizar menú móvil también
+		const _origGoTo = goTo;
+		goTo = function(index, e) {
+			_origGoTo(index, e);
+			setTimeout(() => updateMobileMenuActive(index), 0);
+		};
 	</script>
 
 </body>
