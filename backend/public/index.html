@@ -2249,6 +2249,59 @@
 				transform: translateY(5px);
 			}
 		}
+
+		/* =========================================
+   AJUSTES CRÍTICOS PARA MÓVIL (Smart Scroll)
+   ========================================= */
+@media (max-width: 768px) {
+    html, body {
+        overflow: hidden; /* Evita rebotes extraños */
+    }
+
+    .slide {
+        padding: 70px 20px 100px !important; /* Más aire para que no tape el Nav ni el WA */
+        justify-content: flex-start !important; /* Alinea al inicio para permitir scroll */
+        overflow-y: auto !important; /* PERMITE SCROLL INTERNO */
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Reducir el Hero Logo que ocupa media pantalla */
+    .hero-logo-wrap {
+        width: 100px !important;
+        height: 100px !important;
+        margin-top: 20px;
+    }
+    .hero-logo { width: 70px !important; height: 70px !important; }
+    .hero-title { font-size: 1.8rem !important; margin-top: 10px; }
+
+    /* Grillas: Una sola columna para que se lea bien */
+    .sol-grid, .demos-grid, .planes-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+    }
+
+    /* Modales: Que ocupen casi toda la pantalla */
+    .demo-modal {
+        width: 95% !important;
+        max-height: 90vh !important;
+    }
+
+    /* Botones de navegación interna */
+    .slide-nav-prev { top: 65px !important; font-size: 0.55rem !important; }
+    .slide-nav-next { margin-top: 20px !important; margin-bottom: 40px !important; }
+
+    /* Ocultar elementos que molestan en móvil */
+    .nav-dots { right: 10px !important; transform: translateY(-50%) scale(0.8); }
+    .slide-counter { bottom: 15px !important; font-size: 0.5rem !important; }
+    
+    /* WhatsApp: un poco más pequeño para no tapar el formulario */
+    .wa-float {
+        width: 50px !important;
+        height: 50px !important;
+        bottom: 15px !important;
+        right: 15px !important;
+    }
+}
 	</style>
 </head>
 
@@ -3254,20 +3307,48 @@
 		});
 
 		// =========================================
-		// TOUCH / SWIPE MÓVIL
-		// =========================================
-		let touchStartY = 0;
-		window.addEventListener('touchstart', (e) => {
-			touchStartY = e.touches[0].clientY;
-		}, { passive: true });
+// TOUCH / SWIPE MÓVIL INTELIGENTE
+// =========================================
+let touchStartY = 0;
 
-		window.addEventListener('touchend', (e) => {
-			if (animating) return;
-			const dy = touchStartY - e.changedTouches[0].clientY;
-			if (Math.abs(dy) < 40) return;
-			if (dy > 0 && current < TOTAL - 1) goTo(current + 1);
-			if (dy < 0 && current > 0) goTo(current - 1);
-		}, { passive: true });
+window.addEventListener('touchstart', (e) => {
+    touchStartY = e.touches[0].clientY;
+}, { passive: true });
+
+window.addEventListener('touchend', (e) => {
+    if (animating) return;
+    
+    const touchEndY = e.changedTouches[0].clientY;
+    const dy = touchStartY - touchEndY;
+    const currentSlide = SLIDES[current];
+    
+    // Si el movimiento es muy pequeño, lo ignoramos
+    if (Math.abs(dy) < 60) return;
+
+    // DETECTAR SI EL SLIDE TIENE SCROLL INTERNO
+    const isAtTop = currentSlide.scrollTop <= 0;
+    const isAtBottom = currentSlide.scrollHeight - currentSlide.scrollTop <= currentSlide.clientHeight + 1;
+
+    if (dy > 0) { // Intento de ir hacia abajo (Siguiente Slide)
+        if (isAtBottom && current < TOTAL - 1) {
+            goTo(current + 1);
+        }
+        // Si no está al fondo, el navegador simplemente hará scroll normal dentro del slide
+    } else { // Intento de ir hacia arriba (Slide Anterior)
+        if (isAtTop && current > 0) {
+            goTo(current - 1);
+        }
+    }
+}, { passive: true });
+
+// También desactivamos el scroll del teclado si está en un campo de texto
+window.addEventListener('keydown', (e) => {
+    if (animating) return;
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    
+    if (e.key === 'ArrowDown') goTo(current + 1);
+    if (e.key === 'ArrowUp')   goTo(current - 1);
+});
 
 		// =========================================
 		// INICIALIZAR
