@@ -752,26 +752,32 @@ document.addEventListener('touchmove', function (e) {
 
 
 // DEMO 5: SELECTOR DE ECOSISTEMAS DE VENTA
-function runTiendaDemo() {
-    const demoDiv = document.querySelector('.active .demo-content');
-    if (!demoDiv) return;
-
-    demoDiv.innerHTML = `
+function runTiendaDemo(containerId) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = `
         <div style="text-align: center; padding: 20px;">
-            <h3 style="color: #f3a022; margin-bottom: 15px;">Seleccione un modelo de negocio</h3>
-            <p style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">Explore cómo la IA gestiona ventas y pedidos en tiempo real.</p>
+            <h4 style="color: #f3a022; margin-bottom: 15px; font-family: 'Playfair Display', serif;">Seleccione un modelo de negocio</h4>
+            <p style="font-size: 0.9rem; color: #ccc; margin-bottom: 25px;">
+                Explore cómo la IA gestiona ventas y pedidos en tiempo real.
+            </p>
             
-            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
-                <button class="button primary fit" onclick="location.href='demo-tienda.html?tipo=sushi'">🍱 Tienda de Sushi (Ventas)</button>
-                <button class="button fit" onclick="location.href='demo-tienda.html?tipo=ferreteria'" style="box-shadow: inset 0 0 0 2px #00d1ff; color: #00d1ff;">🛠️ Ferretería (Inventario)</button>
-                <button class="button fit" onclick="location.href='demo-tienda.html?tipo=pasteleria'" style="box-shadow: inset 0 0 0 2px #f3a022; color: #f3a022;">🍰 Pastelería (Catálogo Visual)</button>
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                <!-- Links corregidos para Flask -->
+                <a href="/sushi" class="button fit" style="background: #f3a022; color: #1a1a1a; font-weight: bold; border: none;">
+                   🍣 Tienda de Sushi (Ventas)
+                </a>
+
+                <a href="/ferreteria" class="button fit" style="border: 2px solid #00d1ff; color: #00d1ff; font-weight: bold; background: transparent;">
+                   🛠️ Ferretería (Inventario)
+                </a>
+
+                <a href="/turismo" class="button fit" style="border: 2px solid #c9a84c; color: #c9a84c; font-weight: bold; background: transparent;">
+                   🏔️ Turismo Premium (Reservas)
+                </a>
             </div>
         </div>
     `;
 }
-
-
-
 
 
 

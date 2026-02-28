@@ -164,17 +164,18 @@ function enviarWhatsApp() {
 }
 
 // ==========================================
-// INICIALIZACIÓN CON RETRASO SEGURO
+// INICIALIZACIÓN CORREGIDA PARA FLASK
 // ==========================================
 $(document).ready(function() {
-    // Le damos 100ms extra para asegurar que el HTML cargó completo
-    setTimeout(() => {
-        try {
-            const urlParams = new URLSearchParams(window.location.search);
-            const tipo = urlParams.get('tipo') || 'sushi';
-            cargarDemo(tipo);
-        } catch (e) {
-            console.error("Error de inicialización:", e);
-        }
-    }, 100);
+    // Obtenemos la ruta actual para saber qué demo cargar
+    const path = window.location.pathname;
+    
+    if (path.includes('sushi')) {
+        cargarDemo('sushi');
+    } else if (path.includes('ferreteria')) {
+        cargarDemo('ferreteria');
+    } else if (path.includes('turismo')) {
+        // Mapeamos 'turismo' al objeto 'pasteleria' o crea uno nuevo de turismo
+        cargarDemo('pasteleria'); 
+    }
 });
