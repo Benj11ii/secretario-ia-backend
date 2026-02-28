@@ -6,89 +6,136 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
-        /* =========================================
-           VARIABLES Y CONFIGURACIÓN DE TEMAS
-           ========================================= */
+        * {
+            box-sizing: border-box;
+            cursor: none;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+        }
+
+        .cursor-ring {
+            width: 36px;
+            height: 36px;
+            border: 1.5px solid var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 99998;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, opacity 0.3s;
+            opacity: 0.5;
+        }
+
+        body.cursor-hover .cursor-dot {
+            width: 14px;
+            height: 14px;
+        }
+
+        body.cursor-hover .cursor-ring {
+            width: 54px;
+            height: 54px;
+            opacity: 0.3;
+        }
+
+        /* ===== VARIABLES ===== */
         :root {
-            --bg-body: #0a0a0a;
-            --bg-card: rgba(255, 255, 255, 0.03);
-            --text-main: #ffffff;
-            --text-muted: #a0a0a0;
-            --accent: #00ff88;
-            --nav-bg: rgba(10, 10, 10, 0.8);
-            --hero-overlay: rgba(0, 0, 0, 0.6);
+            --bg-body: #080808;
+            --bg-card: rgba(255, 255, 255, 0.04);
+            --bg-card-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f0ece4;
+            --text-muted: #6b6b6b;
+            --accent: #c8a96e;
+            --accent-rgb: 200, 169, 110;
+            --nav-bg: rgba(8, 8, 8, 0.75);
+            --hero-overlay: rgba(0, 0, 0, 0.65);
         }
 
         body.theme-azul {
-            --bg-body: #050a15;
-            --accent: #00d1ff;
-            --text-main: #ffffff;
-            --bg-card: rgba(255, 255, 255, 0.05);
+            --bg-body: #060d18;
+            --accent: #5eb8ff;
+            --accent-rgb: 94, 184, 255;
+            --text-main: #e8f4ff;
+            --bg-card: rgba(255, 255, 255, 0.04);
+            --bg-card-border: rgba(94, 184, 255, 0.1);
         }
 
         body.theme-neon-claro {
-            --bg-body: #f0fdf4;
-            --accent: #008f39;
-            --text-main: #111827;
-            --text-muted: #4b5563;
-            --bg-card: #ffffff;
-            --nav-bg: rgba(240, 253, 244, 0.8);
-            --hero-overlay: rgba(255, 255, 255, 0.2);
+            --bg-body: #f7f5f0;
+            --accent: #2d6a4f;
+            --accent-rgb: 45, 106, 79;
+            --text-main: #1a1a1a;
+            --text-muted: #7a7a7a;
+            --bg-card: rgba(255, 255, 255, 0.9);
+            --bg-card-border: rgba(45, 106, 79, 0.12);
+            --nav-bg: rgba(247, 245, 240, 0.85);
+            --hero-overlay: rgba(0, 0, 0, 0.4);
         }
 
         body.theme-pastel {
-            --bg-body: #fff5f6;
-            --accent: #d81b60;
-            --text-main: #331d24;
-            --text-muted: #6b7280;
-            --bg-card: #ffffff;
-            --nav-bg: rgba(255, 245, 246, 0.8);
-            --hero-overlay: rgba(255, 255, 255, 0.1);
-        }
-
-        /* =========================================
-           ESTILOS BASE
-           ========================================= */
-        * {
-            box-sizing: border-box;
+            --bg-body: #fdf6f0;
+            --accent: #c0603c;
+            --accent-rgb: 192, 96, 60;
+            --text-main: #2a1f1a;
+            --text-muted: #8a7a74;
+            --bg-card: rgba(255, 255, 255, 0.85);
+            --bg-card-border: rgba(192, 96, 60, 0.1);
+            --nav-bg: rgba(253, 246, 240, 0.85);
+            --hero-overlay: rgba(0, 0, 0, 0.35);
         }
 
         body {
             margin: 0;
-            font-family: 'Inter', sans-serif;
+            font-family: 'DM Sans', sans-serif;
             background-color: var(--bg-body);
             color: var(--text-main);
-            transition: all 0.5s ease;
+            transition: background-color 0.6s, color 0.6s;
             overflow-x: hidden;
         }
 
-        /* NAVEGACIÓN */
+        /* ===== NAV ===== */
         .sushi-nav {
             position: fixed;
             top: 0;
             width: 100%;
-            height: 70px;
+            height: 72px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 5%;
+            padding: 0 6%;
             z-index: 1000;
             background: var(--nav-bg);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(128, 128, 128, 0.1);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(128, 128, 128, 0.08);
+            transition: background 0.6s;
         }
 
         .logo {
-            font-weight: 700;
-            letter-spacing: 3px;
-            font-size: 1.1rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            letter-spacing: 6px;
+            font-size: 1.05rem;
             text-decoration: none;
             color: inherit;
+            text-transform: uppercase;
         }
 
         .logo span {
@@ -101,34 +148,84 @@
             gap: 20px;
         }
 
+        .nav-cart {
+            position: relative;
+            background: transparent;
+            border: 1px solid var(--bg-card-border);
+            color: var(--text-main);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .nav-cart:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: var(--accent);
+            color: #000;
+            font-size: 0.6rem;
+            font-weight: 700;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .cart-badge.visible {
+            opacity: 1;
+        }
+
         .theme-selector {
             position: relative;
         }
 
         .theme-btn {
             background: transparent;
-            border: 1px solid rgba(128, 128, 128, 0.3);
+            border: 1px solid var(--bg-card-border);
             color: var(--text-main);
-            padding: 8px 16px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 0.85rem;
+            padding: 10px 18px;
+            border-radius: 40px;
+            font-size: 0.72rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-family: 'DM Sans', sans-serif;
+            transition: 0.3s;
+        }
+
+        .theme-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
         }
 
         .theme-menu {
             position: absolute;
-            top: 45px;
+            top: 50px;
             right: 0;
             background: var(--bg-body);
-            border: 1px solid rgba(128, 128, 128, 0.2);
-            border-radius: 12px;
-            padding: 8px;
-            width: 160px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 16px;
+            padding: 10px;
+            width: 170px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             opacity: 0;
             visibility: hidden;
             transform: translateY(10px);
-            transition: 0.3s ease;
+            transition: 0.3s;
         }
 
         .theme-selector:hover .theme-menu {
@@ -138,40 +235,44 @@
         }
 
         .theme-option {
-            padding: 10px;
-            cursor: pointer;
-            border-radius: 8px;
-            font-size: 0.8rem;
+            padding: 10px 12px;
+            border-radius: 10px;
+            font-size: 0.78rem;
             display: flex;
             align-items: center;
             gap: 10px;
+            transition: 0.2s;
         }
 
         .theme-option:hover {
-            background: rgba(128, 128, 128, 0.15);
+            background: rgba(128, 128, 128, 0.1);
         }
 
         .theme-option::before {
             content: '';
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             background-color: var(--p-color);
+            flex-shrink: 0;
         }
 
         .back-link {
             color: var(--text-muted);
             text-decoration: none;
-            font-size: 0.85rem;
+            font-size: 0.78rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: 0.2s;
         }
 
         .back-link:hover {
             color: var(--accent);
         }
 
-        /* HERO */
+        /* ===== HERO ===== */
         .sushi-hero {
-            height: 50vh;
+            height: 100vh;
             background-image: url('https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=1200&q=80');
             background-size: cover;
             background-position: center;
@@ -179,6 +280,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            overflow: hidden;
         }
 
         .overlay-dark {
@@ -188,132 +290,377 @@
             z-index: 1;
         }
 
+        .overlay-grain {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            opacity: 0.4;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+        }
+
         .hero-content {
             position: relative;
-            z-index: 2;
-            color: #ffffff;
+            z-index: 3;
+            color: #fff;
             text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.7rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeUp 1s 0.3s forwards;
+            margin-bottom: 20px;
+            display: block;
+            color: var(--accent);
         }
 
         .hero-content h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 8vw, 7rem);
             font-style: italic;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            font-weight: 300;
+            line-height: 1;
             margin: 0;
+            opacity: 0;
+            animation: fadeUp 1s 0.5s forwards;
+
+            /* REEMPLAZAR O AÑADIR ESTO: */
+            text-shadow:
+                0 2px 10px rgba(0, 0, 0, 0.5),
+                /* Sombra profunda */
+                0 0 20px rgba(0, 0, 0, 0.3);
+            /* Halo difuso */
         }
 
-        .hero-content p {
-            letter-spacing: 2px;
+        .hero-content h1 em {
+            font-style: normal;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .hero-sub {
+            font-size: 0.78rem;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            opacity: 0.9;
-            margin-top: 10px;
+            opacity: 0;
+            animation: fadeUp 1s 0.7s forwards;
+            margin-top: 24px;
+            color: rgba(255, 255, 255, 0.6);
         }
 
-        /* CONTENEDOR PRODUCTOS */
-        .menu-container {
-            padding: 60px 8%;
-            max-width: 1400px;
+        .hero-scroll {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            animation: fadeUp 1s 1.2s forwards;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 50px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollPulse {
+
+            0%,
+            100% {
+                opacity: 0.4;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== FILTROS ===== */
+        .filters-bar {
+            position: sticky;
+            top: 72px;
+            z-index: 100;
+            background: var(--bg-body);
+            border-bottom: 1px solid var(--bg-card-border);
+            padding: 0 6%;
+            transition: background 0.6s;
+        }
+
+        .filters-inner {
+            display: flex;
+            overflow-x: auto;
+            scrollbar-width: none;
+            max-width: 1300px;
             margin: auto;
         }
 
-        .category-header {
-            text-align: center;
-            margin-bottom: 60px;
+        .filters-inner::-webkit-scrollbar {
+            display: none;
         }
 
-        .category-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin: 0;
+        .filter-tab {
+            padding: 18px 24px;
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            position: relative;
+            white-space: nowrap;
+            font-family: 'DM Sans', sans-serif;
+            transition: color 0.3s;
         }
 
-        .underline {
-            width: 40px;
-            height: 3px;
+        .filter-tab::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            right: 50%;
+            height: 2px;
             background: var(--accent);
-            margin: 15px auto;
-            border-radius: 2px;
+            transition: left 0.3s, right 0.3s;
+        }
+
+        .filter-tab:hover,
+        .filter-tab.active {
+            color: var(--text-main);
+        }
+
+        .filter-tab.active::after,
+        .filter-tab:hover::after {
+            left: 24px;
+            right: 24px;
+        }
+
+        /* ===== BANNER MID ===== */
+        .mid-banner {
+            margin: 20px 6% 0;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 180px;
+            background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.12), rgba(var(--accent-rgb), 0.04));
+            border: 1px solid rgba(var(--accent-rgb), 0.15);
+            display: flex;
+            align-items: center;
+            padding: 0 50px;
+            gap: 30px;
+            transition: background 0.6s, border-color 0.6s;
+        }
+
+        .mid-banner-text h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 300;
+            font-style: italic;
+            margin: 0 0 6px 0;
+        }
+
+        .mid-banner-text p {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .mid-banner-icon {
+            font-size: 3.5rem;
+            opacity: 0.25;
+            margin-left: auto;
+        }
+
+        /* ===== MENU CONTAINER ===== */
+        .menu-container {
+            padding: 80px 6%;
+            max-width: 1300px;
+            margin: auto;
+        }
+
+        .section-label {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .section-label-line {
+            flex: 1;
+            height: 1px;
+            background: var(--bg-card-border);
+        }
+
+        .section-label-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 300;
+            font-style: italic;
+            white-space: nowrap;
+        }
+
+        .section-label-num {
+            font-size: 0.68rem;
+            letter-spacing: 3px;
+            color: var(--accent);
+            text-transform: uppercase;
         }
 
         .grid-sushi {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 35px;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 24px;
         }
 
+        /* ===== CARDS ===== */
         .product-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 20px;
             overflow: hidden;
-            /* Esto es vital */
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            /* Sombra más suave */
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: cardReveal 0.7s forwards;
         }
 
-        /* El efecto de la imagen */
-        .product-card img {
-            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            /* Zoom suave y lento */
+        @keyframes cardReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* Cuando pasas el mouse por la TARJETA, la IMAGEN crece */
-        .product-card:hover img {
-            transform: scale(1.1);
-            /* Zoom del 10% */
-        }
-
-        /* Opcional: Que la tarjeta también se eleve un poco */
         .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-            border-color: var(--accent);
+            transform: translateY(-8px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(var(--accent-rgb), 0.2);
+            border-color: rgba(var(--accent-rgb), 0.3);
         }
 
-
+        .card-img-wrap {
+            position: relative;
+            overflow: hidden;
+        }
 
         .product-card img {
             width: 100%;
-            height: 220px;
+            height: 230px;
             object-fit: cover;
+            display: block;
+            transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .product-card:hover img {
+            transform: scale(1.08);
+        }
+
+        .card-num {
+            position: absolute;
+            bottom: -10px;
+            right: 12px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 7rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.12);
+            line-height: 1;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: var(--accent);
+            color: #000;
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 5px 10px;
+            border-radius: 40px;
         }
 
         .product-info {
-            padding: 25px;
+            padding: 22px 24px;
         }
 
         .product-info h4 {
             margin: 0;
-            font-size: 1.2rem;
-            font-weight: 600;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
         }
 
         .product-info p {
             color: var(--text-muted);
-            font-size: 0.9rem;
-            margin: 10px 0 20px 0;
-            line-height: 1.4;
+            font-size: 0.82rem;
+            margin: 7px 0 0 0;
+            line-height: 1.5;
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 18px;
+            gap: 12px;
         }
 
         .price {
-            display: block;
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 20px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
             color: var(--text-main);
+            white-space: nowrap;
+            flex-shrink: 0;
+            line-height: 1;
         }
 
         .btn-add {
-            width: 100%;
-            padding: 12px;
-            border-radius: 12px;
+            flex-shrink: 0;
+            padding: 8px 15px;
+            border-radius: 40px;
             border: 1.5px solid var(--accent);
             background: transparent;
             color: var(--accent);
-            font-weight: 700;
-            cursor: pointer;
+            font-size: 0.62rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            font-size: 0.75rem;
-            transition: 0.3s;
+            font-family: 'DM Sans', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background 0.25s, color 0.25s;
+            white-space: nowrap;
         }
 
         .btn-add:hover {
@@ -321,13 +668,126 @@
             color: #000;
         }
 
-        /* MODAL */
+        .btn-add i {
+            font-size: 0.55rem;
+        }
+
+        /* ===== HIGHLIGHT CARD ===== */
+        .highlight-card {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: border-color 0.4s;
+            min-height: 320px;
+        }
+
+        .highlight-card:hover {
+            border-color: rgba(var(--accent-rgb), 0.3);
+        }
+
+        .highlight-card .card-img-wrap {
+            height: 100%;
+            min-height: 320px;
+            overflow: hidden;
+        }
+
+        .highlight-card .card-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .highlight-card .product-info {
+            padding: 44px 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .highlight-card h4 {
+            font-size: 2.2rem;
+        }
+
+        .highlight-card .card-footer {
+            margin-top: 32px;
+        }
+
+        .highlight-card .btn-add {
+            padding: 11px 22px;
+            font-size: 0.68rem;
+        }
+
+        .chef-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .chef-tag::before {
+            content: '✦';
+            font-size: 0.5rem;
+        }
+
+        /* ===== FOOTER ===== */
+        .sushi-footer {
+            margin-top: 80px;
+            padding: 50px 6%;
+            border-top: 1px solid var(--bg-card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+        }
+
+        .footer-logo span {
+            color: var(--accent);
+        }
+
+        .footer-tagline {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+        }
+
+        .footer-ia {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+        }
+
+        .footer-ia a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .footer-ia a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== MODAL ===== */
         .sushi-modal {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(16px);
             z-index: 9999;
             align-items: center;
             justify-content: center;
@@ -335,212 +795,390 @@
 
         .modal-content {
             background: var(--bg-body);
-            padding: 40px 30px;
-            border-radius: 30px;
+            padding: 50px 40px;
+            border-radius: 28px;
             width: 95%;
-            max-width: 400px;
+            max-width: 420px;
             text-align: center;
-            border: 1px solid var(--accent);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            position: relative;
+            border: 1px solid rgba(var(--accent-rgb), 0.3);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+            animation: modalIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .modal-content i.fa-utensils {
-            font-size: 2.5rem;
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(var(--accent-rgb), 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 1.4rem;
             color: var(--accent);
-            margin-bottom: 20px;
-            display: block;
         }
 
         .modal-content h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            margin-bottom: 10px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            font-style: italic;
+            margin: 0 0 8px 0;
         }
 
-        .input-group {
-            margin: 25px 0;
+        .modal-product-name {
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            display: block;
         }
 
         #user-phone {
             width: 100%;
-            padding: 15px;
-            border-radius: 12px;
-            border: 1px solid rgba(128, 128, 128, 0.3);
-            background: rgba(255, 255, 255, 0.05);
+            padding: 16px 20px;
+            border-radius: 14px;
+            border: 1px solid var(--bg-card-border);
+            background: rgba(255, 255, 255, 0.04);
             color: var(--text-main);
-            font-size: 1rem;
+            font-size: 0.95rem;
             text-align: center;
+            font-family: 'DM Sans', sans-serif;
             outline: none;
+            transition: border-color 0.3s;
+        }
+
+        #user-phone:focus {
+            border-color: var(--accent);
+        }
+
+        .modal-label {
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            display: block;
+            margin: 24px 0 10px;
         }
 
         .btn-order {
             width: 100%;
+            margin-top: 20px;
             background: var(--accent);
             color: #000;
             border: none;
-            padding: 16px;
-            border-radius: 12px;
+            padding: 17px;
+            border-radius: 14px;
             font-weight: 700;
-            cursor: pointer;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: 'DM Sans', sans-serif;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
+            transition: opacity 0.3s;
+        }
+
+        .btn-order:hover {
+            opacity: 0.88;
         }
 
         .btn-close {
             background: transparent;
             border: none;
             color: var(--text-muted);
-            margin-top: 20px;
-            cursor: pointer;
+            margin-top: 16px;
+            font-size: 0.78rem;
+            font-family: 'DM Sans', sans-serif;
+            letter-spacing: 1px;
             text-decoration: underline;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 760px) {
+            .highlight-card {
+                grid-template-columns: 1fr;
+            }
+
+            .highlight-card .card-img-wrap {
+                min-height: 220px;
+                height: 220px;
+            }
+
+            .highlight-card .product-info {
+                padding: 28px;
+            }
+
+            .mid-banner {
+                padding: 30px;
+                height: auto;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .mid-banner-icon {
+                margin-left: 0;
+            }
+
+            .sushi-footer {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 3rem;
+            }
         }
     </style>
 </head>
 
 <body>
+    <div class="cursor-dot" id="cd"></div>
+    <div class="cursor-ring" id="cr"></div>
 
     <header class="sushi-nav">
         <a href="#" class="logo">SAKURA <span>SUSHI</span></a>
         <div class="nav-controls">
+            <button class="nav-cart" id="cart-btn" title="Pedidos">
+                <i class="fas fa-bag-shopping"></i>
+                <span class="cart-badge" id="cart-badge">0</span>
+            </button>
             <div class="theme-selector">
-                <button class="theme-btn">🎨 Personalizar <i class="fas fa-chevron-down"></i></button>
+                <button class="theme-btn">✦ Tema</button>
                 <div class="theme-menu">
-                    <div class="theme-option" onclick="setPalette('neon')" style="--p-color: #00ff88;">Neon Oscuro</div>
-                    <div class="theme-option" onclick="setPalette('azul')" style="--p-color: #00d1ff;">Azul Oscuro</div>
-                    <div class="theme-option" onclick="setPalette('neon-claro')" style="--p-color: #00ff88;">Neón Claro
+                    <div class="theme-option" onclick="setPalette('neon')" style="--p-color:#c8a96e;">Dorado Oscuro
                     </div>
-                    <div class="theme-option" onclick="setPalette('pastel')" style="--p-color: #ffb7c5;">Pastel Claro
+                    <div class="theme-option" onclick="setPalette('azul')" style="--p-color:#5eb8ff;">Azul Oscuro</div>
+                    <div class="theme-option" onclick="setPalette('neon-claro')" style="--p-color:#2d6a4f;">Verde Claro
                     </div>
+                    <div class="theme-option" onclick="setPalette('pastel')" style="--p-color:#c0603c;">Terracota</div>
                 </div>
             </div>
-            <a href="https://www.iasesoria.cl/" class="back-link"><i class="fas fa-arrow-left"></i> Volver</a>
+            <a href="https://www.iasesoria.cl/" class="back-link">← Volver</a>
         </div>
     </header>
 
     <main class="sushi-hero">
         <div class="overlay-dark"></div>
+        <div class="overlay-grain"></div>
         <div class="hero-content">
-            <h1>Experiencia Nikkei</h1>
-            <p>Seleccionado por IA, preparado por maestros.</p>
+            <span class="hero-eyebrow">Restaurante Nikkei — Santiago</span>
+            <h1>El arte<br>de lo <em>fresco</em></h1>
+            <p class="hero-sub">Seleccionado por IA · Preparado por maestros</p>
+        </div>
+        <div class="hero-scroll"><span>Scroll</span>
+            <div class="scroll-line"></div>
         </div>
     </main>
 
+    <!-- FILTROS ACTUALIZADOS -->
+    <div class="filters-bar">
+        <div class="filters-inner">
+            <button class="filter-tab active" onclick="setFilter(this,'todo')">Todo</button>
+            <button class="filter-tab" onclick="setFilter(this,'rolls')">Rolls</button>
+            <button class="filter-tab" onclick="setFilter(this,'nigiri')">Nigiri</button>
+            <button class="filter-tab" onclick="setFilter(this,'tempura')">Tempura</button>
+            <button class="filter-tab" onclick="setFilter(this,'sashimi')">Sashimi</button>
+        </div>
+    </div>
+
+    <div class="mid-banner">
+        <div class="mid-banner-text">
+            <h3>Omakase de temporada</h3>
+            <p>Déjate sorprender · Selección del chef · Disponible solo fines de semana</p>
+        </div>
+        <div class="mid-banner-icon">🍱</div>
+    </div>
+
     <section class="menu-container">
-        <div class="category-header">
-            <h2>Nuestra Carta</h2>
-            <div class="underline"></div>
+        <div class="section-label">
+            <div class="section-label-line"></div>
+            <div>
+                <div class="section-label-num">01 — Carta</div>
+                <div class="section-label-text">Nuestra selección</div>
+            </div>
+            <div class="section-label-line"></div>
         </div>
         <div class="grid-sushi" id="contenedor-productos"></div>
     </section>
 
-    <!-- MODAL -->
     <div id="modal-lead" class="sushi-modal">
         <div class="modal-content" id="modal-inner">
-            <i class="fas fa-utensils"></i>
-            <h3>Confirmar Pedido</h3>
-            <p style="color:var(--text-muted); font-size: 0.9rem;">Tu selección se registrará en nuestro sistema de
-                demostración.</p>
-            <div class="input-group">
-                <input type="tel" id="user-phone" placeholder="Tu WhatsApp (ej: 56912345678)">
-            </div>
-            <button class="btn-order" onclick="enviarWhatsApp()">ORDENAR AHORA</button>
-            <button class="btn-close" onclick="$('#modal-lead').fadeOut()">Cancelar</button>
+            <div class="modal-icon"><i class="fas fa-utensils"></i></div>
+            <h3>Confirmar pedido</h3>
+            <span class="modal-product-name" id="modal-product-label">—</span>
+            <label class="modal-label">Tu número de WhatsApp</label>
+            <input type="tel" id="user-phone" placeholder="56 9 1234 5678">
+            <button class="btn-order" onclick="enviarWhatsApp()">
+                <i class="fab fa-whatsapp"></i> Ordenar ahora
+            </button>
+            <button class="btn-close" onclick="closeModal()">Cancelar</button>
         </div>
     </div>
 
-    <!-- 1. Carga jQuery -->
-    <script src="assets/js/jquery.min.js"></script>
+    <footer class="sushi-footer">
+        <div class="footer-logo">SAKURA <span>SUSHI</span></div>
+        <div class="footer-tagline">Fusión Nikkei · Experiencia Digital</div>
+        <div class="footer-ia">Demo por <a href="https://www.iasesoria.cl/" target="_blank">IAsesoria.cl</a></div>
+    </footer>
 
-    <!-- 2. NO pongas el script de tiendas.js aquí, usa solo este código interno: -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-        // CONFIGURACIÓN BACKEND
-        const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxoNcX2uxRv8kvjYS8JwNQU2BT7vM8WCDTdgw_nYQtNYTm5kL5OmPp4cveTuQqIge3_/exec";
-        let productoSeleccionado = "";
+        /* ----- CURSOR ----- */
+        const cd = document.getElementById('cd'), cr = document.getElementById('cr');
+        let mx = 0, my = 0;
+        document.addEventListener('mousemove', e => {
+            mx = e.clientX; my = e.clientY;
+            cd.style.left = mx + 'px'; cd.style.top = my + 'px';
+        });
+        (function () { let rx = 0, ry = 0; function loop() { rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12; cr.style.left = rx + 'px'; cr.style.top = ry + 'px'; requestAnimationFrame(loop); } loop(); })();
+        function bindCursor() {
+            document.querySelectorAll('button,a,.theme-option,.filter-tab').forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+            });
+        }
 
+        /* ----- BACKEND ----- */
+        // TU URL WEBHOOK SE MANTIENE INTACTA
+        const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxoNcX2uxRv8kvjYS8JwNQU2BT7vM8WCDTdgw_nYQtNYTm5kL5OmPp4cveTuQqIge3_/exec";
+        let productoSeleccionado = "", cartCount = 0;
+
+        /* ----- DATOS ACTUALIZADOS (Nuevas fotos y categorías) ----- */
         const sushiItems = [
-            { n: "California Roll", d: "Cangrejo, palta y sésamo", img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=400&q=80" },
-            { n: "Sake Maki", d: "Salmón fresco y queso crema", img: "https://images.unsplash.com/photo-1583623025817-d180a2221d0a?w=400&q=80" },
-            { n: "Ebi Tempura", d: "Camarón frito crocante", img: "https://images.unsplash.com/photo-1617196034183-421b4917c92d?w=400&q=80" },
-            { n: "Handroll Mix", d: "Ideal para comer al paso", img: "https://images.unsplash.com/photo-1553621042-f6e147245754?w=400&q=80" }
+            // Destacado (Aparecerá grande al principio o al filtrar Rolls)
+            { n: "Omakase Premium", d: "Selección del chef, 24 cortes", img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&q=80", cat: "rolls", badge: false },
+
+            // Rolls
+            { n: "Spicy Tuna Roll", d: "Atún rojo, sriracha y cebollín", img: "https://images.unsplash.com/photo-1625938144755-652e08e359b7?w=600&q=80", cat: "rolls", badge: true },
+            { n: "Dragon Roll", d: "Anguila, aguacate y salsa unagi", img: "https://images.unsplash.com/photo-1583623025817-d180a2221d0a?w=600&q=80", cat: "rolls", badge: false },
+
+            // Nigiri
+            { n: "Sake Nigiri", d: "Corte magro de salmón fresco", img: "https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=600&q=80", cat: "nigiri", badge: false },
+            { n: "Maguro Nigiri", d: "Atún aleta amarilla premium", img: "https://images.unsplash.com/photo-1553621042-f6e147245754?w=600&q=80", cat: "nigiri", badge: true },
+
+            // Tempura
+            { n: "Ebi Tempura", d: "Camarones fritos al estilo panko", img: "https://images.unsplash.com/photo-1617196034183-421b4917c92d?w=600&q=80", cat: "tempura", badge: false },
+            { n: "Sake Tempura Roll", d: "Salmón frito con salsa teriyaki", img: "https://images.unsplash.com/photo-1558985250-27a406d64cb3?w=600&q=80", cat: "tempura", badge: false },
+
+            // Sashimi (NUEVO)
+            { n: "Sashimi Mix", d: "Cortes frescos del día (12 pcs)", img: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=600&q=80", cat: "sashimi", badge: true }
         ];
 
-        function setPalette(theme) {
-            $('body').removeClass('theme-neon theme-azul theme-neon-claro theme-pastel');
-            if (theme !== 'neon') $('body').addClass('theme-' + theme);
-
-            let accent = "#00ff88";
-            if (theme === 'azul') accent = "#00d1ff";
-            if (theme === 'neon-claro') accent = "#008f39";
-            if (theme === 'pastel') accent = "#d81b60";
-            document.documentElement.style.setProperty('--accent', accent);
-        }
-
-        function cargarProductos() {
+        /* ----- RENDER ----- */
+        function cargarProductos(filtro = 'todo') {
+            const lista = filtro === 'todo' ? sushiItems : sushiItems.filter(i => i.cat === filtro);
             let html = '';
-            for (let i = 0; i < 8; i++) {
-                const item = sushiItems[i % sushiItems.length];
+
+            lista.forEach((item, i) => {
                 const precio = `$${Math.floor(Math.random() * 8000 + 4000).toLocaleString('es-CL')}`;
-                html += `
-                    <div class="product-card">
-                        <img src="${item.img}" alt="${item.n}">
+                const delay = (i % 4) * 0.1;
+
+                // La primera tarjeta del filtro siempre es destacada (highlight-card)
+                if (i === 0) {
+                    html += `
+                    <div class="highlight-card product-card" style="animation-delay:${delay}s;">
+                        <div class="card-img-wrap">
+                            <img src="${item.img}" alt="${item.n}">
+                        </div>
                         <div class="product-info">
+                            <div class="chef-tag">Recomendado del chef</div>
                             <h4>${item.n}</h4>
                             <p>${item.d}</p>
-                            <span class="price">${precio}</span>
-                            <button class="btn-add" onclick="abrirCaptura('${item.n}')">AGREGAR</button>
+                            <div class="card-footer">
+                                <span class="price">${precio}</span>
+                                <button class="btn-add" onclick="abrirCaptura('${item.n}')"><i class="fas fa-plus"></i> Pedir</button>
+                            </div>
                         </div>
                     </div>`;
-            }
+                    return;
+                }
+
+                html += `
+                <div class="product-card" style="animation-delay:${delay}s;">
+                    <div class="card-img-wrap">
+                        <img src="${item.img}" alt="${item.n}">
+                        <span class="card-num">0${i + 1}</span>
+                        ${item.badge ? '<span class="card-badge">Nuevo</span>' : ''}
+                    </div>
+                    <div class="product-info">
+                        <h4>${item.n}</h4>
+                        <p>${item.d}</p>
+                        <div class="card-footer">
+                            <span class="price">${precio}</span>
+                            <button class="btn-add" onclick="abrirCaptura('${item.n}')"><i class="fas fa-plus"></i> Pedir</button>
+                        </div>
+                    </div>
+                </div>`;
+            });
+
+            if (!html) html = `<div style="grid-column:1/-1;text-align:center;padding:60px 0;color:var(--text-muted);font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;">Próximamente en esta categoría</div>`;
+
             $('#contenedor-productos').html(html);
+            bindCursor();
         }
 
+        /* ----- FILTROS funcionales ----- */
+        function setFilter(el, cat) {
+            document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            cargarProductos(cat);
+        }
+
+        /* ----- TEMAS ----- */
+        function setPalette(theme) {
+            $('body').removeClass('theme-azul theme-neon-claro theme-pastel');
+            if (theme !== 'neon') $('body').addClass('theme-' + theme);
+        }
+
+        /* ----- MODAL ----- */
         function abrirCaptura(nombre) {
             productoSeleccionado = nombre;
-            $('#modal-lead').css('display', 'flex').hide().fadeIn();
+            $('#modal-product-label').text(nombre);
+            cartCount++; $('#cart-badge').text(cartCount).addClass('visible');
+            $('#modal-lead').css('display', 'flex').hide().fadeIn(300);
         }
+        function closeModal() { $('#modal-lead').fadeOut(200); }
 
         function enviarWhatsApp() {
             const phone = $('#user-phone').val().trim();
             if (phone.length < 8) return alert("Ingrese un número válido");
-
-            // Mostrar estado de carga
-            $('.btn-order').html('<i class="fas fa-spinner fa-spin"></i> PROCESANDO...').prop('disabled', true);
-
-            // Crear el paquete de datos EXACTO que espera Google Sheets
-            const payload = {
-                fecha: new Date().toLocaleString(),
-                telefono: phone,
-                producto: productoSeleccionado,
-                demo_origen: "Sakura Sushi (Premium)"
-            };
-
-            fetch(WEBHOOK_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            }).then(() => {
-                // Al terminar, mostramos el CTA hacia tu web
-                $('#modal-inner').html(`
-                    <i class="fas fa-check-circle" style="font-size: 3.5rem; color: var(--accent); margin-bottom: 20px; display:block;"></i>
-                    <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom:15px;">¡Pedido Registrado!</h3>
-                    <p style="color: var(--text-muted); margin-bottom: 25px; line-height: 1.6;">
-                        ¿Te imaginas a tus clientes pidiendo así de fácil? <br>
-                        <b>IAsesoria</b> automatiza tu negocio.
+            $('.btn-order').html('<i class="fas fa-spinner fa-spin"></i> Procesando...').prop('disabled', true);
+            const payload = { fecha: new Date().toLocaleString(), telefono: phone, producto: productoSeleccionado, demo_origen: "Sakura Sushi (Premium)" };
+            fetch(WEBHOOK_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+                .then(() => {
+                    $('#modal-inner').html(`
+                    <div class="modal-icon"><i class="fas fa-check" style="color:var(--accent);"></i></div>
+                    <h3>¡Listo!</h3>
+                    <span class="modal-product-name">${productoSeleccionado}</span>
+                    <p style="color:var(--text-muted);font-size:0.85rem;line-height:1.7;margin-bottom:28px;">
+                        ¿Imaginas a tus clientes pidiendo así de fácil?<br>
+                        <b style="color:var(--text-main);">IAsesoria</b> lo hace realidad.
                     </p>
-                    <a href="https://www.iasesoria.cl/#five" target="_blank" rel="noopener noreferrer" class="btn-order" style="text-decoration:none;">Quiero esto para mi local</a>
+                    <a href="https://www.iasesoria.cl/#five" target="_blank" rel="noopener noreferrer"
+                       class="btn-order" style="text-decoration:none;">Quiero esto para mi local →</a>
                     <button class="btn-close" onclick="location.reload()">Hacer otra prueba</button>
                 `);
-            }).catch(err => {
-                console.error("Error al enviar:", err);
-                alert("Ocurrió un error, pero tu prueba fue procesada.");
-            });
+                }).catch(() => alert("Ocurrió un error, pero tu prueba fue procesada."));
         }
 
-        $(document).ready(cargarProductos);
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+        $(document).ready(() => { cargarProductos(); bindCursor(); });
     </script>
 </body>
 
