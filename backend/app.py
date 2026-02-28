@@ -53,16 +53,29 @@ def pagina_gracias():
 def demos():
     return render_template("demos.html")
 
-@app.route("/demo-tiendas1.html")
-def demo_sushi():
+# Esta ruta capturará lo que intentas en la captura (demo-tienda.html)
+@app.route("/demo-tienda.html")
+def demo_legacy():
+    tipo = request.args.get('tipo', 'sushi')
+    if tipo == 'sushi':
+        return render_template("demo-tiendas1.html")
+    elif tipo == 'ferreteria':
+        return render_template("demo-tiendas2.html")
+    elif tipo == 'turismo' or tipo == 'pasteleria':
+        return render_template("demo-tiendas3.html")
+    return redirect(url_for('demos'))
+
+# Rutas modernas y limpias (Recomendado)
+@app.route("/sushi")
+def sushi():
     return render_template("demo-tiendas1.html")
 
-@app.route("/demo-tiendas2.html")
-def demo_ferreteria():
+@app.route("/ferreteria")
+def ferreteria():
     return render_template("demo-tiendas2.html")
 
-@app.route("/demo-tiendas3.html")
-def demo_turismo():
+@app.route("/turismo")
+def turismo():
     return render_template("demo-tiendas3.html")
 
 
