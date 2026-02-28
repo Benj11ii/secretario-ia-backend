@@ -1,34 +1,23 @@
-// assets/js/demos.js - VERSIÓN COMPLETA CON 4 DEMOS Y SISTEMA HÍBRIDO DE CHAT
+// assets/js/demos.js - VERSIÓN FINAL PARA PRODUCCIÓN
 
 // ============================================
 // MANEJADOR DE CLICKS PARA DEMOS
 // ============================================
 function handleDemoClick(button, demoFunctionName) {
-    // Encontrar la tarjeta contenedora
     const demoCard = button.closest('.demo-card');
     if (!demoCard) return;
 
-    // Obtener la función por su nombre
     const demoFunction = window[demoFunctionName];
     if (typeof demoFunction !== 'function') return;
 
-    // Activar modo focus y ejecutar demo
     focusOnDemo(demoCard, demoFunction);
 }
 
 // ============================================
-// FUNCIÓN PARA DETECTAR MAC (NUEVA - AGREGADA)
-// ============================================
-
-
-// ============================================
-// DEMO 1: DIAGNÓSTICO EXPRESS (VERSIÓN SIMPLE)
+// DEMO 1: DIAGNÓSTICO EXPRESS
 // ============================================
 function runDataDemo() {
-    console.log("✅ Demo 1 ejecutándose - Versión Simple");
-
-    const demoDiv = document.getElementById('demo-data');
-    demoDiv.addEventListener('click', e => e.stopPropagation());
+    const demoDiv = document.querySelector('.demo-card.active .demo-content');
     if (!demoDiv) return;
 
     let paso = 1;
@@ -36,663 +25,116 @@ function runDataDemo() {
 
     function renderPaso() {
         let html = '';
-
         if (paso === 1) {
             html = `
                 <div style="text-align: center; padding: 15px;">
-                    <h4 style="color: #f3a022; margin: 0 0 15px 0;">📋 PASO 1 DE 3</h4>
-                    <p style="color: white; margin-bottom: 20px;">¿Cuál es tu principal desafío hoy?</p>
+                    <h4 style="color: #f3a022; margin-bottom: 15px;">📋 PASO 1 DE 3</h4>
+                    <p style="margin-bottom: 20px;">¿Cuál es tu principal desafío hoy?</p>
                     <div style="display: flex; flex-direction: column; gap: 10px;">
                         <button onclick="responderDemo1('ventas')" class="btn-cotizar" style="width: 100%;">📉 Aumentar ventas</button>
                         <button onclick="responderDemo1('tiempo')" class="btn-cotizar" style="width: 100%;">⏰ Poco tiempo</button>
                         <button onclick="responderDemo1('clientes')" class="btn-cotizar" style="width: 100%;">👥 Gestionar clientes</button>
-                        <button onclick="responderDemo1('inventario')" class="btn-cotizar" style="width: 100%;">📦 Controlar inventario</button>
                     </div>
-                </div>
-            `;
+                </div>`;
         } else if (paso === 2) {
-            html = `
-                <div style="text-align: center; padding: 15px;">
-                    <h4 style="color: #f3a022; margin: 0 0 15px 0;">📋 PASO 2 DE 3</h4>
-                    <p style="color: white; margin-bottom: 20px;">¿Cuánto tiempo dedicas a tareas manuales?</p>
-                    <div style="display: flex; flex-direction: column; gap: 10px;">
-                        <button onclick="responderDemo1('poco')" class="btn-cotizar" style="width: 100%;">🕐 Menos de 1 hora/día</button>
-                        <button onclick="responderDemo1('medio')" class="btn-cotizar" style="width: 100%;">⏳ Entre 1 y 3 horas/día</button>
+            html = `<div style="text-align: center; padding: 15px;">
+                        <h4 style="color: #f3a022; margin-bottom: 15px;">📋 PASO 2 DE 3</h4>
+                        <p style="margin-bottom: 20px;">¿Cuánto tiempo dedicas a tareas manuales?</p>
                         <button onclick="responderDemo1('mucho')" class="btn-cotizar" style="width: 100%;">🔥 Más de 3 horas/día</button>
-                        <button onclick="responderDemo1('muchisimo')" class="btn-cotizar" style="width: 100%;">⚡ No tengo control</button>
-                    </div>
-                </div>
-            `;
-        } else if (paso === 3) {
-            html = `
-                <div style="text-align: center; padding: 15px;">
-                    <h4 style="color: #f3a022; margin: 0 0 15px 0;">📋 PASO 3 DE 3</h4>
-                    <p style="color: white; margin-bottom: 20px;">¿Qué te gustaría lograr en 3 meses?</p>
-                    <div style="display: flex; flex-direction: column; gap: 10px;">
-                        <button onclick="responderDemo1('crecer')" class="btn-cotizar" style="width: 100%;">🚀 Crecer sin contratar</button>
-                        <button onclick="responderDemo1('organizar')" class="btn-cotizar" style="width: 100%;">📊 Organizar mi negocio</button>
-                        <button onclick="responderDemo1('automatizar')" class="btn-cotizar" style="width: 100%;">🤖 Automatizar todo</button>
-                        <button onclick="responderDemo1('clientes')" class="btn-cotizar" style="width: 100%;">💬 Fidelizar clientes</button>
-                    </div>
-                </div>
-            `;
+                        <button onclick="responderDemo1('medio')" class="btn-cotizar" style="width: 100%;">⏳ Entre 1 y 3 horas</button>
+                    </div>`;
+        } else {
+            const diagnostico = respuestas.desafio === 'ventas' ? "🚀 Con IA aumentarías ventas un 40%" : "⏰ Ahorrarías 15h semanales";
+            html = `<div style="text-align: center; padding: 20px;">
+                        <h3 style="color: #f3a022;">✨ Resultado</h3>
+                        <p style="margin: 20px 0;">${diagnostico}</p>
+                        <a href="/#five" class="btn-cotizar" style="text-decoration:none;">📝 Solicitar asesoría</a>
+                    </div>`;
         }
-
         demoDiv.innerHTML = html;
     }
 
-    window.responderDemo1 = function (respuesta) {
-        if (paso === 1) respuestas.desafio = respuesta;
-        if (paso === 2) respuestas.tiempo = respuesta;
-        if (paso === 3) respuestas.meta = respuesta;
-
-        if (paso < 3) {
-            paso++;
-            renderPaso();
-        } else {
-            // Diagnóstico final
-            const diagnostico = {
-                ventas: "🚀 Con IA podrías aumentar ventas 40%",
-                tiempo: "⏰ Automatizar te ahorraría 15h/semana",
-                inventario: "📦 Dashboard evitaría quiebres de stock",
-                clientes: "💬 CRM automático fideliza clientes"
-            };
-
-            demoDiv.innerHTML = `
-    <div style="text-align: center; padding: 20px;">
-        <h3 style="color: #f3a022;">✨ Diagnóstico Express</h3>
-        <p style="color: white; margin: 20px 0;">
-            ${diagnostico[respuestas.desafio] || diagnostico.ventas}
-        </p>
-        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-            <button onclick="reiniciarDemo1()" class="btn-cotizar">
-                🔄 Probar otra vez
-            </button>
-            <a href="/#five" class="btn-cotizar" style="text-decoration:none;">
-                📝 Solicitar asesoría</a>
-            </a>
-        </div>
-    </div>
-`;
-        }
+    window.responderDemo1 = function(r) {
+        if(paso === 1) respuestas.desafio = r;
+        if(paso < 3) { paso++; renderPaso(); }
     };
-
-    window.reiniciarDemo1 = function () {
-        paso = 1;
-        respuestas = {};
-        renderPaso();
-    };
-
     renderPaso();
 }
 
 // ============================================
-// DEMO 2: AUTOMATIZACIÓN (VISUAL E INTERACTIVA)
+// DEMO 2: AUTOMATIZACIÓN VISUAL
 // ============================================
 function runAutoDemo() {
-    console.log("✅ Demo 2 ejecutándose - Automatización Visual");
-
-    const demoDiv = document.getElementById('demo-auto');
+    const demoDiv = document.querySelector('.demo-card.active .demo-content');
     if (!demoDiv) return;
 
-    // Evitamos problemas de propagación de clics
-    demoDiv.addEventListener('click', e => e.stopPropagation());
+    demoDiv.innerHTML = `
+        <div style="text-align: center; padding: 20px;">
+            <h4 style="color: #f3a022; margin-bottom: 15px;">⚙️ AUTOMATIZACIÓN</h4>
+            <p style="margin-bottom: 25px;">Haz clic para ver cómo la IA gestiona una venta administrativa por ti.</p>
+            <button onclick="ejecutarFlujo()" class="btn-cotizar">🛒 Simular Venta</button>
+        </div>`;
 
-    // 1. Pantalla Inicial (Botón de acción)
-    window.renderAutoInicial = function (e) {
-        if (e) e.stopPropagation();
-
-        demoDiv.innerHTML = `
-            <div style="text-align: center; padding: 20px;">
-                <h4 style="color: #f3a022; margin: 0 0 15px 0;">⚙️ MAGIA EN UN CLIC</h4>
-                <p style="color: white; margin-bottom: 25px; font-size: 0.95rem;">
-                    Imagina que un cliente acaba de comprar. Haz clic para ver cómo la IA hace el trabajo administrativo por ti.
-                </p>
-                <button onclick="ejecutarAutoFlujo(event)" class="btn-cotizar" style="font-size: 1.1rem; padding: 15px 30px; display: inline-flex; align-items: center; gap: 8px;">
-                    <span>🛒</span> Simular Nueva Venta
-                </button>
-            </div>
-        `;
+    window.ejecutarFlujo = function() {
+        demoDiv.innerHTML = `<div style="text-align:left; padding:10px; color:#f3a022;">⚡ Ejecutando: <br> 1. CRM ✅ <br> 2. Factura ✅ <br> 3. WhatsApp Bodega ✅ <br><br> <small style="color:white">¡Listo en 1.5 segundos!</small></div>`;
     };
-
-    // 2. Ejecución del Flujo (Animación visual simulada)
-    window.ejecutarAutoFlujo = function (e) {
-        if (e) e.stopPropagation();
-
-        // Estilos base para los pasos
-        const stPending = "padding: 12px 15px; border-radius: 8px; background: rgba(255,255,255,0.05); border-left: 4px solid transparent; display: flex; justify-content: space-between; align-items: center; opacity: 0.5; transition: all 0.3s;";
-        const stActive = "padding: 12px 15px; border-radius: 8px; background: rgba(243,160,34,0.15); border-left: 4px solid #f3a022; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s;";
-        const stDone = "padding: 12px 15px; border-radius: 8px; background: rgba(76,175,80,0.15); border-left: 4px solid #4CAF50; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s;";
-
-        // Renderizamos la estructura de los pasos
-        demoDiv.innerHTML = `
-            <div style="width:100%; padding: 10px;">
-                <div style="text-align:center; margin-bottom: 20px;">
-                    <span style="color: #f3a022; font-weight: bold; font-size: 0.9rem;">⚡ EJECUTANDO FLUJO AUTOMÁTICO...</span>
-                </div>
-
-                <div style="display: flex; flex-direction: column; gap: 12px;">
-                    <!-- Paso 1: Activo de inmediato -->
-                    <div id="paso-auto-1" style="${stActive}">
-                        <span style="color: white;">🗄️ Guardando cliente en CRM...</span>
-                        <span style="color: #f3a022;" class="spin-icon">⏳</span>
-                    </div>
-
-                    <!-- Paso 2: Pendiente -->
-                    <div id="paso-auto-2" style="${stPending}">
-                        <span style="color: white;">📧 Generando y enviando factura</span>
-                        <span>⌛</span>
-                    </div>
-
-                    <!-- Paso 3: Pendiente -->
-                    <div id="paso-auto-3" style="${stPending}">
-                        <span style="color: white;">📱 Notificando a Bodega (WhatsApp)</span>
-                        <span>⌛</span>
-                    </div>
-                </div>
-
-                <!-- Botones Finales (Ocultos inicialmente) -->
-                <div id="auto-resultado" style="display: none; margin-top: 25px; text-align: center;">
-                    <p style="color: #4CAF50; font-size: 0.95rem; font-weight: bold; margin-bottom: 15px;">
-                        ✨ ¡3 tareas completadas en 2 segundos!
-                    </p>
-                    <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-                        <button onclick="renderAutoInicial(event)" class="btn-cotizar" style="background: rgba(255,255,255,0.1); color: white;">🔄 Probar otra vez</button>
-                        <a href="/#five" class="btn-cotizar" style="text-decoration:none;">📝 Solicitar asesoría</a>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        // Lógica de avance de los pasos con setTimeout
-        const p1 = document.getElementById('paso-auto-1');
-        const p2 = document.getElementById('paso-auto-2');
-        const p3 = document.getElementById('paso-auto-3');
-        const resultado = document.getElementById('auto-resultado');
-
-        // A los 800ms: P1 termina, P2 empieza
-        setTimeout(() => {
-            p1.style.cssText = stDone;
-            p1.innerHTML = `<span style="color: white; opacity:0.8;">🗄️ Cliente guardado en CRM</span><span style="color: #4CAF50;">✅</span>`;
-
-            p2.style.cssText = stActive;
-            p2.innerHTML = `<span style="color: white;">📧 Enviando factura...</span><span style="color: #f3a022;">⏳</span>`;
-        }, 800);
-
-        // A los 1600ms: P2 termina, P3 empieza
-        setTimeout(() => {
-            p2.style.cssText = stDone;
-            p2.innerHTML = `<span style="color: white; opacity:0.8;">📧 Factura enviada al cliente</span><span style="color: #4CAF50;">✅</span>`;
-
-            p3.style.cssText = stActive;
-            p3.innerHTML = `<span style="color: white;">📱 Notificando a Bodega...</span><span style="color: #f3a022;">⏳</span>`;
-        }, 1600);
-
-        // A los 2400ms: P3 termina y muestra botones
-        setTimeout(() => {
-            p3.style.cssText = stDone;
-            p3.innerHTML = `<span style="color: white; opacity:0.8;">📱 Bodega notificada</span><span style="color: #4CAF50;">✅</span>`;
-
-            // Efecto "Fade In" para los botones finales
-            resultado.style.display = 'block';
-            resultado.animate([
-                { opacity: 0, transform: 'translateY(10px)' },
-                { opacity: 1, transform: 'translateY(0)' }
-            ], { duration: 400, fill: 'forwards' });
-
-        }, 2400);
-    };
-
-    // Arrancamos mostrando la pantalla inicial
-    renderAutoInicial();
 }
 
 // ============================================
-// DEMO 3: CHAT CON LÍMITE DE 3 CONSULTAS (MEJORADO)
+// DEMO 3: CHAT IA (RESUMIDO)
 // ============================================
 function runChatDemo() {
-    console.log("✅ Demo 3 ejecutándose - Efecto GPT Mejorado");
-
-    const demoDiv = document.getElementById('demo-chat');
-    demoDiv.addEventListener('click', e => e.stopPropagation());
+    const demoDiv = document.querySelector('.demo-card.active .demo-content');
     if (!demoDiv) return;
 
-    let consultasRestantes = sessionStorage.getItem('chatConsultas');
-
-    if (consultasRestantes === null) {
-        sessionStorage.setItem('chatConsultas', '3');
-        consultasRestantes = 3;
-    } else {
-        consultasRestantes = parseInt(consultasRestantes);
-    }
-
-    let chatHistory = [];
-
     demoDiv.innerHTML = `
-        <div style="width:100%; background: rgba(0,0,0,0.2); border-radius: 8px; padding: 15px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <span style="color: #f3a022; font-size: 0.9rem;">🤖 Asistente IAsesoria (Demo)</span>
-                <span style="color: rgba(255,255,255,0.5); font-size: 0.8rem; background: rgba(243,160,34,0.2); padding: 3px 8px; border-radius: 12px;">
-                    💬 <span id="chat-contador">${consultasRestantes}</span> de 3 consultas
-                </span>
+        <div style="padding:15px; background:rgba(0,0,0,0.3); border-radius:10px;">
+            <p style="color:#f3a022; font-size:0.8rem;">🤖 Chat en vivo habilitado</p>
+            <div id="chat-box" style="height:150px; overflow-y:auto; margin:10px 0; font-size:0.9rem;">
+                <p>IA: Hola, ¿en qué puedo ayudarte hoy?</p>
             </div>
+            <input type="text" placeholder="Pregunta algo..." style="width:100%; padding:10px; background:#111; border:1px solid #333; color:white;">
+        </div>`;
+}
+
+// ============================================
+// DEMO 4 & 5: DASHBOARD Y SORT (STUBS)
+// ============================================
+function runDashDemo() { runAutoDemo(); }
+function runSortDemo() { runAutoDemo(); }
+
+// ============================================
+// DEMO 6: SELECTOR DE TIENDAS (EL QUE FALLABA)
+// ============================================
+function runTiendaDemo() {
+    // Buscamos el contenedor dentro de la tarjeta que está activa actualmente
+    const container = document.querySelector('.demo-card.active .demo-content');
+    if (!container) return;
+
+    container.innerHTML = `
+        <div style="text-align: center; padding: 20px;">
+            <h4 style="color: #f3a022; margin-bottom: 15px; font-family: 'Playfair Display', serif;">Seleccione un modelo de negocio</h4>
+            <p style="font-size: 0.9rem; color: #ccc; margin-bottom: 25px;">
+                Explore cómo la IA gestiona ventas y pedidos en tiempo real.
+            </p>
             
-            <div id="chat-messages" style="height: 200px; overflow-y: auto; margin-bottom: 15px; padding: 10px; background: rgba(0,0,0,0.4); border-radius: 8px;">
-                <p style="margin:5px 0; color:#f3a022;">🤖 IAsistente: ¡Hola! Soy el asistente de IAsesoria.</p>
-            </div>
-            
-            <div style="display: flex; gap: 8px;">
-                <input type="text" id="chat-input" placeholder="Escribe tu pregunta..." 
-                    style="flex:1; padding: 10px; background: rgba(0,0,0,0.5); color: white; border: 1px solid #f3a02250; border-radius: 4px;">
-                <button id="btn-enviar-chat" onclick="sendChatMessage()" style="padding: 10px 25px; background: #f3a022; color: #1a1a21; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">Enviar</button>
-            </div>
-            
-            <div id="chat-bloqueado" style="display: none; margin-top: 15px; padding: 15px; background: rgba(243, 160, 34, 0.15); border-radius: 8px; text-align: center;">
-                <p style="color: #f3a022; font-weight: bold;">Demo completada</p>
-                <p style="color: white;">Gracias por probar la demo.</p>
-                <div style="margin-top: 15px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.5; text-align: center;">
-    <strong style="color: #f2a61f; font-style: italic;">Nota:</strong>
-    <span style="font-style: italic;"> Este asistente IA funciona en un computador normal, sin servidores costosos. Usted puede tenerlo personalizado como usted quiera. <strong style="color: #f2a61f;">Conversemos.</strong></span>
-</div>
-                <a href="/#five" class="btn-cotizar" style="text-decoration: none; display: inline-block; margin-top: 10px;">Ir al formulario</a>
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                <a href="/sushi" class="button fit" style="background: #f3a022; color: #1a1a1a; font-weight: bold; border: none;">
+                   🍣 Tienda de Sushi (Ventas)
+                </a>
+                <a href="/ferreteria" class="button fit" style="border: 2px solid #00d1ff; color: #00d1ff; font-weight: bold; background: transparent;">
+                   🛠️ Ferretería (Inventario)
+                </a>
+                <a href="/turismo" class="button fit" style="border: 2px solid #c9a84c; color: #c9a84c; font-weight: bold; background: transparent;">
+                   🏔️ Turismo Premium (Reservas)
+                </a>
             </div>
         </div>
     `;
-
-    // Si ya no le quedan consultas, bloqueamos
-    if (consultasRestantes <= 0) {
-        document.getElementById('chat-input').disabled = true;
-        document.getElementById('btn-enviar-chat').disabled = true;
-        document.getElementById('chat-bloqueado').style.display = 'block';
-        return;
-    }
-
-    // Permitir Enviar con la tecla "Enter"
-    document.getElementById('chat-input').addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') {
-            sendChatMessage();
-        }
-    });
-
-    window.sendChatMessage = async function () {
-        const input = document.getElementById('chat-input');
-        const msgDiv = document.getElementById('chat-messages');
-        const contadorSpan = document.getElementById('chat-contador');
-        const sendBtn = document.getElementById('btn-enviar-chat');
-
-        if (input.value.trim() === '') return;
-
-        let restantes = parseInt(sessionStorage.getItem('chatConsultas'));
-        if (restantes <= 0) return;
-
-        // Bloquear input y botón mientras la IA responde
-        sendBtn.disabled = true;
-        input.disabled = true;
-
-        const userMsg = input.value;
-
-        // Imprimir mensaje del usuario
-        msgDiv.innerHTML += `<p style="margin:5px 0; text-align: right;"><strong style="color:white;">👤 Tú:</strong> <span style="color:rgba(255,255,255,0.9);">${userMsg}</span></p>`;
-        input.value = '';
-
-        // Indicador de "Pensando..."
-        const thinkingId = "typing-" + Date.now();
-        msgDiv.innerHTML += `<p id="${thinkingId}" style="margin:5px 0; color:#f3a022;">🤖 Bot: <span style="opacity:0.7;">⚡ pensando...</span></p>`;
-        msgDiv.scrollTop = msgDiv.scrollHeight;
-
-        const url = '/api/chat';
-
-        try {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    message: userMsg,
-                    history: chatHistory,
-                    consulta_num: (3 - restantes + 1)
-                })
-            });
-
-            const data = await response.json();
-            document.getElementById(thinkingId)?.remove();
-
-            if (data.success) {
-                // CREAR ELEMENTOS PARA EL EFECTO TIPO CHATGPT
-                const p = document.createElement('p');
-
-                // white-space: pre-wrap; es VITAL para que los párrafos se separen bien
-                p.style.cssText = 'margin:5px 0; color: white; white-space: pre-wrap; line-height: 1.4;';
-
-                // Estructura: Nombre + Texto Vacío + Cursor parpadeante
-                p.innerHTML = `<strong style="color:#f3a022;">🤖 IAsistente:</strong> <span class="typing-text"></span><span class="cursor" style="font-weight:bold; color:#f3a022; margin-left:2px;">|</span>`;
-                msgDiv.appendChild(p);
-
-                const textSpan = p.querySelector('.typing-text');
-                const cursor = p.querySelector('.cursor');
-
-                const texto = data.response;
-                let i = 0;
-
-                // Hacer que el cursor parpadee
-                let cursorBlink = setInterval(() => {
-                    cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
-                }, 400);
-
-                // EL EFECTO DE ESCRITURA REAL (18ms)
-                const intervalo = setInterval(() => {
-                    // textContent previene inyección HTML y es más rápido
-                    textSpan.textContent += texto.charAt(i);
-                    i++;
-                    msgDiv.scrollTop = msgDiv.scrollHeight;
-
-                    // Cuando termina de escribir
-                    if (i >= texto.length) {
-                        clearInterval(intervalo);
-                        clearInterval(cursorBlink);
-                        cursor.style.display = 'none'; // Ocultar el cursor al terminar
-
-                        // Guardar historial
-                        chatHistory.push({ role: 'user', content: userMsg });
-                        chatHistory.push({ role: 'assistant', content: data.response });
-
-                        // Restar consultas
-                        restantes--;
-                        sessionStorage.setItem('chatConsultas', restantes.toString());
-
-                        if (contadorSpan) contadorSpan.innerText = restantes;
-
-                        // Desbloquear input si quedan consultas
-                        if (restantes <= 0) {
-                            document.getElementById('chat-bloqueado').style.display = 'block';
-                        } else {
-                            input.disabled = false;
-                            sendBtn.disabled = false;
-                            input.focus();
-                        }
-                    }
-                }, 18);
-
-            } else {
-                document.getElementById(thinkingId)?.remove();
-                msgDiv.innerHTML += `<p style="margin:5px 0; color:#ff6b6b;">❌ Error en la respuesta</p>`;
-                input.disabled = false;
-                sendBtn.disabled = false;
-            }
-        } catch (error) {
-            document.getElementById(thinkingId)?.remove();
-            msgDiv.innerHTML += `<p style="margin:5px 0; color:#ff6b6b;">❌ Error de conexión</p>`;
-            console.error('Error:', error);
-            input.disabled = false;
-            sendBtn.disabled = false;
-        }
-
-        msgDiv.scrollTop = msgDiv.scrollHeight;
-    };
 }
 
 // ============================================
-// DEMO 4: DATOS QUE HABLAN (DASHBOARD INTELIGENTE)
-// ============================================
-function runDashDemo() {
-    console.log("✅ Demo 4 ejecutándose - Dashboard Inteligente");
-
-    const demoDiv = document.getElementById('demo-dash');
-    if (!demoDiv) return;
-
-    // 🟢 Evitar que se cierre el modal accidentalmente
-    demoDiv.addEventListener('click', e => e.stopPropagation());
-
-    // 1. Pantalla Inicial
-    window.renderDashInicial = function (e) {
-        if (e) e.stopPropagation();
-
-        demoDiv.innerHTML = `
-            <div style="text-align: center; padding: 20px;">
-                <h4 style="color: #f3a022; margin: 0 0 15px 0;">📊 DE NÚMEROS A DECISIONES</h4>
-                <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; margin-bottom: 20px; font-family: monospace; font-size: 0.8rem; color: rgba(255,255,255,0.5); text-align: left; overflow: hidden; height: 60px;">
-                    10:05 | Venta #4021 | $4.500 | P_001<br>
-                    10:08 | Venta #4022 | $1.200 | P_045<br>
-                    10:12 | Venta #4023 | $8.900 | P_012<br>
-                    10:15 | Venta #4024 | $3.500 | P_001
-                </div>
-                <p style="color: white; margin-bottom: 20px; font-size: 0.95rem;">
-                    Tus datos crudos no dicen mucho. Deja que la IA los analice y te diga exactamente qué hacer hoy.
-                </p>
-                <button onclick="generarDashboard(event)" class="btn-cotizar" style="font-size: 1rem; padding: 12px 25px;">
-                    🧠 Analizar con IA
-                </button>
-            </div>
-        `;
-    };
-
-    // 2. Proceso de "Pensamiento" de la IA
-    window.generarDashboard = function (e) {
-        if (e) e.stopPropagation();
-
-        demoDiv.innerHTML = `
-            <div style="text-align: center; padding: 40px 20px;">
-                <p style="color: #f3a022; font-size: 2rem; margin: 0; animation: spin 1s linear infinite;">⏳</p>
-                <p id="dash-status" style="color: #f3a022; margin-top: 15px; font-weight: bold;">Conectando a la caja...</p>
-                <p style="color: rgba(255,255,255,0.6); font-size: 0.85rem;">Procesando más de 1.000 transacciones</p>
-            </div>
-        `;
-
-        const statusText = document.getElementById('dash-status');
-
-        // Simular las fases de análisis
-        setTimeout(() => { if (statusText) statusText.innerText = "Cruzando ventas con inventario..."; }, 800);
-        setTimeout(() => { if (statusText) statusText.innerText = "Generando recomendaciones..."; }, 1600);
-
-        // 3. Mostrar el Dashboard Final
-        setTimeout(() => {
-            mostrarResultadosDashboard();
-        }, 2400);
-    };
-
-    // 3. Renderizar Dashboard con Insights
-    function mostrarResultadosDashboard() {
-        // Generar datos aleatorios chilenizados
-        const ventas = Math.floor(Math.random() * 250) + 120;
-        const crecimiento = Math.floor(Math.random() * 25) + 10;
-
-        // Diccionario de productos con sus "Insights" (Consejos de IA)
-        const analisisProductos = [
-            { nombre: "Marraqueta", insight: "Alta demanda inusual. Sugerencia: Hornear 50 unidades extra para evitar quiebre de stock a las 18:00." },
-            { nombre: "Empanadas", insight: "El ticket promedio baja si se venden solas. Sugerencia: Activar en caja promoción 'Bebida + Empanada'." },
-            { nombre: "Pan Molde", insight: "Poco movimiento hoy. Sugerencia: Ofrecer un 15% de descuento a los próximos 10 clientes." },
-            { nombre: "Pasteles", insight: "Margen de ganancia alto. Sugerencia: Instruir a vendedores ofrecer como 'postre' en cada compra." }
-        ];
-
-        const productoEstrella = analisisProductos[Math.floor(Math.random() * analisisProductos.length)];
-
-        demoDiv.innerHTML = `
-            <div style="width:100%; padding: 5px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                    <span style="color: #4CAF50; font-weight: bold;">✅ Reporte Generado</span>
-                    <span style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">Actualizado justo ahora</span>
-                </div>
-
-                <!-- Tarjetas de Métricas -->
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
-                    <div style="background: rgba(243,160,34,0.1); border: 1px solid rgba(243,160,34,0.3); padding: 12px; border-radius: 8px; text-align: center;">
-                        <div style="color:#aaa; font-size: 0.8rem; text-transform: uppercase;">Ventas Hoy</div>
-                        <div style="font-size: 1.8rem; color:#f3a022; font-weight: bold;">$${ventas}k</div>
-                        <div style="color:#4CAF50; font-size: 0.85rem;">⬆️ +${crecimiento}% vs ayer</div>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 8px; text-align: center;">
-                        <div style="color:#aaa; font-size: 0.8rem; text-transform: uppercase;">Top Producto</div>
-                        <div style="font-size: 1.1rem; color:white; font-weight: bold; margin-top: 5px;">${productoEstrella.nombre}</div>
-                        <div style="color:#f3a022; font-size: 0.85rem; margin-top: 5px;">🔥 En tendencia</div>
-                    </div>
-                </div>
-
-                <!-- EL INSIGHT (La IA hablando) -->
-                <div style="background: rgba(76,175,80,0.1); border-left: 4px solid #4CAF50; padding: 12px 15px; border-radius: 0 8px 8px 0; margin-bottom: 20px;">
-                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 5px;">
-                        <span style="font-size: 1.2rem;">🤖</span>
-                        <span style="color: #4CAF50; font-weight: bold; font-size: 0.9rem;">Insight del Asistente IA</span>
-                    </div>
-                    <p style="color: rgba(255,255,255,0.9); font-size: 0.9rem; margin: 0; line-height: 1.4;">
-                        ${productoEstrella.insight}
-                    </p>
-                </div>
-
-                <!-- Botones Finales -->
-                <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
-                    <button onclick="renderDashInicial(event)" class="btn-cotizar" style="background: rgba(255,255,255,0.1); color: white; padding: 10px 15px;">🔄 Probar otra vez</button>
-                    <a href="/#five" class="btn-cotizar" style="text-decoration:none; padding: 10px 15px;">📝 Solicitar asesoría</a>
-                </div>
-            </div>
-        `;
-    }
-
-    // Arrancamos mostrando la pantalla inicial
-    renderDashInicial();
-}
-
-// ============================================
-// DEMO 5: VISUAL SORT - ORDENAMIENTO ESPECTACULAR
-// ============================================
-function runSortDemo() {
-    console.log("✅ Demo 5 ejecutándose - Visual Sort");
-
-    const demoDiv = document.getElementById('demo-sort');
-    if (!demoDiv) return;
-
-    demoDiv.addEventListener('click', e => e.stopPropagation());
-
-    const productos = [
-        'Marraqueta', 'Hallulla', 'Pan Molde', 'Dulce Leche', 'Alfajor',
-        'Empanada', 'Sopaipilla', 'Pan Amasado', 'Berlines', 'Churro',
-        'Pan de Huevo', 'Pan de Queso', 'Tortilla', 'Pan Integral', 'Bagel',
-        'Croissant', 'Pan Ciabatta', 'Pan Baguette', 'Pan Pita', 'Pan de Centeno'
-    ];
-
-    const clientes = [
-        'Juan Pérez', 'María González', 'Carlos López', 'Ana Martínez', 'Pedro Sánchez',
-        'Laura Rodríguez', 'Diego Fernández', 'Camila Torres', 'Andrés Silva', 'Valentina Castro',
-        'Felipe Muñoz', 'Isabella Rojas', 'Matías Herrera', 'Florencia Díaz', 'Sebastián Soto',
-        'Antonia Vargas', 'Joaquín Reyes', 'Emilia Guzmán', 'Benjamín Cruz', 'Catalina Méndez'
-    ];
-
-    let datosDesordenados = [];
-    for (let i = 0; i < 20; i++) {
-        datosDesordenados.push({
-            producto: productos[Math.floor(Math.random() * productos.length)],
-            cliente: clientes[Math.floor(Math.random() * clientes.length)],
-            cantidad: Math.floor(Math.random() * 50) + 5,
-            venta: Math.floor(Math.random() * 150000) + 20000
-        });
-    }
-
-    function renderTabla(datos, titulo, mostrarBoton = true) {
-        let tablaHTML = `
-            <div style="width:100%; background: rgba(0,0,0,0.2); border-radius: 8px; padding: 15px;">
-                <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
-                    <h4 style="color: #f3a022; margin: 0;">${titulo}</h4>
-                    <span style="color: rgba(255,255,255,0.6);">${datos.length} registros</span>
-                </div>
-                <div style="max-height: 300px; overflow-y: auto;">
-                    <table style="width:100%; border-collapse: collapse;">
-                        <thead style="position:sticky; top:0; background:#1a1a21;">
-                            <tr>
-                                <th style="padding:12px; text-align:left; color:#f3a022;">Producto</th>
-                                <th style="padding:12px; text-align:left; color:#f3a022;">Cliente</th>
-                                <th style="padding:12px; text-align:center; color:#f3a022;">Cantidad</th>
-                                <th style="padding:12px; text-align:right; color:#f3a022;">Venta</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-        `;
-
-        datos.forEach((item, index) => {
-            const bgColor = index % 2 === 0 ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.05)';
-            tablaHTML += `
-                <tr style="background:${bgColor};">
-                    <td style="padding:10px; color:white;">${item.producto}</td>
-                    <td style="padding:10px; color:rgba(255,255,255,0.8);">${item.cliente}</td>
-                    <td style="padding:10px; text-align:center; color:#f3a022;">${item.cantidad} uds</td>
-                    <td style="padding:10px; text-align:right; color:#4CAF50;">$${item.venta.toLocaleString('es-CL')}</td>
-                </tr>
-            `;
-        });
-
-        tablaHTML += `</tbody></table></div>`;
-
-        if (mostrarBoton) {
-            tablaHTML += `
-                <div style="display:flex; justify-content:center; margin-top:15px;">
-                    <button onclick="ordenarDatos(event)" class="btn-cotizar">⚡ ORDENAR CON IA</button>
-                </div>
-            `;
-        }
-
-        tablaHTML += `</div>`;
-        return tablaHTML;
-    }
-
-    demoDiv.innerHTML = renderTabla(datosDesordenados, '📊 DATOS DESORDENADOS');
-
-    window.ordenarDatos = function (e) {
-        if (e) e.stopPropagation();
-
-        demoDiv.innerHTML = `<div style="text-align:center; padding:40px;"><p style="color:#f3a022;">⏳ Procesando...</p></div>`;
-
-        setTimeout(() => {
-            const datosOrdenados = [...datosDesordenados].sort((a, b) => b.cantidad - a.cantidad);
-            demoDiv.innerHTML = renderTabla(datosOrdenados, '✅ DATOS ORDENADOS', false);
-
-            // ✅ CORREGIDO: Usamos const mensajeDiv aquí
-            const mensajeDiv = document.createElement('div');
-            mensajeDiv.style.cssText = 'margin-top:15px; padding:15px; background:rgba(76,175,80,0.1); border-radius:8px; text-align:center;';
-            mensajeDiv.innerHTML = `
-                <p style="color:#4CAF50; font-weight:bold;">✨ ORDENAMIENTO COMPLETADO</p>
-                <div style="display:flex; gap:10px; justify-content:center; margin-top:15px;">
-                    <button onclick="reiniciarDemo(event)" class="btn-cotizar">🔄 Probar otra vez</button>
-                    <a href="/#five" class="btn-cotizar" style="text-decoration:none;">📝 Solicitar asesoría</a>
-                </div>
-            `;
-            demoDiv.appendChild(mensajeDiv);
-        }, 1500);
-    };
-
-    window.reiniciarDemo = function (e) {
-        if (e) e.stopPropagation();
-
-        // ✅ CORREGIDO: Regeneramos datos
-        datosDesordenados = [];
-        for (let i = 0; i < 20; i++) {
-            datosDesordenados.push({
-                producto: productos[Math.floor(Math.random() * productos.length)],
-                cliente: clientes[Math.floor(Math.random() * clientes.length)],
-                cantidad: Math.floor(Math.random() * 50) + 5,
-                venta: Math.floor(Math.random() * 150000) + 20000
-            });
-        }
-
-        demoDiv.innerHTML = renderTabla(datosDesordenados, '📊 DATOS DESORDENADOS');
-    };
-}
-// ============================================
-// VERIFICACIÓN DE CARGA (GLOBAL - FUERA DE FUNCIONES)
-// ============================================
-console.log("🚀 demos.js cargado correctamente");
-console.log("✅ Funciones disponibles:", {
-    data: typeof runDataDemo,
-    auto: typeof runAutoDemo,
-    chat: typeof runChatDemo,
-    dash: typeof runDashDemo,
-    sort: typeof runSortDemo
-});
-
-window.runDataDemo = runDataDemo;
-window.runAutoDemo = runAutoDemo;
-window.runChatDemo = runChatDemo;
-window.runDashDemo = runDashDemo;
-window.runSortDemo = runSortDemo;
-
-// ============================================
-// MODO FOCUS (GLOBAL) - CORREGIDO
+// MODO FOCUS (SISTEMA DE VENTANAS)
 // ============================================
 let activeDemoCard = null;
 
@@ -703,16 +145,12 @@ function focusOnDemo(demoCard, demoFunction) {
     activeDemoCard = demoCard;
     document.body.classList.add('focus-mode');
 
-    const preview = demoCard.querySelector('.demo-preview');
-    if (preview) {
-        preview.innerHTML = `
-            <button class="demo-close-btn" onclick="exitFocusMode()">✕</button>
-            <div class="demo-content"></div>
-        `;
-    }
-
+    // Limpiar contenido previo y ejecutar la función de la demo
+    const preview = demoCard.querySelector('.demo-content');
+    if (preview) preview.innerHTML = '';
+    
     setTimeout(() => {
-        demoFunction();
+        demoFunction(); 
     }, 100);
 }
 
@@ -724,65 +162,16 @@ function exitFocusMode() {
     document.body.classList.remove('focus-mode');
 }
 
-document.addEventListener('click', function (e) {
-    if (document.body.classList.contains('focus-mode')) {
-        if (!e.target.closest('.demo-card') && !e.target.closest('.demo-hover-btn')) {
-            exitFocusMode();
-        }
-    }
+// Cerrar con Escape
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') exitFocusMode();
 });
 
-document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && document.body.classList.contains('focus-mode')) {
-        exitFocusMode();
-    }
-});
-
-document.querySelectorAll('.demo-close-btn').forEach(btn => {
-    btn.addEventListener('click', function (e) {
-        e.stopPropagation();
-    });
-});
-
-document.addEventListener('touchmove', function (e) {
-    if (document.body.classList.contains('focus-mode')) {
-        e.preventDefault();
-    }
-}, { passive: false });
-
-
-// DEMO 5: SELECTOR DE ECOSISTEMAS DE VENTA
-function runTiendaDemo(containerId) {
-    const container = document.getElementById(containerId);
-    container.innerHTML = `
-        <div style="text-align: center; padding: 20px;">
-            <h4 style="color: #f3a022; margin-bottom: 15px; font-family: 'Playfair Display', serif;">Seleccione un modelo de negocio</h4>
-            <p style="font-size: 0.9rem; color: #ccc; margin-bottom: 25px;">
-                Explore cómo la IA gestiona ventas y pedidos en tiempo real.
-            </p>
-            
-            <div style="display: flex; flex-direction: column; gap: 15px;">
-                <!-- Links corregidos para Flask -->
-                <a href="/sushi" class="button fit" style="background: #f3a022; color: #1a1a1a; font-weight: bold; border: none;">
-                   🍣 Tienda de Sushi (Ventas)
-                </a>
-
-                <a href="/ferreteria" class="button fit" style="border: 2px solid #00d1ff; color: #00d1ff; font-weight: bold; background: transparent;">
-                   🛠️ Ferretería (Inventario)
-                </a>
-
-                <a href="/turismo" class="button fit" style="border: 2px solid #c9a84c; color: #c9a84c; font-weight: bold; background: transparent;">
-                   🏔️ Turismo Premium (Reservas)
-                </a>
-            </div>
-        </div>
-    `;
-}
-
-
-
-
-
-
-
-
+// Exportar funciones al objeto window para que los botones HTML las vean
+window.runDataDemo = runDataDemo;
+window.runAutoDemo = runAutoDemo;
+window.runChatDemo = runChatDemo;
+window.runDashDemo = runDashDemo;
+window.runSortDemo = runSortDemo;
+window.runTiendaDemo = runTiendaDemo;
+window.exitFocusMode = exitFocusMode;

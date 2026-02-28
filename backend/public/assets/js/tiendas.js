@@ -1,9 +1,8 @@
-// assets/js/tiendas.js - VERSIÓN SEGURA Y A PRUEBA DE FALLOS
+// assets/js/tiendas.js - VERSIÓN FINAL PARA PRODUCCIÓN (UNIFICADA)
 
 // ==========================================
 // CONFIGURACIÓN Y DATOS
 // ==========================================
-// URL de tu Google Apps Script
 const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxO6j-I6dCSp361U2IQrb8kr5EWPXRTL8tt9ulLK44utC7KiZIOHI2InjutpbLidls5/exec"; 
 let productoSeleccionado = "";
 
@@ -28,15 +27,15 @@ const demosConfig = {
         ],
         imgBase: "https://images.unsplash.com/photo-1504148455328-c376907d081c?w=400&q=80"
     },
-    pasteleria: { 
-        title: "Dulce Tentación IA", color: "#f3a022", 
+    turismo: { // Cambiado de 'pasteleria' a 'turismo'
+        title: "Turismo Premium IA", color: "#c9a84c", 
         items: [
-            { n: "Torta Frutos Bosque", d: "Artesanal" },
-            { n: "Cheesecake Naranja", d: "Premium" },
-            { n: "Macarons Selección", d: "Caja 12 unid." },
-            { n: "Mousse Chocolate", d: "Intenso" }
+            { n: "Esencial Araucanía", d: "Trekking y Termas" },
+            { n: "Aventura Volcán", d: "Ascenso al Cráter" },
+            { n: "Experiencia VIP", d: "Vuelo Panorámico" },
+            { n: "Navegación Lago", d: "Tour Privado" }
         ],
-        imgBase: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&q=80"
+        imgBase: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400&q=80"
     }
 };
 
@@ -56,27 +55,21 @@ function setPalette(theme) {
 }
 
 // ==========================================
-// CARGA DE PRODUCTOS (CON SEGURO ANTI-FALLOS)
+// CARGA DE PRODUCTOS
 // ==========================================
 function cargarDemo(tipo) {
     try {
-        console.log("Intentando cargar demo:", tipo);
         const data = demosConfig[tipo];
-        
-        if (!data) {
-            console.error("No se encontró la configuración para:", tipo);
-            return;
-        }
+        if (!data) return;
 
-        // Si existen estos elementos, los actualiza (si no, no pasa nada)
+        // Actualizar elementos de texto si existen
         if ($('#tipo-demo').length) $('#tipo-demo').text(`Demo: ${data.title}`);
         if ($('#demo-title').length) $('#demo-title').text(data.title);
         
         document.documentElement.style.setProperty('--accent', data.color);
-        $('body').removeClass('theme-neon theme-azul theme-neon-claro theme-pastel');
 
         let htmlProductos = '';
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 8; i++) { // Mostramos 8 productos
             const item = data.items[i % data.items.length];
             const precio = `$${Math.floor(Math.random() * 15000 + 3000).toLocaleString('es-CL')}`;
             const randomSeed = Math.floor(Math.random() * 1000);
@@ -93,16 +86,11 @@ function cargarDemo(tipo) {
                         <span class="price">${precio}</span>
                         <button class="btn-add" onclick="abrirCaptura('${item.n}')">AGREGAR</button>
                     </div>
-                </div>
-            `;
+                </div>`;
         }
-
-        console.log("Insertando productos en el DOM...");
         $('#contenedor-productos').html(htmlProductos);
-        console.log("Carga exitosa.");
-
     } catch (error) {
-        console.error("Error al cargar los productos:", error);
+        console.error("Error al cargar productos:", error);
     }
 }
 
@@ -112,31 +100,20 @@ function abrirCaptura(nombreProducto) {
 }
 
 // ==========================================
-// LÓGICA DE CAPTURA DE LEADS (GOOGLE SHEETS)
+// LÓGICA DE ENVÍO (GOOGLE SHEETS)
 // ==========================================
 function enviarWhatsApp() {
     const phone = $('#user-phone').val().trim();
-    
-    if(phone.length < 8) { 
-        alert("Por favor, ingrese un número de WhatsApp válido."); 
-        return; 
-    }
+    if(phone.length < 8) return alert("Por favor, ingrese un número válido."); 
     
     const btn = $('.btn-order');
-    const btnOriginalText = btn.html();
     btn.html('<i class="fas fa-spinner fa-spin"></i> Procesando...').prop('disabled', true);
-
-    // Si no existe #demo-title, mandamos "Sakura Sushi" por defecto
-    let origen = "Sakura Sushi";
-    if ($('#demo-title').length > 0) {
-        origen = $('#demo-title').text();
-    }
 
     const payload = {
         fecha: new Date().toLocaleString(),
         telefono: phone,
         producto: productoSeleccionado,
-        demo_origen: origen
+        demo_origen: $('#demo-title').text() || "Demo General"
     };
 
     fetch(WEBHOOK_URL, {
@@ -148,26 +125,24 @@ function enviarWhatsApp() {
     .then(() => {
         $('.modal-content').html(`
             <i class="fas fa-check-circle" style="font-size: 3.5rem; color: var(--accent); margin-bottom: 20px; display:block;"></i>
-            <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom:15px;">¡Solicitud Recibida!</h3>
-            <p style="color: var(--text-muted); margin-bottom: 25px; line-height: 1.6;">
-                Hemos registrado tu interés en nuestro sistema.<br><br>
-                Te contactaremos a la brevedad por WhatsApp (<b>${phone}</b>) para enviarte tu prueba de demostración gratuita.
+            <h3>¡Solicitud Recibida!</h3>
+            <p style="color: var(--text-muted); margin-bottom: 25px;">
+                Te contactaremos a la brevedad por WhatsApp (<b>${phone}</b>).
             </p>
-            <button class="btn-add" onclick="$('#modal-lead').fadeOut(); setTimeout(() => location.reload(), 500);">Aceptar y Cerrar</button>
+            <a href="https://www.iasesoria.cl/#five" target="_blank" class="btn-order" style="text-decoration:none;">Quiero esto para mi negocio</a>
+            <button class="btn-add" style="margin-top:10px;" onclick="location.reload()">Cerrar</button>
         `);
     })
     .catch(err => {
-        console.error("Error conectando al backend:", err);
-        alert("Hubo un error de conexión, pero tu prueba ha sido registrada.");
-        btn.html(btnOriginalText).prop('disabled', false);
+        alert("Error de conexión.");
+        btn.html('Reintentar').prop('disabled', false);
     });
 }
 
 // ==========================================
-// INICIALIZACIÓN CORREGIDA PARA FLASK
+// INICIALIZACIÓN (ADAPTADA A FLASK)
 // ==========================================
 $(document).ready(function() {
-    // Obtenemos la ruta actual para saber qué demo cargar
     const path = window.location.pathname;
     
     if (path.includes('sushi')) {
@@ -175,7 +150,6 @@ $(document).ready(function() {
     } else if (path.includes('ferreteria')) {
         cargarDemo('ferreteria');
     } else if (path.includes('turismo')) {
-        // Mapeamos 'turismo' al objeto 'pasteleria' o crea uno nuevo de turismo
-        cargarDemo('pasteleria'); 
+        cargarDemo('turismo'); 
     }
 });
