@@ -60,6 +60,7 @@
 			background-position: center;
 			background-repeat: no-repeat;
 			overflow: hidden;
+
 		}
 
 		.global-bg::before {
@@ -2210,6 +2211,10 @@
 		   MOBILE — AJUSTES VISUALES COMPLETOS
 		   ========================================= */
 		@media (max-width: 768px) {
+			.global-bg {
+				background-attachment: scroll !important;
+				background-size: cover !important;
+			}
 
 			/* --- BASE: Slides con scroll interno --- */
 			html,
@@ -2451,25 +2456,20 @@
 
 			/* --- BOTONES DE NAVEGACIÓN INTERNA --- */
 			.slide-nav-prev {
-				top: 90px !important;
-				/* <-- CAMBIADO: Lo bajamos para que no toque el menú */
-				font-size: 0.6rem !important;
-				/* <-- CAMBIADO: Un pelín más grande para que se lea bien */
-				padding: 8px 14px !important;
-				/* <-- CAMBIADO: Botón un poco más gordito/fácil de tocar */
-				letter-spacing: 1px !important;
-				left: 16px !important;
-				transform: none !important;
+				top: 72px !important;
+				left: 50% !important;
+				transform: translateX(-50%) !important;
 				right: auto !important;
+				font-size: 0.52rem !important;
+				padding: 5px 14px !important;
+				white-space: nowrap !important;
 			}
 
-			/* El contenido del slide arranca después del botón volver */
 			.sol-wrap,
 			.demos-wrap,
 			.planes-wrap,
 			.form-wrap {
-				margin-top: 55px !important;
-				/* <-- CAMBIADO: Empujamos el texto más abajo para hacerle espacio al botón */
+				margin-top: 44px !important;
 			}
 
 			/* --- MODALES: Ocupar bien la pantalla --- */
@@ -3569,8 +3569,8 @@
 
 			if (Math.abs(dy) < 60) return;
 
-			const isAtTop = currentSlide.scrollTop <= 0;
-			const isAtBottom = currentSlide.scrollHeight - currentSlide.scrollTop <= currentSlide.clientHeight + 1;
+			const isAtTop = touchStartScrollTop <= 0;
+			const isAtBottom = currentSlide.scrollHeight - touchStartScrollTop <= currentSlide.clientHeight + 10;
 
 			if (dy > 0) {
 				if (isAtBottom && current < TOTAL - 1) {
@@ -3581,6 +3581,12 @@
 					goTo(current - 1);
 				}
 			}
+		}, { passive: true });
+
+		let touchStartScrollTop = 0;
+		window.addEventListener('touchstart', (e) => {
+			touchStartY = e.touches[0].clientY;
+			touchStartScrollTop = SLIDES[current].scrollTop;  // ← agrega esta línea
 		}, { passive: true });
 
 		// =========================================
