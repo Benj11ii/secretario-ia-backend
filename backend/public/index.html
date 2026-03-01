@@ -1642,7 +1642,7 @@
 		}
 
 		.chat-messages {
-			height: 220px;
+			height: 290px;
 			overflow-y: auto;
 			padding: 4px 0 12px;
 			display: flex;
@@ -3356,8 +3356,23 @@
 		const CHAT_URL = '/chat';
 		let chatHistory = [];
 		let chatConsulta = 0;
+		let chatCount = 0;           // ← contador de preguntas del usuario
+		const CHAT_MAX = 3;          // ← límite de preguntas
 
-		function initChat() { }
+		function initChat() {
+			chatHistory = [];
+			chatConsulta = 0;
+			chatCount = 0;
+			// Limpiar burbujas previas y poner saludo inicial
+			const box = document.getElementById('chat-messages');
+			if (box) {
+				box.innerHTML = '<div class="chat-bubble ia">Hola, soy el asistente de IAsesoria. ¿En qué puedo ayudarle hoy?</div>';
+			}
+			const input = document.getElementById('chat-input');
+			const btn = document.querySelector('.chat-send');
+			if (input) { input.disabled = false; input.placeholder = 'Escriba su pregunta...'; }
+			if (btn) btn.disabled = false;
+		}
 
 		async function sendChat() {
 			const input = document.getElementById('chat-input');
@@ -3365,6 +3380,10 @@
 			if (!input || !box) return;
 			const msg = input.value.trim();
 			if (!msg) return;
+
+			// ── LÍMITE DE PREGUNTAS ──
+			if (chatCount >= CHAT_MAX) return;
+			chatCount++;
 
 			input.value = '';
 			chatConsulta++;
@@ -3415,8 +3434,23 @@
 			}
 
 			box.scrollTop = box.scrollHeight;
-		}
 
+			// ── MENSAJE DE CIERRE AL LLEGAR AL LÍMITE ──
+			if (chatCount >= CHAT_MAX) {
+				setTimeout(() => {
+					const closeBubble = document.createElement('div');
+					closeBubble.className = 'chat-bubble ia';
+					closeBubble.innerHTML = `Ha llegado al límite de preguntas de esta demo. Para continuar la conversación, <a href="/?servicio=consultoria#five" style="color:var(--orange); text-decoration:underline;">complete el formulario</a> y le respondemos en minutos.`;
+					box.appendChild(closeBubble);
+					box.scrollTop = box.scrollHeight;
+					// Deshabilitar input
+					input.disabled = true;
+					input.placeholder = 'Límite alcanzado — use el formulario de contacto';
+					const btn = document.querySelector('.chat-send');
+					if (btn) btn.disabled = true;
+				}, 600);
+			}
+		}
 		// =========================================
 		// DEMO 4 — DASHBOARD
 		// =========================================
@@ -3528,7 +3562,7 @@
 			const next = SLIDES[index];
 			const dots = getDots();
 
-			next.scrollTop = 0; 
+			next.scrollTop = 0;
 
 			prev.classList.remove('active');
 			prev.classList.add('exit');
