@@ -3691,14 +3691,26 @@
 		// =========================================
 		// RUEDA DEL RATÓN
 		// =========================================
-		let wheelCooldown = false;
+		let lastScrollTime = 0;
 		window.addEventListener('wheel', (e) => {
-			if (animating || wheelCooldown) return;
-			wheelCooldown = true;
-			setTimeout(() => { wheelCooldown = false; }, DURATION + 100);
+			// 1. Ignoramos micromovimientos (la "inercia" fantasma del trackpad al soltar)
+			if (Math.abs(e.deltaY) < 25) return;
 
-			if (e.deltaY > 0 && current < TOTAL - 1) goTo(current + 1);
-			else if (e.deltaY < 0 && current > 0) goTo(current - 1);
+			// 2. Si la animación ya está ocurriendo, no hacemos nada
+			if (animating) return;
+
+			// 3. Reloj estricto: Debe pasar 1 segundo (1000ms) exacto entre cada salto
+			const now = new Date().getTime();
+			if (now - lastScrollTime < 1000) return; 
+
+			if (e.deltaY > 0 && current < TOTAL - 1) {
+				goTo(current + 1);
+				lastScrollTime = now;
+			} 
+			else if (e.deltaY < 0 && current > 0) {
+				goTo(current - 1);
+				lastScrollTime = now;
+			}
 		}, { passive: true });
 
 		// =========================================
