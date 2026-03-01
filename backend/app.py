@@ -65,6 +65,37 @@ def demo_legacy():
         return render_template("demo-tiendas3.html")
     return redirect(url_for('demos'))
 
+# --- PUENTE PARA EL CHAT CON LA MAC ---
+@app.route("/chat", methods=["POST"])
+def chat_proxy():
+    try:
+        # 1. Recibimos la pregunta que viene de la web
+        datos_usuario = request.json
+        
+        # 2. La enviamos a la Mac a través del túnel
+        # Usamos /api/chat porque es la ruta que pusimos en el script de la Mac
+        url_mac = "https://ia.iasesoria.cl/api/chat"
+        
+        print(f"🌉 Reenviando pregunta a la Mac: {url_mac}")
+        
+        # Hacemos la petición a la Mac
+        respuesta_mac = requests.post(url_mac, json=datos_usuario, timeout=40)
+        
+        # 3. Devolvemos la respuesta de la Mac a la web
+        return jsonify(respuesta_mac.json())
+
+    except Exception as e:
+        print(f"❌ Error en el puente de chat: {e}")
+        return jsonify({
+            "success": False, 
+            "response": "El servicio de IA en la Mac no respondió a tiempo."
+        }), 502
+
+# Opcional: Ruta para que el diagnóstico del Celeron también salga en verde
+@app.route("/api/chat", methods=["GET"])
+def health_chat():
+    return jsonify({"status": "proxy_active"})
+
 # Rutas modernas y limpias (Recomendado)
 @app.route("/sushi")
 def sushi():
