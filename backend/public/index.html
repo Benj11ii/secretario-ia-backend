@@ -2139,14 +2139,18 @@
            NAVEGACIÓN INTERNA DE SLIDES
            ========================================= */
 		.slide-nav-prev {
-			position: absolute;
-			top: 85px;
-			left: 50%;
-			transform: translateX(-50%);
+			position: relative !important;
+			top: 0px;
+			bottom: auto !important;
+			left: auto !important;
+			transform: none !important;
+			/* MÁRGENES AUMENTADOS PARA EVITAR SOLAPAMIENTO */
+			margin-top: 45px !important;
+			margin-bottom: 10px !important;
 			background: rgba(255, 255, 255, 0.05);
 			border: 1px solid rgba(255, 255, 255, 0.1);
 			color: rgba(255, 255, 255, 0.5);
-			padding: 8px 16px;
+			padding: 9px 16px;
 			border-radius: 30px;
 			font-size: 0.65rem;
 			text-transform: uppercase;
@@ -2156,7 +2160,8 @@
 			display: flex;
 			align-items: center;
 			gap: 8px;
-			z-index: 100;
+			z-index: 50;
+			width: fit-content;
 		}
 
 		.slide-nav-prev:hover {
@@ -2191,8 +2196,7 @@
 		}
 
 		.slide-nav-next i {
-			font-size: 0.8rem;
-			animation: arrowNextPulse 2s infinite;
+			margin-left: 8px;
 		}
 
 		@keyframes arrowNextPulse {
@@ -2223,29 +2227,38 @@
 			}
 
 			.slide {
-				padding: 72px 16px 90px !important;
-				justify-content: flex-start !important;
+				padding: 80px 15px 80px !important;
+				justify-content: center !important;
+				/* Centra el contenido en la pantalla */
 				overflow-y: auto !important;
 				-webkit-overflow-scrolling: touch;
 				align-items: center;
 			}
 
-			/* --- SLIDE 1: HERO --- */
-			.hero-wrap {
-				gap: 16px !important;
-				padding-top: 10px;
+			.hero-wrap,
+			.sol-wrap,
+			.demos-wrap,
+			.planes-wrap,
+			.form-wrap {
+				min-height: auto !important;
+				/* Quitamos el alto forzado para eliminar el espacio muerto */
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				width: 100%;
+				margin-top: 10px !important;
 			}
 
 			.hero-logo-wrap {
-				width: 80px !important;
-				height: 80px !important;
+				width: 40px !important;
+				height: 40px !important;
 				border-radius: 28px !important;
 				margin-bottom: 8px !important;
 			}
 
 			.hero-logo {
-				width: 60px !important;
-				height: 60px !important;
+				width: 190px !important;
+				height: 190px !important;
 			}
 
 			.hero-title {
@@ -2455,28 +2468,43 @@
 			}
 
 			/* --- BOTONES DE NAVEGACIÓN INTERNA --- */
-			.slide-nav-prev {
-				top: 72px !important;
-				left: 50% !important;
-				transform: translateX(-50%) !important;
-				right: auto !important;
-				font-size: 0.52rem !important;
-				padding: 5px 14px !important;
-				white-space: nowrap !important;
-			}
+			slide-nav-next {
+				margin-top: 25px !important;
+				width: 100% !important;
+				/* Ocupa el ancho disponible */
+				max-width: 300px !important;
+				/* Pero no exageradamente ancho */
+				align-self: center !important;
 
-			.sol-wrap,
-			.demos-wrap,
-			.planes-wrap,
-			.form-wrap {
-				margin-top: 44px !important;
+				padding: 14px 20px !important;
+				/* Más alto para dedo pulgar */
+				font-size: 0.8rem !important;
+				letter-spacing: 2px !important;
+				background: rgba(243, 160, 34, 0.1) !important;
+				/* Un toque de naranja de fondo */
+				border: 1px solid var(--orange) !important;
 			}
 
 			/* --- MODALES: Ocupar bien la pantalla --- */
+			.demo-overlay {
+				align-items: flex-end !important;
+				/* Pega el modal abajo */
+				padding: 0 !important;
+				/* Quita márgenes externos */
+			}
+
 			.demo-modal {
-				width: 96% !important;
-				max-height: 88vh !important;
-				border-radius: 20px !important;
+				width: 100% !important;
+				max-height: 85vh !important;
+				border-radius: 28px 28px 0 0 !important;
+				/* Redondea solo arriba */
+				margin: 0 !important;
+				transform: translateY(100%) !important;
+				/* Animación desde abajo */
+			}
+
+			.demo-overlay.open .demo-modal {
+				transform: translateY(0) !important;
 			}
 
 			.dm-head {
@@ -2506,16 +2534,8 @@
 
 			/* --- NAV DOTS: Discreta en móvil --- */
 			.nav-dots {
-				right: 8px !important;
-			}
-
-			.ndot {
-				width: 5px !important;
-				height: 5px !important;
-			}
-
-			.ndot-label {
 				display: none !important;
+				/* Ocultamos los puntos en móvil para limpiar la pantalla */
 			}
 
 			/* --- CONTADOR: Más pequeño --- */
@@ -3507,6 +3527,8 @@
 			const prev = SLIDES[current];
 			const next = SLIDES[index];
 			const dots = getDots();
+
+			next.scrollTop = 0; 
 
 			prev.classList.remove('active');
 			prev.classList.add('exit');
