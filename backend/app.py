@@ -96,6 +96,11 @@ def chat_proxy():
 def health_chat():
     return jsonify({"status": "proxy_active"})
 
+# Opcional: Ruta para que el diagnóstico del Celeron también salga en verde
+@app.route("/api/chat", methods=["GET"])
+def health_chat():
+    return jsonify({"status": "proxy_active"})
+
 # Rutas modernas y limpias (Recomendado)
 @app.route("/sushi")
 def sushi():
