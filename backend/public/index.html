@@ -3414,14 +3414,13 @@
 			const msg = input.value.trim();
 			if (!msg) return;
 
-			// Bloqueo de seguridad si ya pasó el límite
 			if (chatCount >= CHAT_MAX) return;
 
 			chatCount++;
 			chatConsulta++;
 			input.value = '';
 
-			// 1. Actualizar texto de consultas restantes
+			// Actualizar texto de consultas restantes
 			let remaining = CHAT_MAX - chatCount;
 			if (limitInfo) limitInfo.textContent = `Consultas disponibles: ${remaining}/${CHAT_MAX}`;
 
@@ -3431,12 +3430,43 @@
 			userBubble.textContent = msg;
 			box.appendChild(userBubble);
 
-			// Animación de escribiendo
+			// ==========================================
+			// 1. BURBUJA Y FRASES DE "PENSANDO..."
+			// ==========================================
+			const thinkingPhrases = [
+				"Analizando su solicitud...",
+				"Consultando base de datos...",
+				"Estructurando propuesta...",
+				"Generando respuesta con IA..."
+			];
+			let phraseIdx = 0;
+
 			const typing = document.createElement('div');
 			typing.className = 'chat-bubble ia typing';
-			typing.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+			// Estructura con los 3 puntitos y el texto al lado
+			typing.innerHTML = `
+				<div style="display:flex; align-items:center; gap:10px;">
+					<div style="display:flex; gap:4px;">
+						<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
+					</div>
+					<span id="think-text" style="font-size:0.7rem; color:var(--orange); opacity:0.8; font-style:italic; transition: opacity 0.3s;">${thinkingPhrases[0]}</span>
+				</div>
+			`;
 			box.appendChild(typing);
 			box.scrollTop = box.scrollHeight;
+
+			// Cambiar la frase cada 2.5 segundos
+			const thinkInterval = setInterval(() => {
+				const tText = document.getElementById('think-text');
+				if (tText) {
+					phraseIdx++;
+					tText.style.opacity = 0; // Pequeña animación de desvanecimiento
+					setTimeout(() => {
+						tText.textContent = thinkingPhrases[phraseIdx % thinkingPhrases.length];
+						tText.style.opacity = 0.8;
+					}, 300);
+				}
+			}, 2500);
 
 			chatHistory.push({ role: 'user', content: msg });
 
@@ -3451,55 +3481,77 @@
 					})
 				});
 				const data = await res.json();
+				
+				// Detener animación de pensar y borrar burbuja de carga
+				clearInterval(thinkInterval);
 				typing.remove();
 
 				const iaBubble = document.createElement('div');
 				iaBubble.className = 'chat-bubble ia';
-
-				// Si viene del backend (Mac) con respuesta exitosa
-				if (data.response) {
-					iaBubble.textContent = data.response;
-					chatHistory.push({ role: 'assistant', content: data.response });
-				} else {
-					iaBubble.textContent = 'No pude procesar tu mensaje.';
-				}
-
 				box.appendChild(iaBubble);
+
+				let finalResponse = data.response ? data.response : 'No pude procesar su mensaje.';
+				chatHistory.push({ role: 'assistant', content: finalResponse });
+
+				// ==========================================
+				// 2. EFECTO TYPEWRITER (Letra por letra)
+				// ==========================================
+				let i = 0;
+				let typeSpeed = 15; // Velocidad de escritura (ms por letra)
+
+				function typeWriter() {
+					if (i < finalResponse.length) {
+						iaBubble.textContent += finalResponse.charAt(i);
+						i++;
+						// Hacemos scroll hacia abajo automáticamente mientras escribe
+						box.scrollTop = box.scrollHeight;
+						setTimeout(typeWriter, typeSpeed);
+					} else {
+						// Cuando termina de escribir, comprobamos si es el fin de la demo
+						checkDemoEnd();
+					}
+				}
+				
+				// Iniciar escritura
+				typeWriter();
+
 			} catch (err) {
+				clearInterval(thinkInterval);
 				typing.remove();
 				const errBubble = document.createElement('div');
 				errBubble.className = 'chat-bubble ia';
 				errBubble.textContent = 'El servidor no está disponible en este momento. ¿Le ayudo con el formulario de contacto?';
 				box.appendChild(errBubble);
+				box.scrollTop = box.scrollHeight;
 			}
 
-			box.scrollTop = box.scrollHeight;
-
-			// 2. LÓGICA DE FIN DE DEMO (Botón bonito)
-			if (chatCount >= CHAT_MAX) {
-				setTimeout(() => {
-					const closeBubble = document.createElement('div');
-					// Le quitamos los estilos de burbuja para que parezca parte de la interfaz
-					closeBubble.style.cssText = "margin-top: 15px; display: flex; flex-direction: column; gap: 10px;";
-
-					closeBubble.innerHTML = `
-						<div style="font-size: 0.72rem; color: rgba(255,255,255,0.5); text-align: center;">
-							Ha llegado al límite de consultas de esta demo. ¡Hablemos de su proyecto en detalle!
-						</div>
-						<button onclick="closeModal('modal-chat'); goTo(4);" class="diag-cta" style="width: 100%; cursor: pointer;">
-							<i class="fas fa-paper-plane"></i> Ir al Formulario
-						</button>
-					`;
-
-					box.appendChild(closeBubble);
-					box.scrollTop = box.scrollHeight;
-
-					// Deshabilitar el cuadro de texto para que no escriba más
-					input.disabled = true;
-					input.placeholder = 'Demo finalizada';
-					const btn = document.querySelector('.chat-send');
-					if (btn) btn.disabled = true;
-				}, 800); // 800ms de retraso para que aparezca "después" de que la IA habló
+			// ==========================================
+			// 3. LÓGICA DE FIN DE DEMO AL TERMINAR
+			// ==========================================
+			function checkDemoEnd() {
+				if (chatCount >= CHAT_MAX) {
+					setTimeout(() => {
+						const closeBubble = document.createElement('div');
+						closeBubble.style.cssText = "margin-top: 15px; display: flex; flex-direction: column; gap: 10px; animation: bubbleIn 0.5s ease;";
+						
+						closeBubble.innerHTML = `
+							<div style="font-size: 0.72rem; color: rgba(255,255,255,0.6); text-align: center;">
+								Ha llegado al límite de consultas de esta demo. ¡Hablemos de su proyecto en detalle!
+							</div>
+							<button onclick="closeModal('modal-chat'); goTo(4);" class="diag-cta" style="width: 100%; cursor: pointer; box-shadow: 0 5px 15px rgba(243,160,34,0.2);">
+								<i class="fas fa-paper-plane"></i> Ir al Formulario
+							</button>
+						`;
+						
+						box.appendChild(closeBubble);
+						box.scrollTop = box.scrollHeight;
+						
+						input.disabled = true;
+						input.placeholder = 'Demo finalizada — Use el formulario';
+						const btn = document.querySelector('.chat-send');
+						if (btn) btn.disabled = true;
+					}, 800); 
+				}
 			}
 		}
 
