@@ -2587,6 +2587,17 @@
 				font-size: 1.5rem !important;
 			}
 		}
+
+		/* Contador del Chat Demo */
+		.chat-limit-info {
+			font-size: 0.65rem;
+			color: var(--orange);
+			text-align: right;
+			margin-bottom: 8px;
+			letter-spacing: 1px;
+			text-transform: uppercase;
+			font-weight: 500;
+		}
 	</style>
 </head>
 
@@ -2999,10 +3010,19 @@
 				<button class="dm-close" onclick="closeModal('modal-chat')"><i class="fas fa-times"></i></button>
 			</div>
 			<div class="dm-divider"></div>
+
+
+
 			<div class="dm-body">
+				<!-- AVISO DE LÍMITE AGREGADO AQUÍ -->
+				<div class="chat-limit-info" id="chat-limit-info">Consultas disponibles: 3/3</div>
+
 				<div class="chat-messages" id="chat-messages">
 					<div class="chat-bubble ia">Hola, soy el asistente de IAsesoria. ¿En qué puedo ayudarle hoy?</div>
 				</div>
+
+
+
 				<div class="chat-input-row">
 					<input class="chat-input" id="chat-input" type="text" placeholder="Escriba su pregunta..."
 						onkeydown="if(event.key==='Enter') sendChat()">
@@ -3356,43 +3376,62 @@
 		const CHAT_URL = '/chat';
 		let chatHistory = [];
 		let chatConsulta = 0;
-		let chatCount = 0;           // ← contador de preguntas del usuario
-		const CHAT_MAX = 3;          // ← límite de preguntas
+		let chatCount = 0;
+		const CHAT_MAX = 3;
 
 		function initChat() {
 			chatHistory = [];
 			chatConsulta = 0;
 			chatCount = 0;
+
+			// Reiniciar contador visual
+			const limitInfo = document.getElementById('chat-limit-info');
+			if (limitInfo) limitInfo.textContent = `Consultas disponibles: ${CHAT_MAX}/${CHAT_MAX}`;
+
 			// Limpiar burbujas previas y poner saludo inicial
 			const box = document.getElementById('chat-messages');
 			if (box) {
 				box.innerHTML = '<div class="chat-bubble ia">Hola, soy el asistente de IAsesoria. ¿En qué puedo ayudarle hoy?</div>';
 			}
+
+			// Reactivar input
 			const input = document.getElementById('chat-input');
 			const btn = document.querySelector('.chat-send');
-			if (input) { input.disabled = false; input.placeholder = 'Escriba su pregunta...'; }
+			if (input) {
+				input.disabled = false;
+				input.placeholder = 'Escriba su pregunta...';
+				input.value = '';
+			}
 			if (btn) btn.disabled = false;
 		}
 
 		async function sendChat() {
 			const input = document.getElementById('chat-input');
 			const box = document.getElementById('chat-messages');
+			const limitInfo = document.getElementById('chat-limit-info');
+
 			if (!input || !box) return;
 			const msg = input.value.trim();
 			if (!msg) return;
 
-			// ── LÍMITE DE PREGUNTAS ──
+			// Bloqueo de seguridad si ya pasó el límite
 			if (chatCount >= CHAT_MAX) return;
+
 			chatCount++;
-
-			input.value = '';
 			chatConsulta++;
+			input.value = '';
 
+			// 1. Actualizar texto de consultas restantes
+			let remaining = CHAT_MAX - chatCount;
+			if (limitInfo) limitInfo.textContent = `Consultas disponibles: ${remaining}/${CHAT_MAX}`;
+
+			// Burbuja del usuario
 			const userBubble = document.createElement('div');
 			userBubble.className = 'chat-bubble user';
 			userBubble.textContent = msg;
 			box.appendChild(userBubble);
 
+			// Animación de escribiendo
 			const typing = document.createElement('div');
 			typing.className = 'chat-bubble ia typing';
 			typing.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
@@ -3417,11 +3456,12 @@
 				const iaBubble = document.createElement('div');
 				iaBubble.className = 'chat-bubble ia';
 
-				if (data.show_form_redirect) {
-					iaBubble.innerHTML = `${data.response}<br><br><a href="/?servicio=consultoria#five" class="diag-cta" style="font-size:.65rem; padding:9px 14px; margin-top:4px;">Ir al formulario →</a>`;
-				} else {
-					iaBubble.textContent = data.response || 'No pude procesar tu mensaje.';
+				// Si viene del backend (Mac) con respuesta exitosa
+				if (data.response) {
+					iaBubble.textContent = data.response;
 					chatHistory.push({ role: 'assistant', content: data.response });
+				} else {
+					iaBubble.textContent = 'No pude procesar tu mensaje.';
 				}
 
 				box.appendChild(iaBubble);
@@ -3429,28 +3469,40 @@
 				typing.remove();
 				const errBubble = document.createElement('div');
 				errBubble.className = 'chat-bubble ia';
-				errBubble.textContent = 'El servidor no está disponible en este momento. ¿Te ayudo con el formulario de contacto?';
+				errBubble.textContent = 'El servidor no está disponible en este momento. ¿Le ayudo con el formulario de contacto?';
 				box.appendChild(errBubble);
 			}
 
 			box.scrollTop = box.scrollHeight;
 
-			// ── MENSAJE DE CIERRE AL LLEGAR AL LÍMITE ──
+			// 2. LÓGICA DE FIN DE DEMO (Botón bonito)
 			if (chatCount >= CHAT_MAX) {
 				setTimeout(() => {
 					const closeBubble = document.createElement('div');
-					closeBubble.className = 'chat-bubble ia';
-					closeBubble.innerHTML = `Ha llegado al límite de preguntas de esta demo. Para continuar la conversación, <a href="/?servicio=consultoria#five" style="color:var(--orange); text-decoration:underline;">complete el formulario</a> y le respondemos en minutos.`;
+					// Le quitamos los estilos de burbuja para que parezca parte de la interfaz
+					closeBubble.style.cssText = "margin-top: 15px; display: flex; flex-direction: column; gap: 10px;";
+
+					closeBubble.innerHTML = `
+						<div style="font-size: 0.72rem; color: rgba(255,255,255,0.5); text-align: center;">
+							Ha llegado al límite de consultas de esta demo. ¡Hablemos de su proyecto en detalle!
+						</div>
+						<button onclick="closeModal('modal-chat'); goTo(4);" class="diag-cta" style="width: 100%; cursor: pointer;">
+							<i class="fas fa-paper-plane"></i> Ir al Formulario
+						</button>
+					`;
+
 					box.appendChild(closeBubble);
 					box.scrollTop = box.scrollHeight;
-					// Deshabilitar input
+
+					// Deshabilitar el cuadro de texto para que no escriba más
 					input.disabled = true;
-					input.placeholder = 'Límite alcanzado — use el formulario de contacto';
+					input.placeholder = 'Demo finalizada';
 					const btn = document.querySelector('.chat-send');
 					if (btn) btn.disabled = true;
-				}, 600);
+				}, 800); // 800ms de retraso para que aparezca "después" de que la IA habló
 			}
 		}
+
 		// =========================================
 		// DEMO 4 — DASHBOARD
 		// =========================================
