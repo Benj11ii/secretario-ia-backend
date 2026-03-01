@@ -79,7 +79,7 @@ def chat_proxy():
         print(f"🌉 Reenviando pregunta a la Mac: {url_mac}")
         
         # Hacemos la petición a la Mac
-        respuesta_mac = requests.post(url_mac, json=datos_usuario, timeout=40)
+        respuesta_mac = requests.post(url_mac, json=datos_usuario, timeout=40,verify=False)
         
         # 3. Devolvemos la respuesta de la Mac a la web
         return jsonify(respuesta_mac.json())
