@@ -318,6 +318,57 @@
 			border-color: var(--orange);
 		}
 
+		/* =========================================
+		   FOOTER SOCIALS (Slide 5)
+		   ========================================= */
+		.form-footer-container {
+			margin-top: 30px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 15px;
+            width: 100%;
+		}
+
+		.social-links {
+			display: flex;
+			gap: 15px;
+			justify-content: center;
+            z-index: 20; /* Para que sean clickeables sobre el fondo */
+            position: relative;
+		}
+
+		.social-links a {
+			width: 42px;
+			height: 42px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 50%;
+			
+			/* Estilo Glassmorphism (Vidrio) */
+			background: rgba(255, 255, 255, 0.05);
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			color: rgba(255, 255, 255, 0.6);
+			
+			font-size: 1.1rem;
+			text-decoration: none;
+			transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+		}
+
+		/* Efecto Hover (Al pasar el mouse) */
+		.social-links a:hover {
+			background: rgba(243, 160, 34, 0.15); /* Fondo naranja sutil */
+			border-color: var(--orange);
+			color: var(--orange);
+			transform: translateY(-4px) scale(1.1); /* Salta y crece un poco */
+			box-shadow: 0 5px 15px rgba(243, 160, 34, 0.3); /* Resplandor */
+		}
+
+
+
+
+
 		@media (max-width: 720px) {
 			.nav-links {
 				display: none;
@@ -2791,6 +2842,7 @@
 				width: 95% !important;
 				margin-top: 0 !important;
 				padding: 0 5px;
+				padding-bottom: 20px !important;
 			}
 
 			.ia-form {
@@ -3222,16 +3274,26 @@
 					</button>
 				</form>
 
-				<p class="form-legal">
-					<br><br>
-					Utilizamos IA para el análisis preliminar de tu solicitud. Supervisión humana
-					garantizada.<br><br><br>
-					Creado por <strong style="color:rgba(243,160,34,0.5);">Benjamín Carmona</strong> ·
-					Villarrica, Chile
-				</p>
-			</div>
-		</div>
-	</div>
+				<div class="form-footer-container">
+					<p class="form-legal">
+						Utilizamos IA para el análisis preliminar de tu solicitud. Supervisión humana garantizada.
+						<br>
+						Creado por <strong style="color:var(--orange);">Benjamín Carmona</strong> · Villarrica, Chile
+					</p>
+
+					<!-- ICONOS SOCIALES -->
+					<div class="social-links">
+						<a href="https://www.facebook.com/iasesoria.cl/" target="_blank" title="Fanpage Facebook">
+							<i class="fab fa-facebook-f"></i>
+						</a>
+						<a href="https://www.linkedin.com/in/benjamin-carmona-69aa44223/" target="_blank" title="Perfil LinkedIn">
+							<i class="fab fa-linkedin-in"></i>
+						</a>
+						<a href="mailto:soporte@iasesoria.cl" title="Enviar Correo">
+							<i class="fas fa-envelope"></i>
+						</a>
+					</div>
+				</div>
 
 	<!-- DOTS NAVEGACIÓN -->
 	<div class="nav-dots" id="nav-dots"></div>
