@@ -2211,297 +2211,235 @@
 			}
 		}
 
-		/* =========================================
-		   MOBILE — AJUSTES VISUALES COMPLETOS
-		   ========================================= */
+/* =======================================================
+		   BLOQUE DE RESPONSIVIDAD MÓVIL (Max-width: 768px)
+		   ======================================================= */
 		@media (max-width: 768px) {
+
+			/* 1. AJUSTES GENERALES DEL CUERPO Y FONDO */
 			.global-bg {
 				background-attachment: scroll !important;
 				background-size: cover !important;
 			}
+			html, body { overflow: hidden; }
 
-			/* --- BASE: Slides con scroll interno --- */
-			html,
-			body {
-				overflow: hidden;
-			}
-
+			/* 2. ESTRUCTURA DEL SLIDE (Scroll interno habilitado) */
 			.slide {
-				padding: 80px 15px 80px !important;
-				justify-content: center !important;
-				/* Centra el contenido en la pantalla */
+				/* Padding optimizado: Arriba para el menú, Abajo para botones */
+				padding: 85px 12px 90px !important; 
+				justify-content: flex-start !important; 
 				overflow-y: auto !important;
 				-webkit-overflow-scrolling: touch;
 				align-items: center;
+				display: flex !important;
+				flex-direction: column !important;
 			}
 
-			.hero-wrap,
-			.sol-wrap,
-			.demos-wrap,
-			.planes-wrap,
-			.form-wrap {
-				min-height: auto !important;
-				/* Quitamos el alto forzado para eliminar el espacio muerto */
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				width: 100%;
-				margin-top: 10px !important;
-			}
-
-			.hero-logo-wrap {
-				width: 40px !important;
-				height: 40px !important;
-				border-radius: 28px !important;
-				margin-bottom: 8px !important;
-			}
-
-			.hero-logo {
-				width: 190px !important;
-				height: 190px !important;
-			}
-
-			.hero-title {
-				font-size: clamp(1.7rem, 7vw, 2.2rem) !important;
-				line-height: 1.15 !important;
-				letter-spacing: -0.5px !important;
-				margin-bottom: 8px !important;
-			}
-
-			.hero-sub {
-				font-size: 0.92rem !important;
-				line-height: 1.5 !important;
-				padding: 0 4px;
+			/* 3. BOTONES DE NAVEGACIÓN (Volver y Siguiente) */
+			.slide-nav-prev {
+				position: relative !important;
+				top: auto !important;
+				bottom: auto !important;
+				left: auto !important;
+				transform: none !important;
+				margin-top: 0 !important;
+				margin-bottom: 20px !important; /* Espacio para separar del título */
+				align-self: center !important;
+				
+				background: rgba(255, 255, 255, 0.1);
+				border: 1px solid rgba(255, 255, 255, 0.2);
+				color: rgba(255, 255, 255, 0.8);
+				padding: 8px 18px !important;
+				border-radius: 20px;
+				font-size: 0.65rem !important;
+				text-transform: uppercase;
+				letter-spacing: 1px;
+				z-index: 50;
+				width: fit-content;
+				white-space: nowrap !important;
 			}
 
 			.slide-nav-next {
-				margin-top: 20px !important;
-				padding: 11px 22px !important;
-				font-size: 0.68rem !important;
-				letter-spacing: 1.5px !important;
-			}
-
-			/* --- SLIDE 2: SOLUCIONES (A 1 Columna) --- */
-			.sol-wrap { gap: 15px !important; }
-			.sol-title { font-size: clamp(1.4rem, 6vw, 1.8rem) !important; margin-bottom: 5px !important; }
-			.sol-sub { font-size: 0.85rem !important; line-height: 1.5 !important; padding: 0 10px; }
-			
-			.sol-grid { 
-				grid-template-columns: 1fr !important; /* MAGIA: 1 sola columna */
-				gap: 12px !important; 
-				max-width: 400px !important; /* Evita que se estire demasiado en tablets pequeñas */
-				margin: 0 auto !important;
+				margin-top: 25px !important;
 				width: 100% !important;
+				max-width: 350px;
+				padding: 12px !important;
+				font-size: 0.75rem !important;
+				background: rgba(243, 160, 34, 0.1) !important;
+				border: 1px solid var(--orange) !important;
+				align-self: center !important;
 			}
-			.sol-item { 
-				padding: 20px 15px !important; 
-				display: flex; 
-				flex-direction: column; 
-				align-items: center; 
+			.slide-nav-next i { margin-left: 6px; }
+
+			/* 4. SLIDE 1: HERO (Logo reducido y textos ajustados) */
+			.hero-wrap {
+				gap: 15px !important;
+				margin-top: 0 !important;
+				justify-content: center;
+				min-height: 60vh; /* Centrado visual */
 			}
-			.sol-icon { width: 55px !important; height: 55px !important; font-size: 1.3rem !important; margin-bottom: 12px !important; }
-			.sol-item h3 { font-size: 0.95rem !important; margin-bottom: 6px !important; }
-			.sol-item p { font-size: 0.82rem !important; line-height: 1.5 !important; }
-
-
-			/* --- SLIDE 3: DEMOS (A 2 Columnas cuadradas) --- */
-			.demos-wrap { gap: 15px !important; }
-			.demos-title { font-size: clamp(1.4rem, 6vw, 1.8rem) !important; }
-			
-			.demos-grid { 
-				grid-template-columns: repeat(2, 1fr) !important; /* MAGIA: 2 columnas perfectas para cuadrados */
-				gap: 12px !important; 
-				margin-top: 15px !important; 
-				max-width: 400px !important;
-				margin-left: auto !important;
-				margin-right: auto !important;
+			.hero-logo-wrap {
+				width: 110px !important; /* Logo mediano, ni muy grande ni muy chico */
+				height: 110px !important;
+				border-radius: 35px !important;
+				margin-bottom: 10px !important;
 			}
-			.demo-cell { aspect-ratio: 1 !important; border-radius: 16px !important; padding: 15px 5px !important; gap: 8px !important; }
-			.demo-icon-wrap { width: 55px !important; height: 55px !important; border-radius: 16px !important; margin-bottom: 5px !important; }
-			.demo-icon-wrap i { font-size: 1.5rem !important; }
-			.demo-name { font-size: 0.75rem !important; font-weight: 600 !important; text-align: center; }
-
-
-			/* --- SLIDE 4: PLANES (A 1 Columna, diseño limpio) --- */
-			.planes-wrap { gap: 15px !important; }
-			.planes-title { font-size: clamp(1.4rem, 6vw, 1.8rem) !important; margin-bottom: 5px !important; }
-			.planes-sub { font-size: 0.85rem !important; padding: 0 10px; }
-			
-			.planes-grid { 
-				grid-template-columns: 1fr !important; /* MAGIA: 1 sola columna para que quepa el texto */
-				gap: 15px !important; 
-				max-width: 400px !important;
-				margin: 0 auto !important;
-				width: 100% !important;
+			.hero-logo {
+				width: 80px !important; 
+				height: 80px !important;
 			}
-			.plan-card { padding: 24px 20px !important; gap: 10px !important; border-radius: 16px !important; }
-			.plan-icon { width: 42px !important; height: 42px !important; font-size: 1.1rem !important; margin-bottom: 8px !important; border-radius: 10px !important; }
-			.plan-name { font-size: 1.1rem !important; line-height: 1.2 !important; }
-			.plan-desc { font-size: 0.8rem !important; line-height: 1.4 !important; margin-bottom: 10px !important; }
-			.plan-amount { font-size: 1.3rem !important; }
-			.plan-desde { font-size: 0.65rem !important; }
-			.plan-features { margin-bottom: 15px !important; }
-			.plan-features li { font-size: 0.75rem !important; line-height: 1.4 !important; margin-bottom: 4px !important; }
-			.plan-btn { padding: 12px !important; font-size: 0.75rem !important; border-radius: 12px !important; margin-top: 10px !important; }
-
-
-
-
-
-			/* --- SLIDE 5: FORMULARIO --- */
-			.form-wrap {
-				gap: 16px !important;
-				padding: 0 2px;
+			.hero-title {
+				font-size: clamp(2rem, 8vw, 2.5rem) !important;
+				line-height: 1.1 !important;
+				margin-bottom: 10px !important;
+			}
+			.hero-sub {
+				font-size: 0.9rem !important;
+				line-height: 1.5 !important;
+				padding: 0 5px;
 			}
 
-			.form-title {
-				font-size: clamp(1.2rem, 5vw, 1.6rem) !important;
+			/* 5. CONFIGURACIÓN DE TÍTULOS GENERALES */
+			.sol-head, .demos-head, .planes-head, .form-head {
+				margin-bottom: 20px !important;
+				text-align: center;
+			}
+			.sol-title, .demos-title, .planes-title, .form-title {
+				font-size: 1.6rem !important;
+				margin-bottom: 5px !important;
+			}
+			.sol-sub, .planes-sub, .form-sub {
+				font-size: 0.8rem !important;
+				line-height: 1.4 !important;
+				padding: 0 10px;
+			}
+			/* Ocultar elementos decorativos que quitan espacio */
+			.sol-divider, .planes-eyebrow, .demos-eyebrow, .form-eyebrow {
+				display: none !important; 
 			}
 
-			.form-sub {
-				font-size: 0.78rem !important;
-			}
-
-			.ia-form {
-				gap: 10px !important;
-			}
-
-			.form-row {
+			/* 6. SLIDE 2: SOLUCIONES (2 Columnas Compactas) */
+			.sol-wrap { width: 100%; margin-top: 0 !important; }
+			.sol-grid {
 				grid-template-columns: 1fr 1fr !important;
 				gap: 10px !important;
 			}
-
-			.form-field input,
-			.form-field textarea,
-			.form-field select {
-				padding: 10px 12px !important;
-				font-size: 0.85rem !important;
+			.sol-item {
+				padding: 15px 8px !important;
+				min-height: 150px;
+				display: flex; flex-direction: column; align-items: center;
+			}
+			.sol-icon {
+				width: 45px !important; height: 45px !important;
+				font-size: 1.2rem !important; margin-bottom: 8px !important;
+			}
+			.sol-item h3 {
+				font-size: 0.8rem !important; margin-bottom: 5px !important;
+				height: 35px; display: flex; align-items: center; justify-content: center;
+			}
+			.sol-item p {
+				font-size: 0.65rem !important; line-height: 1.3 !important;
 			}
 
-			.form-field textarea {
-				height: 75px !important;
+			/* 7. SLIDE 3: DEMOS (2 Columnas Cuadradas) */
+			.demos-wrap { width: 100%; margin-top: 0 !important; }
+			.demos-grid {
+				grid-template-columns: repeat(2, 1fr) !important;
+				gap: 12px !important;
+				margin-top: 10px !important;
 			}
+			.demo-cell { aspect-ratio: 1 !important; padding: 10px !important; }
+			.demo-icon-wrap { width: 55px !important; height: 55px !important; margin-bottom: 8px !important; }
+			.demo-icon-wrap i { font-size: 1.6rem !important; }
+			.demo-name { font-size: 0.8rem !important; }
 
-			.btn-submit {
-				padding: 13px !important;
-				font-size: 0.72rem !important;
+			/* 8. SLIDE 4: PLANES (2 Columnas - Sin Descripción larga) */
+			.planes-wrap { width: 100%; margin-top: 0 !important; }
+			.planes-grid {
+				grid-template-columns: 1fr 1fr !important;
+				gap: 10px !important;
+				align-items: start !important;
 			}
-
-			.form-legal {
-				font-size: 0.58rem !important;
+			.plan-card {
+				padding: 15px 10px !important;
+				border-radius: 14px !important;
+				gap: 5px !important;
 			}
-
-			/* --- BOTONES DE NAVEGACIÓN INTERNA --- */
-			slide-nav-next {
-				margin-top: 25px !important;
+			.plan-icon {
+				width: 38px !important; height: 38px !important;
+				font-size: 1rem !important; margin-bottom: 5px !important;
+			}
+			.plan-name { font-size: 0.9rem !important; height: 40px; display: flex; align-items: center; line-height: 1.1; }
+			
+			/* Ocultamos la descripción larga para que quepan las 2 columnas */
+			.plan-desc { display: none !important; } 
+			
+			.plan-price { margin: 5px 0 !important; flex-wrap: wrap; }
+			.plan-amount { font-size: 1.1rem !important; }
+			.plan-desde { font-size: 0.6rem !important; width: 100%; }
+			
+			.plan-features { margin-bottom: 10px !important; }
+			.plan-features li {
+				font-size: 0.65rem !important;
+				line-height: 1.2 !important;
+				margin-bottom: 3px !important;
+			}
+			.plan-btn {
+				padding: 10px !important;
+				font-size: 0.7rem !important;
 				width: 100% !important;
-				/* Ocupa el ancho disponible */
-				max-width: 300px !important;
-				/* Pero no exageradamente ancho */
-				align-self: center !important;
-
-				padding: 14px 20px !important;
-				/* Más alto para dedo pulgar */
-				font-size: 0.8rem !important;
-				letter-spacing: 2px !important;
-				background: rgba(243, 160, 34, 0.1) !important;
-				/* Un toque de naranja de fondo */
-				border: 1px solid var(--orange) !important;
 			}
 
-			/* --- MODALES: Ocupar bien la pantalla --- */
+			/* 9. SLIDE 5: FORMULARIO */
+			.form-wrap { width: 100%; margin-top: 0 !important; padding: 0 5px; }
+			.ia-form { gap: 12px !important; }
+			.form-row { grid-template-columns: 1fr !important; gap: 10px !important; }
+			.form-field input, .form-field select { padding: 12px !important; font-size: 0.9rem !important; }
+			.form-field textarea { height: 80px !important; }
+			.btn-submit { padding: 14px !important; font-size: 0.8rem !important; }
+
+			/* 10. MODALES (Bottom Sheet) */
 			.demo-overlay {
 				align-items: flex-end !important;
-				/* Pega el modal abajo */
 				padding: 0 !important;
-				/* Quita márgenes externos */
 			}
-
 			.demo-modal {
 				width: 100% !important;
 				max-height: 85vh !important;
 				border-radius: 28px 28px 0 0 !important;
-				/* Redondea solo arriba */
 				margin: 0 !important;
 				transform: translateY(100%) !important;
-				/* Animación desde abajo */
 			}
-
 			.demo-overlay.open .demo-modal {
 				transform: translateY(0) !important;
 			}
+			.dm-head { padding: 20px 20px 0 !important; }
+			.dm-body { padding: 0 20px 20px !important; }
+			.chat-messages { height: 45vh !important; }
 
-			.dm-head {
-				padding: 18px 18px 0 !important;
-			}
-
-			.dm-body {
-				padding: 0 18px 18px !important;
-			}
-
-			.dm-title {
-				font-size: 0.95rem !important;
-			}
-
-			.diag-question {
-				font-size: 0.88rem !important;
-			}
-
-			.diag-btn {
-				padding: 11px 14px !important;
-				font-size: 0.8rem !important;
-			}
-
-			.auto-step-name {
-				font-size: 0.78rem !important;
-			}
-
-			/* --- NAV DOTS: Discreta en móvil --- */
-			.nav-dots {
-				display: none !important;
-				/* Ocultamos los puntos en móvil para limpiar la pantalla */
-			}
-
-			/* --- CONTADOR: Más pequeño --- */
-			.slide-counter {
-				bottom: 12px !important;
-				font-size: 0.5rem !important;
-				left: 50% !important;
-				transform: translateX(-50%) !important;
-			}
-
-			/* --- SCROLL HINT: Oculto en móvil (usan botones) --- */
-			.scroll-hint {
-				display: none !important;
-			}
-
-			/* --- WHATSAPP: Compacto para no obstruir --- */
+			/* 11. EXTRAS (Whatsapp, Dots, Scroll) */
+			.nav-dots { display: none !important; }
+			.scroll-hint { display: none !important; }
+			
 			.wa-float {
-				width: 48px !important;
-				height: 48px !important;
-				bottom: 14px !important;
-				right: 14px !important;
-				font-size: 1.4rem !important;
+				width: 55px !important;
+				height: 55px !important;
+				bottom: 20px !important;
+				right: 20px !important;
+				font-size: 1.8rem !important;
 			}
-
-			.wa-msg {
-				display: none !important;
-			}
+			.wa-msg { display: none !important; } /* Ocultar globo de texto en móvil */
 		}
 
-
-		/* Contador del Chat Demo */
-		.chat-limit-info {
-			font-size: 0.65rem;
-			color: var(--orange);
-			text-align: right;
-			margin-bottom: 8px;
-			letter-spacing: 1px;
-			text-transform: uppercase;
-			font-weight: 500;
+		/* 12. PANTALLAS MUY PEQUEÑAS (iPhone SE, Galaxy Fold) */
+		@media (max-width: 360px) {
+			.hero-title { font-size: 1.8rem !important; }
+			/* En pantallas diminutas, planes vuelve a 1 columna para no romperse */
+			.planes-grid { grid-template-columns: 1fr !important; }
+			.plan-desc { display: block !important; } /* Volvemos a mostrar la descripción si hay espacio */
 		}
-	</style>
-</head>
+		</style>
+	</head>
 
 <body>
 
