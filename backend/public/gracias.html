@@ -1,213 +1,371 @@
-<!DOCTYPE HTML>
-<html>
-
+<!DOCTYPE html>
+<html lang="es">
 <head>
-	<title>¡Solicitud Recibida! - IAsesoria</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="assets/css/main.css" />
-	<link rel="stylesheet" href="assets/css/demos.css" />
-	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css" />
-	</noscript>
-	<!-- FAVICONS CORRECTOS (Actualizados para transparencia) -->
-	<link rel="icon" type="image/x-icon" href="assets/images/favicon.ico?v=3">
-	<link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png?v=3">
-	<link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png?v=3">
-	<link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png?v=3">
-	<link rel="manifest" href="site.webmanifest">
-	<style>
-		/* Estilos adicionales para la página de gracias */
-		.thank-you-section {
-			min-height: 100vh;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			text-align: center;
-			background: #1c1d26;
-			padding: 2em;
-		}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Solicitud Recibida! — IAsesoria</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Rutas alineadas con la estructura del servidor Flask -->
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico?v=3">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png?v=3">
+    <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png?v=3">
 
-		.thank-you-content {
-			max-width: 600px;
-			margin: 0 auto;
-		}
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-		.thank-you-icon {
-			font-size: 5em;
-			color: #f2a61f;
-			margin-bottom: 0.5em;
-		}
+        :root {
+            --black:   #000000;
+            --orange:  #f3a022;
+            --orange2: #e8923a;
+            --white:   #ffffff;
+            --border:  rgba(255,255,255,0.07);
+            --ease: cubic-bezier(0.22, 1, 0.36, 1);
+        }
 
-		.thank-you-title {
-			font-size: 2.5em;
-			color: #ffffff;
-			margin-bottom: 0.5em;
-		}
+        html, body {
+            width: 100%; min-height: 100%;
+            background: var(--black);
+            color: var(--white);
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
 
-		.thank-you-message {
-			font-size: 1.2em;
-			color: rgba(255, 255, 255, 0.8);
-			margin-bottom: 2em;
-			line-height: 1.6;
-		}
+        /* ── FONDO (Idéntico al Index) ── */
+        .bg {
+            position: fixed; inset: 0; z-index: 0; pointer-events: none;
+            background:
+                radial-gradient(ellipse 70% 55% at 50% 40%, rgba(243,160,34,0.06) 0%, transparent 70%),
+                linear-gradient(rgba(0, 0, 0, 0.80), rgba(5, 5, 5, 0.90)),
+                url('/assets/images/principalimagen.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .bg::before {
+            content: '';
+            position: absolute; inset: -10%;
+            background-image:
+                radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: drift 40s linear infinite;
+        }
+        @keyframes drift { from{transform:translate(0,0);} to{transform:translate(60px,60px);} }
+        
+        .grain {
+            position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: .025;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
 
-		.thank-you-details {
-			background: rgba(242, 166, 31, 0.1);
-			border-left: 4px solid #f2a61f;
-			padding: 1.5em;
-			margin-bottom: 2em;
-			text-align: left;
-			border-radius: 5px;
-		}
+        /* ── NAV (Idéntico al Index) ── */
+        .g-nav {
+            position: fixed; top: 0; left: 0; right: 0; height: 64px;
+            z-index: 100;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 5%;
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        .g-nav-logo {
+            display: flex; align-items: center; gap: 10px;
+            text-decoration: none; color: rgba(255,255,255,0.45);
+            font-size: 1rem; font-weight: 600; letter-spacing: 1px;
+            transition: color .3s;
+        }
+        .g-nav-logo:hover { color: var(--white); }
+        .g-nav-logo img {
+            height: 36px; width: 36px; border-radius: 8px;
+            background: var(--orange); object-fit: contain;
+        }
+        
+        .g-nav-back {
+            font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
+            color: rgba(255,255,255,0.5); text-decoration: none;
+            display: flex; align-items: center; gap: 8px;
+            padding: 8px 18px; border-radius: 40px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.05);
+            transition: all .3s;
+        }
+        .g-nav-back:hover {
+            color: var(--white); 
+            border-color: rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.1);
+        }
 
-		.thank-you-details p {
-			margin: 0.5em 0;
-			color: rgba(255, 255, 255, 0.9);
-		}
+        /* ── CONTENIDO CENTRAL ── */
+        .g-main {
+            position: relative; z-index: 10;
+            min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            padding: 100px 5% 60px; /* Espacio para el nav */
+        }
 
-		.thank-you-details strong {
-			color: #f2a61f;
-		}
+        .g-card {
+            width: 100%; max-width: 560px;
+            display: flex; flex-direction: column;
+            align-items: center; gap: 28px;
+            text-align: center;
+            animation: fadeUp .8s var(--ease) both;
+        }
+        @keyframes fadeUp {
+            from { opacity:0; transform: translateY(30px); }
+            to   { opacity:1; transform: translateY(0); }
+        }
 
-		.thank-you-button {
-			background-color: #f3a022;
-			color: #1a1a21 !important;
-			text-decoration: none;
-			padding: 15px 30px;
-			text-align: center;
-			border-radius: 5px;
-			font-weight: bold;
-			transition: background 0.3s;
-			border: none;
-			cursor: pointer;
-			display: inline-block;
-			font-size: 1em;
-		}
+        /* Ícono check animado */
+        .check-ring {
+            width: 84px; height: 84px;
+            border-radius: 50%;
+            border: 1px solid rgba(243,160,34,0.3);
+            background: rgba(243,160,34,0.06);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; color: var(--orange);
+            animation: ringPulse 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 15px rgba(243, 160, 34, 0.2));
+        }
+        @keyframes ringPulse {
+            0%,100% { box-shadow: 0 0 0 0 rgba(243,160,34,0); }
+            50%      { box-shadow: 0 0 0 12px rgba(243,160,34,0.07); }
+        }
 
-		.thank-you-button:hover {
-			background-color: #231500;
-			color: #ffffff !important;
-		}
+        .g-eyebrow {
+            font-size: 0.65rem; letter-spacing: 4px; text-transform: uppercase;
+            color: var(--orange); opacity: 1; font-weight: 600;
+        }
+        .g-title {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 300; letter-spacing: -0.5px; line-height: 1.15;
+            margin-top: 8px;
+        }
+        .g-subtitle {
+            font-size: 0.95rem; color: rgba(255,255,255,0.7);
+            font-weight: 300; line-height: 1.7; max-width: 440px;
+        }
+        .g-subtitle strong { color: var(--orange); font-weight: 500; }
 
-		.thank-you-footer {
-			margin-top: 3em;
-			color: rgba(255, 255, 255, 0.4);
-			font-size: 0.9em;
-		}
-	</style>
+        /* Pasos del proceso (Estilo Glassmorphism de las tarjetas) */
+        .g-steps {
+            width: 100%;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex; flex-direction: column; gap: 18px;
+            text-align: left;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+        .g-step {
+            display: flex; align-items: flex-start; gap: 14px;
+        }
+        .g-step-num {
+            width: 32px; height: 32px; flex-shrink: 0;
+            border-radius: 8px;
+            background: rgba(243,160,34,0.1);
+            border: 1px solid rgba(243,160,34,0.2);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.7rem; font-weight: 600; color: var(--orange);
+        }
+        .g-step-text { flex: 1; }
+        .g-step-title {
+            font-size: 0.85rem; font-weight: 600; color: var(--white);
+            margin-bottom: 4px;
+        }
+        .g-step-desc {
+            font-size: 0.75rem; color: rgba(255,255,255,0.5);
+            line-height: 1.5; font-weight: 300;
+        }
+
+        /* Divisor */
+        .g-divider {
+            width: 100%; height: 1px;
+            background: linear-gradient(to right, transparent, rgba(243,160,34,0.2), transparent);
+        }
+
+        /* Nota transparencia */
+        .g-note {
+            font-size: 0.7rem; color: rgba(255,255,255,0.4);
+            line-height: 1.6; font-style: italic;
+            padding: 0 10px;
+        }
+        .g-note i { color: rgba(243,160,34,0.6); margin-right: 6px; }
+
+        /* CTA principal (Igual al botón enviar formulario) */
+        .g-cta {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            width: 100%; padding: 16px;
+            background: var(--orange); color: #000;
+            border: none; border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem; font-weight: 700;
+            letter-spacing: 2px; text-transform: uppercase;
+            text-decoration: none;
+            transition: all .3s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        .g-cta:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+        /* Link secundario */
+        .g-link {
+            font-size: 0.75rem; color: rgba(255,255,255,0.4);
+            text-decoration: none; letter-spacing: 1px;
+            transition: color .3s;
+            margin-top: -10px;
+        }
+        .g-link:hover { color: var(--orange); }
+
+        /* Footer mínimo */
+        .g-footer {
+            position: relative; z-index: 10;
+            padding: 24px 5%;
+            border-top: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            flex-wrap: wrap; gap: 12px;
+        }
+        .g-footer-left { font-size: 0.65rem; color: rgba(255,255,255,0.3); letter-spacing: 1px; }
+        .g-footer-left strong { color: var(--orange); font-weight: 500; }
+        .g-footer-mid { font-size: 0.65rem; color: rgba(255,255,255,0.2); font-style: italic; }
+        .g-footer-right { font-size: 0.65rem; color: rgba(255,255,255,0.2); }
+        .g-footer-right a { color: rgba(243,160,34,0.6); text-decoration: none; transition: color 0.3s;}
+        .g-footer-right a:hover { color: var(--orange); }
+
+        /* ── WHATSAPP FLOTANTE (Igual al Index) ── */
+        .wa-float {
+            position: fixed; bottom: 30px; right: 30px; z-index: 2000;
+            width: 60px; height: 60px;
+            background: rgba(15, 15, 15, 0.8);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            color: var(--orange);
+            border: 2px solid var(--orange);
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; font-size: 1.8rem; text-decoration: none;
+            transition: all 0.4s var(--ease);
+        }
+        .wa-float:hover {
+            transform: scale(1.1);
+            background: var(--orange);
+            color: #000;
+        }
+
+        /* ── RESPONSIVE MOBILE ── */
+        @media(max-width: 768px) {
+            .g-main { padding: 90px 15px 40px; }
+            .g-title { font-size: 1.8rem; margin-bottom: 5px; }
+            .g-subtitle { font-size: 0.85rem; padding: 0 10px; }
+            
+            .g-steps { padding: 20px 15px; gap: 15px; }
+            .g-step-title { font-size: 0.8rem; }
+            .g-step-desc { font-size: 0.7rem; }
+            
+            .wa-float { width: 48px; height: 48px; bottom: 14px; right: 14px; font-size: 1.4rem; }
+            .g-footer { flex-direction: column; text-align: center; gap: 8px; padding: 20px 15px; }
+            
+            /* Ajuste del botón de volver en nav móvil */
+            .g-nav-back span { display: none; } /* Oculta el texto en móvil, deja solo la flecha */
+            .g-nav-back { padding: 8px 12px; border-radius: 8px; }
+        }
+    </style>
 </head>
+<body>
 
-<body class="is-preload landing">
-	<div id="page-wrapper">
-		<!-- Header -->
-		<header id="header">
-			<h1 id="logo">
-				<a href="/">
-					<img src="assets/images/logoprincipal.jpeg" alt="Logo de IAsesoria"
-						style="height: 40px; vertical-align: middle; margin-right: 10px;">
-					IAsesoria
-				</a>
-			</h1>
-			<nav id="nav">
-				<ul>
-					<li><a href="/" class="scrolly">Inicio</a></li>
-					<li><a href="servicios">Servicios</a></li>
-					<li><a href="/demos.html" class="scrolly">Demos</a></li>
-					<li><a href="/#five" class="scrolly">Contacto</a></li>
-				</ul>
-			</nav>
-		</header>
+    <div class="bg"></div>
+    <div class="grain"></div>
 
-		<!-- Sección de Gracias -->
-		<section class="thank-you-section">
-			<div class="thank-you-content">
-				<div class="thank-you-icon"></div>
-				<h1 class="thank-you-title">¡Solicitud Recibida!</h1>
-				<p class="thank-you-message">
-					Gracias por confiar en <strong style="color: #f2a61f;">IAsesoria</strong>.
-					Hemos recibido su solicitud y nuestro equipo de IA la está analizando.
-				</p>
+    <!-- NAV -->
+    <nav class="g-nav">
+        <a href="/" class="g-nav-logo">
+            <img src="/assets/images/logoprincipal.jpeg" alt="IAsesoria"
+                 onerror="this.style.display='none'">
+            IAsesoria
+        </a>
+        <a href="/" class="g-nav-back">
+            <i class="fas fa-arrow-left"></i> <span>Volver al inicio</span>
+        </a>
+    </nav>
 
-				<div class="thank-you-details">
-					<p><strong>⏳ Proceso de evaluación en curso:</strong></p>
-					<p>1. Nuestro sistema realizará un análisis de <strong>viabilidad técnica y ética</strong> de tu
-						requerimiento.</p>
-					<p>2. En unos minutos recibirás un correo con el resultado de esta primera evaluación automatizada.
-					</p>
-					<p>3. Si el proyecto se alinea con nuestros servicios, un consultor te contactará en un plazo de 24
-						a 48 horas con una propuesta formal.</p>
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="g-main">
+        <div class="g-card">
 
-					<!-- DISCLAIMER DE CONFIANZA -->
-					<div style="margin-top: 1.5em; padding-top: 1em; border-top: 1px solid rgba(255,255,255,0.1);">
-						<p
-							style="font-size: 0.9em; font-style: italic; color: rgba(255,255,255,0.7); margin-bottom: 0;">
-							<i class="fas fa-user-check" style="color: #f2a61f; margin-right: 5px;"></i>
-							** Nota de Transparencia: Utilizamos Inteligencia Artificial Generativa para agilizar el
-							análisis preliminar, pero todas las solicitudes cuentan con la supervisión posterior de
-							nuestro equipo técnico y ético. Si cree que hubo un error en este análisis, nuestro equipo
-							técnico revisará su caso manualmente.
-						</p>
-					</div>
-				</div>
+            <!-- Ícono check -->
+            <div class="check-ring">
+                <i class="fas fa-check"></i>
+            </div>
 
-				<a href="/" class="thank-you-button">Volver al inicio</a>
+            <!-- Cabecera -->
+            <div>
+                <p class="g-eyebrow">Solicitud recibida</p>
+                <h1 class="g-title">¡Todo en marcha!</h1>
+            </div>
 
-				<div class="thank-you-footer">
-					<p>⚡ Servicio humano potenciado con IA ⚡</p>
-				</div>
-			</div>
-		</section>
+            <p class="g-subtitle">
+                Gracias por confiar en <strong>IAsesoria</strong>.<br>
+                Hemos recibido su solicitud y nuestro equipo de IA la está analizando ahora mismo.
+            </p>
 
-		<!-- Footer -->
-		<footer id="footer">
-			<ul class="icons">
-				<li><a href="https://cl.linkedin.com/in/benjamin-carmona-69aa44223"
-						class="icon brands alt fa-linkedin-in" target="_blank"><span class="label">LinkedIn</span></a>
-				</li>
-				<li><a href="https://github.com/Benj11ii" class="icon brands alt fa-github" target="_blank"><span
-							class="label">GitHub</span></a></li>
-				<li><a href="mailto:ia@iasesoria.cl" class="icon solid alt fa-envelope"><span
-							class="label">Email</span></a></li>
-				<!-- Línea personal -->
-				<p style="color: rgba(255,255,255,0.5); font-size: 0.85rem; margin: 0.5rem 0 1rem 0;">
-					Proyecto construido por <strong style="color: #f3a022;">Benjamín Carmona</strong> Desde Villarrica,
-					Chile
-				</p>
-				<p style="color: rgba(255,255,255,0.35); font-size: 0.8rem; font-style: italic; margin: 0 0 1rem 0;">
-					"Donde la visión crea soluciones innovadoras."
-				</p>
-				<ul class="copyright">
-					<li>&copy; IAsesoria Informática. Todos los derechos reservados.</li>
-					<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-				</ul>
-		</footer>
-	</div>
+            <!-- Pasos del proceso -->
+            <div class="g-steps">
+                <div class="g-step">
+                    <div class="g-step-num">01</div>
+                    <div class="g-step-text">
+                        <div class="g-step-title">Análisis automatizado en curso</div>
+                        <div class="g-step-desc">Nuestro sistema realiza un análisis de viabilidad técnica y ética de su requerimiento.</div>
+                    </div>
+                </div>
+                <div class="g-step">
+                    <div class="g-step-num">02</div>
+                    <div class="g-step-text">
+                        <div class="g-step-title">Correo con resultado preliminar</div>
+                        <div class="g-step-desc">En unos minutos recibirá un correo con el resultado de esta primera evaluación automatizada.</div>
+                    </div>
+                </div>
+                <div class="g-step">
+                    <div class="g-step-num">03</div>
+                    <div class="g-step-text">
+                        <div class="g-step-title">Propuesta formal en 24–48h</div>
+                        <div class="g-step-desc">Si el proyecto se alinea con nuestros servicios, un consultor le contactará con una propuesta formal.</div>
+                    </div>
+                </div>
+            </div>
 
-	<a href="https://wa.me/56926870966?text=Hola..." class="whatsapp-float" target="_blank"
-		aria-label="Contacto por WhatsApp">
+            <div class="g-divider"></div>
 
-		<span class="whatsapp-tooltip">
-			¿Aún no te decides?<br>
-			<strong>Conversemos… de humano a humano.</strong>
-		</span>
+            <!-- Nota de transparencia -->
+            <p class="g-note">
+                <i class="fas fa-user-check"></i>
+                Utilizamos IA Generativa para el análisis preliminar, pero todas las solicitudes cuentan con supervisión posterior de nuestro equipo técnico.
+            </p>
 
-		<div class="outer-circle">
-			<div class="inner-circle">
-				<i class="fab fa-whatsapp"></i>
-			</div>
-		</div>
-	</a>
+            <!-- CTA -->
+            <a href="/" class="g-cta">
+                <i class="fas fa-home"></i> Volver al inicio
+            </a>
 
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/jquery.scrolly.min.js"></script>
-	<script src="assets/js/jquery.dropotron.min.js"></script>
-	<script src="assets/js/jquery.scrollex.min.js"></script>
-	<script src="assets/js/browser.min.js"></script>
-	<script src="assets/js/breakpoints.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<script src="assets/js/main.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+            <a href="https://wa.me/56926870966?text=Hola,%20acabo%20de%20enviar%20una%20solicitud%20y%20quiero%20coordinar" 
+               class="g-link" target="_blank" rel="noopener">
+                ¿Prefiere coordinar ahora por WhatsApp?
+            </a>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="g-footer">
+        <div class="g-footer-left">
+            Proyecto por <strong>Benjamín Carmona</strong> · Villarrica, Chile
+        </div>
+        <div class="g-footer-mid">"Donde la visión crea soluciones."</div>
+        <div class="g-footer-right">
+            <a href="mailto:ia@iasesoria.cl">ia@iasesoria.cl</a>
+        </div>
+    </footer>
+
+    <!-- WhatsApp flotante -->
+    <a href="https://wa.me/56926870966?text=Hola,%20me%20interesa%20conocer%20más%20sobre%20IAsesoria" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
 </body>
-
 </html>
