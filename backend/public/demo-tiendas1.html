@@ -1252,46 +1252,51 @@
         function enviarWhatsApp() {
             const phone = $('#user-phone').val().trim();
             if (phone.length < 8) return alert("Ingrese un número válido");
-
+            
             $('.btn-order').html('<i class="fas fa-spinner fa-spin"></i> Procesando...').prop('disabled', true);
-
-            const payload = {
-                fecha: new Date().toLocaleString(),
-                telefono: phone,
-                producto: productoSeleccionado,
-                demo_origen: "Sakura Sushi (Premium)"
+            
+            const payload = { 
+                fecha: new Date().toLocaleString(), 
+                telefono: phone, 
+                producto: productoSeleccionado, 
+                // Asegúrate de cambiar el nombre según la demo (ej: "Ferretería Pro", "SurMágico", etc.)
+                demo_origen: "Sakura Sushi (Premium)" 
             };
-
-            fetch(WEBHOOK_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
+            
+            // 1. Enviamos los datos silenciosamente a Google Sheets (Webhook de Flask -> GAS)
+            fetch(WEBHOOK_URL, { 
+                method: 'POST', 
+                mode: 'no-cors', 
+                headers: { 'Content-Type': 'application/json' }, 
+                body: JSON.stringify(payload) 
             })
-                .then(() => {
-                    $('#modal-inner').html(`
+            .then(() => {
+                // 2. Preparamos el mensaje para enviarte a ti
+                // REEMPLAZA ESTE NÚMERO CON TU WHATSAPP DE IASESORIA
+                const numeroIAsesoria = "56926870966"; 
+                const mensaje = `Hola IAsesoria, acabo de probar la demo de *${payload.demo_origen}*. Simulé un pedido/reserva para: *${productoSeleccionado}*. Me interesa saber más sobre sus servicios.`;
+                const urlWaMe = `https://wa.me/${numeroIAsesoria}?text=${encodeURIComponent(mensaje)}`;
+
+                // 3. Mostramos la pantalla de éxito con el botón que abre WhatsApp
+                $('#modal-inner').html(`
                     <div class="modal-icon"><i class="fas fa-check" style="color:var(--accent);"></i></div>
-                    <h3>¡Listo!</h3>
+                    <h3>¡Simulación Exitosa!</h3>
                     <span class="modal-product-name">${productoSeleccionado}</span>
                     <p style="color:var(--text-muted);font-size:0.85rem;line-height:1.7;margin-bottom:28px;">
-                        ¿Imaginas a tus clientes pidiendo así de fácil?<br>
-                        <b style="color:var(--text-main);">IAsesoria</b> lo hace realidad.
+                        Tus datos se han guardado en una base de datos segura.<br><br>
+                        En la vida real, tu cliente presionaría este botón para enviarte el pedido directamente a tu WhatsApp:
                     </p>
-                    <a href="https://www.iasesoria.cl/#five" class="btn-order" style="text-decoration:none;">Quiero esto para mi local →</a>
-                    <button class="btn-close" onclick="closeModal(); location.reload();" style="cursor:pointer; margin-top:15px; background:none; border:none; color:var(--text-muted); text-decoration:underline;">Hacer otra prueba</button>
+                    <a href="${urlWaMe}" target="_blank" rel="noopener noreferrer"
+                       class="btn-order" style="text-decoration:none;">
+                       <i class="fab fa-whatsapp"></i> Ver cómo llega a WhatsApp
+                    </a>
+                    <button class="btn-close" onclick="closeModal(); location.reload();" style="cursor:pointer; margin-top:15px; background:none; border:none; color:var(--text-muted); text-decoration:underline;">Cerrar demo</button>
                 `);
-                }).catch(() => {
-                    alert("Ocurrió un error, pero tu prueba fue procesada.");
-                    closeModal();
-                });
+            }).catch(() => {
+                alert("Ocurrió un error de red, por favor intenta de nuevo.");
+                closeModal();
+            });
         }
-
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-        $(document).ready(() => {
-            cargarProductos();
-            bindCursor();
-        });
     </script>
 </body>
 
