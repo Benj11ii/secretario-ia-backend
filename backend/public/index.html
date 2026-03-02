@@ -576,25 +576,34 @@
 		}
 
 		.hero-logo-wrap {
-			/* Contenedor transparente pero centrado */
-			width: 130px !important;
-			height: 130px !important;
+			/* Quitamos el tamaño fijo del contenedor y el fondo */
+			width: auto !important;
+			height: auto !important;
+			background: transparent !important; /* Adiós caja gris */
 			border: none !important;
-			background: transparent !important;
 			box-shadow: none !important;
-			margin-bottom: 10px !important;
-			display: flex !important;
-			justify-content: center !important;
+			
+			/* Centrado y margen */
+			display: flex;
+			justify-content: center;
+			margin-bottom: 25px; /* Espacio para que no toque el texto */
 		}
 
 		.hero-logo {
-			width: 100px !important;
-			/* Tamaño grande pero controlado */
-			height: 100px !important;
+			/* Aquí controlamos el tamaño REAL de la imagen */
+			width: 220px !important; /* Tamaño grande y bonito para PC */
+			height: auto !important; /* Mantiene la proporción */
 			object-fit: contain;
-			filter: drop-shadow(0 0 20px rgba(243, 160, 34, 0.3));
-			/* Brillo elegante */
+			
+			/* Sombra naranja brillante (Glow) para que destaque en el fondo oscuro */
+			filter: drop-shadow(0 0 25px rgba(243, 160, 34, 0.4));
+            transition: transform 0.3s ease;
 		}
+		.hero-logo:hover {
+            transform: scale(1.05); /* Efecto sutil al pasar el mouse */
+        }
+
+
 
 		.hero-title {
 			font-size: 2.1rem !important;
@@ -1139,11 +1148,12 @@
 
 		.form-wrap {
 			width: 100%;
-			max-width: 560px;
+			max-width: 500px !important; /* <--- ESTO EVITA QUE SE ESTIRE */
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			gap: 30px;
+			gap: 25px;
+            margin: 0 auto; /* Centrado */
 		}
 
 		.form-head {
@@ -1174,11 +1184,8 @@
 		}
 
 		.ia-form {
-			width: 100%;
-			display: flex;
-			flex-direction: column;
-			gap: 20px; /* <--- Aumentado de 12px a 20px */
-		}
+            gap: 20px; /* Espacio entre cada pregunta del formulario */
+        }
 
 		.form-row {
 			display: grid;
@@ -1193,11 +1200,13 @@
 		}
 
 		.form-field label {
-			font-size: 0.6rem;
+			font-size: 0.75rem; /* Letra un poco más legible */
 			letter-spacing: 2px;
 			text-transform: uppercase;
-			color: rgba(255, 255, 255, 0.3);
-			font-weight: 400;
+			color: rgba(255, 255, 255, 0.7);
+			font-weight: 600;
+			margin-bottom: 10px !important; /* <--- AQUÍ SEPARAMOS EL TÍTULO DEL INPUT */
+            display: block; /* Asegura que ocupe su propia línea */
 		}
 
 		.form-field input,
@@ -2422,16 +2431,17 @@
 			}
 
 			.hero-logo-wrap {
-				width: 110px !important;
-				/* Logo mediano, ni muy grande ni muy chico */
-				height: 110px !important;
-				border-radius: 35px !important;
-				margin-bottom: 10px !important;
+				width: auto !important;
+				height: auto !important;
+				border: none !important;
+				background: transparent !important;
+				margin-bottom: 15px !important;
 			}
 
 			.hero-logo {
-				width: 80px !important;
-				height: 80px !important;
+				width: 140px !important; /* Tamaño perfecto para celular (Imponente) */
+				height: auto !important;
+                filter: drop-shadow(0 0 15px rgba(243, 160, 34, 0.5));
 			}
 
 			.hero-title {
@@ -2620,7 +2630,9 @@
 
 			/* 9. SLIDE 5: FORMULARIO */
 			.form-wrap {
-				width: 100%;
+				/* En celular sí queremos que ocupe casi todo el ancho disponible */
+                max-width: 100% !important; 
+				width: 95% !important; 
 				margin-top: 0 !important;
 				padding: 0 5px;
 			}
