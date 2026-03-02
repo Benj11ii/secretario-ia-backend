@@ -91,15 +91,16 @@ def health_chat():
 
 @app.route("/demo-tiendas1.html")
 def demo_sushi():
-    return render_template("demo-tiendas1.html")
+    return render_template("demo-tiendas1.html", webhook_url=WEBHOOK_SUSHI)
 
 @app.route("/demo-tiendas2.html")
 def demo_ferreteria():
-    return render_template("demo-tiendas2.html")
+    return render_template("demo-tiendas2.html", webhook_url=WEBHOOK_FERRETERIA)
 
 @app.route("/demo-tiendas3.html")
 def demo_turismo():
-    return render_template("demo-tiendas3.html")
+    return render_template("demo-tiendas3.html", webhook_url=WEBHOOK_TURISMO)
+
 
 
 
@@ -108,6 +109,10 @@ def demo_turismo():
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_ID = os.getenv("CHAT_ID")
 GOOGLE_SHEETS_URL = os.getenv("GOOGLE_SHEETS_URL")
+WEBHOOK_SUSHI    = os.getenv("WEBHOOK_SUSHI")
+WEBHOOK_FERRETERIA = os.getenv("WEBHOOK_FERRETERIA")
+WEBHOOK_TURISMO  = os.getenv("WEBHOOK_TURISMO")
+
 
 # --- CONFIGURACIÓN DEL WORKER EN MAC ---
 # --- CONFIGURACIÓN DEL WORKER EN MAC ---
