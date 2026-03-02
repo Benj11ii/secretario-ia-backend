@@ -2139,46 +2139,49 @@
            NAVEGACIÓN INTERNA DE SLIDES
            ========================================= */
 		.slide-nav-prev {
-			position: relative; /* Cambiado de absolute a relative */
-			margin-bottom: 40px; /* Separación IGUAL al botón de abajo */
-			align-self: center; /* Lo centra horizontalmente */
+			position: relative;
+			margin-bottom: 60px; /* <--- Aumentado para más elegancia */
+			align-self: center;
 			
-			background: rgba(255, 255, 255, 0.05);
+			background: rgba(255, 255, 255, 0.03); /* Fondo más sutil */
+			backdrop-filter: blur(10px);
+			-webkit-backdrop-filter: blur(10px);
 			border: 1px solid rgba(255, 255, 255, 0.1);
-			color: rgba(255, 255, 255, 0.5);
-			padding: 8px 16px;
+			color: rgba(255, 255, 255, 0.4);
+			padding: 10px 22px; /* Un poco más ancho */
 			border-radius: 30px;
 			font-size: 0.65rem;
 			text-transform: uppercase;
 			letter-spacing: 2px;
 			cursor: pointer;
-			transition: all 0.3s ease;
+			transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 			display: flex;
 			align-items: center;
-			gap: 8px;
+			gap: 10px;
 			z-index: 100;
 		}
 
 		.slide-nav-prev:hover {
-			background: rgba(255, 255, 255, 0.1);
-			color: #fff;
-			border-color: rgba(255, 255, 255, 0.3);
-			transform: translateY(-4px); /* Pequeño salto hacia arriba, mucho más elegante que cambiar el 'top' */
+			background: rgba(255, 255, 255, 0.08);
+			color: var(--orange); /* Cambia a naranja al pasar el mouse */
+			border-color: rgba(243, 160, 34, 0.3);
+			transform: translateY(-5px);
 		}
 
 		.slide-nav-next {
-			margin-top: 40px; /* Separación IGUAL al botón de arriba */
-			background: transparent;
-			border: 1px solid rgba(243, 160, 34, 0.4);
+			margin-top: 60px; /* <--- Simetría perfecta con el de arriba */
+			background: rgba(243, 160, 34, 0.02);
+			backdrop-filter: blur(10px);
+			border: 1px solid rgba(243, 160, 34, 0.3);
 			color: var(--orange);
-			padding: 12px 28px;
+			padding: 14px 32px;
 			border-radius: 40px;
 			font-size: 0.75rem;
 			font-weight: 600;
 			text-transform: uppercase;
 			letter-spacing: 2px;
 			cursor: pointer;
-			transition: all 0.3s ease;
+			transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 			display: flex;
 			align-items: center;
 			gap: 12px;
@@ -2187,7 +2190,8 @@
 		.slide-nav-next:hover {
 			background: rgba(243, 160, 34, 0.1);
 			border-color: var(--orange);
-			transform: translateY(4px); /* Salto hacia abajo */
+			transform: translateY(5px);
+			box-shadow: 0 10px 30px rgba(243, 160, 34, 0.15);
 		}
 
 		.slide-nav-next i {
