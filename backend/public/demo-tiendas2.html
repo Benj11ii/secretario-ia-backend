@@ -116,7 +116,7 @@
         /* --- PANTALLAS GIGANTES (PC/Mac) --- */
         @media (min-width: 1400px) {
             .cat-inner, .services-inner, .f-main {
-                max-width: 1400px; /* Ensanchamos el contenido */
+                max-width: 1400px;
             }
             .prod-grid {
                 grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -127,24 +127,20 @@
 
         /* --- MÓVILES Y TABLETS PEQUEÑAS --- */
         @media (max-width: 768px) {
-            /* 1. Hero Adaptado */
             .f-hero { height: auto; min-height: 80vh; padding-bottom: 40px; padding-top: 100px; }
             .hero-text h1 { font-size: clamp(3rem, 11vw, 4rem); margin-bottom: 10px; }
             .hero-tag { font-size: 0.65rem; }
             .hero-sub { font-size: 0.85rem; max-width: 100%; }
-            .hero-stats { display: none !important; } /* Ocultamos estadísticas en móvil para no saturar */
+            .hero-stats { display: none !important; } 
 
-            /* 2. Barra de Navegación */
             .f-nav { padding: 0 15px; height: 60px; }
             .f-logo { font-size: 1.2rem; }
             .logo-icon { width: 30px; height: 30px; font-size: 0.85rem; }
             .btn-nav { padding: 8px 12px; font-size: 0.65rem; }
 
-            /* 3. Promo Band y Filtros */
             .promo-band { margin-top: 60px; font-size: 0.65rem; padding: 8px 10px; text-align: center; }
             .cat-tab { padding: 14px 16px; font-size: 0.7rem; }
 
-            /* 4. Banner Servicios (Vertical) */
             .services-band { padding: 30px 15px; margin: 20px 0; }
             .services-inner { grid-template-columns: 1fr; gap: 20px; }
             .svc-item { align-items: center; }
@@ -152,7 +148,6 @@
             .svc-title { font-size: 0.85rem; }
             .svc-desc { font-size: 0.7rem; }
 
-            /* 5. Grilla de Productos (1 Columna Compacta) */
             .f-main { padding: 30px 15px; }
             .sec-head { flex-direction: column; align-items: flex-start; gap: 15px; margin-bottom: 25px; }
             .sec-title { font-size: 2rem; }
@@ -166,18 +161,15 @@
             .card-price { font-size: 1.3rem; }
             .btn-buy { padding: 10px 16px; font-size: 0.7rem; }
 
-            /* Tarjeta Destacada (Pasa a Vertical) */
             .prod-card.featured { grid-template-columns: 1fr; min-height: auto; }
             .prod-card.featured .card-img { height: 200px; min-height: 200px; }
             .prod-card.featured .card-body { padding: 24px 20px; }
             .prod-card.featured .card-name { font-size: 1.4rem; }
             
-            /* 6. Tabla Inventario (Modo Móvil Extremo) */
             .inv-row { grid-template-columns: 50px 1fr !important; padding: 12px !important; }
             .inv-img { width: 50px; height: 50px; }
             .inv-price { font-size: 1rem; }
 
-            /* 7. Modal y Footer */
             .m-box, .m-success, .mp-sim { width: 95% !important; padding: 35px 25px !important; }
             .m-title { font-size: 1.5rem; }
             #user-phone { padding: 14px; font-size: 0.9rem; }
@@ -241,7 +233,6 @@
             gap: 12px;
         }
 
-        /* Contador carrito */
         .cart-wrap {
             position: relative;
             background: transparent;
@@ -636,7 +627,7 @@
             flex-shrink: 0; padding: 9px 18px; background: var(--accent);
             color: #000; border: none; border-radius: 7px; font-family: 'Barlow Condensed', sans-serif;
             font-weight: 800; font-size: .72rem; letter-spacing: 2px; text-transform: uppercase;
-            display: flex; align-items: center; gap: 6px; transition: .25s; white-space: nowrap;
+            display: flex; align-items: center; gap: 6px; transition: .25s; white-space: nowrap; cursor: pointer;
         }
         .btn-buy:hover { background: var(--accent2); transform: translateY(-1px); }
 
@@ -664,7 +655,7 @@
         .vt-btn {
             width: 34px; height: 34px; border-radius: 7px; border: 1px solid var(--border2);
             background: transparent; color: var(--muted); font-size: .8rem; display: flex;
-            align-items: center; justify-content: center; transition: .25s;
+            align-items: center; justify-content: center; transition: .25s; cursor: pointer;
         }
         .vt-btn.active, .vt-btn:hover { border-color: var(--accent); color: var(--accent); }
 
@@ -693,7 +684,7 @@
             padding: 8px 14px; background: var(--accent); color: #000; border: none;
             border-radius: 6px; font-family: 'Barlow Condensed', sans-serif; font-weight: 800;
             font-size: .68rem; letter-spacing: 2px; text-transform: uppercase; transition: .2s;
-            white-space: nowrap; width: 100%;
+            white-space: nowrap; width: 100%; cursor: pointer;
         }
         .inv-btn:hover { background: var(--accent2); }
 
@@ -757,7 +748,7 @@
             width: 100%; margin-top: 18px; padding: 15px; background: var(--accent); color: #000;
             border: none; border-radius: 10px; font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
             font-size: .85rem; letter-spacing: 3px; text-transform: uppercase; display: flex;
-            align-items: center; justify-content: center; gap: 10px; transition: opacity .3s;
+            align-items: center; justify-content: center; gap: 10px; transition: opacity .3s; cursor: pointer;
         }
         .btn-confirm:hover { opacity: .88; }
         .btn-cancel { background: transparent; border: none; color: var(--muted); margin-top: 14px; font-size: .75rem; letter-spacing: 1px; font-family: 'Barlow', sans-serif; text-decoration: underline; cursor: pointer; }
@@ -777,7 +768,7 @@
         .mp-amount { font-size: 3rem; font-weight: 900; color: #000; line-height: 1; margin: 16px 0; }
         .mp-card-box { background: #f5f7fa; border-radius: 10px; padding: 16px; font-size: .82rem; color: #777; text-align: left; margin-top: 16px; display: flex; align-items: center; gap: 10px; }
         .mp-card-box i { color: var(--mp-blue); font-size: 1.1rem; }
-        .btn-mp-pay { width: 100%; margin-top: 20px; padding: 16px; background: var(--mp-blue); color: #fff; border: none; border-radius: 8px; font-weight: 700; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px; transition: .2s; }
+        .btn-mp-pay { width: 100%; margin-top: 20px; padding: 16px; background: var(--mp-blue); color: #fff; border: none; border-radius: 8px; font-weight: 700; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px; transition: .2s; cursor: pointer; }
         .btn-mp-pay:hover { background: #007eb5; }
         .mp-cancel { display: block; margin-top: 14px; color: #aaa; font-size: .78rem; text-decoration: none; }
 
@@ -810,7 +801,6 @@
                 <span class="cart-count" id="cart-count">0</span>
             </button>
             <button class="btn-nav" onclick="toggleTheme()"><i class="fas fa-circle-half-stroke"></i> Tema</button>
-            <!-- BOTÓN VOLVER MÁGICO -->
             <a href="javascript:history.back()" class="btn-nav"><i class="fas fa-arrow-left"></i> Volver</a>
         </div>
     </header>
@@ -1002,7 +992,7 @@
         const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxO6j-I6dCSp361U2IQrb8kr5EWPXRTL8tt9ulLK44utC7KiZIOHI2InjutpbLidls5/exec";
         let prodSeleccionado = "", precioSeleccionado = "", cartCount = 0;
 
-        /* ----- DATOS ----- */
+        /* ----- DATOS CORREGIDOS (SIN COMILLAS DOBLES QUE ROMPAN EL JS) ----- */
         const productos = [
             {
                 n: "Taladro Percutor Bosch 18V",
@@ -1021,7 +1011,7 @@
                 img: "https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=600&q=80"
             },
             {
-                n: "Esmeril Angular Makita 4½\"",
+                n: "Esmeril Angular Makita 4.5 pulg",  /* <-- COMILLAS ELIMINADAS */
                 d: "900W de potencia, incluye mango lateral y disco de corte.",
                 p: "$55.000",
                 s: "En Stock",
@@ -1030,7 +1020,7 @@
             },
             {
                 n: "Sierra Circular Industrial Pro",
-                d: "1400W, guía láser incorporada y hoja de carburo 7¼\".",
+                d: "1400W, guía láser incorporada y hoja de carburo 7.25 pulg.", /* <-- COMILLAS ELIMINADAS */
                 p: "$110.000",
                 s: "Poco Stock",
                 cat: "herramientas",
@@ -1045,7 +1035,7 @@
                 img: "https://www.triplee.cl/30893-medium_default/generador-electrico-gasolina-flowmak-gh2500-220v-2000w-pm.jpg?w=600&q=80"
             },
             {
-                n: "Tubería PVC 4\" x 3m",
+                n: "Tubería PVC 4 pulg x 3m", /* <-- COMILLAS ELIMINADAS */
                 d: "Clase 10 para alta presión, ideal para alcantarillado.",
                 p: "$8.900",
                 s: "En Stock",
@@ -1061,7 +1051,6 @@
                 img: "https://homemaxpa.com/wp-content/uploads/2024/03/9e332e_463b0c9552ac45e9bc57fae2bb07ab1bmv2-1.webp?w=600&q=80"
             },
             {
-                /* Imagen corregida: Casco de seguridad claro */
                 n: "Casco Seguridad Certificado",
                 d: "Certificación ANSI Z89.1, arnés de 6 puntas ajustable.",
                 p: "$12.500",
