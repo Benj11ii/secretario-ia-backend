@@ -2139,18 +2139,14 @@
            NAVEGACIÓN INTERNA DE SLIDES
            ========================================= */
 		.slide-nav-prev {
-			position: relative !important;
-			top: 0px;
-			bottom: auto !important;
-			left: auto !important;
-			transform: none !important;
-			/* MÁRGENES AUMENTADOS PARA EVITAR SOLAPAMIENTO */
-			margin-top: 45px !important;
-			margin-bottom: 10px !important;
+			position: relative; /* Cambiado de absolute a relative */
+			margin-bottom: 40px; /* Separación IGUAL al botón de abajo */
+			align-self: center; /* Lo centra horizontalmente */
+			
 			background: rgba(255, 255, 255, 0.05);
 			border: 1px solid rgba(255, 255, 255, 0.1);
 			color: rgba(255, 255, 255, 0.5);
-			padding: 9px 16px;
+			padding: 8px 16px;
 			border-radius: 30px;
 			font-size: 0.65rem;
 			text-transform: uppercase;
@@ -2160,19 +2156,18 @@
 			display: flex;
 			align-items: center;
 			gap: 8px;
-			z-index: 50;
-			width: fit-content;
+			z-index: 100;
 		}
 
 		.slide-nav-prev:hover {
 			background: rgba(255, 255, 255, 0.1);
 			color: #fff;
 			border-color: rgba(255, 255, 255, 0.3);
-			top: 80px;
+			transform: translateY(-4px); /* Pequeño salto hacia arriba, mucho más elegante que cambiar el 'top' */
 		}
 
 		.slide-nav-next {
-			margin-top: 40px;
+			margin-top: 40px; /* Separación IGUAL al botón de arriba */
 			background: transparent;
 			border: 1px solid rgba(243, 160, 34, 0.4);
 			color: var(--orange);
@@ -2192,11 +2187,12 @@
 		.slide-nav-next:hover {
 			background: rgba(243, 160, 34, 0.1);
 			border-color: var(--orange);
-			transform: translateY(5px);
+			transform: translateY(4px); /* Salto hacia abajo */
 		}
 
 		.slide-nav-next i {
-			margin-left: 8px;
+			font-size: 0.8rem;
+			animation: arrowNextPulse 2s infinite;
 		}
 
 		@keyframes arrowNextPulse {
