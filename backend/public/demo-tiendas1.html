@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
+        /* =========================================
+           CURSOR
+           ========================================= */
         * {
             box-sizing: border-box;
             cursor: none;
@@ -56,7 +59,9 @@
             opacity: 0.3;
         }
 
-        /* ===== VARIABLES ===== */
+        /* =========================================
+           VARIABLES DE TEMA
+           ========================================= */
         :root {
             --bg-body: #080808;
             --bg-card: rgba(255, 255, 255, 0.04);
@@ -111,7 +116,87 @@
             overflow-x: hidden;
         }
 
-        /* ===== NAV ===== */
+        /* =========================================
+           RESPONSIVE & PANTALLAS
+           ========================================= */
+
+        /* --- PANTALLAS GIGANTES (PC/Mac) --- */
+        @media (min-width: 1400px) {
+            .menu-container, .filters-inner, .mid-banner {
+                max-width: 1400px; /* Ensancha el contenido */
+            }
+            .grid-sushi {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+                gap: 32px;
+            }
+            .hero-content h1 { font-size: 8rem; }
+        }
+
+        /* --- MÓVILES Y TABLETS PEQUEÑAS --- */
+        @media (max-width: 768px) {
+            /* 1. Hero Adaptado */
+            .hero-content h1 { font-size: clamp(3.5rem, 12vw, 4.5rem); }
+            .hero-eyebrow { font-size: 0.6rem; letter-spacing: 3px; }
+            .hero-sub { font-size: 0.7rem; }
+
+            /* 2. Barra de Navegación */
+            .sushi-nav { padding: 0 15px; height: 64px; }
+            .logo { font-size: 0.85rem; letter-spacing: 4px; }
+            .theme-btn { padding: 8px 12px; font-size: 0.65rem; }
+            .back-link { font-size: 0.65rem; }
+
+            /* 3. Banner Central (Vertical) */
+            .mid-banner {
+                padding: 25px 20px;
+                height: auto;
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+                margin: 20px 15px 0;
+            }
+            .mid-banner-icon { margin: 0; font-size: 3rem; }
+            .mid-banner-text h3 { font-size: 1.5rem; }
+            .mid-banner-text p { font-size: 0.75rem; line-height: 1.4; }
+
+            /* 4. Contenedor de Menú y Títulos */
+            .menu-container { padding: 40px 15px; }
+            .section-label { margin-bottom: 30px; gap: 10px; }
+            .section-label-text { font-size: 1.6rem; }
+            .section-label-num { font-size: 0.6rem; }
+
+            /* 5. Grilla y Tarjetas (1 columna en móvil) */
+            .grid-sushi { grid-template-columns: 1fr; gap: 20px; }
+            
+            /* Tarjeta Normal */
+            .product-card img { height: 200px; }
+            .product-info { padding: 18px; }
+            .product-info h4 { font-size: 1.15rem; }
+            .price { font-size: 1.1rem; }
+
+            /* Tarjeta Destacada (Pasa a Vertical) */
+            .highlight-card { grid-template-columns: 1fr; min-height: auto; }
+            .highlight-card .card-img-wrap { min-height: 200px; height: 200px; }
+            .highlight-card .product-info { padding: 24px 20px; }
+            .highlight-card h4 { font-size: 1.6rem; }
+
+            /* 6. Modal adaptado a pantalla chica */
+            .modal-content { width: 90%; padding: 35px 25px; }
+            .modal-content h3 { font-size: 1.6rem; }
+            #user-phone { padding: 14px; font-size: 0.85rem; }
+
+            /* 7. Footer */
+            .sushi-footer {
+                margin-top: 40px;
+                padding: 30px 15px;
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+        }
+
+        /* =========================================
+           NAV
+           ========================================= */
         .sushi-nav {
             position: fixed;
             top: 0;
@@ -327,13 +412,7 @@
             margin: 0;
             opacity: 0;
             animation: fadeUp 1s 0.5s forwards;
-
-            /* REEMPLAZAR O AÑADIR ESTO: */
-            text-shadow:
-                0 2px 10px rgba(0, 0, 0, 0.5),
-                /* Sombra profunda */
-                0 0 20px rgba(0, 0, 0, 0.3);
-            /* Halo difuso */
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.3);
         }
 
         .hero-content h1 em {
@@ -378,27 +457,13 @@
         }
 
         @keyframes scrollPulse {
-
-            0%,
-            100% {
-                opacity: 0.4;
-            }
-
-            50% {
-                opacity: 1;
-            }
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
         }
 
         @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* ===== FILTROS ===== */
@@ -551,10 +616,7 @@
         }
 
         @keyframes cardReveal {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .product-card:hover {
@@ -806,15 +868,8 @@
         }
 
         @keyframes modalIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9) translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
+            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         .modal-icon {
@@ -909,41 +964,6 @@
             text-decoration: underline;
         }
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 760px) {
-            .highlight-card {
-                grid-template-columns: 1fr;
-            }
-
-            .highlight-card .card-img-wrap {
-                min-height: 220px;
-                height: 220px;
-            }
-
-            .highlight-card .product-info {
-                padding: 28px;
-            }
-
-            .mid-banner {
-                padding: 30px;
-                height: auto;
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .mid-banner-icon {
-                margin-left: 0;
-            }
-
-            .sushi-footer {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .hero-content h1 {
-                font-size: 3rem;
-            }
-        }
     </style>
 </head>
 
@@ -969,7 +989,8 @@
                     <div class="theme-option" onclick="setPalette('pastel')" style="--p-color:#c0603c;">Terracota</div>
                 </div>
             </div>
-            <a href="https://www.iasesoria.cl/" class="back-link">← Volver</a>
+            <!-- BOTÓN VOLVER (Truco de historial) -->
+            <a href="javascript:history.back()" class="back-link">← Volver</a>
         </div>
     </header>
 
@@ -1017,6 +1038,7 @@
         <div class="grid-sushi" id="contenedor-productos"></div>
     </section>
 
+    <!-- MODAL DE COMPRA -->
     <div id="modal-lead" class="sushi-modal">
         <div class="modal-content" id="modal-inner">
             <div class="modal-icon"><i class="fas fa-utensils"></i></div>
@@ -1027,7 +1049,7 @@
             <button class="btn-order" onclick="enviarWhatsApp()">
                 <i class="fab fa-whatsapp"></i> Ordenar ahora
             </button>
-            <button class="btn-close" onclick="closeModal()">Cancelar</button>
+            <button class="btn-close" onclick="closeModal()" style="cursor:pointer;">Cancelar</button>
         </div>
     </div>
 
@@ -1055,28 +1077,18 @@
         }
 
         /* ----- BACKEND ----- */
-        // TU URL WEBHOOK SE MANTIENE INTACTA
         const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxoNcX2uxRv8kvjYS8JwNQU2BT7vM8WCDTdgw_nYQtNYTm5kL5OmPp4cveTuQqIge3_/exec";
         let productoSeleccionado = "", cartCount = 0;
 
-        /* ----- DATOS ACTUALIZADOS (Nuevas fotos y categorías) ----- */
+        /* ----- DATOS ACTUALIZADOS ----- */
         const sushiItems = [
-            // Destacado (Aparecerá grande al principio o al filtrar Rolls)
             { n: "Omakase Premium", d: "Selección del chef, 24 cortes", img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&q=80", cat: "rolls", badge: false },
-
-            // Rolls
             { n: "Spicy Tuna Roll", d: "Atún rojo, sriracha y cebollín", img: "https://images.unsplash.com/photo-1625938144755-652e08e359b7?w=600&q=80", cat: "rolls", badge: true },
             { n: "Dragon Roll", d: "Anguila, aguacate y salsa unagi", img: "https://images.unsplash.com/photo-1583623025817-d180a2221d0a?w=600&q=80", cat: "rolls", badge: false },
-
-            // Nigiri
             { n: "Sake Nigiri", d: "Corte magro de salmón fresco", img: "https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=600&q=80", cat: "nigiri", badge: false },
             { n: "Maguro Nigiri", d: "Atún aleta amarilla premium", img: "https://images.unsplash.com/photo-1553621042-f6e147245754?w=600&q=80", cat: "nigiri", badge: true },
-
-            // Tempura
             { n: "Ebi Tempura", d: "Camarones fritos al estilo panko", img: "https://images.unsplash.com/photo-1617196034183-421b4917c92d?w=600&q=80", cat: "tempura", badge: false },
             { n: "Sake Tempura Roll", d: "Salmón frito con salsa teriyaki", img: "https://images.unsplash.com/photo-1558985250-27a406d64cb3?w=600&q=80", cat: "tempura", badge: false },
-
-            // Sashimi (NUEVO)
             { n: "Sashimi Mix", d: "Cortes frescos del día (12 pcs)", img: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=600&q=80", cat: "sashimi", badge: true }
         ];
 
@@ -1089,7 +1101,6 @@
                 const precio = `$${Math.floor(Math.random() * 8000 + 4000).toLocaleString('es-CL')}`;
                 const delay = (i % 4) * 0.1;
 
-                // La primera tarjeta del filtro siempre es destacada (highlight-card)
                 if (i === 0) {
                     html += `
                     <div class="highlight-card product-card" style="animation-delay:${delay}s;">
@@ -1146,23 +1157,40 @@
             if (theme !== 'neon') $('body').addClass('theme-' + theme);
         }
 
-        /* ----- MODAL ----- */
+        /* ----- MODAL LÓGICA ----- */
         function abrirCaptura(nombre) {
             productoSeleccionado = nombre;
             $('#modal-product-label').text(nombre);
-            cartCount++; $('#cart-badge').text(cartCount).addClass('visible');
+            cartCount++; 
+            $('#cart-badge').text(cartCount).addClass('visible');
             $('#modal-lead').css('display', 'flex').hide().fadeIn(300);
         }
-        function closeModal() { $('#modal-lead').fadeOut(200); }
+        
+        function closeModal() { 
+            $('#modal-lead').fadeOut(200); 
+        }
 
         function enviarWhatsApp() {
             const phone = $('#user-phone').val().trim();
             if (phone.length < 8) return alert("Ingrese un número válido");
+            
             $('.btn-order').html('<i class="fas fa-spinner fa-spin"></i> Procesando...').prop('disabled', true);
-            const payload = { fecha: new Date().toLocaleString(), telefono: phone, producto: productoSeleccionado, demo_origen: "Sakura Sushi (Premium)" };
-            fetch(WEBHOOK_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
-                .then(() => {
-                    $('#modal-inner').html(`
+            
+            const payload = { 
+                fecha: new Date().toLocaleString(), 
+                telefono: phone, 
+                producto: productoSeleccionado, 
+                demo_origen: "Sakura Sushi (Premium)" 
+            };
+            
+            fetch(WEBHOOK_URL, { 
+                method: 'POST', 
+                mode: 'no-cors', 
+                headers: { 'Content-Type': 'application/json' }, 
+                body: JSON.stringify(payload) 
+            })
+            .then(() => {
+                $('#modal-inner').html(`
                     <div class="modal-icon"><i class="fas fa-check" style="color:var(--accent);"></i></div>
                     <h3>¡Listo!</h3>
                     <span class="modal-product-name">${productoSeleccionado}</span>
@@ -1170,15 +1198,21 @@
                         ¿Imaginas a tus clientes pidiendo así de fácil?<br>
                         <b style="color:var(--text-main);">IAsesoria</b> lo hace realidad.
                     </p>
-                    <a href="https://www.iasesoria.cl/#five" target="_blank" rel="noopener noreferrer"
-                       class="btn-order" style="text-decoration:none;">Quiero esto para mi local →</a>
-                    <button class="btn-close" onclick="location.reload()">Hacer otra prueba</button>
+                    <a href="https://www.iasesoria.cl/#five" class="btn-order" style="text-decoration:none;">Quiero esto para mi local →</a>
+                    <button class="btn-close" onclick="closeModal(); location.reload();" style="cursor:pointer; margin-top:15px; background:none; border:none; color:var(--text-muted); text-decoration:underline;">Hacer otra prueba</button>
                 `);
-                }).catch(() => alert("Ocurrió un error, pero tu prueba fue procesada."));
+            }).catch(() => {
+                alert("Ocurrió un error, pero tu prueba fue procesada.");
+                closeModal();
+            });
         }
 
         document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-        $(document).ready(() => { cargarProductos(); bindCursor(); });
+        
+        $(document).ready(() => { 
+            cargarProductos(); 
+            bindCursor(); 
+        });
     </script>
 </body>
 

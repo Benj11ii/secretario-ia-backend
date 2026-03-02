@@ -125,8 +125,68 @@
             transition: width .1s linear;
         }
 
+
         /* =========================================
-           NAV (Ajustado para fondo claro)
+           RESPONSIVE & PANTALLAS
+           ========================================= */
+           
+        /* --- PANTALLAS GIGANTES (PC/Mac) --- */
+        @media (min-width: 1400px) {
+            .menu-container, .filters-inner, .mid-banner, .intro-section, .packages {
+                max-width: 1400px;
+            }
+            .grid-sushi {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+                gap: 32px;
+            }
+            .hero-content h1 { font-size: 8rem; }
+        }
+
+        /* --- MÓVILES Y TABLETS PEQUEÑAS --- */
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: clamp(3.5rem, 12vw, 4.5rem); }
+            .hero-eyebrow { font-size: 0.6rem; letter-spacing: 3px; }
+            .hero-sub { font-size: 0.7rem; }
+
+            .t-nav { padding: 0 15px; height: 64px; }
+            .t-logo { font-size: 1.1rem; }
+            .btn-volver { padding: 8px 12px; font-size: 0.65rem; }
+
+            .intro-section {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 60px 15px 40px;
+                text-align: center;
+            }
+            .intro-left { display: flex; flex-direction: column; align-items: center; }
+            .intro-divider { margin: 20px auto; }
+            .intro-text { font-size: 1.5rem; }
+
+            .gal-item img { height: 35vh !important; }
+            .gi-right, .gi-left, .gi-center, .gi-full { width: 95%; border-radius: 20px; }
+            .gal-caption { padding: 40px 15px 20px; }
+            .gal-title { font-size: 1.6rem; }
+
+            .cta-title { font-size: 2.2rem; }
+
+            .pkg-grid { grid-template-columns: 1fr; }
+            .pkg-card { margin: 0 15px; }
+
+            .m-box, .m-success { width: 95% !important; padding: 35px 25px !important; }
+            .m-title { font-size: 1.6rem; }
+            #user-phone { padding: 14px; font-size: 0.85rem; }
+
+            .t-footer {
+                margin-top: 40px;
+                padding: 30px 15px;
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+        }
+
+        /* =========================================
+           NAV
            ========================================= */
         .t-nav {
             position: fixed;
@@ -143,20 +203,17 @@
             border-bottom: 1px solid transparent;
         }
 
-        /* --- ESTADO AL BAJAR (FONDO OSCURO) --- */
         .t-nav.scrolled {
             background: rgba(6, 13, 8, .95);
             backdrop-filter: blur(20px);
             border-color: var(--border);
         }
 
-        /* LOGO */
         .t-logo {
             font-family: 'Fraunces', serif;
             font-size: 1.4rem;
             font-weight: 500;
             color: #1a1a1a;
-            /* Negro para el cielo */
             text-decoration: none;
             letter-spacing: 1px;
             transition: color .3s;
@@ -169,14 +226,8 @@
             transition: color .3s;
         }
 
-        /* Al bajar, el logo se vuelve claro */
-        .t-nav.scrolled .t-logo {
-            color: var(--text);
-        }
-
-        .t-nav.scrolled .t-logo em {
-            color: var(--gold);
-        }
+        .t-nav.scrolled .t-logo { color: var(--text); }
+        .t-nav.scrolled .t-logo em { color: var(--gold); }
 
         .t-nav-right {
             display: flex;
@@ -184,14 +235,11 @@
             gap: 16px;
         }
 
-        /* COORDENADAS */
         .nav-coords {
             font-size: .65rem;
             letter-spacing: 2.5px;
             color: #1a1a1a;
-            /* Negro para el cielo */
             font-weight: 600;
-            /* Un poco más grueso para leerse bien */
             text-transform: uppercase;
             font-family: 'Jost', sans-serif;
             display: flex;
@@ -207,14 +255,8 @@
             animation: blink 2s infinite;
         }
 
-        /* Al bajar, coordenadas vuelven a gris */
-        .t-nav.scrolled .nav-coords {
-            color: var(--muted);
-        }
-
-        .t-nav.scrolled .nav-coords::before {
-            color: var(--gold);
-        }
+        .t-nav.scrolled .nav-coords { color: var(--muted); }
+        .t-nav.scrolled .nav-coords::before { color: var(--gold); }
 
         /* BOTÓN VOLVER */
         .btn-volver {
@@ -222,9 +264,7 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             color: #1a1a1a;
-            /* Texto Negro */
             border: 1px solid rgba(0, 0, 0, 0.3);
-            /* Borde Negro sutil */
             padding: 9px 20px;
             border-radius: 40px;
             text-decoration: none;
@@ -241,7 +281,6 @@
             color: #fff;
         }
 
-        /* Al bajar, botón vuelve a dorado */
         .t-nav.scrolled .btn-volver {
             color: var(--gold);
             border-color: var(--border2);
@@ -253,18 +292,9 @@
         }
 
         @keyframes blink {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: .3;
-            }
+            0%, 100% { opacity: 1; }
+            50% { opacity: .3; }
         }
-
-    
 
         /* =========================================
            HERO CINEMATIC
@@ -276,14 +306,10 @@
             overflow: hidden;
         }
 
-        /* IMAGEN PRINCIPAL DEL VOLCÁN VILLARRICA */
         .hero-bg {
             position: absolute;
             inset: -15%;
-
-            /* RUTA CORREGIDA HACIA TU IMAGEN LOCAL */
             background-image: url('assets/images/volcandemotienda3.png');
-
             background-size: cover;
             background-position: center;
             will-change: transform;
@@ -387,29 +413,13 @@
         }
 
         @keyframes scrollPulse {
-
-            0%,
-            100% {
-                opacity: .4;
-                transform: scaleY(1);
-            }
-
-            50% {
-                opacity: 1;
-                transform: scaleY(.7);
-            }
+            0%, 100% { opacity: .4; transform: scaleY(1); }
+            50% { opacity: 1; transform: scaleY(.7); }
         }
 
         @keyframes heroIn {
-            from {
-                opacity: 0;
-                transform: translateY(28px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(28px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* =========================================
@@ -470,19 +480,8 @@
             max-width: 560px;
         }
 
-        @media(max-width:768px) {
-            .intro-section {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .intro-num {
-                font-size: 6rem;
-            }
-        }
-
         /* =========================================
-           GALERÍA EDITORIAL (IMÁGENES CORREGIDAS)
+           GALERÍA EDITORIAL
            ========================================= */
         .gallery {
             padding: 40px 0 100px;
@@ -549,89 +548,19 @@
         }
 
         /* Layout Gallery */
-        .gi-right {
-            width: 60%;
-            margin-left: auto;
-            border-radius: 40px 0 0 40px;
-        }
+        .gi-right { width: 60%; margin-left: auto; border-radius: 40px 0 0 40px; }
+        .gi-left { width: 72%; margin-right: auto; border-radius: 0 40px 40px 0; }
+        .gi-center { width: 88%; margin: 0 auto; border-radius: 40px; }
+        .gi-full { width: 96%; margin: 0 auto; border-radius: 30px; }
 
-        .gi-left {
-            width: 72%;
-            margin-right: auto;
-            border-radius: 0 40px 40px 0;
-        }
+        .gi-right img, .gi-left img { height: 58vh; }
+        .gi-center img { height: 65vh; }
+        .gi-full img { height: 80vh; }
 
-        .gi-center {
-            width: 88%;
-            margin: 0 auto;
-            border-radius: 40px;
-        }
-
-        .gi-full {
-            width: 96%;
-            margin: 0 auto;
-            border-radius: 30px;
-        }
-
-        .gi-right img,
-        .gi-left img {
-            height: 58vh;
-        }
-
-        .gi-center img {
-            height: 65vh;
-        }
-
-        .gi-full img {
-            height: 80vh;
-        }
-
-        .reveal-left {
-            transform: translateX(-110px);
-            opacity: 0;
-            transition: transform 1.4s cubic-bezier(.22, 1, .36, 1), opacity 1.4s ease;
-        }
-
-        .reveal-right {
-            transform: translateX(110px);
-            opacity: 0;
-            transition: transform 1.4s cubic-bezier(.22, 1, .36, 1), opacity 1.4s ease;
-        }
-
-        .reveal-up {
-            transform: translateY(70px);
-            opacity: 0;
-            transition: transform 1.4s cubic-bezier(.22, 1, .36, 1), opacity 1.4s ease;
-        }
-
-        .revealed {
-            transform: translate(0) !important;
-            opacity: 1 !important;
-        }
-
-        @media(max-width:768px) {
-
-            .gi-right,
-            .gi-left,
-            .gi-center,
-            .gi-full {
-                width: 92%;
-                border-radius: 20px;
-                margin: 0 auto;
-            }
-
-            .gi-right img,
-            .gi-left img,
-            .gi-center img {
-                height: 45vw;
-                min-height: 220px;
-            }
-
-            .gi-full img {
-                height: 55vw;
-                min-height: 260px;
-            }
-        }
+        .reveal-left { transform: translateX(-110px); opacity: 0; transition: transform 1.4s cubic-bezier(.22, 1, .36, 1), opacity 1.4s ease; }
+        .reveal-right { transform: translateX(110px); opacity: 0; transition: transform 1.4s cubic-bezier(.22, 1, .36, 1), opacity 1.4s ease; }
+        .reveal-up { transform: translateY(70px); opacity: 0; transition: transform 1.4s cubic-bezier(.22, 1, .36, 1), opacity 1.4s ease; }
+        .revealed { transform: translate(0) !important; opacity: 1 !important; }
 
         /* =========================================
            CTA
@@ -686,15 +615,8 @@
         }
 
         @keyframes arrowBounce {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(12px);
-            }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(12px); }
         }
 
         /* =========================================
@@ -706,25 +628,9 @@
             margin: auto;
         }
 
-        .pkg-head {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .pkg-eyebrow {
-            font-size: .62rem;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 14px;
-        }
-
-        .pkg-title {
-            font-family: 'Fraunces', serif;
-            font-size: clamp(2.2rem, 4vw, 3.5rem);
-            font-weight: 300;
-            line-height: 1;
-        }
+        .pkg-head { text-align: center; margin-bottom: 60px; }
+        .pkg-eyebrow { font-size: .62rem; letter-spacing: 5px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+        .pkg-title { font-family: 'Fraunces', serif; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 300; line-height: 1; }
 
         .pkg-grid {
             display: grid;
@@ -747,12 +653,7 @@
             position: relative;
         }
 
-        @keyframes cardIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        @keyframes cardIn { to { opacity: 1; transform: translateY(0); } }
 
         .pkg-card:hover {
             transform: translateY(-10px);
@@ -769,17 +670,10 @@
             box-shadow: 0 40px 80px rgba(0, 0, 0, .5), 0 0 0 1px rgba(201, 168, 76, .3);
         }
 
-        .pkg-img {
-            height: 180px;
-            overflow: hidden;
-            position: relative;
-        }
+        .pkg-img { height: 180px; overflow: hidden; position: relative; }
 
         .pkg-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
+            width: 100%; height: 100%; object-fit: cover; display: block;
             filter: brightness(.5) saturate(.8);
             transition: transform 1s ease, filter .5s;
         }
@@ -790,8 +684,7 @@
         }
 
         .pkg-img-overlay {
-            position: absolute;
-            inset: 0;
+            position: absolute; inset: 0;
             background: linear-gradient(to bottom, transparent 40%, var(--deep) 100%);
         }
 
@@ -800,367 +693,150 @@
         }
 
         .featured-badge {
-            position: absolute;
-            top: 14px;
-            right: 14px;
-            background: var(--gold);
-            color: var(--night);
-            font-size: .55rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 5px 12px;
-            border-radius: 40px;
+            position: absolute; top: 14px; right: 14px;
+            background: var(--gold); color: var(--night);
+            font-size: .55rem; font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase; padding: 5px 12px; border-radius: 40px;
             font-family: 'Jost', sans-serif;
         }
 
-        .pkg-body {
-            padding: 28px 28px 32px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .pkg-type {
-            font-size: .6rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 10px;
-        }
-
-        .pkg-name {
-            font-family: 'Fraunces', serif;
-            font-size: 1.7rem;
-            font-weight: 400;
-            line-height: 1.1;
-            margin-bottom: 6px;
-        }
-
-        .pkg-tagline {
-            font-size: .78rem;
-            color: var(--muted);
-            margin-bottom: 22px;
-            line-height: 1.5;
-        }
-
-        .pkg-features {
-            list-style: none;
-            margin-bottom: 28px;
-            flex: 1;
-        }
-
+        .pkg-body { padding: 28px 28px 32px; flex: 1; display: flex; flex-direction: column; }
+        .pkg-type { font-size: .6rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+        .pkg-name { font-family: 'Fraunces', serif; font-size: 1.7rem; font-weight: 400; line-height: 1.1; margin-bottom: 6px; }
+        .pkg-tagline { font-size: .78rem; color: var(--muted); margin-bottom: 22px; line-height: 1.5; }
+        
+        .pkg-features { list-style: none; margin-bottom: 28px; flex: 1; }
         .pkg-features li {
-            font-size: .82rem;
-            color: #a8b8ab;
-            padding: 9px 0;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-size: .82rem; color: #a8b8ab; padding: 9px 0;
+            border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px;
         }
-
-        .pkg-features li:last-child {
-            border-bottom: none;
-        }
-
-        .pkg-features li i {
-            color: var(--gold);
-            font-size: .6rem;
-            flex-shrink: 0;
-        }
+        .pkg-features li:last-child { border-bottom: none; }
+        .pkg-features li i { color: var(--gold); font-size: .6rem; flex-shrink: 0; }
 
         .pkg-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 14px;
-            margin-top: auto;
-            padding-top: 20px;
-            border-top: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 14px; margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border);
         }
 
-        .pkg-price {
-            font-family: 'Fraunces', serif;
-            font-size: 2rem;
-            font-weight: 400;
-            line-height: 1;
-            color: var(--cream);
-        }
-
-        .pkg-price sub {
-            font-size: .65rem;
-            font-weight: 300;
-            color: var(--muted);
-            vertical-align: bottom;
-            font-family: 'Jost', sans-serif;
-        }
+        .pkg-price { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 400; line-height: 1; color: var(--cream); }
+        .pkg-price sub { font-size: .65rem; font-weight: 300; color: var(--muted); vertical-align: bottom; font-family: 'Jost', sans-serif; }
 
         .btn-reservar {
-            flex-shrink: 0;
-            padding: 12px 22px;
-            border: 1px solid var(--gold);
-            border-radius: 40px;
-            background: transparent;
-            color: var(--gold);
-            font-size: .68rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-family: 'Jost', sans-serif;
-            font-weight: 500;
-            transition: .3s;
+            flex-shrink: 0; padding: 12px 22px; border: 1px solid var(--gold);
+            border-radius: 40px; background: transparent; color: var(--gold);
+            font-size: .68rem; letter-spacing: 2px; text-transform: uppercase;
+            font-family: 'Jost', sans-serif; font-weight: 500; transition: .3s;
         }
 
-        .btn-reservar:hover,
-        .pkg-card.featured .btn-reservar {
-            background: var(--gold);
-            color: var(--night);
+        .btn-reservar:hover, .pkg-card.featured .btn-reservar {
+            background: var(--gold); color: var(--night);
         }
 
-        .pkg-card.featured:hover .btn-reservar {
-            background: var(--gold2);
-        }
+        .pkg-card.featured:hover .btn-reservar { background: var(--gold2); }
 
         /* =========================================
            FOOTER
            ========================================= */
         .t-footer {
-            padding: 50px 5%;
-            border-top: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 20px;
+            padding: 50px 5%; border-top: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            flex-wrap: wrap; gap: 20px;
         }
 
-        .t-footer-logo {
-            font-family: 'Fraunces', serif;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-        }
-
-        .t-footer-logo em {
-            font-style: italic;
-            color: var(--gold);
-        }
-
-        .t-footer-mid {
-            font-size: .7rem;
-            color: var(--muted);
-            letter-spacing: 2px;
-            text-align: center;
-        }
-
-        .t-footer-right {
-            font-size: .7rem;
-            color: var(--muted);
-        }
-
-        .t-footer-right a {
-            color: var(--gold);
-            text-decoration: none;
-        }
-
-        .t-footer-right a:hover {
-            text-decoration: underline;
-        }
-
-        @media(max-width:768px) {
-            .t-footer {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .pkg-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        .t-footer-logo { font-family: 'Fraunces', serif; font-size: 1.1rem; letter-spacing: 1px; }
+        .t-footer-logo em { font-style: italic; color: var(--gold); }
+        .t-footer-mid { font-size: .7rem; color: var(--muted); letter-spacing: 2px; text-align: center; }
+        .t-footer-right { font-size: .7rem; color: var(--muted); }
+        .t-footer-right a { color: var(--gold); text-decoration: none; }
+        .t-footer-right a:hover { text-decoration: underline; }
 
         /* =========================================
            MODAL
            ========================================= */
         .modal-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(6, 13, 8, .92);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            z-index: 5000;
-            align-items: center;
-            justify-content: center;
+            display: none; position: fixed; inset: 0;
+            background: rgba(6, 13, 8, .92); backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px); z-index: 5000;
+            align-items: center; justify-content: center;
         }
 
         .m-box {
-            background: var(--bark);
-            border: 1px solid var(--border2);
-            border-radius: 24px;
-            padding: 50px 40px;
-            width: 92%;
-            max-width: 440px;
-            text-align: center;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, .8);
+            background: var(--bark); border: 1px solid var(--border2);
+            border-radius: 24px; padding: 50px 40px; width: 92%; max-width: 440px;
+            text-align: center; box-shadow: 0 40px 80px rgba(0, 0, 0, .8);
             animation: modalIn .5s cubic-bezier(.16, 1, .3, 1);
         }
 
         @keyframes modalIn {
-            from {
-                opacity: 0;
-                transform: scale(.9) translateY(24px);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
+            from { opacity: 0; transform: scale(.9) translateY(24px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         .m-icon {
-            width: 68px;
-            height: 68px;
-            border: 1px solid var(--border2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
-            font-size: 1.5rem;
-            color: var(--gold);
+            width: 68px; height: 68px; border: 1px solid var(--border2);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 24px; font-size: 1.5rem; color: var(--gold);
         }
 
-        .m-title {
-            font-family: 'Fraunces', serif;
-            font-size: 2rem;
-            font-weight: 300;
-            margin-bottom: 8px;
-        }
-
+        .m-title { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 300; margin-bottom: 8px; }
         .m-tour-tag {
-            display: inline-block;
-            font-size: .62rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--gold);
-            border: 1px solid var(--border2);
-            padding: 5px 14px;
-            border-radius: 4px;
-            margin-bottom: 28px;
+            display: inline-block; font-size: .62rem; letter-spacing: 3px;
+            text-transform: uppercase; color: var(--gold); border: 1px solid var(--border2);
+            padding: 5px 14px; border-radius: 4px; margin-bottom: 28px;
         }
 
         .m-label {
-            font-size: .62rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--muted);
-            display: block;
-            margin-bottom: 10px;
-            text-align: left;
+            font-size: .62rem; letter-spacing: 2px; text-transform: uppercase;
+            color: var(--muted); display: block; margin-bottom: 10px; text-align: left;
         }
 
         #user-phone {
-            width: 100%;
-            padding: 15px 18px;
-            border-radius: 12px;
-            border: 1px solid var(--border2);
-            background: rgba(0, 0, 0, .3);
-            color: var(--text);
-            font-size: .95rem;
-            text-align: center;
-            font-family: 'Jost', sans-serif;
-            outline: none;
-            transition: border-color .3s;
+            width: 100%; padding: 15px 18px; border-radius: 12px;
+            border: 1px solid var(--border2); background: rgba(0, 0, 0, .3);
+            color: var(--text); font-size: .95rem; text-align: center;
+            font-family: 'Jost', sans-serif; outline: none; transition: border-color .3s;
         }
 
-        #user-phone:focus {
-            border-color: var(--gold);
-        }
+        #user-phone:focus { border-color: var(--gold); }
 
         .btn-confirmar {
-            width: 100%;
-            margin-top: 18px;
-            padding: 16px;
-            background: var(--gold);
-            color: var(--night);
-            border: none;
-            border-radius: 12px;
-            font-family: 'Jost', sans-serif;
-            font-weight: 700;
-            font-size: .75rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: background .3s;
+            width: 100%; margin-top: 18px; padding: 16px; background: var(--gold);
+            color: var(--night); border: none; border-radius: 12px;
+            font-family: 'Jost', sans-serif; font-weight: 700; font-size: .75rem;
+            letter-spacing: 3px; text-transform: uppercase; display: flex;
+            align-items: center; justify-content: center; gap: 10px; transition: background .3s;
         }
 
-        .btn-confirmar:hover {
-            background: var(--gold2);
-        }
+        .btn-confirmar:hover { background: var(--gold2); }
 
         .btn-cancelar {
-            background: transparent;
-            border: none;
-            color: var(--muted);
-            margin-top: 14px;
-            font-size: .75rem;
-            letter-spacing: 1px;
-            font-family: 'Jost', sans-serif;
-            text-decoration: underline;
+            background: transparent; border: none; color: var(--muted);
+            margin-top: 14px; font-size: .75rem; letter-spacing: 1px;
+            font-family: 'Jost', sans-serif; text-decoration: underline; cursor: pointer;
         }
 
         .m-success {
-            background: var(--bark);
-            border: 1px solid rgba(201, 168, 76, .4);
-            border-radius: 24px;
-            padding: 50px 40px;
-            width: 92%;
-            max-width: 440px;
-            text-align: center;
-            display: none;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, .8);
+            background: var(--bark); border: 1px solid rgba(201, 168, 76, .4);
+            border-radius: 24px; padding: 50px 40px; width: 92%; max-width: 440px;
+            text-align: center; display: none; box-shadow: 0 40px 80px rgba(0, 0, 0, .8);
             animation: modalIn .5s cubic-bezier(.16, 1, .3, 1);
         }
 
         .success-ring {
-            width: 72px;
-            height: 72px;
-            border: 1px solid var(--gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
-            font-size: 1.6rem;
-            color: var(--gold);
+            width: 72px; height: 72px; border: 1px solid var(--gold); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 24px; font-size: 1.6rem; color: var(--gold);
         }
 
         .btn-cta {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            width: 100%;
-            margin-top: 24px;
-            padding: 16px;
-            background: var(--gold);
-            color: var(--night);
-            border: none;
-            border-radius: 12px;
-            text-decoration: none;
-            font-family: 'Jost', sans-serif;
-            font-weight: 700;
-            font-size: .75rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            transition: background .3s;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            width: 100%; margin-top: 24px; padding: 16px; background: var(--gold);
+            color: var(--night); border: none; border-radius: 12px; text-decoration: none;
+            font-family: 'Jost', sans-serif; font-weight: 700; font-size: .75rem;
+            letter-spacing: 3px; text-transform: uppercase; transition: background .3s;
         }
 
-        .btn-cta:hover {
-            background: var(--gold2);
-        }
+        .btn-cta:hover { background: var(--gold2); }
     </style>
 </head>
 
@@ -1174,8 +850,8 @@
         <a href="#" class="t-logo">Sur<em>Mágico</em></a>
         <div class="t-nav-right">
             <div class="nav-coords">39°17'S 72°13'W · Villarrica</div>
-            <a href="https://www.iasesoria.cl/" class="btn-volver"><i class="fas fa-arrow-left"
-                    style="font-size:.6rem;"></i> Volver</a>
+            <!-- EL BOTÓN VOLVER CON EL TRUCO DE HISTORY.BACK() -->
+            <a href="javascript:history.back()" class="btn-volver"><i class="fas fa-arrow-left" style="font-size:.6rem;"></i> Volver</a>
         </div>
     </header>
 
@@ -1209,10 +885,8 @@
         </div>
     </div>
 
-    <!-- GALERÍA (IMÁGENES CORREGIDAS) -->
+    <!-- GALERÍA -->
     <section class="gallery">
-
-        <!-- 01 Bosques -->
         <div class="gal-item gi-right reveal-right">
             <img src="https://images.unsplash.com/photo-1679672033772-fa8a6cb17d04?w=1200&q=80" alt="Bosque Araucarias">
             <div class="gal-caption">
@@ -1221,8 +895,6 @@
                 <p class="gal-sub">Milenarias Araucarias de la Araucanía</p>
             </div>
         </div>
-
-        <!-- 02 Lagos -->
         <div class="gal-item gi-left reveal-left">
             <img src="https://images.unsplash.com/photo-1587435797512-0702b23883c9?w=1400&q=80" alt="Lago Villarrica">
             <div class="gal-caption">
@@ -1231,40 +903,30 @@
                 <p class="gal-sub">Navegación en el Lago Villarrica</p>
             </div>
         </div>
-
-        <!-- 03 Termas -->
         <div class="gal-item gi-center reveal-up">
-            <img src="https://denomades-blog.imgix.net/blog/wp-content/uploads/2015/10/05163940/mejores_termas_pucon_geometricas.jpg?w=1600&q=80"
-                alt="Termas Pucón">
+            <img src="https://denomades-blog.imgix.net/blog/wp-content/uploads/2015/10/05163940/mejores_termas_pucon_geometricas.jpg?w=1600&q=80" alt="Termas Pucón">
             <div class="gal-caption">
                 <div class="gal-num">03 / 05 — Termas</div>
                 <h3 class="gal-title">Desconexión Total</h3>
                 <p class="gal-sub">Aguas termales entre bosques</p>
             </div>
         </div>
-
-        <!-- 04 Volcán -->
         <div class="gal-item gi-right reveal-right">
-            <img src="https://mawidadventures.cl/wp-content/uploads/2020/05/descenso-del-volcan-villarrica-1.jpg?w=1200&q=80"
-                alt="Volcán Villarrica">
+            <img src="https://mawidadventures.cl/wp-content/uploads/2020/05/descenso-del-volcan-villarrica-1.jpg?w=1200&q=80" alt="Volcán Villarrica">
             <div class="gal-caption">
                 <div class="gal-num">04 / 05 — Cumbres</div>
                 <h3 class="gal-title">Energía Viva</h3>
                 <p class="gal-sub">Cumbre del Volcán Villarrica · 2.847 msnm</p>
             </div>
         </div>
-
-        <!-- 05 Clímax -->
         <div class="gal-item gi-full reveal-up" style="margin-top:20px;">
-            <img src="https://laderasur.com/wp-content/uploads/2022/11/volcan-villarrica-y-chemamull-araucania.jpg?w=1800&q=80"
-                alt="Cielos del Sur">
+            <img src="https://laderasur.com/wp-content/uploads/2022/11/volcan-villarrica-y-chemamull-araucania.jpg?w=1800&q=80" alt="Cielos del Sur">
             <div class="gal-caption" style="text-align:center;">
                 <div class="gal-num" style="justify-content:center; display:flex;">05 / 05 — Cielos</div>
                 <h3 class="gal-title" style="font-size:clamp(2.5rem,5vw,5rem);">Cielos del Sur</h3>
                 <p class="gal-sub">Un espectáculo estelar sobre los Andes</p>
             </div>
         </div>
-
     </section>
 
     <!-- CTA -->
@@ -1275,18 +937,16 @@
         <i class="fas fa-chevron-down cta-arrow"></i>
     </div>
 
-    <!-- PAQUETES (IMÁGENES CORREGIDAS PARA MATCHEAR) -->
+    <!-- PAQUETES -->
     <section class="packages">
         <div class="pkg-head reveal-up">
             <div class="pkg-eyebrow">Nuestros tours · Temporada 2025</div>
             <h2 class="pkg-title">Elige tu Experiencia</h2>
         </div>
-
         <div class="pkg-grid">
             <div class="pkg-card reveal-up" style="animation-delay:.05s;">
-                <div class="pkg-img"><img
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNj8M_kPZXrnVbd-_KnV4LSDRpYkumjAEB2g&s?w=600&q=80"
-                        alt="Classic">
+                <div class="pkg-img">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNj8M_kPZXrnVbd-_KnV4LSDRpYkumjAEB2g&s?w=600&q=80" alt="Classic">
                     <div class="pkg-img-overlay"></div>
                 </div>
                 <div class="pkg-body">
@@ -1299,16 +959,15 @@
                         <li><i class="fas fa-check"></i> Guía local certificado</li>
                     </ul>
                     <div class="pkg-footer">
-                        <div class="pkg-price">$45.000<sub> / persona</sub></div><button class="btn-reservar"
-                            onclick="abrirReserva('Classic Tour')">Reservar</button>
+                        <div class="pkg-price">$45.000<sub> / persona</sub></div>
+                        <button class="btn-reservar" onclick="abrirReserva('Classic Tour')">Reservar</button>
                     </div>
                 </div>
             </div>
 
             <div class="pkg-card featured reveal-up" style="animation-delay:.12s;">
-                <div class="pkg-img"><img
-                        src="https://mawidadventures.cl/wp-content/uploads/2020/05/descenso-del-volcan-villarrica-1.jpg?w=600&q=80"
-                        alt="Volcán">
+                <div class="pkg-img">
+                    <img src="https://mawidadventures.cl/wp-content/uploads/2020/05/descenso-del-volcan-villarrica-1.jpg?w=600&q=80" alt="Volcán">
                     <div class="pkg-img-overlay"></div><span class="featured-badge">Más popular</span>
                 </div>
                 <div class="pkg-body">
@@ -1322,16 +981,15 @@
                         <li><i class="fas fa-check"></i> Box Lunch Gourmet</li>
                     </ul>
                     <div class="pkg-footer">
-                        <div class="pkg-price">$95.000<sub> / persona</sub></div><button class="btn-reservar"
-                            onclick="abrirReserva('Aventura Volcán')">Reservar</button>
+                        <div class="pkg-price">$95.000<sub> / persona</sub></div>
+                        <button class="btn-reservar" onclick="abrirReserva('Aventura Volcán')">Reservar</button>
                     </div>
                 </div>
             </div>
 
             <div class="pkg-card reveal-up" style="animation-delay:.2s;">
-                <div class="pkg-img"><img
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvVf8coc5c5hZYCL8pY_-exV34_rcPI8hsVA&s?w=600&q=80"
-                        alt="VIP">
+                <div class="pkg-img">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvVf8coc5c5hZYCL8pY_-exV34_rcPI8hsVA&s?w=600&q=80" alt="VIP">
                     <div class="pkg-img-overlay"></div>
                 </div>
                 <div class="pkg-body">
@@ -1344,20 +1002,22 @@
                         <li><i class="fas fa-check"></i> Traslado privado en SUV</li>
                     </ul>
                     <div class="pkg-footer">
-                        <div class="pkg-price">$250.000<sub> / persona</sub></div><button class="btn-reservar"
-                            onclick="abrirReserva('Experiencia VIP')">Reservar</button>
+                        <div class="pkg-price">$250.000<sub> / persona</sub></div>
+                        <button class="btn-reservar" onclick="abrirReserva('Experiencia VIP')">Reservar</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- FOOTER -->
     <footer class="t-footer">
         <div class="t-footer-logo">Sur<em>Mágico</em></div>
         <div class="t-footer-mid">Villarrica & Pucón · La Araucanía · Chile</div>
         <div class="t-footer-right">Demo por <a href="https://www.iasesoria.cl/" target="_blank">IAsesoria.cl</a></div>
     </footer>
 
+    <!-- MODAL DE RESERVAS (CORREGIDO) -->
     <div id="modal-overlay" class="modal-overlay">
         <div id="step-1" class="m-box">
             <div class="m-icon"><i class="fas fa-compass"></i></div>
@@ -1365,47 +1025,140 @@
             <span class="m-tour-tag" id="tour-name-tag">—</span>
             <label class="m-label">Tu número WhatsApp</label>
             <input type="tel" id="user-phone" placeholder="56 9 1234 5678">
-            <button class="btn-confirmar" id="btn-procesar" onclick="procesarReserva()"><i
-                    class="fas fa-paper-plane"></i> Solicitar disponibilidad</button>
+            <button class="btn-confirmar" id="btn-procesar" onclick="procesarReserva()">
+                <i class="fas fa-paper-plane"></i> Solicitar disponibilidad
+            </button>
             <button class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
         </div>
+        
         <div id="step-success" class="m-success">
             <div class="success-ring"><i class="fas fa-bell"></i></div>
             <div class="m-title">¡Solicitud Recibida!</div>
-            <p style="color:var(--muted); font-size:.84rem; line-height:1.7; margin:16px 0 0;">Tus futuros turistas
-                podrían reservar así de fácil, de forma <strong style="color:var(--text);">automática 24/7</strong>
-                desde WhatsApp o tu web.</p>
-            <a href="https://www.iasesoria.cl/#five" target="_blank" rel="noopener noreferrer" class="btn-cta"><i
-                    class="fas fa-rocket"></i> Quiero digitalizar mi negocio</a>
-            <button class="btn-cancelar" onclick="location.reload()" style="margin-top:14px;">Realizar otra
-                prueba</button>
+            <p style="color:var(--muted); font-size:.84rem; line-height:1.7; margin:16px 0 0;">
+                Tus futuros turistas podrían reservar así de fácil, de forma <strong style="color:var(--text);">automática 24/7</strong> desde WhatsApp o tu web.
+            </p>
+            <a href="https://www.iasesoria.cl/#five" class="btn-cta">
+                <i class="fas fa-rocket"></i> Quiero digitalizar mi negocio
+            </a>
+            <button class="btn-cancelar" onclick="location.reload()" style="margin-top:14px;">Realizar otra prueba</button>
         </div>
     </div>
 
+    <!-- SCRIPT CORREGIDO PARA LA LÓGICA DE TURISMO -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-        const curDot = document.getElementById('cur-dot'), curRing = document.getElementById('cur-ring');
-        let mx = 0, my = 0; document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; curDot.style.left = mx + 'px'; curDot.style.top = my + 'px'; });
-        (function () { let rx = 0, ry = 0; function loop() { rx += (mx - rx) * .1; ry += (my - ry) * .1; curRing.style.left = rx + 'px'; curRing.style.top = ry + 'px'; requestAnimationFrame(loop); } loop(); })();
-        function bindCursor() { document.querySelectorAll('button, a, .pkg-card, .gal-item').forEach(el => { el.addEventListener('mouseenter', () => document.body.classList.add('ch')); el.addEventListener('mouseleave', () => document.body.classList.remove('ch')); }); }
-
-        window.addEventListener('scroll', () => { document.getElementById('scroll-bar').style.width = (document.documentElement.scrollTop / (document.documentElement.scrollHeight - document.documentElement.clientHeight)) * 100 + '%'; document.getElementById('t-nav').classList.toggle('scrolled', window.scrollY > 60); });
-        const heroBg = document.getElementById('hero-bg'); window.addEventListener('scroll', () => { if (window.scrollY < window.innerHeight) { heroBg.style.transform = `translateY(${window.scrollY * .35}px)`; } });
-        function revealOnScroll() { document.querySelectorAll('.reveal-left, .reveal-right, .reveal-up').forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('revealed'); }); }
-        window.addEventListener('scroll', revealOnScroll); setTimeout(revealOnScroll, 120);
-
-        const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxO6j-I6dCSp361U2IQrb8kr5EWPXRTL8tt9ulLK44utC7KiZIOHI2InjutpbLidls5/exec";
+        // WEBHOOK DE GOOGLE SHEETS
+        const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxoNcX2uxRv8kvjYS8JwNQU2BT7vM8WCDTdgw_nYQtNYTm5kL5OmPp4cveTuQqIge3_/exec";
         let tourSeleccionado = "";
-        function abrirReserva(n) { tourSeleccionado = n; $('#tour-name-tag').text(n); $('#step-1').show(); $('#step-success').hide(); $('#btn-procesar').html('<i class="fas fa-paper-plane"></i> Solicitar disponibilidad').prop('disabled', false); $('#modal-overlay').css('display', 'flex'); }
-        function cerrarModal() { $('#modal-overlay').fadeOut(200); }
-        function procesarReserva() {
-            const p = $('#user-phone').val().trim(); if (p.length < 8) return alert("Ingresa un WhatsApp válido.");
-            $('#btn-procesar').html('<i class="fas fa-spinner fa-spin"></i> Conectando...').prop('disabled', true);
-            fetch(WEBHOOK_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ fecha: new Date().toLocaleString(), telefono: p, producto: tourSeleccionado, demo_origen: "Turismo Premium Villarrica" }) })
-                .then(() => { setTimeout(() => { $('#step-1').hide(); $('#step-success').fadeIn(); }, 1500); }).catch(() => { setTimeout(() => { $('#step-1').hide(); $('#step-success').fadeIn(); }, 1500); });
+
+        // 1. CURSOR PERSONALIZADO
+        const cd = document.getElementById('cur-dot');
+        const cr = document.getElementById('cur-ring');
+        let mx = 0, my = 0;
+        
+        document.addEventListener('mousemove', e => {
+            mx = e.clientX; 
+            my = e.clientY;
+            cd.style.left = mx + 'px'; 
+            cd.style.top = my + 'px';
+        });
+        
+        (function() {
+            let rx = 0, ry = 0;
+            function loop() {
+                rx += (mx - rx) * 0.12; 
+                ry += (my - ry) * 0.12;
+                cr.style.left = rx + 'px'; 
+                cr.style.top = ry + 'px';
+                requestAnimationFrame(loop);
+            }
+            loop();
+        })();
+
+        // Hover effect for cursor
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('ch'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('ch'));
+        });
+
+        // 2. LÓGICA DE SCROLL (Nav, Progress Bar, Reveals)
+        window.addEventListener('scroll', () => {
+            const y = window.scrollY;
+            const max = document.body.scrollHeight - window.innerHeight;
+            
+            // Fondo del Nav al bajar
+            if (y > 50) document.getElementById('t-nav').classList.add('scrolled');
+            else document.getElementById('t-nav').classList.remove('scrolled');
+
+            // Barra de progreso superior
+            document.getElementById('scroll-bar').style.width = (y / max * 100) + '%';
+
+            // Revelar elementos al bajar (Efecto fade in)
+            document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right').forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight * 0.85) {
+                    el.classList.add('revealed');
+                }
+            });
+        });
+
+        // Disparar scroll una vez para mostrar elementos visibles
+        window.dispatchEvent(new Event('scroll'));
+
+        // 3. LÓGICA DEL MODAL
+        function abrirReserva(tour) {
+            tourSeleccionado = tour;
+            document.getElementById('tour-name-tag').textContent = tour;
+            document.getElementById('step-1').style.display = 'block';
+            document.getElementById('step-success').style.display = 'none';
+            $('#modal-overlay').css('display', 'flex').hide().fadeIn(300);
         }
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarModal(); });
-        $(document).ready(() => { bindCursor(); revealOnScroll(); });
+
+        function cerrarModal() {
+            $('#modal-overlay').fadeOut(200);
+        }
+
+        function procesarReserva() {
+            const phone = document.getElementById('user-phone').value.trim();
+            if (phone.length < 8) {
+                alert("Por favor, ingrese un número de WhatsApp válido.");
+                return;
+            }
+
+            const btn = document.getElementById('btn-procesar');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Conectando...';
+            btn.disabled = true;
+
+            // Preparamos los datos para enviar al webhook
+            const payload = {
+                fecha: new Date().toLocaleString(),
+                telefono: phone,
+                producto: tourSeleccionado,
+                demo_origen: "SurMágico Turismo"
+            };
+
+            // Enviamos los datos
+            fetch(WEBHOOK_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                // Si funciona, ocultamos paso 1 y mostramos éxito
+                $('#step-1').hide();
+                $('#step-success').fadeIn(300);
+            }).catch(() => {
+                // En caso de error de red
+                alert("Ocurrió un error al procesar tu reserva, pero la prueba fue registrada.");
+                cerrarModal();
+                btn.innerHTML = '<i class="fas fa-paper-plane"></i> Solicitar disponibilidad';
+                btn.disabled = false;
+            });
+        }
+
+        // Cerrar con Escape
+        document.addEventListener('keydown', e => { 
+            if (e.key === 'Escape') cerrarModal(); 
+        });
     </script>
 </body>
 
