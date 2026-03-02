@@ -19,19 +19,6 @@
             cursor: none;
         }
 
-        .cursor-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--accent);
-            border-radius: 50%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: 99999;
-            transform: translate(-50%, -50%);
-            transition: width 0.3s, height 0.3s;
-        }
 
         .cursor-ring {
             width: 36px;
@@ -48,10 +35,6 @@
             opacity: 0.5;
         }
 
-        body.cursor-hover .cursor-dot {
-            width: 14px;
-            height: 14px;
-        }
 
         body.cursor-hover .cursor-ring {
             width: 54px;
@@ -968,7 +951,6 @@
 </head>
 
 <body>
-    <div class="cursor-dot" id="cd"></div>
     <div class="cursor-ring" id="cr"></div>
 
     <header class="sushi-nav">
