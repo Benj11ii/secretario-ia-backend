@@ -46,6 +46,44 @@
 		}
 
 		/* =========================================
+   		REPARACIÓN UNIVERSAL DE FORMULARIO
+   		(Ajuste de espacios para todos los dispositivos)
+   		========================================= */
+
+		/* 1. Separación entre los grupos (Nombre vs Teléfono vs Email) */
+		.ia-form {
+			display: flex !important;
+			flex-direction: column !important;
+			gap: 18px !important;
+			/* Espacio uniforme entre cada bloque de pregunta */
+		}
+
+		/* 2. Estructura interna de cada campo (Título + Caja) */
+		.form-field {
+			display: flex !important;
+			flex-direction: column !important;
+			gap: 8px !important;
+			/* ESTO separa el título "NOMBRE" de su caja de texto */
+			text-align: left !important;
+		}
+
+		/* 3. Limpieza de márgenes antiguos para evitar conflictos */
+		.form-field label {
+			margin: 0 !important;
+			padding: 0 !important;
+			display: block !important;
+			font-size: 0.75rem !important;
+			font-weight: 600 !important;
+			color: rgba(255, 255, 255, 0.8) !important;
+		}
+
+		/* 4. Ajuste del área de texto (Ayudarnos?) */
+		.form-field textarea {
+			margin-top: 0 !important;
+			/* Elimina cualquier empuje extra */
+		}
+
+		/* =========================================
            FONDO GLOBAL — con imagen y overlay oscuro
            ========================================= */
 		.global-bg {
@@ -2433,6 +2471,15 @@
 			.global-bg {
 				background-attachment: scroll !important;
 				background-size: cover !important;
+				/* --- EL CAMBIO: Estabilización de imagen --- */
+				position: fixed !important;
+				height: 100% !important;
+				width: 100% !important;
+				transform: translateZ(0);
+				/* Fuerza aceleración por hardware */
+				backface-visibility: hidden;
+				perspective: 1000;
+
 			}
 
 			html,
@@ -2479,9 +2526,9 @@
 
 			.slide-nav-next {
 				margin-top: 15px !important;
-				width: 100% !important;
+				width: fit-content !important;
 				max-width: 350px;
-				padding: 12px 24px !important;
+				padding: 10px 22px !important;
 				font-size: 0.75rem !important;
 				background: rgba(243, 160, 34, 0.1) !important;
 				border: 1px solid var(--orange) !important;
@@ -2846,9 +2893,6 @@
 				gap: 5px !important;
 			}
 		}
-
-
-
 	</style>
 </head>
 
