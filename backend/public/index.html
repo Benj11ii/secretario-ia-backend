@@ -563,33 +563,44 @@
 		}
 
 		.hero-wrap {
-				gap: 20px !important; /* Más aire entre elementos */
-				margin-top: 0 !important;
-				justify-content: center;
-				min-height: 60vh;
-			}
+			gap: 20px !important;
+			margin-top: 0 !important;
+			display: flex !important;
+			flex-direction: column !important;
+			align-items: center !important;
+			/* <--- ESTO CENTRA TODO HORIZONTALMENTE */
+			justify-content: center !important;
+			text-align: center !important;
+			width: 100% !important;
+			min-height: 60vh;
+		}
 
 		.hero-logo-wrap {
-				/* Eliminamos el borde y fondo en móvil */
-				width: auto !important; 
-				height: auto !important;
-				border: none !important;
-				background: transparent !important;
-				box-shadow: none !important;
-				margin-bottom: 10px !important;
-			}
-			.hero-logo {
-				/* Logo grande y protagonista */
-				width: 160px !important; 
-				height: 160px !important;
-				object-fit: contain;
-				filter: drop-shadow(0 0 15px rgba(243, 160, 34, 0.4)); /* Brillo naranja sutil */
-			}
+			/* Contenedor transparente pero centrado */
+			width: auto !important;
+			height: auto !important;
+			border: none !important;
+			background: transparent !important;
+			box-shadow: none !important;
+			margin-bottom: 10px !important;
+			display: flex !important;
+			justify-content: center !important;
+		}
 
-			.hero-title {
-				font-size: 2.2rem !important; /* Título grande */
-				line-height: 1.1 !important;
-			}
+		.hero-logo {
+			width: 140px !important;
+			/* Tamaño grande pero controlado */
+			height: 140px !important;
+			object-fit: contain;
+			filter: drop-shadow(0 0 20px rgba(243, 160, 34, 0.3));
+			/* Brillo elegante */
+		}
+
+		.hero-title {
+			font-size: 2.1rem !important;
+			line-height: 1.1 !important;
+			width: 100%;
+		}
 
 		@keyframes logoPulse {
 
@@ -2145,15 +2156,18 @@
            ========================================= */
 		.slide-nav-prev {
 			position: relative;
-			margin-bottom: 40px; /* <--- Aumentado para más elegancia */
+			margin-bottom: 40px;
+			/* <--- Aumentado para más elegancia */
 			align-self: center;
-			
-			background: rgba(255, 255, 255, 0.03); /* Fondo más sutil */
+
+			background: rgba(255, 255, 255, 0.03);
+			/* Fondo más sutil */
 			backdrop-filter: blur(10px);
 			-webkit-backdrop-filter: blur(10px);
 			border: 1px solid rgba(255, 255, 255, 0.1);
 			color: rgba(255, 255, 255, 0.4);
-			padding: 10px 22px; /* Un poco más ancho */
+			padding: 10px 22px;
+			/* Un poco más ancho */
 			border-radius: 30px;
 			font-size: 0.65rem;
 			text-transform: uppercase;
@@ -2168,13 +2182,22 @@
 
 		.slide-nav-prev:hover {
 			background: rgba(255, 255, 255, 0.08);
-			color: var(--orange); /* Cambia a naranja al pasar el mouse */
+			color: var(--orange);
+			/* Cambia a naranja al pasar el mouse */
 			border-color: rgba(243, 160, 34, 0.3);
 			transform: translateY(-5px);
 		}
 
 		.slide-nav-next {
-			margin-top: 20px; /* <--- Simetría perfecta con el de arriba */
+			margin-top: 20px;
+			/* <--- Simetría perfecta con el de arriba */
+			margin-left: auto !important;
+			margin-right: auto !important;
+			display: flex !important;
+			justify-content: center !important;
+			align-items: center !important;
+			width: auto !important;
+			min-width: 220px;
 			background: rgba(243, 160, 34, 0.02);
 			backdrop-filter: blur(10px);
 			border: 1px solid rgba(243, 160, 34, 0.3);
@@ -2216,7 +2239,7 @@
 			}
 		}
 
-/* =======================================================
+		/* =======================================================
 		   BLOQUE DE RESPONSIVIDAD MÓVIL (Max-width: 768px)
 		   ======================================================= */
 		@media (max-width: 768px) {
@@ -2226,13 +2249,17 @@
 				background-attachment: scroll !important;
 				background-size: cover !important;
 			}
-			html, body { overflow: hidden; }
+
+			html,
+			body {
+				overflow: hidden;
+			}
 
 			/* 2. ESTRUCTURA DEL SLIDE (Scroll interno habilitado) */
 			.slide {
 				/* Padding optimizado: Arriba para el menú, Abajo para botones */
-				padding: 85px 12px 90px !important; 
-				justify-content: flex-start !important; 
+				padding: 85px 12px 90px !important;
+				justify-content: flex-start !important;
 				overflow-y: auto !important;
 				-webkit-overflow-scrolling: touch;
 				align-items: center;
@@ -2248,9 +2275,10 @@
 				left: auto !important;
 				transform: none !important;
 				margin-top: 0 !important;
-				margin-bottom: 20px !important; /* Espacio para separar del título */
+				margin-bottom: 20px !important;
+				/* Espacio para separar del título */
 				align-self: center !important;
-				
+
 				background: rgba(255, 255, 255, 0.1);
 				border: 1px solid rgba(255, 255, 255, 0.2);
 				color: rgba(255, 255, 255, 0.8);
@@ -2274,30 +2302,39 @@
 				border: 1px solid var(--orange) !important;
 				align-self: center !important;
 			}
-			.slide-nav-next i { margin-left: 6px; }
+
+			.slide-nav-next i {
+				margin-left: 6px;
+			}
 
 			/* 4. SLIDE 1: HERO (Logo reducido y textos ajustados) */
 			.hero-wrap {
 				gap: 15px !important;
 				margin-top: 0 !important;
 				justify-content: center;
-				min-height: 60vh; /* Centrado visual */
+				min-height: 60vh;
+				/* Centrado visual */
 			}
+
 			.hero-logo-wrap {
-				width: 110px !important; /* Logo mediano, ni muy grande ni muy chico */
+				width: 110px !important;
+				/* Logo mediano, ni muy grande ni muy chico */
 				height: 110px !important;
 				border-radius: 35px !important;
 				margin-bottom: 10px !important;
 			}
+
 			.hero-logo {
-				width: 80px !important; 
+				width: 80px !important;
 				height: 80px !important;
 			}
+
 			.hero-title {
 				font-size: clamp(2rem, 8vw, 2.5rem) !important;
 				line-height: 1.1 !important;
 				margin-bottom: 10px !important;
 			}
+
 			.hero-sub {
 				font-size: 0.9rem !important;
 				line-height: 1.5 !important;
@@ -2305,90 +2342,171 @@
 			}
 
 			/* 5. CONFIGURACIÓN DE TÍTULOS GENERALES */
-			.sol-head, .demos-head, .planes-head, .form-head {
+			.sol-head,
+			.demos-head,
+			.planes-head,
+			.form-head {
 				margin-bottom: 20px !important;
 				text-align: center;
 			}
-			.sol-title, .demos-title, .planes-title, .form-title {
+
+			.sol-title,
+			.demos-title,
+			.planes-title,
+			.form-title {
 				font-size: 1.6rem !important;
 				margin-bottom: 5px !important;
 			}
-			.sol-sub, .planes-sub, .form-sub {
+
+			.sol-sub,
+			.planes-sub,
+			.form-sub {
 				font-size: 0.8rem !important;
 				line-height: 1.4 !important;
 				padding: 0 10px;
 			}
+
 			/* Ocultar elementos decorativos que quitan espacio */
-			.sol-divider, .planes-eyebrow, .demos-eyebrow, .form-eyebrow {
-				display: none !important; 
+			.sol-divider,
+			.planes-eyebrow,
+			.demos-eyebrow,
+			.form-eyebrow {
+				display: none !important;
 			}
 
 			/* 6. SLIDE 2: SOLUCIONES (2 Columnas Compactas) */
-			.sol-wrap { width: 100%; margin-top: 0 !important; }
+			.sol-wrap {
+				width: 100%;
+				margin-top: 0 !important;
+			}
+
 			.sol-grid {
 				grid-template-columns: 1fr 1fr !important;
 				gap: 10px !important;
 			}
+
 			.sol-item {
 				padding: 15px 8px !important;
 				min-height: 150px;
-				display: flex; flex-direction: column; align-items: center;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
 			}
+
 			.sol-icon {
-				width: 45px !important; height: 45px !important;
-				font-size: 1.2rem !important; margin-bottom: 8px !important;
+				width: 45px !important;
+				height: 45px !important;
+				font-size: 1.2rem !important;
+				margin-bottom: 8px !important;
 			}
+
 			.sol-item h3 {
-				font-size: 0.8rem !important; margin-bottom: 5px !important;
-				height: 35px; display: flex; align-items: center; justify-content: center;
+				font-size: 0.8rem !important;
+				margin-bottom: 5px !important;
+				height: 35px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
 			}
+
 			.sol-item p {
-				font-size: 0.65rem !important; line-height: 1.3 !important;
+				font-size: 0.65rem !important;
+				line-height: 1.3 !important;
 			}
 
 			/* 7. SLIDE 3: DEMOS (2 Columnas Cuadradas) */
-			.demos-wrap { width: 100%; margin-top: 0 !important; }
+			.demos-wrap {
+				width: 100%;
+				margin-top: 0 !important;
+			}
+
 			.demos-grid {
 				grid-template-columns: repeat(2, 1fr) !important;
 				gap: 12px !important;
 				margin-top: 10px !important;
 			}
-			.demo-cell { aspect-ratio: 1 !important; padding: 10px !important; }
-			.demo-icon-wrap { width: 55px !important; height: 55px !important; margin-bottom: 8px !important; }
-			.demo-icon-wrap i { font-size: 1.6rem !important; }
-			.demo-name { font-size: 0.8rem !important; }
+
+			.demo-cell {
+				aspect-ratio: 1 !important;
+				padding: 10px !important;
+			}
+
+			.demo-icon-wrap {
+				width: 55px !important;
+				height: 55px !important;
+				margin-bottom: 8px !important;
+			}
+
+			.demo-icon-wrap i {
+				font-size: 1.6rem !important;
+			}
+
+			.demo-name {
+				font-size: 0.8rem !important;
+			}
 
 			/* 8. SLIDE 4: PLANES (2 Columnas - Sin Descripción larga) */
-			.planes-wrap { width: 100%; margin-top: 0 !important; }
+			.planes-wrap {
+				width: 100%;
+				margin-top: 0 !important;
+			}
+
 			.planes-grid {
 				grid-template-columns: 1fr 1fr !important;
 				gap: 10px !important;
 				align-items: start !important;
 			}
+
 			.plan-card {
 				padding: 15px 10px !important;
 				border-radius: 14px !important;
 				gap: 5px !important;
 			}
+
 			.plan-icon {
-				width: 38px !important; height: 38px !important;
-				font-size: 1rem !important; margin-bottom: 5px !important;
+				width: 38px !important;
+				height: 38px !important;
+				font-size: 1rem !important;
+				margin-bottom: 5px !important;
 			}
-			.plan-name { font-size: 0.9rem !important; height: 40px; display: flex; align-items: center; line-height: 1.1; }
-			
+
+			.plan-name {
+				font-size: 0.9rem !important;
+				height: 40px;
+				display: flex;
+				align-items: center;
+				line-height: 1.1;
+			}
+
 			/* Ocultamos la descripción larga para que quepan las 2 columnas */
-			.plan-desc { display: none !important; } 
-			
-			.plan-price { margin: 5px 0 !important; flex-wrap: wrap; }
-			.plan-amount { font-size: 1.1rem !important; }
-			.plan-desde { font-size: 0.6rem !important; width: 100%; }
-			
-			.plan-features { margin-bottom: 10px !important; }
+			.plan-desc {
+				display: none !important;
+			}
+
+			.plan-price {
+				margin: 5px 0 !important;
+				flex-wrap: wrap;
+			}
+
+			.plan-amount {
+				font-size: 1.1rem !important;
+			}
+
+			.plan-desde {
+				font-size: 0.6rem !important;
+				width: 100%;
+			}
+
+			.plan-features {
+				margin-bottom: 10px !important;
+			}
+
 			.plan-features li {
 				font-size: 0.65rem !important;
 				line-height: 1.2 !important;
 				margin-bottom: 3px !important;
 			}
+
 			.plan-btn {
 				padding: 10px !important;
 				font-size: 0.7rem !important;
@@ -2396,18 +2514,42 @@
 			}
 
 			/* 9. SLIDE 5: FORMULARIO */
-			.form-wrap { width: 100%; margin-top: 0 !important; padding: 0 5px; }
-			.ia-form { gap: 12px !important; }
-			.form-row { grid-template-columns: 1fr !important; gap: 10px !important; }
-			.form-field input, .form-field select { padding: 12px !important; font-size: 0.9rem !important; }
-			.form-field textarea { height: 80px !important; }
-			.btn-submit { padding: 14px !important; font-size: 0.8rem !important; }
+			.form-wrap {
+				width: 100%;
+				margin-top: 0 !important;
+				padding: 0 5px;
+			}
+
+			.ia-form {
+				gap: 12px !important;
+			}
+
+			.form-row {
+				grid-template-columns: 1fr !important;
+				gap: 10px !important;
+			}
+
+			.form-field input,
+			.form-field select {
+				padding: 12px !important;
+				font-size: 0.9rem !important;
+			}
+
+			.form-field textarea {
+				height: 80px !important;
+			}
+
+			.btn-submit {
+				padding: 14px !important;
+				font-size: 0.8rem !important;
+			}
 
 			/* 10. MODALES (Bottom Sheet) */
 			.demo-overlay {
 				align-items: flex-end !important;
 				padding: 0 !important;
 			}
+
 			.demo-modal {
 				width: 100% !important;
 				max-height: 85vh !important;
@@ -2415,17 +2557,32 @@
 				margin: 0 !important;
 				transform: translateY(100%) !important;
 			}
+
 			.demo-overlay.open .demo-modal {
 				transform: translateY(0) !important;
 			}
-			.dm-head { padding: 20px 20px 0 !important; }
-			.dm-body { padding: 0 20px 20px !important; }
-			.chat-messages { height: 45vh !important; }
+
+			.dm-head {
+				padding: 20px 20px 0 !important;
+			}
+
+			.dm-body {
+				padding: 0 20px 20px !important;
+			}
+
+			.chat-messages {
+				height: 45vh !important;
+			}
 
 			/* 11. EXTRAS (Whatsapp, Dots, Scroll) */
-			.nav-dots { display: none !important; }
-			.scroll-hint { display: none !important; }
-			
+			.nav-dots {
+				display: none !important;
+			}
+
+			.scroll-hint {
+				display: none !important;
+			}
+
 			.wa-float {
 				width: 55px !important;
 				height: 55px !important;
@@ -2433,18 +2590,33 @@
 				right: 20px !important;
 				font-size: 1.8rem !important;
 			}
-			.wa-msg { display: none !important; } /* Ocultar globo de texto en móvil */
+
+			.wa-msg {
+				display: none !important;
+			}
+
+			/* Ocultar globo de texto en móvil */
 		}
 
 		/* 12. PANTALLAS MUY PEQUEÑAS (iPhone SE, Galaxy Fold) */
 		@media (max-width: 360px) {
-			.hero-title { font-size: 1.8rem !important; }
+			.hero-title {
+				font-size: 1.8rem !important;
+			}
+
 			/* En pantallas diminutas, planes vuelve a 1 columna para no romperse */
-			.planes-grid { grid-template-columns: 1fr !important; }
-			.plan-desc { display: block !important; } /* Volvemos a mostrar la descripción si hay espacio */
+			.planes-grid {
+				grid-template-columns: 1fr !important;
+			}
+
+			.plan-desc {
+				display: block !important;
+			}
+
+			/* Volvemos a mostrar la descripción si hay espacio */
 		}
-		</style>
-	</head>
+	</style>
+</head>
 
 <body>
 
@@ -3283,7 +3455,7 @@
 					})
 				});
 				const data = await res.json();
-				
+
 				// Detener animación de pensar y borrar burbuja de carga
 				clearInterval(thinkInterval);
 				typing.remove();
@@ -3313,7 +3485,7 @@
 						checkDemoEnd();
 					}
 				}
-				
+
 				// Iniciar escritura
 				typeWriter();
 
@@ -3335,7 +3507,7 @@
 					setTimeout(() => {
 						const closeBubble = document.createElement('div');
 						closeBubble.style.cssText = "margin-top: 15px; display: flex; flex-direction: column; gap: 10px; animation: bubbleIn 0.5s ease;";
-						
+
 						closeBubble.innerHTML = `
 							<div style="font-size: 0.72rem; color: rgba(255,255,255,0.6); text-align: center;">
 								Ha llegado al límite de consultas de esta demo. ¡Hablemos de su proyecto en detalle!
@@ -3344,15 +3516,15 @@
 								<i class="fas fa-paper-plane"></i> Ir al Formulario
 							</button>
 						`;
-						
+
 						box.appendChild(closeBubble);
 						box.scrollTop = box.scrollHeight;
-						
+
 						input.disabled = true;
 						input.placeholder = 'Demo finalizada — Use el formulario';
 						const btn = document.querySelector('.chat-send');
 						if (btn) btn.disabled = true;
-					}, 800); 
+					}, 800);
 				}
 			}
 		}
@@ -3503,12 +3675,12 @@
 
 			// 3. Reloj estricto: Debe pasar 1 segundo (1000ms) exacto entre cada salto
 			const now = new Date().getTime();
-			if (now - lastScrollTime < 1000) return; 
+			if (now - lastScrollTime < 1000) return;
 
 			if (e.deltaY > 0 && current < TOTAL - 1) {
 				goTo(current + 1);
 				lastScrollTime = now;
-			} 
+			}
 			else if (e.deltaY < 0 && current > 0) {
 				goTo(current - 1);
 				lastScrollTime = now;
