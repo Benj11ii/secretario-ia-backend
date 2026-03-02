@@ -16,10 +16,8 @@
            ========================================= */
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            cursor: none;
         }
+
 
         .c-dot {
             width: 8px;
@@ -982,12 +980,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         /* ----- CURSOR ----- */
-        const cd = document.getElementById('cd'), cr = document.getElementById('cr');
-        let mx = 0, my = 0;
-        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cd.style.left = mx + 'px'; cd.style.top = my + 'px'; });
-        (function () { let rx = 0, ry = 0; function loop() { rx += (mx - rx) * .12; ry += (my - ry) * .12; cr.style.left = rx + 'px'; cr.style.top = ry + 'px'; requestAnimationFrame(loop); } loop(); })();
-        function bindCursor() { document.querySelectorAll('button,a,.cat-tab,.vt-btn').forEach(el => { el.addEventListener('mouseenter', () => document.body.classList.add('ch')); el.addEventListener('mouseleave', () => document.body.classList.remove('ch')); }); }
-
         /* ----- BACKEND ----- */
         const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxO6j-I6dCSp361U2IQrb8kr5EWPXRTL8tt9ulLK44utC7KiZIOHI2InjutpbLidls5/exec";
         let prodSeleccionado = "", precioSeleccionado = "", cartCount = 0;
