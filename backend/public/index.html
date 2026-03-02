@@ -45,43 +45,80 @@
 			-webkit-font-smoothing: antialiased;
 		}
 
+
+
+
+
+
+
 		/* =========================================
-   		REPARACIÓN UNIVERSAL DE FORMULARIO
-   		(Ajuste de espacios para todos los dispositivos)
+   		DISEÑO PREMIUM DE FORMULARIO (MACRO)
    		========================================= */
 
-		/* 1. Separación entre los grupos (Nombre vs Teléfono vs Email) */
+		/* 1. Contenedor general: más aire arriba para que no choque con el título */
 		.ia-form {
 			display: flex !important;
 			flex-direction: column !important;
-			gap: 18px !important;
-			/* Espacio uniforme entre cada bloque de pregunta */
+			gap: 25px !important;
+			/* Espacio grande entre bloques (Nombre vs Teléfono) */
+			margin-top: 15px !important;
 		}
 
-		/* 2. Estructura interna de cada campo (Título + Caja) */
+		/* 2. Cada campo: acercamos el título a su caja */
 		.form-field {
 			display: flex !important;
 			flex-direction: column !important;
-			gap: 8px !important;
-			/* ESTO separa el título "NOMBRE" de su caja de texto */
-			text-align: left !important;
+			gap: 6px !important;
+			/* Espacio pequeño: une visualmente el título con su caja */
 		}
 
-		/* 3. Limpieza de márgenes antiguos para evitar conflictos */
+		/* 3. Etiquetas (NOMBRE, EMAIL, etc.) */
 		.form-field label {
 			margin: 0 !important;
-			padding: 0 !important;
-			display: block !important;
-			font-size: 0.75rem !important;
-			font-weight: 600 !important;
-			color: rgba(255, 255, 255, 0.8) !important;
+			padding-left: 4px !important;
+			/* Alineación elegante */
+			font-size: 0.65rem !important;
+			/* Un poco más pequeña para que se vea técnica */
+			font-weight: 700 !important;
+			letter-spacing: 1.5px !important;
+			text-transform: uppercase !important;
+			color: var(--orange) !important;
+			/* Color naranja sutil para dar identidad */
+			opacity: 0.85;
 		}
 
-		/* 4. Ajuste del área de texto (Ayudarnos?) */
+		/* 4. Las Cajas (Inputs) */
+		.form-field input,
 		.form-field textarea {
-			margin-top: 0 !important;
-			/* Elimina cualquier empuje extra */
+			background: rgba(255, 255, 255, 0.03) !important;
+			border: 1px solid rgba(255, 255, 255, 0.15) !important;
+			border-radius: 12px !important;
+			padding: 14px 16px !important;
+			transition: all 0.3s ease !important;
 		}
+
+		/* 5. Efecto de enfoque: se ilumina al tocarlo */
+		.form-field input:focus,
+		.form-field textarea:focus {
+			border-color: var(--orange) !important;
+			background: rgba(243, 160, 34, 0.05) !important;
+			outline: none !important;
+		}
+
+		/* 6. El botón de enviar: le damos peso visual */
+		.btn-submit {
+			margin-top: 10px !important;
+			padding: 16px !important;
+			border-radius: 12px !important;
+			font-weight: 700 !important;
+			box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3) !important;
+		}
+
+
+
+
+
+
 
 		/* =========================================
            FONDO GLOBAL — con imagen y overlay oscuro
