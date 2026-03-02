@@ -2795,27 +2795,34 @@
 		}
 
 		/* =======================================================
-   		CENTRALIZACIÓN MAESTRA: LOGO Y ESPACIADO HERO
-   		======================================================= */
+   REDISEÑO FLUIDO UNIVERSAL: LOGO Y HERO
+   (Móvil, Laptop y Mac Retina)
+   ======================================================= */
 
-		/* --- 1. Reglas Globales (Aplican a todos los tamaños) --- */
 		.hero-logo-wrap {
 			width: auto !important;
 			height: auto !important;
 			background: transparent !important;
-			/* Sin recuadro gris */
 			border: none !important;
 			box-shadow: none !important;
 			display: flex !important;
 			justify-content: center !important;
 			margin-bottom: 0px !important;
-			/* Pegado al texto */
 		}
 
 		.hero-logo {
+			/* ESCALERA FLUIDA: 
+       - Mínimo 120px (para celulares pequeños)
+       - Crece al 15% del ancho de pantalla (proporcional)
+       - Máximo 350px (para tu Mac Retina) */
+			width: clamp(120px, 15vw, 350px) !important;
+
+			height: auto !important;
 			object-fit: contain !important;
 			filter: drop-shadow(0 0 20px rgba(243, 160, 34, 0.4)) !important;
-			transition: width 0.4s ease, transform 0.3s ease !important;
+
+			/* Transición de seda para cambios de tamaño suaves */
+			transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s ease !important;
 		}
 
 		.hero-wrap {
@@ -2823,61 +2830,22 @@
 			flex-direction: column !important;
 			align-items: center !important;
 			text-align: center !important;
-			gap: 10px !important;
-			/* Espacio entre Logo, Título y Subtítulo */
+			/* El espacio entre logo y texto también es fluido: entre 5px y 25px */
+			gap: clamp(5px, 2vw, 25px) !important;
+			width: 100% !important;
 		}
 
-		/* --- 2. Ajustes por Resolución --- */
-
-		/* Celulares (Pantallas pequeñas) */
-		@media (max-width: 768px) {
-			.hero-logo {
-				width: 140px !important;
-			}
-
-			.hero-wrap {
-				gap: 15px !important;
-			}
-
-			/* Un poco más de aire en móvil */
-		}
-
-		/* Laptops y Pantallas Medianas (1280px / 1440px) */
-		@media (min-width: 769px) and (max-width: 1600px) {
-			.hero-logo {
-				width: 220px !important;
-			}
-		}
-
-		/* Laptops "bajitas" (como tu pantalla secundaria de 1280x800) */
+		/* --- REGLA DE SEGURIDAD PARA PANTALLAS BAJAS (Laptop 1280x800) --- */
 		@media (min-width: 769px) and (max-height: 850px) {
 			.hero-logo {
-				width: 160px !important;
+				/* En pantallas bajas, el logo crece según la ALTURA de la pantalla (vh) */
+				width: clamp(120px, 22vh, 180px) !important;
 			}
 
-			/* Lo achicamos un poco para que quepa todo */
 			.hero-wrap {
 				gap: 5px !important;
 			}
-
-			/* Apretamos el espacio */
 		}
-
-		/* Pantallas Gigantes / Mac Retina (Más de 1600px) */
-		@media (min-width: 1601px) {
-			.hero-logo {
-				width: 320px !important;
-			}
-
-			/* Logo imponente */
-			.hero-wrap {
-				gap: 20px !important;
-			}
-		}
-
-
-
-
 
 
 		
