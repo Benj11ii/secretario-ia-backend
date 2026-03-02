@@ -2564,16 +2564,27 @@
 			.slide-nav-next {
 				margin-top: 15px !important;
 				width: fit-content !important;
+				min-width: auto !important;
+				margin-bottom: 25px !important;
 				max-width: 350px;
-				padding: 10px 22px !important;
-				font-size: 0.75rem !important;
+				padding: 8px 20px !important;
+				font-size: 0.65rem !important;
 				background: rgba(243, 160, 34, 0.1) !important;
 				border: 1px solid var(--orange) !important;
 				align-self: center !important;
 			}
 
+			/* --- QUITAR ANIMACIÓN DE FLECHA EN SLIDES INTERNOS --- */
 			.slide-nav-next i {
+				animation: none !important; /* La flecha se queda quieta */
 				margin-left: 6px;
+				font-size: 0.6rem;
+			}
+
+			/* --- MANTENER ANIMACIÓN SOLO EN EL PRIMER SLIDE (HERO) --- */
+			#slide-0 .slide-nav-next i {
+				animation: arrowNextPulse 2s infinite !important; /* Solo rebota en el inicio */
+                color: var(--orange);
 			}
 
 			/* 4. SLIDE 1: HERO (Logo reducido y textos ajustados) */
@@ -2849,8 +2860,8 @@
 				width: 55px !important;
 				height: 55px !important;
 				bottom: 20px !important;
-				right: 20px !important;
-				font-size: 1.8rem !important;
+				right: 15px !important;
+				font-size: 1.4rem !important;
 			}
 
 			.wa-msg {
