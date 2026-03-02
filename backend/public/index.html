@@ -577,8 +577,8 @@
 
 		.hero-logo-wrap {
 			/* Contenedor transparente pero centrado */
-			width: auto !important;
-			height: auto !important;
+			width: 130px !important;
+			height: 130px !important;
 			border: none !important;
 			background: transparent !important;
 			box-shadow: none !important;
@@ -588,9 +588,9 @@
 		}
 
 		.hero-logo {
-			width: 140px !important;
+			width: 100px !important;
 			/* Tamaño grande pero controlado */
-			height: 140px !important;
+			height: 100px !important;
 			object-fit: contain;
 			filter: drop-shadow(0 0 20px rgba(243, 160, 34, 0.3));
 			/* Brillo elegante */
@@ -1177,7 +1177,7 @@
 			width: 100%;
 			display: flex;
 			flex-direction: column;
-			gap: 12px;
+			gap: 20px; /* <--- Aumentado de 12px a 20px */
 		}
 
 		.form-row {
@@ -1204,16 +1204,16 @@
 		.form-field textarea,
 		.form-field select {
 			width: 100%;
-			padding: 12px 14px;
-			background: rgba(255, 255, 255, 0.04);
-			border: 1px solid rgba(255, 255, 255, 0.09);
-			border-radius: 10px;
+			padding: 16px 20px; /* Más relleno interno para que respire */
+			background: rgba(255, 255, 255, 0.05); /* Fondo más sutil */
+			border: 1px solid rgba(255, 255, 255, 0.15); /* Borde más visible pero elegante */
+			border-radius: 12px; /* Bordes más redondeados */
 			color: var(--white);
-			font-size: 0.82rem;
+			font-size: 0.9rem;
 			font-family: 'Inter', sans-serif;
 			font-weight: 300;
 			outline: none;
-			transition: border-color .3s, background .3s;
+			transition: all 0.3s ease;
 		}
 
 		.form-field input::placeholder,
@@ -1224,8 +1224,9 @@
 		.form-field input:focus,
 		.form-field textarea:focus,
 		.form-field select:focus {
-			border-color: rgba(243, 160, 34, 0.45);
-			background: rgba(243, 160, 34, 0.04);
+			border-color: var(--orange); /* Borde naranja al escribir */
+			background: rgba(243, 160, 34, 0.05); /* Fondo naranja muy sutil */
+			box-shadow: 0 0 15px rgba(243, 160, 34, 0.1); /* Resplandor */
 		}
 
 		.form-field textarea {
