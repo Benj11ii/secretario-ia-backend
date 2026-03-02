@@ -53,17 +53,7 @@ def pagina_gracias():
 def demos():
     return render_template("demos.html")
 
-# Esta ruta capturará lo que intentas en la captura (demo-tienda.html)
-@app.route("/demo-tienda.html")
-def demo_legacy():
-    tipo = request.args.get('tipo', 'sushi')
-    if tipo == 'sushi':
-        return render_template("demo-tiendas1.html")
-    elif tipo == 'ferreteria':
-        return render_template("demo-tiendas2.html")
-    elif tipo == 'turismo' or tipo == 'pasteleria':
-        return render_template("demo-tiendas3.html")
-    return redirect(url_for('demos'))
+
 
 # --- PUENTE PARA EL CHAT CON LA MAC ---
 @app.route("/chat", methods=["POST"])
@@ -96,18 +86,22 @@ def chat_proxy():
 def health_chat():
     return jsonify({"status": "proxy_active"})
 
-# Rutas modernas y limpias (Recomendado)
-@app.route("/sushi")
-def sushi():
+
+
+
+@app.route("/demo-tiendas1.html")
+def demo_sushi():
     return render_template("demo-tiendas1.html")
 
-@app.route("/ferreteria")
-def ferreteria():
+@app.route("/demo-tiendas2.html")
+def demo_ferreteria():
     return render_template("demo-tiendas2.html")
 
-@app.route("/turismo")
-def turismo():
+@app.route("/demo-tiendas3.html")
+def demo_turismo():
     return render_template("demo-tiendas3.html")
+
+
 
 
 # --- CONFIGURACIÓN ---
