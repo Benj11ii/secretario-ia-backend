@@ -575,33 +575,10 @@
 			min-height: 60vh;
 		}
 
-		.hero-logo-wrap {
-			/* Quitamos el tamaño fijo del contenedor y el fondo */
-			width: auto !important;
-			height: auto !important;
-			background: transparent !important; /* Adiós caja gris */
-			border: none !important;
-			box-shadow: none !important;
-			
-			/* Centrado y margen */
-			display: flex;
-			justify-content: center;
-			margin-bottom: 0px; /* Espacio para que no toque el texto */
-		}
 
-		.hero-logo {
-			/* Aquí controlamos el tamaño REAL de la imagen */
-			width: 220px !important; /* Tamaño grande y bonito para PC */
-			height: auto !important; /* Mantiene la proporción */
-			object-fit: contain;
-			
-			/* Sombra naranja brillante (Glow) para que destaque en el fondo oscuro */
-			filter: drop-shadow(0 0 25px rgba(243, 160, 34, 0.4));
-            transition: transform 0.3s ease;
-		}
-		.hero-logo:hover {
-            transform: scale(1.05); /* Efecto sutil al pasar el mouse */
-        }
+
+
+
 
 
 
@@ -623,11 +600,6 @@
 			}
 		}
 
-		.hero-logo {
-			width: 230px !important;
-			height: 230px !important;
-			object-fit: contain;
-		}
 
 		.hero-title {
 			font-size: clamp(2.5rem, 6vw, 4rem) !important;
@@ -1147,12 +1119,14 @@
 
 		.form-wrap {
 			width: 100%;
-			max-width: 500px !important; /* <--- ESTO EVITA QUE SE ESTIRE */
+			max-width: 500px !important;
+			/* <--- ESTO EVITA QUE SE ESTIRE */
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 			gap: 25px;
-            margin: 0 auto; /* Centrado */
+			margin: 0 auto;
+			/* Centrado */
 		}
 
 		.form-head {
@@ -1183,8 +1157,9 @@
 		}
 
 		.ia-form {
-            gap: 20px; /* Espacio entre cada pregunta del formulario */
-        }
+			gap: 20px;
+			/* Espacio entre cada pregunta del formulario */
+		}
 
 		.form-row {
 			display: grid;
@@ -1199,23 +1174,30 @@
 		}
 
 		.form-field label {
-			font-size: 0.75rem; /* Letra un poco más legible */
+			font-size: 0.75rem;
+			/* Letra un poco más legible */
 			letter-spacing: 2px;
 			text-transform: uppercase;
 			color: rgba(255, 255, 255, 0.7);
 			font-weight: 600;
-			margin-bottom: 10px !important; /* <--- AQUÍ SEPARAMOS EL TÍTULO DEL INPUT */
-            display: block; /* Asegura que ocupe su propia línea */
+			margin-bottom: 10px !important;
+			/* <--- AQUÍ SEPARAMOS EL TÍTULO DEL INPUT */
+			display: block;
+			/* Asegura que ocupe su propia línea */
 		}
 
 		.form-field input,
 		.form-field textarea,
 		.form-field select {
 			width: 100%;
-			padding: 16px 20px; /* Más relleno interno para que respire */
-			background: rgba(255, 255, 255, 0.05); /* Fondo más sutil */
-			border: 1px solid rgba(255, 255, 255, 0.15); /* Borde más visible pero elegante */
-			border-radius: 12px; /* Bordes más redondeados */
+			padding: 16px 20px;
+			/* Más relleno interno para que respire */
+			background: rgba(255, 255, 255, 0.05);
+			/* Fondo más sutil */
+			border: 1px solid rgba(255, 255, 255, 0.15);
+			/* Borde más visible pero elegante */
+			border-radius: 12px;
+			/* Bordes más redondeados */
 			color: var(--white);
 			font-size: 0.9rem;
 			font-family: 'Inter', sans-serif;
@@ -1232,9 +1214,12 @@
 		.form-field input:focus,
 		.form-field textarea:focus,
 		.form-field select:focus {
-			border-color: var(--orange); /* Borde naranja al escribir */
-			background: rgba(243, 160, 34, 0.05); /* Fondo naranja muy sutil */
-			box-shadow: 0 0 15px rgba(243, 160, 34, 0.1); /* Resplandor */
+			border-color: var(--orange);
+			/* Borde naranja al escribir */
+			background: rgba(243, 160, 34, 0.05);
+			/* Fondo naranja muy sutil */
+			box-shadow: 0 0 15px rgba(243, 160, 34, 0.1);
+			/* Resplandor */
 		}
 
 		.form-field textarea {
@@ -2255,101 +2240,188 @@
 		@media (min-width: 1601px) {
 
 			/* 1. Ensanchamos los contenedores para que no se vean angostos */
-			.sol-wrap, .demos-wrap, .planes-wrap, .form-wrap, .hero-wrap {
-				max-width: 1400px !important; /* Antes era ~1100px */
+			.sol-wrap,
+			.demos-wrap,
+			.planes-wrap,
+			.form-wrap,
+			.hero-wrap {
+				max-width: 1400px !important;
+				/* Antes era ~1100px */
 				width: 85% !important;
 			}
 
 			/* 2. Títulos más grandes e imponentes */
-			.hero-title { font-size: 5rem !important; }
-			.sol-title, .demos-title, .planes-title, .form-title {
+			.hero-title {
+				font-size: 5rem !important;
+			}
+
+			.sol-title,
+			.demos-title,
+			.planes-title,
+			.form-title {
 				font-size: 3rem !important;
 				margin-bottom: 20px !important;
 			}
-			
+
 			/* 3. Subtítulos más legibles */
-			.hero-sub, .sol-sub, .planes-sub, .form-sub {
+			.hero-sub,
+			.sol-sub,
+			.planes-sub,
+			.form-sub {
 				font-size: 1.3rem !important;
-				max-width: 900px !important; /* Permitimos que el texto se expanda más */
+				max-width: 900px !important;
+				/* Permitimos que el texto se expanda más */
 			}
 
 			/* 4. Tarjetas más grandes (Inflamos el relleno) */
-			.sol-item, .plan-card, .demo-cell {
-				padding: 40px 30px !important; 
+			.sol-item,
+			.plan-card,
+			.demo-cell {
+				padding: 40px 30px !important;
 				border-radius: 24px !important;
 			}
 
 			/* 5. Aumentamos el espacio entre tarjetas */
-			.sol-grid, .demos-grid, .planes-grid {
+			.sol-grid,
+			.demos-grid,
+			.planes-grid {
 				gap: 30px !important;
 			}
 
 			/* 6. Textos internos de las tarjetas */
-			.sol-item h3, .plan-name { font-size: 1.4rem !important; }
-			.sol-item p, .plan-desc, .plan-features li { font-size: 1.1rem !important; line-height: 1.6 !important; }
-			.plan-amount { font-size: 2rem !important; }
+			.sol-item h3,
+			.plan-name {
+				font-size: 1.4rem !important;
+			}
+
+			.sol-item p,
+			.plan-desc,
+			.plan-features li {
+				font-size: 1.1rem !important;
+				line-height: 1.6 !important;
+			}
+
+			.plan-amount {
+				font-size: 2rem !important;
+			}
 
 			/* 7. Iconos más grandes */
-			.sol-icon { width: 90px !important; height: 90px !important; font-size: 2rem !important; }
-			.plan-icon { width: 60px !important; height: 60px !important; font-size: 1.5rem !important; }
-			.demo-icon-wrap { width: 110px !important; height: 110px !important; }
-			.demo-icon-wrap i { font-size: 3rem !important; }
-			.demo-name { font-size: 1.2rem !important; }
+			.sol-icon {
+				width: 90px !important;
+				height: 90px !important;
+				font-size: 2rem !important;
+			}
+
+			.plan-icon {
+				width: 60px !important;
+				height: 60px !important;
+				font-size: 1.5rem !important;
+			}
+
+			.demo-icon-wrap {
+				width: 110px !important;
+				height: 110px !important;
+			}
+
+			.demo-icon-wrap i {
+				font-size: 3rem !important;
+			}
+
+			.demo-name {
+				font-size: 1.2rem !important;
+			}
 
 			/* 8. Botones y Hero Logo */
-			.hero-logo-wrap { width: 180px !important; height: 180px !important; }
-			.hero-logo { width: 270px !important; height: 270px !important; }
-			.hero-cta { padding: 18px 40px !important; font-size: 1rem !important; }
-            
-            /* Separación de botones de navegación */
-            .slide-nav-prev { margin-bottom: 80px !important; transform: scale(1.2); }
-            .slide-nav-next { margin-top: 80px !important; transform: scale(1.2); }
+
+			.hero-cta {
+				padding: 18px 40px !important;
+				font-size: 1rem !important;
+			}
+
+			/* Separación de botones de navegación */
+			.slide-nav-prev {
+				margin-bottom: 80px !important;
+				transform: scale(1.2);
+			}
+
+			.slide-nav-next {
+				margin-top: 80px !important;
+				transform: scale(1.2);
+			}
 		}
 
 		/* =======================================================
 		   MODO LAPTOP / PANTALLAS MEDIANAS (Simula zoom 85%)
 		   Aplica a pantallas anchas (PC) pero con poca altura o anchura limitada
 		   ======================================================= */
-		@media (min-width: 769px) and (max-width: 1440px), (min-width: 769px) and (max-height: 850px) {
-			
+		@media (min-width: 769px) and (max-width: 1440px),
+		(min-width: 769px) and (max-height: 850px) {
+
 			/* Reducimos el tamaño base de todo el slide */
 			.slide {
-				font-size: 0.85rem !important; /* Achica ligeramente todos los textos base */
-				padding-top: 60px !important; /* Menos aire arriba */
+				font-size: 0.85rem !important;
+				/* Achica ligeramente todos los textos base */
+				padding-top: 60px !important;
+				/* Menos aire arriba */
 			}
 
 			/* Hacemos el Hero un poco más compacto */
-			.hero-title { font-size: 3rem !important; margin-bottom: 15px !important; }
-			.hero-logo-wrap { width: 100px !important; height: 100px !important; margin-bottom: 20px !important; }
-			.hero-logo { width: 170px !important; height: 170px !important; }
-			
+			.hero-title {
+				font-size: 3rem !important;
+				margin-bottom: 15px !important;
+			}
+
+
 			/* Compactamos las Grillas */
-			.sol-grid, .planes-grid { 
-				gap: 12px !important; 
+			.sol-grid,
+			.planes-grid {
+				gap: 12px !important;
 				max-width: 950px !important;
 			}
-			
+
 			.demos-grid {
 				gap: 15px !important;
 				max-width: 800px !important;
 			}
 
 			/* Achicamos tarjetas */
-			.sol-item, .plan-card {
+			.sol-item,
+			.plan-card {
 				padding: 18px 14px !important;
 			}
-			
+
 			/* Iconos un poco más pequeños */
-			.sol-icon { width: 55px !important; height: 55px !important; font-size: 1.3rem !important; margin-bottom: 10px !important; }
-			.plan-icon { width: 38px !important; height: 38px !important; margin-bottom: 10px !important; }
-			
+			.sol-icon {
+				width: 55px !important;
+				height: 55px !important;
+				font-size: 1.3rem !important;
+				margin-bottom: 10px !important;
+			}
+
+			.plan-icon {
+				width: 38px !important;
+				height: 38px !important;
+				margin-bottom: 10px !important;
+			}
+
 			/* Textos de tarjetas */
-			.sol-item p, .plan-desc { font-size: 0.85rem !important; }
-			.plan-amount { font-size: 1.3rem !important; }
-			
+			.sol-item p,
+			.plan-desc {
+				font-size: 0.85rem !important;
+			}
+
+			.plan-amount {
+				font-size: 1.3rem !important;
+			}
+
 			/* Botones de navegación más pegados al contenido */
-			.slide-nav-prev { margin-bottom: 20px !important; }
-			.slide-nav-next { margin-top: 20px !important; }
+			.slide-nav-prev {
+				margin-bottom: 20px !important;
+			}
+
+			.slide-nav-next {
+				margin-top: 20px !important;
+			}
 		}
 
 		/* =======================================================
@@ -2429,19 +2501,9 @@
 				/* Centrado visual */
 			}
 
-			.hero-logo-wrap {
-				width: auto !important;
-				height: auto !important;
-				border: none !important;
-				background: transparent !important;
-				margin-bottom: 15px !important;
-			}
 
-			.hero-logo {
-				width: 140px !important; /* Tamaño perfecto para celular (Imponente) */
-				height: auto !important;
-                filter: drop-shadow(0 0 15px rgba(243, 160, 34, 0.5));
-			}
+
+
 
 			.hero-title {
 				font-size: clamp(2rem, 8vw, 2.5rem) !important;
@@ -2630,8 +2692,8 @@
 			/* 9. SLIDE 5: FORMULARIO */
 			.form-wrap {
 				/* En celular sí queremos que ocupe casi todo el ancho disponible */
-                max-width: 100% !important; 
-				width: 95% !important; 
+				max-width: 100% !important;
+				width: 95% !important;
 				margin-top: 0 !important;
 				padding: 0 5px;
 			}
@@ -2731,6 +2793,94 @@
 
 			/* Volvemos a mostrar la descripción si hay espacio */
 		}
+
+		/* =======================================================
+   		CENTRALIZACIÓN MAESTRA: LOGO Y ESPACIADO HERO
+   		======================================================= */
+
+		/* --- 1. Reglas Globales (Aplican a todos los tamaños) --- */
+		.hero-logo-wrap {
+			width: auto !important;
+			height: auto !important;
+			background: transparent !important;
+			/* Sin recuadro gris */
+			border: none !important;
+			box-shadow: none !important;
+			display: flex !important;
+			justify-content: center !important;
+			margin-bottom: 0px !important;
+			/* Pegado al texto */
+		}
+
+		.hero-logo {
+			object-fit: contain !important;
+			filter: drop-shadow(0 0 20px rgba(243, 160, 34, 0.4)) !important;
+			transition: width 0.4s ease, transform 0.3s ease !important;
+		}
+
+		.hero-wrap {
+			display: flex !important;
+			flex-direction: column !important;
+			align-items: center !important;
+			text-align: center !important;
+			gap: 10px !important;
+			/* Espacio entre Logo, Título y Subtítulo */
+		}
+
+		/* --- 2. Ajustes por Resolución --- */
+
+		/* Celulares (Pantallas pequeñas) */
+		@media (max-width: 768px) {
+			.hero-logo {
+				width: 140px !important;
+			}
+
+			.hero-wrap {
+				gap: 15px !important;
+			}
+
+			/* Un poco más de aire en móvil */
+		}
+
+		/* Laptops y Pantallas Medianas (1280px / 1440px) */
+		@media (min-width: 769px) and (max-width: 1600px) {
+			.hero-logo {
+				width: 220px !important;
+			}
+		}
+
+		/* Laptops "bajitas" (como tu pantalla secundaria de 1280x800) */
+		@media (min-width: 769px) and (max-height: 850px) {
+			.hero-logo {
+				width: 160px !important;
+			}
+
+			/* Lo achicamos un poco para que quepa todo */
+			.hero-wrap {
+				gap: 5px !important;
+			}
+
+			/* Apretamos el espacio */
+		}
+
+		/* Pantallas Gigantes / Mac Retina (Más de 1600px) */
+		@media (min-width: 1601px) {
+			.hero-logo {
+				width: 320px !important;
+			}
+
+			/* Logo imponente */
+			.hero-wrap {
+				gap: 20px !important;
+			}
+		}
+
+
+
+
+
+
+		
 	</style>
 </head>
 
