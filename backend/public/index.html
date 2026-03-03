@@ -327,15 +327,16 @@
 			flex-direction: column;
 			align-items: center;
 			gap: 15px;
-            width: 100%;
+			width: 100%;
 		}
 
 		.social-links {
 			display: flex;
 			gap: 15px;
 			justify-content: center;
-            z-index: 20; /* Para que sean clickeables sobre el fondo */
-            position: relative;
+			z-index: 20;
+			/* Para que sean clickeables sobre el fondo */
+			position: relative;
 		}
 
 		.social-links a {
@@ -345,12 +346,12 @@
 			align-items: center;
 			justify-content: center;
 			border-radius: 50%;
-			
+
 			/* Estilo Glassmorphism (Vidrio) */
 			background: rgba(255, 255, 255, 0.05);
 			border: 1px solid rgba(255, 255, 255, 0.1);
 			color: rgba(255, 255, 255, 0.6);
-			
+
 			font-size: 1.1rem;
 			text-decoration: none;
 			transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -358,11 +359,14 @@
 
 		/* Efecto Hover (Al pasar el mouse) */
 		.social-links a:hover {
-			background: rgba(243, 160, 34, 0.15); /* Fondo naranja sutil */
+			background: rgba(243, 160, 34, 0.15);
+			/* Fondo naranja sutil */
 			border-color: var(--orange);
 			color: var(--orange);
-			transform: translateY(-4px) scale(1.1); /* Salta y crece un poco */
-			box-shadow: 0 5px 15px rgba(243, 160, 34, 0.3); /* Resplandor */
+			transform: translateY(-4px) scale(1.1);
+			/* Salta y crece un poco */
+			box-shadow: 0 5px 15px rgba(243, 160, 34, 0.3);
+			/* Resplandor */
 		}
 
 
@@ -2627,15 +2631,17 @@
 
 			/* --- QUITAR ANIMACIÓN DE FLECHA EN SLIDES INTERNOS --- */
 			.slide-nav-next i {
-				animation: none !important; /* La flecha se queda quieta */
+				animation: none !important;
+				/* La flecha se queda quieta */
 				margin-left: 6px;
 				font-size: 0.6rem;
 			}
 
 			/* --- MANTENER ANIMACIÓN SOLO EN EL PRIMER SLIDE (HERO) --- */
 			#slide-0 .slide-nav-next i {
-				animation: arrowNextPulse 2s infinite !important; /* Solo rebota en el inicio */
-                color: var(--orange);
+				animation: arrowNextPulse 2s infinite !important;
+				/* Solo rebota en el inicio */
+				color: var(--orange);
 			}
 
 			/* 4. SLIDE 1: HERO (Logo reducido y textos ajustados) */
@@ -3227,7 +3233,7 @@
 
 
 				<button class="slide-nav-next" onclick="goTo(4)">
-				Inicie Transformación<i class="fas fa-arrow-down"></i>
+					Inicie Transformación<i class="fas fa-arrow-down"></i>
 				</button>
 			</div>
 		</div>
@@ -3286,7 +3292,8 @@
 						<a href="https://www.facebook.com/iasesoria.cl/" target="_blank" title="Fanpage Facebook">
 							<i class="fab fa-facebook-f"></i>
 						</a>
-						<a href="https://www.linkedin.com/in/benjamin-carmona-69aa44223/" target="_blank" title="Perfil LinkedIn">
+						<a href="https://www.linkedin.com/in/benjamin-carmona-69aa44223/" target="_blank"
+							title="Perfil LinkedIn">
 							<i class="fab fa-linkedin-in"></i>
 						</a>
 						<a href="mailto:soporte@iasesoria.cl" title="Enviar Correo">
@@ -3294,6 +3301,9 @@
 						</a>
 					</div>
 				</div>
+			</div> <!-- Cierra form-wrap -->
+		</div> <!-- Cierra el slide-4 (Formulario) -->
+	</div> <!-- Cierra el noria-viewport (Contenedor principal de slides) -->
 
 	<!-- DOTS NAVEGACIÓN -->
 	<div class="nav-dots" id="nav-dots"></div>
