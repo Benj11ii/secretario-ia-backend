@@ -4217,6 +4217,23 @@
 			_origGoTo(index, e);
 			setTimeout(() => updateMobileMenuActive(index), 0);
 		};
+		// Detectar el ancla #five al cargar la página o cambiar la URL
+		function checkHashNavigation() {
+			const hash = window.location.hash;
+			if (hash === '#five' || window.location.search.includes('servicio')) {
+				// Le damos un pequeño delay de 500ms para que la página 
+				// termine de cargar antes de hacer el salto al Slide 4
+				setTimeout(() => {
+					goTo(4);
+				}, 500);
+			}
+		}
+
+		// Ejecutar cuando se carga la página
+		window.addEventListener('load', checkHashNavigation);
+
+		// Ejecutar si el usuario cambia el hash sin recargar (opcional)
+		window.addEventListener('hashchange', checkHashNavigation);
 	</script>
 
 </body>
