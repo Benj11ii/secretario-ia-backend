@@ -2875,35 +2875,58 @@
 				font-size: 0.8rem !important;
 			}
 
-			/* 10. MODALES (Bottom Sheet) */
+			/* 10. MODALES (Centrados en Pantalla) */
 			.demo-overlay {
-				align-items: flex-end !important;
-				padding: 0 !important;
+				align-items: center !important;
+				/* <--- ESTO LO CENTRA VERTICALMENTE */
+				justify-content: center !important;
+				/* <--- ESTO LO CENTRA HORIZONTALMENTE */
+				padding: 20px !important;
+				/* Aire alrededor para que no toque los bordes */
 			}
 
 			.demo-modal {
-				width: 100% !important;
-				max-height: 85vh !important;
-				border-radius: 28px 28px 0 0 !important;
-				margin: 0 !important;
-				transform: translateY(100%) !important;
+				width: 90% !important;
+				/* Ancho del 90% de la pantalla */
+				max-width: 400px !important;
+				/* Que no sea demasiado ancho en tablets */
+				max-height: 80vh !important;
+				/* Altura máxima */
+				border-radius: 24px !important;
+				/* Bordes redondeados completos */
+				margin: 0 auto !important;
+				/* Centrado automático */
+
+				/* Animación de Zoom Suave (Pop-up) */
+				transform: scale(0.9) !important;
+				opacity: 0;
+				transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 			}
 
 			.demo-overlay.open .demo-modal {
-				transform: translateY(0) !important;
+				transform: scale(1) !important;
+				/* Al abrirse, crece a tamaño normal */
+				opacity: 1;
 			}
 
 			.dm-head {
-				padding: 20px 20px 0 !important;
+				padding: 16px 16px 0 !important;
+				/* Ajuste de padding interno */
 			}
 
 			.dm-body {
-				padding: 0 20px 20px !important;
+				padding: 0 16px 20px !important;
+				/* Ajuste de padding interno */
 			}
 
 			.chat-messages {
-				height: 45vh !important;
+				height: 50vh !important;
+				/* Altura del chat ajustada */
 			}
+
+
+
+
 
 			/* 11. EXTRAS (Whatsapp, Dots, Scroll) */
 			.nav-dots {
