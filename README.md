@@ -15,4 +15,8 @@ Sistema de gestión de asesorías técnicas que utiliza **Ollama** para resumir 
 - Notificaciones en tiempo real vía Telegram.
 
 ## ⚙️ Notas de Optimización
-*Proyecto optimizado para hardware modesto (Celeron N95).*
+Proyecto optimizado para hardware modesto (Celeron N95).
+Trabajando con offloading en Mac M1.
+
+##Despligue y pruebas en vivo##
+Puedes ver el funcionamiento general directamente en iasesoria.cl.
