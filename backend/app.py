@@ -448,7 +448,35 @@ def guardar_solicitud():
     if not datos:
         return jsonify({"error": "No se recibieron datos"}), 400
 
-    # Iniciar proceso en segundo plano
+    # --- FILTRO 1: HONEYPOT ---
+    if datos.get("segundo_nombre", "").strip():
+        logging.info("🤖 BOT bloqueado por honeypot")
+        return redirect("/gracias")
+
+    # --- FILTRO 2: VALIDACIÓN BÁSICA ---
+    import re
+    nombre = datos.get("nombre", "")
+    correo = datos.get("correo", "")
+    texto  = datos.get("texto_original", "") or datos.get("solicitud", "")
+
+    def parece_aleatorio(s):
+        s = s.lower()
+        if len(s) < 3:
+            return True
+        vocales = sum(1 for c in s if c in "aeiouáéíóú")
+        if len(s) > 4 and vocales == 0:
+            return True
+        return False
+
+    if parece_aleatorio(nombre) or parece_aleatorio(texto):
+        logging.info(f"🤖 BOT bloqueado por texto aleatorio: nombre='{nombre}'")
+        return redirect("/gracias")
+
+    if not re.match(r"[^@]+@[^@]+\.[^@]+", correo):
+        logging.info(f"🤖 BOT bloqueado por correo inválido: '{correo}'")
+        return redirect("/gracias")
+
+    # Solicitud legítima — lanzar hilo
     hilo = threading.Thread(target=tarea_fondo_ia, args=(datos,))
     hilo.start()
 
