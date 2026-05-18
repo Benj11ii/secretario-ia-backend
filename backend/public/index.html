@@ -3261,59 +3261,67 @@
 			</div>
 		</div>
 
+
+
 		<!-- ======= SLIDE 5: FORMULARIO ======= -->
-		<div class="slide" id="slide-4">
-			<button class="slide-nav-prev" onclick="goTo(3)">
-				<i class="fas fa-arrow-up"></i> Revisar Planes
-			</button>
+				<div class="slide" id="slide-4">
+    <button class="slide-nav-prev" onclick="goTo(3)">
+        <i class="fas fa-arrow-up"></i> Revisar Planes
+    </button>
 
-			<div class="form-wrap">
-				<div class="form-head">
-					<br>
-					<p class="form-eyebrow"><br>Inicio de transformación</p>
-					<h2 class="form-title">Inicie su transformación</h2>
-					<p class="form-sub">Cuéntenos su necesidad y deje que nuestra IA le ayude con una solución
-						personalizada.</p>
-					<br>
-				</div>
+    <div class="form-wrap">
+        <div class="form-head">
+            <br>
+            <p class="form-eyebrow"><br>Inicio de transformación</p>
+            <h2 class="form-title">Inicie su transformación</h2>
+            <p class="form-sub">Cuéntenos su necesidad y deje que nuestra IA le ayude con una solución personalizada.</p>
+            <br>
+        </div>
 
-				<form class="ia-form" method="POST" action="https://www.iasesoria.cl/secretario/guardar">
-					<input type="hidden" name="servicio_interes" id="servicio_interes" value="">
-					<div class="form-row">
-						<div class="form-field">
-							<label>Nombre</label>
-							<input type="text" name="nombre" placeholder="Su nombre" required>
-						</div>
-						<div class="form-field">
-							<label>Teléfono</label>
-							<input type="tel" name="telefono" placeholder="9 1234 5678" pattern="[0-9]{9,12}" required>
-						</div>
-					</div>
-					<div class="form-field">
-						<label>Email</label>
-						<input type="email" name="correo" placeholder="su@correo.cl" required>
-					</div>
-					<div class="form-field">
-						<label>¿En qué podemos ayudarle?</label>
-						<textarea name="texto_original" placeholder="Describa su necesidad o proyecto..."
-							required></textarea>
-					</div>
-					<button type="submit" class="btn-submit">
-						<i class="fas fa-paper-plane"></i> Enviar solicitud
-					</button>
-				</form>
+        <form class="ia-form" method="POST" action="https://www.iasesoria.cl/secretario/guardar">
+            <input type="hidden" name="servicio_interes" id="servicio_interes" value="">
+            
+            <div style="display:none !important;" aria-hidden="true">
+                <label for="segundo_nombre">No rellenar</label>
+                <input type="text" id="segundo_nombre" name="segundo_nombre" tabindex="-1" autocomplete="off">
+            </div>
+            <div class="form-row">
+                <div class="form-field">
+                    <label>Nombre</label>
+                    <input type="text" name="nombre" placeholder="Su nombre" required>
+                </div>
+                <div class="form-field">
+                    <label>Teléfono</label>
+                    <input type="tel" name="telefono" placeholder="9 1234 5678" pattern="[0-9]{9,12}" required>
+                </div>
+                <div class="form-field">
+                    <label>Email</label>
+                    <input type="email" name="correo" placeholder="su@correo.cl" required>
+                </div>
+                <div class="form-field">
+                    <label>¿En qué podemos ayudarle?</label>
+                    <textarea name="texto_original" placeholder="Describa su necesidad o proyecto..." required></textarea>
+                </div>
+            </div>
+            <button type="submit" class="btn-submit">
+                <i class="fas fa-paper-plane"></i> Enviar solicitud
+            </button>
+        </form>
 
-				<div class="form-footer-container">
-					<p class="form-legal">
-						Utilizamos IA para el análisis preliminar de tu solicitud. Supervisión humana garantizada.
-						<br>
-						Creado por <strong style="color:var(--orange);">Benjamín Carmona</strong> · Villarrica, Chile
-					</p>
+        <div class="form-footer-container">
+            <p class="form-legal">
+                Utilizamos IA para el análisis preliminar de tu solicitud. Supervisión humana garantizada.
+                <br>
+                Creado por <strong style="color:var(--orange);">Benjamín Carmona</strong> · Villarrica, Chile
+            </p>
+
+
 
 					<!-- ICONOS SOCIALES -->
 					<div class="social-links">
 						<a href="https://www.facebook.com/iasesoria.cl/" target="_blank" title="Fanpage Facebook">
 							<i class="fab fa-facebook-f"></i>
+
 						</a>
 						<a href="https://www.linkedin.com/in/benjamin-carmona-69aa44223/" target="_blank"
 							title="Perfil LinkedIn">
