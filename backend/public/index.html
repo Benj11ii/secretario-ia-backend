@@ -49,8 +49,110 @@
 
 
 
+		/* =========================================
+   FOUNDER STRIP — Quién soy
+   ========================================= */
+.founder-strip {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 16px 20px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(243, 160, 34, 0.15);
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto 6px;
+}
 
+.founder-photo-wrap {
+    flex-shrink: 0;
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    border: 2px solid rgba(243, 160, 34, 0.5);
+    box-shadow: 0 0 18px rgba(243, 160, 34, 0.18);
+    overflow: hidden;
+}
 
+.founder-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+}
+
+.founder-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.founder-name {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: 0.3px;
+}
+
+.founder-role {
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--orange);
+    opacity: 0.8;
+}
+
+.founder-bio {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.5;
+    margin-top: 4px;
+    font-weight: 300;
+}
+
+.founder-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 500px;
+    margin: 2px auto 8px;
+}
+
+.founder-divider::before,
+.founder-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(243,160,34,0.2), transparent);
+}
+
+.founder-divider span {
+    font-size: 0.72rem;                 /* Aumentado de 0.58rem para mejor lectura */
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(243, 160, 34, 0.85);   /* Cambiado a naranja/dorado visible */
+    font-weight: 500;                  /* Añade un poco más de cuerpo a la letra */
+    white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+    .founder-strip {
+        gap: 14px;
+        padding: 14px 16px;
+    }
+    .founder-photo-wrap {
+        width: 52px;
+        height: 52px;
+    }
+    .founder-bio {
+        font-size: 0.7rem;
+    }
+}
+		
+		
+		
 		/* =========================================
    		DISEÑO PREMIUM DE FORMULARIO (MACRO)
    		========================================= */
@@ -793,264 +895,185 @@
 				transform: translateY(4px);
 			}
 		}
-
+		
 		/* =========================================
-           SLIDE 2 — SOLUCIONES
-           ========================================= */
-		#slide-1 {
-			background: transparent;
-		}
+   SLIDE DEMOS-SOLUCIONES FUSIONADO
+   ========================================= */
+#slide-1 { background: transparent; }
 
-		.sol-wrap {
-			width: 100%;
-			max-width: 1100px;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			gap: 36px;
-		}
+.demos-list-wrap {
+    width: 100%;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    margin: 0 auto;
+}
 
-		.sol-head {
-			text-align: center;
-		}
+.demos-list-head {
+    text-align: center;
+}
 
-		.sol-title {
-			font-size: clamp(1.5rem, 3vw, 2.4rem);
-			font-weight: 300;
-			letter-spacing: -0.3px;
-			color: var(--white);
-			margin-bottom: 12px;
-		}
+.demos-list-eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--orange);
+    font-weight: 600;
+    margin-bottom: 8px;
+}
 
-		.sol-sub {
-			font-size: clamp(0.78rem, 1.3vw, 0.92rem);
-			color: rgba(255, 255, 255, 0.4);
-			font-weight: 300;
-			line-height: 1.7;
-			max-width: 680px;
-		}
+.demos-list-title {
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 300;
+    color: var(--white);
+    letter-spacing: -0.3px;
+}
 
-		.sol-divider {
-			width: 60px;
-			height: 1px;
-			background: var(--orange);
-			margin: 18px auto 0;
-			opacity: 0.6;
-		}
+.demos-list-sub {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.5);
+    margin-top: 8px;
+    line-height: 1.6;
+}
 
-		.sol-grid {
-			display: grid;
-			grid-template-columns: repeat(4, 1fr);
-			gap: 18px;
-			width: 100%;
-		}
+.demos-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+}
 
-		.sol-item {
-			text-align: center;
-			padding: 26px 16px;
-			border-radius: 16px;
-			border: 1px solid var(--border);
-			background: rgba(10, 10, 10, 0.75) !important;
-			transition: border-color 0.3s, background 0.3s, transform 0.4s var(--ease);
-		}
-
-		.sol-item:hover {
-			border-color: rgba(243, 160, 34, 0.25);
-			background: rgba(243, 160, 34, 0.04);
-			transform: translateY(-4px);
-		}
-
-		.sol-icon {
-			width: 70px;
-			height: 70px;
-			border-radius: 50%;
-			background: rgba(255, 255, 255, 0.05);
-			border: 1px solid rgba(255, 255, 255, 0.08);
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			margin: 0 auto 16px;
-			font-size: 1.6rem;
-			filter: drop-shadow(0 0 10px rgba(243, 160, 34, 0.4)) !important;
-			color: rgba(255, 255, 255, 0.831);
-			transition: all 0.3s;
-		}
-
-		.sol-item:hover .sol-icon {
-			background: rgba(243, 160, 34, 0.1);
-			border-color: rgba(243, 160, 34, 0.3);
-			color: var(--orange);
-		}
-
-		.sol-item h3 {
-			font-size: 0.85rem;
-			font-weight: 500;
-			color: var(--white);
-			margin-bottom: 10px;
-			letter-spacing: 0.2px;
-		}
-
-		.sol-item p {
-			font-size: 0.95rem !important;
-			color: rgba(255, 255, 255, 0.55) !important;
-			line-height: 1.6 !important;
-			text-align: center;
-		}
-
-		@media (max-width: 860px) {
-			.sol-grid {
-				grid-template-columns: repeat(2, 1fr);
-			}
-		}
-
-		@media (max-width: 500px) {
-			.sol-grid {
-				grid-template-columns: 1fr;
-			}
-		}
-
-		/* =========================================
-           SLIDE 3 — DEMOS
-           ========================================= */
-		#slide-2 {
-			background: transparent;
-		}
-
-		.demos-wrap {
-			width: 100%;
-			max-width: 850px;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			gap: 30px;
-		}
-
-		.demos-head {
-			text-align: center;
-		}
-
-		.demos-eyebrow {
-			font-size: 0.62rem;
-			letter-spacing: 4px;
-			text-transform: uppercase;
-			color: var(--orange);
-			opacity: 0.8;
-			margin-bottom: 8px;
-		}
-
-		.demos-title {
-			font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-			font-weight: 300;
-			color: var(--white);
-			letter-spacing: -0.3px;
-		}
-
-		.demos-grid {
-			display: grid;
-			grid-template-columns: repeat(4, 1fr);
-			gap: 24px;
-			width: 100%;
-			margin-top: 30px;
-		}
-
-		.demo-cell {
-			aspect-ratio: 1;
-			border-radius: 20px;
-			border: 1px solid rgba(255, 255, 255, 0.12);
-			background: rgba(10, 10, 10, 0.75) !important;
-			backdrop-filter: blur(12px) !important;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-			gap: 11px;
-			text-decoration: none;
-			color: var(--white);
-			transition: all 0.35s var(--ease);
-			position: relative;
-			overflow: hidden;
-		}
-
-		.demo-cell::before {
-			content: '';
-			position: absolute;
-			inset: 0;
-			background: radial-gradient(circle at center, rgba(243, 160, 34, 0.1) 0%, transparent 70%);
-			opacity: 0;
-			transition: opacity 0.4s;
-		}
-
-		.demo-cell:hover::before {
-			opacity: 1;
-		}
-
-		.demo-cell:hover {
-			border-color: rgba(243, 160, 34, 0.35);
-			background: rgba(243, 160, 34, 0.05);
-			transform: scale(1.04) translateY(-2px);
-			box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-		}
-
-		.demo-icon-wrap {
-			width: 85px !important;
-			height: 85px !important;
-			margin-bottom: 20px !important;
-			background: rgba(243, 160, 34, 0.05) !important;
-			border: 1.5px solid rgba(243, 160, 34, 0.4) !important;
-			border-radius: 22px !important;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			transition: all 0.4s ease !important;
-			box-shadow: inset 0 0 15px rgba(243, 160, 34, 0.1) !important;
-		}
-
-		.demo-icon-wrap i {
-			font-size: 2.4rem !important;
-			color: var(--orange) !important;
-			filter: drop-shadow(0 0 10px rgba(243, 160, 34, 0.5)) !important;
-			-webkit-filter: drop-shadow(0 0 10px rgba(243, 160, 34, 0.5)) !important;
-		}
-
-		.demo-cell:hover .demo-icon-wrap {
-			background: var(--orange) !important;
-			border-color: #ffffff !important;
-			transform: scale(1.1) !important;
-			box-shadow: 0 0 25px rgba(243, 160, 34, 0.4) !important;
-		}
-
-		.demo-cell:hover .demo-icon-wrap i {
-			color: #000000 !important;
-			filter: none !important;
-		}
-
-		.demo-name {
-			font-size: 1rem !important;
-			margin-top: 5px;
-		}
+.demos-list-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 24px;
+    border-radius: 16px;
+    border: 1px solid rgba(243, 160, 34, 0.35);
+    background: rgba(10, 10, 10, 0.75);
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--white);
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s var(--ease), box-shadow 0.3s ease;
+}
 
 
+/* --- OPCIÓN A: Glassmorphism naranja sutil --- */
+.demos-list-item:hover {
+    background: rgba(243, 160, 34, 0.08);
+    color: var(--white);
+    border-color: var(--orange);
+    border-width: 1.5px;
+    transform: translateX(6px);
+    box-shadow: 0 0 0 1px rgba(243,160,34,0.15), 0 8px 30px rgba(243, 160, 34, 0.2);
+}
+
+.demos-list-icon {
+    width: 54px;
+    height: 54px;
+    flex-shrink: 0;
+    border-radius: 14px;
+    border: 1.5px solid rgba(243, 160, 34, 0.4);
+    background: rgba(243, 160, 34, 0.07);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: var(--orange);
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Opción A y B: ícono se rellena naranja sólido */
+.demos-list-item:hover .demos-list-icon {
+    background: var(--orange);
+    border-color: var(--orange);
+    color: #000;
+}
+
+.demos-list-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+.demos-list-name {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    transition: color 0.3s ease;
+}
+
+.demos-list-desc {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.5;
+    transition: color 0.3s ease;
+}
+
+/* Opción A y B: descripción sigue blanca suave */
+.demos-list-item:hover .demos-list-desc {
+    color: rgba(255,255,255,0.6);
+}
+
+.demos-list-arrow {
+    font-size: 0.8rem;
+    color: rgba(243,160,34,0.5);
+    transition: color 0.3s ease, transform 0.3s ease;
+    flex-shrink: 0;
+}
+
+/* Opción A y B */
+.demos-list-item:hover .demos-list-arrow {
+    color: var(--orange);
+    transform: translateX(4px);
+}
+
+/* Responsive móvil */
+@media (max-width: 768px) {
+    .demos-list-wrap {
+        width: 95%;
+        gap: 20px;
+    }
+    .demos-list-item {
+        padding: 16px 16px;
+        gap: 14px;
+    }
+    .demos-list-icon {
+        width: 46px;
+        height: 46px;
+        font-size: 1.2rem;
+    }
+    .demos-list-name {
+        font-size: 0.9rem;
+    }
+    .demos-list-desc {
+        font-size: 0.72rem;
+    }
+}
 		/* =========================================
            SLIDE 5 — FORMULARIO CONTACTO
            ========================================= */
-		#slide-4 {
-			background: transparent;
-		}
-
 		.form-wrap {
 			width: 100%;
 			max-width: 500px !important;
-			/* <--- ESTO EVITA QUE SE ESTIRE */
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			gap: 25px;
+			gap: 12px;
 			margin: 0 auto;
-			/* Centrado */
 		}
 
 		.form-head {
 			text-align: center;
+			margin-bottom: 0;
+			padding-top: 0;
+		}
+
+		.form-title {
+			margin-bottom: 6px !important;
 		}
 
 		.form-eyebrow {
@@ -1798,110 +1821,6 @@
 			color: var(--orange);
 		}
 
-		.sort-desc {
-			font-size: .82rem;
-			color: rgba(255, 255, 255, 0.4);
-			text-align: center;
-			margin-bottom: 18px;
-			line-height: 1.6;
-		}
-
-		.sort-board {
-			display: flex;
-			flex-direction: column;
-			gap: 7px;
-			margin-bottom: 18px;
-		}
-
-		.sort-row {
-			display: flex;
-			align-items: center;
-			gap: 10px;
-			padding: 10px 14px;
-			border-radius: 10px;
-			border: 1px solid rgba(255, 255, 255, 0.06);
-			background: rgba(255, 255, 255, 0.02);
-			transition: all .5s cubic-bezier(.22, 1, .36, 1);
-		}
-
-		.sort-row.highlight {
-			border-color: rgba(243, 160, 34, 0.3);
-			background: rgba(243, 160, 34, 0.05);
-		}
-
-		.sort-rank {
-			font-size: .65rem;
-			font-weight: 700;
-			color: rgba(255, 255, 255, 0.2);
-			width: 18px;
-			text-align: center;
-			transition: color .5s;
-		}
-
-		.sort-row.highlight .sort-rank {
-			color: var(--orange);
-		}
-
-		.sort-name {
-			flex: 1;
-			font-size: .78rem;
-			color: rgba(255, 255, 255, 0.6);
-		}
-
-		.sort-bar-bg {
-			width: 90px;
-			height: 5px;
-			border-radius: 3px;
-			background: rgba(255, 255, 255, 0.06);
-			overflow: hidden;
-		}
-
-		.sort-bar-fill {
-			height: 100%;
-			border-radius: 3px;
-			background: rgba(243, 160, 34, 0.3);
-			transition: width 1s cubic-bezier(.22, 1, .36, 1), background .5s;
-		}
-
-		.sort-row.highlight .sort-bar-fill {
-			background: var(--orange);
-		}
-
-		.sort-val {
-			font-size: .72rem;
-			font-weight: 600;
-			color: rgba(255, 255, 255, 0.3);
-			width: 36px;
-			text-align: right;
-			transition: color .5s;
-		}
-
-		.sort-row.highlight .sort-val {
-			color: var(--orange);
-		}
-
-		.sort-run-btn {
-			width: 100%;
-			padding: 13px;
-			border-radius: 10px;
-			background: rgba(243, 160, 34, 0.08);
-			border: 1px solid rgba(243, 160, 34, 0.25);
-			color: var(--orange);
-			font-family: 'Inter', sans-serif;
-			font-size: .72rem;
-			font-weight: 600;
-			letter-spacing: 2px;
-			text-transform: uppercase;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			gap: 8px;
-			transition: all .3s;
-		}
-
-		.sort-run-btn:hover {
-			background: rgba(243, 160, 34, 0.15);
-		}
 
 		.eco-desc {
 			font-size: .82rem;
@@ -2002,15 +1921,11 @@
 		}
 
 		/* Ajuste global de legibilidad */
-		.sol-sub,
-		.demos-hint,
-		.form-sub,
-
-		.demo-name {
+		.form-sub {
 			font-size: 0.8rem !important;
 			color: rgba(255, 255, 255, 0.9) !important;
 		}
-
+		
 		/* Correcciones de legibilidad */
 		.form-field label {
 			color: rgba(255, 255, 255, 0.95) !important;
@@ -2033,21 +1948,12 @@
 			color: rgba(255, 255, 255, 0.65) !important;
 		}
 
-		.demo-name {
-			color: #ffffff !important;
-			font-size: 0.95rem !important;
-			font-weight: 900 !important;
-		}
-
-		.demos-eyebrow,
 		.form-eyebrow {
 			font-size: 0.75rem !important;
 			font-weight: 600 !important;
 			opacity: 1 !important;
 		}
-
-		.sol-sub,
-		.demos-hint,
+		
 		.form-sub,
 		.form-legal {
 			color: rgba(255, 255, 255, 0.85) !important;
@@ -2149,23 +2055,18 @@
 		   ======================================================= */
 		@media (min-width: 1601px) {
 
-			/* 1. Ensanchamos los contenedores para que no se vean angostos */
-			.sol-wrap,
-			.demos-wrap,
+			/* 1. Ensanchamos los contenedores */
 			.form-wrap,
 			.hero-wrap {
 				max-width: 1400px !important;
-				/* Antes era ~1100px */
 				width: 85% !important;
 			}
 
-			/* 2. Títulos más grandes e imponentes */
+			/* 2. Títulos más grandes */
 			.hero-title {
 				font-size: 5rem !important;
 			}
 
-			.sol-title,
-			.demos-title,
 			.form-title {
 				font-size: 3rem !important;
 				margin-bottom: 20px !important;
@@ -2173,52 +2074,12 @@
 
 			/* 3. Subtítulos más legibles */
 			.hero-sub,
-			.sol-sub,
 			.form-sub {
 				font-size: 1.3rem !important;
 				max-width: 900px !important;
-				/* Permitimos que el texto se expanda más */
 			}
 
-			/* 4. Tarjetas más grandes (Inflamos el relleno) */
-			.sol-item,
-
-			.demo-cell {
-				padding: 40px 30px !important;
-				border-radius: 24px !important;
-			}
-
-			/* 5. Aumentamos el espacio entre tarjetas */
-			.sol-grid,
-			.demos-grid,
-
-			/* 6. Textos internos de las tarjetas */
-			.sol-item h3,
-
-
-			.sol-item p,
-
-			/* 7. Iconos más grandes */
-			.sol-icon {
-				width: 90px !important;
-				height: 90px !important;
-				font-size: 2rem !important;
-			}
-
-
-
-			.demo-icon-wrap {
-				width: 110px !important;
-				height: 110px !important;
-			}
-
-			.demo-icon-wrap i {
-				font-size: 3rem !important;
-			}
-
-			.demo-name {
-				font-size: 1.2rem !important;
-			}
+			
 
 			/* 8. Botones y Hero Logo */
 
@@ -2261,29 +2122,7 @@
 			}
 
 
-			/* Compactamos las Grillas */
-			.sol-grid,
-
-			.demos-grid {
-				gap: 15px !important;
-				max-width: 800px !important;
-			}
-
-			/* Achicamos tarjetas */
-			.sol-item,
-
-
-			/* Iconos un poco más pequeños */
-			.sol-icon {
-				width: 55px !important;
-				height: 55px !important;
-				font-size: 1.3rem !important;
-				margin-bottom: 10px !important;
-			}
-
-
-			/* Textos de tarjetas */
-			.sol-item p,
+			
 
 			/* Botones de navegación más pegados al contenido */
 			.slide-nav-prev {
@@ -2411,21 +2250,16 @@
 			}
 
 			/* 5. CONFIGURACIÓN DE TÍTULOS GENERALES */
-			.sol-head,
-			.demos-head,
 			.form-head {
 				margin-bottom: 20px !important;
 				text-align: center;
 			}
 
-			.sol-title,
-			.demos-title,
 			.form-title {
 				font-size: 1.6rem !important;
 				margin-bottom: 5px !important;
 			}
 
-			.sol-sub,
 			.form-sub {
 				font-size: 0.8rem !important;
 				line-height: 1.4 !important;
@@ -2433,82 +2267,11 @@
 			}
 
 			/* Ocultar elementos decorativos que quitan espacio */
-			.sol-divider,
-			.demos-eyebrow,
 			.form-eyebrow {
 				display: none !important;
 			}
 
-			/* 6. SLIDE 2: SOLUCIONES (2 Columnas Compactas) */
-			.sol-wrap {
-				width: 100%;
-				margin-top: 0 !important;
-			}
-
-			.sol-grid {
-				grid-template-columns: 1fr 1fr !important;
-				gap: 10px !important;
-			}
-
-			.sol-item {
-				padding: 15px 8px !important;
-				min-height: 150px;
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-			}
-
-			.sol-icon {
-				width: 45px !important;
-				height: 45px !important;
-				font-size: 1.2rem !important;
-				margin-bottom: 8px !important;
-			}
-
-			.sol-item h3 {
-				font-size: 0.8rem !important;
-				margin-bottom: 5px !important;
-				height: 35px;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
-
-			.sol-item p {
-				font-size: 0.65rem !important;
-				line-height: 1.3 !important;
-			}
-
-			/* 7. SLIDE 3: DEMOS (2 Columnas Cuadradas) */
-			.demos-wrap {
-				width: 100%;
-				margin-top: 0 !important;
-			}
-
-			.demos-grid {
-				grid-template-columns: repeat(2, 1fr) !important;
-				gap: 12px !important;
-				margin-top: 10px !important;
-			}
-
-			.demo-cell {
-				aspect-ratio: 1 !important;
-				padding: 10px !important;
-			}
-
-			.demo-icon-wrap {
-				width: 55px !important;
-				height: 55px !important;
-				margin-bottom: 8px !important;
-			}
-
-			.demo-icon-wrap i {
-				font-size: 1.6rem !important;
-			}
-
-			.demo-name {
-				font-size: 0.8rem !important;
-			}
+			
 
 
 
@@ -2703,9 +2466,8 @@
 
 		<ul class="nav-links">
 			<li><a href="#" class="active" onclick="goTo(0,event)">Inicio</a></li>
-			<li><a href="#" onclick="goTo(1,event)">Soluciones</a></li>
-			<li><a href="#" onclick="goTo(2,event)">Demos</a></li>
-			<li><a href="#" onclick="goTo(3,event)" class="nav-cta">Contacto</a></li>
+			<li><a href="#" onclick="goTo(1,event)">Soluciones IA</a></li>
+			<li><a href="#" onclick="goTo(2,event)" class="nav-cta">Contacto</a></li>
 		</ul>
 
 		<button class="nav-hamburger" onclick="toggleMobileMenu()" title="Menú" id="nav-hamburger">
@@ -2716,13 +2478,11 @@
 	<!-- MENÚ MÓVIL DESPLEGABLE -->
 	<div class="mobile-menu" id="mobile-menu">
 		<a href="#" onclick="goTo(0,event);closeMobileMenu()">Inicio</a>
-		<a href="#" onclick="goTo(1,event);closeMobileMenu()">Soluciones</a>
-		<a href="#" onclick="goTo(2,event);closeMobileMenu()">Demos</a>
-		<a href="#" onclick="goTo(3,event);closeMobileMenu()" class="nav-cta-mobile">Contacto</a>
+		<a href="#" onclick="goTo(1,event);closeMobileMenu()">Soluciones IA</a>
+		<a href="#" onclick="goTo(2,event);closeMobileMenu()" class="nav-cta-mobile">Contacto</a>
 	</div>
 
-	<!-- VIEWPORT NORIA -->
-	<div class="noria-viewport" id="noria">
+		<!-- VIEWPORT NORIA -->
 
 		<!-- ======= SLIDE 1: HERO ======= -->
 		<div class="slide active" id="slide-0">
@@ -2744,135 +2504,119 @@
 			</div>
 		</div>
 
-		<!-- ======= SLIDE 2: SOLUCIONES ======= -->
-		<div class="slide" id="slide-1">
-			<button class="slide-nav-prev" onclick="goTo(0)">
-				<i class="fas fa-arrow-up"></i> Volver al Inicio
-			</button>
+		
+<!-- ======= SLIDE 1: DEMOS-SOLUCIONES ======= -->
+        <div class="slide" id="slide-1">
+            <button class="slide-nav-prev" onclick="goTo(0)">
+                <i class="fas fa-arrow-up"></i> Volver al Inicio
+            </button>
 
-			<div class="sol-wrap">
-				<div class="sol-head">
-					<h2 class="sol-title">Soluciones de Inteligencia Aplicada</h2>
-					<p class="sol-sub">Optimice su tiempo y potencie el crecimiento de su empresa con tecnología
-						diseñada a su medida.</p>
-					<div class="sol-divider"></div>
-				</div>
+            <div class="demos-list-wrap">
+                <div class="demos-list-head">
+                    <p class="demos-list-eyebrow">Prueba en segundos</p>
+                    <h2 class="demos-list-title">Soluciones Inteligentes</h2>
+                    <p class="demos-list-sub">Seleccione una demo y experimente el poder de la IA aplicada a su negocio.</p>
+                </div>
 
+                <div class="demos-list">
 
+                    <a class="demos-list-item" href="#" onclick="openModal('modal-chat');return false;">
+                        <div class="demos-list-icon"><i class="fas fa-comment-dots"></i></div>
+                        <div class="demos-list-info">
+                            <span class="demos-list-name">Asistente IA</span>
+                            <span class="demos-list-desc">Chatbot inteligente que responde, asesora y gestiona clientes 24/7 sin intervención humana.</span>
+                        </div>
+                        <i class="fas fa-arrow-right demos-list-arrow"></i>
+                    </a>
 
-				<div class="sol-grid">
-					<div class="sol-item">
-						<div class="sol-icon"><i class="fas fa-robot"></i></div>
-						<h3>Eficiencia Administrativa</h3>
-						<p>Automatizamos tareas, correos y atención 24/7 con asistentes inteligentes.</p>
-					</div>
-					<div class="sol-item">
-						<div class="sol-icon"><i class="fas fa-chart-line"></i></div>
-						<h3>Inteligencia de Datos</h3>
-						<p>Limpiamos bases de datos y creamos dashboards para decisiones estratégicas.</p>
-					</div>
-					<div class="sol-item">
-						<div class="sol-icon"><i class="fas fa-link"></i></div>
-						<h3>Ecosistema Conectado</h3>
-						<p>Conectamos Telegram, Sheets y su CRM para un flujo de trabajo automático.</p>
-					</div>
-					<div class="sol-item">
-						<div class="sol-icon"><i class="fas fa-handshake"></i></div>
-						<h3>Asesoría Estratégica</h3>
-						<p>Consultoría y soporte para PYMES. Optimizamos su negocio paso a paso.</p>
-					</div>
-				</div>
+                    <a class="demos-list-item" href="#" onclick="openModal('modal-dash');initDash();return false;">
+                        <div class="demos-list-icon"><i class="fas fa-chart-bar"></i></div>
+                        <div class="demos-list-info">
+                            <span class="demos-list-name">Dashboard Inteligente</span>
+                            <span class="demos-list-desc">Visualice KPIs, tendencias y análisis predictivo en tiempo real para decisiones estratégicas.</span>
+                        </div>
+                        <i class="fas fa-arrow-right demos-list-arrow"></i>
+                    </a>
 
+                    <a class="demos-list-item" href="#" onclick="openModal('modal-auto');return false;">
+                        <div class="demos-list-icon"><i class="fas fa-cogs"></i></div>
+                        <div class="demos-list-info">
+                            <span class="demos-list-name">Automatización de Flujos</span>
+                            <span class="demos-list-desc">Facturación, notificaciones y registros ejecutados en segundos, sin tocar un solo botón.</span>
+                        </div>
+                        <i class="fas fa-arrow-right demos-list-arrow"></i>
+                    </a>
 
+                    <a class="demos-list-item" href="#" onclick="openModal('modal-eco');return false;">
+                        <div class="demos-list-icon"><i class="fas fa-store"></i></div>
+                        <div class="demos-list-info">
+                            <span class="demos-list-name">Ecosistema de Ventas</span>
+                            <span class="demos-list-desc">Catálogo digital conectado a WhatsApp con checkout integrado para 3 tipos de negocio.</span>
+                        </div>
+                        <i class="fas fa-arrow-right demos-list-arrow"></i>
+                    </a>
 
+                </div>
 
-				<button class="slide-nav-next" onclick="goTo(2)">
-					Demos Interactivas<i class="fas fa-arrow-down"></i>
-				</button>
-			</div>
-		</div>
-
-		<!-- ======= SLIDE 3: DEMOS ======= -->
-		<div class="slide" id="slide-2">
-			<button class="slide-nav-prev" onclick="goTo(1)">
-				<i class="fas fa-arrow-up"></i> Ver Soluciones
-			</button>
-
-			<div class="demos-wrap">
-				<div class="demos-head">
-					<p class="demos-eyebrow">Prueba en segundos</p>
-					<h2 class="demos-title">Demos Interactivas</h2>
-				</div>
-				<div class="demos-grid">
-					<!-- 1. La Joya de la corona -->
-					<a class="demo-cell" href="#" onclick="openModal('modal-chat');return false;">
-						<div class="demo-icon-wrap"><i class="fas fa-comment-dots"></i></div>
-						<span class="demo-name">Asistente IA</span>
-					</a>
-
-					<!-- 2. Visualmente atractivo -->
-					<a class="demo-cell" href="#" onclick="openModal('modal-dash');initDash();return false;">
-						<div class="demo-icon-wrap"><i class="fas fa-chart-bar"></i></div>
-						<span class="demo-name">Dashboards</span>
-					</a>
-
-					<!-- 3. Muestra proceso -->
-					<a class="demo-cell" href="#" onclick="openModal('modal-auto');return false;">
-						<div class="demo-icon-wrap"><i class="fas fa-cogs"></i></div>
-						<span class="demo-name">Automatización</span>
-					</a>
-
-					<!-- 4. Muestra integración -->
-					<a class="demo-cell" href="#" onclick="openModal('modal-eco');return false;">
-						<div class="demo-icon-wrap"><i class="fas fa-store"></i></div>
-						<span class="demo-name">Ecosistema</span>
-					</a>
-		</div>
-
-				<button class="slide-nav-next" onclick="goTo(3)">
-					Inicie Transformación<i class="fas fa-arrow-down"></i>
-				</button>
-			</div>
-		</div>
-
-
-
-		<!-- ======= SLIDE 5: FORMULARIO ======= -->
-				<div class="slide" id="slide-4">
-
-    <div class="form-wrap">
-        <div class="form-head">
-            <br>
-            <p class="form-eyebrow"><br>Inicio de transformación</p>
-            <h2 class="form-title">Inicie su transformación</h2>
-            <p class="form-sub">Cuéntenos su idea, permita que nuestra IA le entregue una propuesta por correo. Sin compromiso. Sin costo inicial. </p>
+                <button class="slide-nav-next" onclick="goTo(2)">
+                    Inicie su Transformación <i class="fas fa-arrow-down"></i>
+                </button>
+            </div>
         </div>
 
+        <!-- ======= SLIDE 2: FORMULARIO ======= -->
+<div class="slide" id="slide-2">
+
+    <button class="slide-nav-prev" onclick="goTo(1)">
+        <i class="fas fa-arrow-up"></i> Volver
+    </button>
+
+    <!-- QUIÉN SOY -->
+    <div class="founder-strip">
+        <div class="founder-photo-wrap">
+            <img src="assets/images/benja.jpg" alt="Benjamín Carmona" class="founder-photo">
+        </div>
+        <div class="founder-info">
+            <p class="founder-name">Benjamín Carmona</p>
+            <p class="founder-role">Consultor Tecnológico · IAsesoria</p>
+            <p class="founder-bio">Trabajo con personas, no solo con empresas. Mi objetivo es que lo que hoy le parece complejo, mañana sea su herramienta más poderosa.</p>
+        </div>
+    </div>
+
+    <div class="founder-divider">
+    <br>
+        <span>Consultenos sin compromiso, sin costo.</span>
+    <br>
+    </div>
+
+    <div class="form-wrap">
         <form class="ia-form" method="POST" action="https://www.iasesoria.cl/secretario/guardar">
             <input type="hidden" name="servicio_interes" id="servicio_interes" value="">
-            
+
             <div style="display:none !important;" aria-hidden="true">
                 <label for="segundo_nombre">No rellenar</label>
                 <input type="text" id="segundo_nombre" name="segundo_nombre" tabindex="-1" autocomplete="off">
             </div>
+
             <div class="form-row">
                 <div class="form-field">
                     <label>Nombre</label>
                     <input type="text" name="nombre" placeholder="Su nombre" required>
                 </div>
-                <div class="form-field">
+                <!--<div class="form-field">
                     <label>Teléfono</label>
                     <input type="tel" name="telefono" placeholder="9 1234 5678" pattern="[0-9]{9,12}" required>
-                </div>
+                </div>-->
                 <div class="form-field">
                     <label>Email</label>
                     <input type="email" name="correo" placeholder="ejemplo@correo.cl" required>
                 </div>
-                <div class="form-field">
-                    <label>¿En qué podemos ayudarle?</label>
+                <div class="form-field" style="grid-column: 1 / -1;">
+                    <label>Coméntenos, sin compromiso - sin costo</label>
                     <textarea name="texto_original" placeholder="Describa su necesidad o proyecto..." required></textarea>
                 </div>
             </div>
+
             <button type="submit" class="btn-submit">
                 <i class="fas fa-paper-plane"></i> Enviar solicitud
             </button>
@@ -2884,52 +2628,21 @@
                 <br>
                 Creado por <strong style="color:var(--orange);">Benjamín Carmona</strong> · Villarrica, Chile
             </p>
+            <div class="social-links">
+                <a href="https://www.facebook.com/iasesoria.cl/" target="_blank" title="Fanpage Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/benjamin-carmona-69aa44223/" target="_blank" title="Perfil LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="mailto:soporte@iasesoria.cl" title="Enviar Correo">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+    </div>
 
-
-
-					<!-- ICONOS SOCIALES -->
-					<div class="social-links">
-						<a href="https://www.facebook.com/iasesoria.cl/" target="_blank" title="Fanpage Facebook">
-							<i class="fab fa-facebook-f"></i>
-
-						</a>
-						<a href="https://www.linkedin.com/in/benjamin-carmona-69aa44223/" target="_blank"
-							title="Perfil LinkedIn">
-							<i class="fab fa-linkedin-in"></i>
-						</a>
-						<a href="mailto:soporte@iasesoria.cl" title="Enviar Correo">
-							<i class="fas fa-envelope"></i>
-						</a>
-					</div>
-				</div>
-			</div> <!-- Cierra form-wrap -->
-		</div> <!-- Cierra el slide-4 (Formulario) -->
-	</div> <!-- Cierra el noria-viewport (Contenedor principal de slides) -->
-
-	<!-- DOTS NAVEGACIÓN -->
-	<div class="nav-dots" id="nav-dots"></div>
-
-	<!-- CONTADOR -->
-	<div class="slide-counter">
-		<span id="curr-num">01</span> / <span id="total-num">03</span>
-	</div>
-
-	<!-- HINT SCROLL -->
-	<div class="scroll-hint" id="scroll-hint">
-		<div class="hint-line"></div>
-		<span></span>
-	</div>
-
-	<!-- WHATSAPP FLOTANTE -->
-	<a href="https://wa.me/56926870966?text=Hola, me interesa conocer más sobre IAsesoria" class="wa-float"
-		target="_blank" rel="noopener">
-		<i class="fab fa-whatsapp"></i>
-		<span class="wa-msg">
-			¿Aún no se decide?<br>
-			<strong>Conversemos de persona a persona</strong>
-		</span>
-	</a>
-
+</div>
 
 	<!-- =============================================
          4 MODALES DE DEMO
@@ -3130,7 +2843,7 @@
 		const SLIDES = document.querySelectorAll('.slide');
 		const TOTAL = SLIDES.length;
 		const DURATION = 700;
-		const DOT_LABELS = ['Inicio', 'Soluciones', 'Demos', 'Contacto'];
+		const DOT_LABELS = ['Inicio', 'Soluciones IA', 'Contacto'];
 		const NAV_LINKS = document.querySelectorAll('.nav-links a');
 
 		let current = 0;
@@ -3140,13 +2853,15 @@
 		// DOTS — generación dinámica
 		// =========================================
 		const dotsContainer = document.getElementById('nav-dots');
-		SLIDES.forEach((_, i) => {
-			const d = document.createElement('div');
-			d.className = 'ndot' + (i === 0 ? ' active' : '');
-			d.innerHTML = `<span class="ndot-label">${DOT_LABELS[i] || ''}</span>`;
-			d.addEventListener('click', () => goTo(i));
-			dotsContainer.appendChild(d);
-		});
+		if (dotsContainer) {
+			SLIDES.forEach((_, i) => {
+				const d = document.createElement('div');
+				d.className = 'ndot' + (i === 0 ? ' active' : '');
+				d.innerHTML = `<span class="ndot-label">${DOT_LABELS[i] || ''}</span>`;
+				d.addEventListener('click', () => goTo(i));
+				dotsContainer.appendChild(d);
+			});
+		}
 
 		function getDots() { return document.querySelectorAll('.ndot'); }
 
@@ -3154,10 +2869,12 @@
 		// CONTADOR
 		// =========================================
 		function pad(n) { return String(n).padStart(2, '0'); }
-		document.getElementById('total-num').textContent = pad(TOTAL);
+		const totalNumEl = document.getElementById('total-num');
+		if (totalNumEl) totalNumEl.textContent = pad(TOTAL);
 
 		function updateCounter(idx) {
-			document.getElementById('curr-num').textContent = pad(idx + 1);
+			const currNumEl = document.getElementById('curr-num');
+			if (currNumEl) currNumEl.textContent = pad(idx + 1);
 		}
 
 		// =========================================
@@ -3165,7 +2882,7 @@
 		// =========================================
 		function updateHint(idx) {
 			const hint = document.getElementById('scroll-hint');
-			hint.classList.toggle('hidden', idx === TOTAL - 1);
+			if (hint) hint.classList.toggle('hidden', idx === TOTAL - 1);
 		}
 
 		// =========================================
@@ -3181,11 +2898,9 @@
 		// SISTEMA DE MODALES
 		// =========================================
 		const MODAL_MAP = {
-			'modal-datos': initDiag,
 			'modal-auto': initAuto,
 			'modal-chat': initChat,
 			'modal-dash': initDash,
-			'modal-sort': initSort,
 			'modal-eco': () => { }
 		};
 
@@ -3217,93 +2932,7 @@
 			}
 		});
 
-		// =========================================
-		// DEMO 1 — DIAGNÓSTICO EXPRESS
-		// =========================================
-		const diagData = [
-			{
-				label: 'Paso 1 de 3',
-				question: '¿Cuál es su principal desafío hoy?',
-				opts: [
-					{ ico: '📉', text: 'Aumentar ventas', val: 'ventas' },
-					{ ico: '⏰', text: 'Tengo poco tiempo para todo', val: 'tiempo' },
-					{ ico: '👥', text: 'Gestionar mis clientes', val: 'clientes' }
-				]
-			},
-			{
-				label: 'Paso 2 de 3',
-				question: '¿Cuánto tiempo dedica a tareas manuales?',
-				opts: [
-					{ ico: '🔥', text: 'Más de 3 horas al día', val: 'mucho' },
-					{ ico: '⏳', text: 'Entre 1 y 3 horas', val: 'medio' },
-					{ ico: '✅', text: 'Menos de 1 hora', val: 'poco' }
-				]
-			},
-			{
-				label: 'Paso 3 de 3',
-				question: '¿Usa alguna herramienta digital hoy?',
-				opts: [
-					{ ico: '📊', text: 'Excel / Google Sheets', val: 'excel' },
-					{ ico: '💬', text: 'WhatsApp para ventas', val: 'wp' },
-					{ ico: '❌', text: 'Nada aún', val: 'nada' }
-				]
-			}
-		];
-
-		let diagStep = 0;
-		let diagAnswers = [];
-
-		const diagResults = {
-			ventas: { num: '+40%', lbl: 'aumento de ventas estimado', txt: 'Con un catálogo digital conectado a WhatsApp, sus clientes pueden comprar solos, 24/7, sin que usted deba estar presente.' },
-			tiempo: { num: '15h', lbl: 'horas semanales recuperadas', txt: 'Automatizando notificaciones, formularios y seguimientos, su equipo se libera de tareas repetitivas al instante.' },
-			clientes: { num: '×3', lbl: 'más clientes gestionables', txt: 'Un CRM conectado a IA puede organizar, priorizar y hacer seguimiento de todos sus contactos sin esfuerzo manual.' }
-		};
-
-		function initDiag() {
-			diagStep = 0;
-			diagAnswers = [];
-			renderDiag();
-		}
-
-		function renderDiag() {
-			const body = document.getElementById('diag-body');
-			if (!body) return;
-			if (diagStep < 3) {
-				const d = diagData[diagStep];
-				const dots = [0, 1, 2].map(i =>
-					`<div class="dp ${i <= diagStep ? 'on' : ''}"></div>`
-				).join('');
-				body.innerHTML = `
-                    <div class="diag-progress">${dots}</div>
-                    <div class="diag-step-label">${d.label}</div>
-                    <div class="diag-question">${d.question}</div>
-                    <div class="diag-options">
-                        ${d.opts.map(o => `
-                            <button class="diag-btn" onclick="diagAnswer('${o.val}')">
-                                <span class="btn-ico">${o.ico}</span> ${o.text}
-                            </button>
-                        `).join('')}
-                    </div>`;
-			} else {
-				const r = diagResults[diagAnswers[0]] || diagResults.ventas;
-				body.innerHTML = `
-                    <div class="diag-result">
-                        <div class="diag-step-label">Tu diagnóstico IA</div>
-                        <div class="diag-result-num">${r.num}</div>
-                        <div class="diag-result-label">${r.lbl}</div>
-                        <div class="diag-result-text">${r.txt}</div>
-                        <a href="/?servicio=consultoria#five" class="diag-cta">
-                            <i class="fas fa-paper-plane"></i> Quiero mi solución real
-                        </a>
-                    </div>`;
-			}
-		}
-
-		function diagAnswer(val) {
-			diagAnswers.push(val);
-			diagStep++;
-			renderDiag();
-		}
+		
 
 		// =========================================
 		// DEMO 2 — AUTOMATIZACIÓN VISUAL
@@ -3510,7 +3139,7 @@
 							<div style="font-size: 0.72rem; color: rgba(255,255,255,0.6); text-align: center;">
 								Ha llegado al límite de consultas de esta demo. ¡Hablemos de su proyecto en detalle!
 							</div>
-							<button onclick="closeModal('modal-chat'); goTo(4);" class="diag-cta" style="width: 100%; cursor: pointer; box-shadow: 0 5px 15px rgba(243,160,34,0.2);">
+							<button onclick="closeModal('modal-chat'); goTo(2);" class="diag-cta" style="width: 100%; cursor: pointer; box-shadow: 0 5px 15px rgba(243,160,34,0.2);">
 								<i class="fas fa-paper-plane"></i> Ir al Formulario
 							</button>
 						`;
@@ -3575,54 +3204,7 @@
 			requestAnimationFrame(step);
 		}
 
-		// =========================================
-		// DEMO 5 — OPTIMIZACIÓN / SORT
-		// =========================================
-		const sortItems = [
-			{ name: 'Fernández, R.', score: 91, sector: 'Retail' },
-			{ name: 'Lagos Corp.', score: 84, sector: 'Industrial' },
-			{ name: 'Torres LTDA', score: 76, sector: 'Servicios' },
-			{ name: 'Muñoz & Hijos', score: 61, sector: 'Comercio' },
-			{ name: 'Vega Digital', score: 48, sector: 'Tech' },
-		];
-
-		let sortShuffled = false;
-
-		function initSort() {
-			sortShuffled = false;
-			const board = document.getElementById('sort-board');
-			if (!board) return;
-			const shuffled = [...sortItems].sort(() => Math.random() - 0.5);
-			renderSortBoard(board, shuffled, false);
-			const btn = document.getElementById('sort-btn');
-			if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-magic"></i> Optimizar con IA'; }
-		}
-
-		function renderSortBoard(board, items, ranked) {
-			board.innerHTML = items.map((item, i) => `
-                <div class="sort-row ${ranked ? 'highlight' : ''}" style="transition-delay:${i * 80}ms">
-                    <div class="sort-rank">${ranked ? i + 1 : '·'}</div>
-                    <div class="sort-name">${item.name}<br><span style="font-size:.65rem;color:rgba(255,255,255,0.25)">${item.sector}</span></div>
-                    <div class="sort-bar-bg">
-                        <div class="sort-bar-fill" style="width:${ranked ? item.score : Math.random() * 60 + 20}%"></div>
-                    </div>
-                    <div class="sort-val">${ranked ? item.score : '—'}</div>
-                </div>
-            `).join('');
-		}
-
-		function runSort() {
-			const btn = document.getElementById('sort-btn');
-			btn.disabled = true;
-			btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analizando...';
-			setTimeout(() => {
-				const board = document.getElementById('sort-board');
-				renderSortBoard(board, sortItems, true);
-				btn.innerHTML = '<i class="fas fa-redo"></i> Mezclar y optimizar de nuevo';
-				btn.disabled = false;
-				btn.onclick = () => { initSort(); };
-			}, 1400);
-		}
+		
 
 		// =========================================
 		// FUNCIÓN PRINCIPAL DE NAVEGACIÓN
@@ -3646,8 +3228,8 @@
 			next.classList.remove('exit');
 			next.classList.add('active');
 
-			dots[current].classList.remove('active');
-			dots[index].classList.add('active');
+			if (dots && dots[current]) dots[current].classList.remove('active');
+			if (dots && dots[index]) dots[index].classList.add('active');
 
 			updateNavLinks(index);
 			updateCounter(index);
@@ -3781,19 +3363,11 @@
 			mLinks.forEach((a, i) => a.classList.toggle('active', i === idx));
 		}
 
-		// Extender updateNavLinks para también actualizar el menú móvil
-		const _origUpdateNavLinks = updateNavLinks;
-		// Sobrescribimos para incluir menú móvil
-		window.updateNavLinksExtended = function (idx) {
+				// updateNavLinks ya incluye menú móvil desde aquí
+		var _origUpdateNavLinks = updateNavLinks;
+		updateNavLinks = function(idx) {
 			NAV_LINKS.forEach((a, i) => a.classList.toggle('active', i === idx));
 			updateMobileMenuActive(idx);
-		};
-
-		// Patch goTo para actualizar menú móvil también
-		const _origGoToMobile = goTo;
-		goTo = function (index, e) {
-			_origGoToMobile(index, e);
-			setTimeout(() => updateMobileMenuActive(index), 0);
 		};
 		// Detectar el ancla #five al cargar la página o cambiar la URL
 		function checkHashNavigation() {
@@ -3802,7 +3376,7 @@
 				// Le damos un pequeño delay de 500ms para que la página 
 				// termine de cargar antes de hacer el salto al Slide 4
 				setTimeout(() => {
-					goTo(4);
+					goTo(2);
 				}, 500);
 			}
 		}
