@@ -1029,216 +1029,6 @@
 			margin-top: 5px;
 		}
 
-		/* =========================================
-           SLIDE 4 — PLANES
-           ========================================= */
-		#slide-3 {
-			background: transparent;
-		}
-
-		.planes-wrap {
-			width: 100%;
-			max-width: 1140px;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			gap: 32px;
-		}
-
-		.planes-head {
-			text-align: center;
-		}
-
-		.planes-eyebrow {
-			font-size: 0.62rem;
-			letter-spacing: 4px;
-			text-transform: uppercase;
-			color: var(--orange);
-			opacity: 0.8;
-			margin-bottom: 8px;
-		}
-
-		.planes-title {
-			font-size: clamp(1.5rem, 3vw, 2.2rem);
-			font-weight: 300;
-			color: var(--white);
-			letter-spacing: -0.3px;
-		}
-
-		.planes-sub {
-			font-size: 0.8rem;
-			color: rgba(255, 255, 255, 0.35);
-			margin-top: 8px;
-			font-weight: 300;
-		}
-
-		.planes-grid {
-			display: grid;
-			grid-template-columns: repeat(4, 1fr);
-			gap: 20px;
-			width: 100%;
-			align-items: stretch;
-		}
-
-		.plan-card {
-			border-radius: 18px;
-			border: 1px solid rgba(255, 255, 255, 0.07);
-			background: rgba(10, 10, 10, 0.8) !important;
-			padding: 24px 20px 22px;
-			display: flex;
-			flex-direction: column;
-			gap: 14px;
-			transition: border-color .35s, background .35s, transform .4s var(--ease);
-			position: relative;
-			overflow: hidden;
-		}
-
-		.plan-card:hover {
-			border-color: var(--orange) !important;
-			transform: translateY(-5px) !important;
-		}
-
-		.plan-icon {
-			width: 44px !important;
-			height: 44px !important;
-			border-radius: 12px !important;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			font-size: 1.2rem !important;
-			background: rgba(255, 255, 255, 0.05) !important;
-			border: 1px solid rgba(255, 255, 255, 0.1) !important;
-			color: rgba(255, 255, 255, 0.4) !important;
-			margin-bottom: 20px !important;
-			transition: all 0.3s ease !important;
-		}
-
-		.plan-card:hover .plan-icon,
-		.plan-card.featured .plan-icon {
-			background: rgba(243, 160, 34, 0.12);
-			border-color: rgba(243, 160, 34, 0.3);
-			color: var(--orange);
-		}
-
-		.plan-name {
-			font-size: 1.18rem;
-			font-weight: 600;
-			color: var(--white);
-			letter-spacing: 0.2px;
-		}
-
-		.plan-desc {
-			font-size: 0.82rem;
-			color: rgba(255, 255, 255, 0.7);
-			line-height: 1.5;
-			font-weight: 300;
-			margin-bottom: 20px !important;
-		}
-
-		.plan-price {
-			display: flex;
-			align-items: baseline;
-			gap: 4px;
-		}
-
-		.plan-desde {
-			color: rgba(255, 255, 255, 0.9) !important;
-			font-weight: 700 !important;
-			font-size: 0.7rem !important;
-			text-transform: uppercase;
-			letter-spacing: 1.5px;
-			color: rgba(255, 255, 255, 0.3);
-			margin-right: 5px;
-		}
-
-		.plan-amount {
-			font-size: 1.45rem;
-			font-weight: 600;
-			color: var(--orange);
-		}
-
-		.plan-iva {
-			font-size: 0.63rem;
-			color: rgba(255, 255, 255, 0.4);
-		}
-
-		.plan-features {
-			flex-grow: 1 !important;
-			list-style: none;
-			padding: 0;
-			margin-bottom: 25px !important;
-		}
-
-		.plan-features li {
-			font-size: 0.7rem;
-			color: rgba(255, 255, 255, 0.4);
-			display: flex;
-			align-items: flex-start;
-			gap: 8px;
-			line-height: 1.4;
-		}
-
-		.plan-features li::before {
-			content: '—';
-			color: var(--orange);
-			opacity: 0.6;
-			flex-shrink: 0;
-			margin-top: 1px;
-		}
-
-		.plan-btn {
-			margin-top: auto !important;
-			background: rgba(243, 160, 34, 0.1) !important;
-			border: 1px solid var(--orange) !important;
-			color: var(--orange) !important;
-			padding: 14px !important;
-			border-radius: 14px !important;
-			font-weight: 700 !important;
-			text-align: center;
-			text-decoration: none;
-			font-size: 0.8rem !important;
-			transition: all 0.3s ease !important;
-			display: block !important;
-			width: 100%;
-		}
-
-		.plan-btn:hover {
-			background: var(--orange) !important;
-			color: #000000 !important;
-			transform: scale(1.02);
-		}
-
-		.plan-card.trust {
-			border-color: rgba(255, 255, 255, 0.06);
-			background: rgba(255, 255, 255, 0.015);
-		}
-
-		.plan-card.trust .plan-amount {
-			color: rgba(255, 255, 255, 0.7);
-		}
-
-		.plan-card.trust .plan-btn {
-			border-color: rgba(255, 255, 255, 0.2);
-			color: rgba(255, 255, 255, 0.6);
-		}
-
-		.plan-card.trust .plan-btn:hover {
-			border-color: rgba(255, 255, 255, 0.5);
-			color: var(--white);
-			background: rgba(255, 255, 255, 0.05);
-		}
-
-		@media (max-width: 900px) {
-			.planes-grid {
-				grid-template-columns: repeat(2, 1fr);
-			}
-		}
-
-		@media (max-width: 500px) {
-			.planes-grid {
-				grid-template-columns: 1fr;
-			}
-		}
 
 		/* =========================================
            SLIDE 5 — FORMULARIO CONTACTO
@@ -2214,13 +2004,7 @@
 		/* Ajuste global de legibilidad */
 		.sol-sub,
 		.demos-hint,
-		.planes-sub,
 		.form-sub,
-		.plan-desc {
-			color: rgb(255, 255, 255) !important;
-			font-size: 0.85rem !important;
-			font-weight: 400 !important;
-		}
 
 		.demo-name {
 			font-size: 0.8rem !important;
@@ -2256,7 +2040,6 @@
 		}
 
 		.demos-eyebrow,
-		.planes-eyebrow,
 		.form-eyebrow {
 			font-size: 0.75rem !important;
 			font-weight: 600 !important;
@@ -2265,10 +2048,7 @@
 
 		.sol-sub,
 		.demos-hint,
-		.planes-sub,
 		.form-sub,
-		.plan-desc,
-		.plan-features li,
 		.form-legal {
 			color: rgba(255, 255, 255, 0.85) !important;
 			font-size: 0.9rem !important;
@@ -2372,7 +2152,6 @@
 			/* 1. Ensanchamos los contenedores para que no se vean angostos */
 			.sol-wrap,
 			.demos-wrap,
-			.planes-wrap,
 			.form-wrap,
 			.hero-wrap {
 				max-width: 1400px !important;
@@ -2387,7 +2166,6 @@
 
 			.sol-title,
 			.demos-title,
-			.planes-title,
 			.form-title {
 				font-size: 3rem !important;
 				margin-bottom: 20px !important;
@@ -2396,7 +2174,6 @@
 			/* 3. Subtítulos más legibles */
 			.hero-sub,
 			.sol-sub,
-			.planes-sub,
 			.form-sub {
 				font-size: 1.3rem !important;
 				max-width: 900px !important;
@@ -2405,7 +2182,7 @@
 
 			/* 4. Tarjetas más grandes (Inflamos el relleno) */
 			.sol-item,
-			.plan-card,
+
 			.demo-cell {
 				padding: 40px 30px !important;
 				border-radius: 24px !important;
@@ -2414,26 +2191,12 @@
 			/* 5. Aumentamos el espacio entre tarjetas */
 			.sol-grid,
 			.demos-grid,
-			.planes-grid {
-				gap: 30px !important;
-			}
 
 			/* 6. Textos internos de las tarjetas */
 			.sol-item h3,
-			.plan-name {
-				font-size: 1.4rem !important;
-			}
+
 
 			.sol-item p,
-			.plan-desc,
-			.plan-features li {
-				font-size: 1.1rem !important;
-				line-height: 1.6 !important;
-			}
-
-			.plan-amount {
-				font-size: 2rem !important;
-			}
 
 			/* 7. Iconos más grandes */
 			.sol-icon {
@@ -2442,11 +2205,7 @@
 				font-size: 2rem !important;
 			}
 
-			.plan-icon {
-				width: 60px !important;
-				height: 60px !important;
-				font-size: 1.5rem !important;
-			}
+
 
 			.demo-icon-wrap {
 				width: 110px !important;
@@ -2504,10 +2263,6 @@
 
 			/* Compactamos las Grillas */
 			.sol-grid,
-			.planes-grid {
-				gap: 12px !important;
-				max-width: 950px !important;
-			}
 
 			.demos-grid {
 				gap: 15px !important;
@@ -2516,9 +2271,7 @@
 
 			/* Achicamos tarjetas */
 			.sol-item,
-			.plan-card {
-				padding: 18px 14px !important;
-			}
+
 
 			/* Iconos un poco más pequeños */
 			.sol-icon {
@@ -2528,21 +2281,9 @@
 				margin-bottom: 10px !important;
 			}
 
-			.plan-icon {
-				width: 38px !important;
-				height: 38px !important;
-				margin-bottom: 10px !important;
-			}
 
 			/* Textos de tarjetas */
 			.sol-item p,
-			.plan-desc {
-				font-size: 0.85rem !important;
-			}
-
-			.plan-amount {
-				font-size: 1.3rem !important;
-			}
 
 			/* Botones de navegación más pegados al contenido */
 			.slide-nav-prev {
@@ -2672,7 +2413,6 @@
 			/* 5. CONFIGURACIÓN DE TÍTULOS GENERALES */
 			.sol-head,
 			.demos-head,
-			.planes-head,
 			.form-head {
 				margin-bottom: 20px !important;
 				text-align: center;
@@ -2680,14 +2420,12 @@
 
 			.sol-title,
 			.demos-title,
-			.planes-title,
 			.form-title {
 				font-size: 1.6rem !important;
 				margin-bottom: 5px !important;
 			}
 
 			.sol-sub,
-			.planes-sub,
 			.form-sub {
 				font-size: 0.8rem !important;
 				line-height: 1.4 !important;
@@ -2696,7 +2434,6 @@
 
 			/* Ocultar elementos decorativos que quitan espacio */
 			.sol-divider,
-			.planes-eyebrow,
 			.demos-eyebrow,
 			.form-eyebrow {
 				display: none !important;
@@ -2773,73 +2510,7 @@
 				font-size: 0.8rem !important;
 			}
 
-			/* 8. SLIDE 4: PLANES (2 Columnas - Sin Descripción larga) */
-			.planes-wrap {
-				width: 100%;
-				margin-top: 0 !important;
-			}
 
-			.planes-grid {
-				grid-template-columns: 1fr 1fr !important;
-				gap: 10px !important;
-				align-items: start !important;
-			}
-
-			.plan-card {
-				padding: 15px 10px !important;
-				border-radius: 14px !important;
-				gap: 5px !important;
-			}
-
-			.plan-icon {
-				width: 38px !important;
-				height: 38px !important;
-				font-size: 1rem !important;
-				margin-bottom: 5px !important;
-			}
-
-			.plan-name {
-				font-size: 0.9rem !important;
-				height: 40px;
-				display: flex;
-				align-items: center;
-				line-height: 1.1;
-			}
-
-			/* Ocultamos la descripción larga para que quepan las 2 columnas */
-			.plan-desc {
-				display: none !important;
-			}
-
-			.plan-price {
-				margin: 5px 0 !important;
-				flex-wrap: wrap;
-			}
-
-			.plan-amount {
-				font-size: 1.1rem !important;
-			}
-
-			.plan-desde {
-				font-size: 0.6rem !important;
-				width: 100%;
-			}
-
-			.plan-features {
-				margin-bottom: 10px !important;
-			}
-
-			.plan-features li {
-				font-size: 0.65rem !important;
-				line-height: 1.2 !important;
-				margin-bottom: 3px !important;
-			}
-
-			.plan-btn {
-				padding: 10px !important;
-				font-size: 0.7rem !important;
-				width: 100% !important;
-			}
 
 			/* 9. SLIDE 5: FORMULARIO */
 			.form-wrap {
@@ -2958,14 +2629,6 @@
 				font-size: 1.8rem !important;
 			}
 
-			/* En pantallas diminutas, planes vuelve a 1 columna para no romperse */
-			.planes-grid {
-				grid-template-columns: 1fr !important;
-			}
-
-			.plan-desc {
-				display: block !important;
-			}
 
 			/* Volvemos a mostrar la descripción si hay espacio */
 		}
@@ -3042,7 +2705,6 @@
 			<li><a href="#" class="active" onclick="goTo(0,event)">Inicio</a></li>
 			<li><a href="#" onclick="goTo(1,event)">Soluciones</a></li>
 			<li><a href="#" onclick="goTo(2,event)">Demos</a></li>
-			<li><a href="#" onclick="goTo(3,event)">Planes</a></li>
 			<li><a href="#" onclick="goTo(4,event)" class="nav-cta">Contacto</a></li>
 		</ul>
 
@@ -3056,7 +2718,6 @@
 		<a href="#" onclick="goTo(0,event);closeMobileMenu()">Inicio</a>
 		<a href="#" onclick="goTo(1,event);closeMobileMenu()">Soluciones</a>
 		<a href="#" onclick="goTo(2,event);closeMobileMenu()">Demos</a>
-		<a href="#" onclick="goTo(3,event);closeMobileMenu()">Planes</a>
 		<a href="#" onclick="goTo(4,event);closeMobileMenu()" class="nav-cta-mobile">Contacto</a>
 	</div>
 
@@ -3166,94 +2827,7 @@
 						<div class="demo-icon-wrap"><i class="fas fa-store"></i></div>
 						<span class="demo-name">Ecosistema</span>
 					</a>
-				</div>
-				<button class="slide-nav-next" onclick="goTo(3)">
-					Ver Planes y Precios <i class="fas fa-arrow-down"></i>
-				</button>
-			</div>
 		</div>
-
-		<!-- ======= SLIDE 4: PLANES ======= -->
-		<div class="slide" id="slide-3">
-			<button class="slide-nav-prev" onclick="goTo(2)">
-				<i class="fas fa-arrow-up"></i> Volver a Demos
-			</button>
-
-			<div class="planes-wrap">
-				<div class="planes-head">
-					<p class="planes-eyebrow">Servicios de Eficiencia Digital</p>
-					<h2 class="planes-title">Planes a su medida</h2>
-					<p class="planes-sub">Soluciones diseñadas para escalar sus procesos con Inteligencia Artificial.
-					</p>
-				</div>
-
-				<div class="planes-grid">
-					<div class="plan-card">
-						<div class="plan-icon"><i class="fas fa-database"></i></div>
-						<div class="plan-name">Gestión de Datos</div>
-						<div class="plan-desc">Convierta datos desordenados en decisiones clave.</div>
-						<div class="plan-price">
-							<span class="plan-desde">Desde</span>
-							<span class="plan-amount">$140.000</span>
-						</div>
-						<ul class="plan-features">
-							<li>Organización masiva</li>
-							<li>Limpieza de bases</li>
-							<li>Dashboards de control</li>
-						</ul>
-						<a href="/?servicio=gestion-datos#five" class="plan-btn">Consultar IA</a>
-					</div>
-
-					<div class="plan-card">
-						<div class="plan-icon"><i class="fas fa-robot"></i></div>
-						<div class="plan-name">Gestión Ágil</div>
-						<div class="plan-desc">IA para eliminar sus tareas repetitivas.</div>
-						<div class="plan-price">
-							<span class="plan-desde">Desde</span>
-							<span class="plan-amount">$90.000</span>
-						</div>
-						<ul class="plan-features">
-							<li>Auto. administrativa</li>
-							<li>Correos IA</li>
-							<li>Integración CRM</li>
-						</ul>
-						<a href="/?servicio=automatizacion#five" class="plan-btn">Consultar IA</a>
-					</div>
-
-					<div class="plan-card">
-						<div class="plan-icon"><i class="fas fa-handshake"></i></div>
-						<div class="plan-name">Consultoría</div>
-						<div class="plan-desc">Guía experta para digitalizar su negocio.</div>
-						<div class="plan-price">
-							<span class="plan-desde">Desde</span>
-							<span class="plan-amount">$30.000</span>
-						</div>
-						<ul class="plan-features">
-							<li>Optimización de procesos</li>
-							<li>Arquitectura digital</li>
-							<li>Capacitación de equipo</li>
-						</ul>
-						<a href="/?servicio=consultoria#five" class="plan-btn">Consultar IA</a>
-					</div>
-
-					<div class="plan-card trust">
-						<div class="plan-icon"><i class="fas fa-comments"></i></div>
-						<div class="plan-name">¿Dudas?</div>
-						<div class="plan-desc">Nuestra IA le orientará en minutos sin compromiso.</div>
-						<div class="plan-price">
-							<span class="plan-amount" style="font-size:1.5rem;">Gratis</span>
-						</div>
-						<ul class="plan-features">
-							<li>Respuesta en menos de 15 min</li>
-							<li>Solo deje su email</li>
-							<li>Sin presiones</li>
-						</ul>
-						<a href="/?servicio=consulta-rapida#five" class="plan-btn">Consultar IA</a>
-					</div>
-				</div>
-
-
-
 
 				<button class="slide-nav-next" onclick="goTo(4)">
 					Inicie Transformación<i class="fas fa-arrow-down"></i>
@@ -3265,9 +2839,6 @@
 
 		<!-- ======= SLIDE 5: FORMULARIO ======= -->
 				<div class="slide" id="slide-4">
-    <button class="slide-nav-prev" onclick="goTo(3)">
-        <i class="fas fa-arrow-up"></i> Revisar Planes
-    </button>
 
     <div class="form-wrap">
         <div class="form-head">
@@ -3560,7 +3131,7 @@
 		const SLIDES = document.querySelectorAll('.slide');
 		const TOTAL = SLIDES.length;
 		const DURATION = 700;
-		const DOT_LABELS = ['Inicio', 'Soluciones', 'Demos', 'Planes', 'Contacto'];
+		const DOT_LABELS = ['Inicio', 'Soluciones', 'Demos', 'Contacto'];
 		const NAV_LINKS = document.querySelectorAll('.nav-links a');
 
 		let current = 0;
