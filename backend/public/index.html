@@ -52,20 +52,7 @@
 		/* =========================================
    FOUNDER STRIP — Quién soy
    ========================================= */
-.founder-strip {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    padding: 16px 20px;
-    border-radius: 16px;
-    background: rgba(10, 10, 10, 0.85);          /* Fondo oscuro para aislar del fondo ruidoso */
-    backdrop-filter: blur(12px);                  /* Efecto difuminado translúcido */
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(243, 160, 34, 0.25);   /* Borde sutil naranja */
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto 6px;
-}
+
 
 .founder-photo-wrap {
     flex-shrink: 0;
@@ -113,37 +100,10 @@
     font-weight: 300;
 }
 
-.founder-divider {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    width: 100%;
-    max-width: 500px;
-    margin: 2px auto 8px;
-}
 
-.founder-divider::before,
-.founder-divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(to right, transparent, rgba(243,160,34,0.2), transparent);
-}
-
-.founder-divider span {
-    font-size: 0.72rem;                 /* Aumentado de 0.58rem para mejor lectura */
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: rgba(243, 160, 34, 0.85);   /* Cambiado a naranja/dorado visible */
-    font-weight: 500;                  /* Añade un poco más de cuerpo a la letra */
-    white-space: nowrap;
-}
 
 @media (max-width: 480px) {
-    .founder-strip {
-        gap: 14px;
-        padding: 14px 16px;
-    }
+    
     .founder-photo-wrap {
         width: 52px;
         height: 52px;
@@ -1058,22 +1018,7 @@
 		/* =========================================
            SLIDE 5 — FORMULARIO CONTACTO
            ========================================= */
-		.form-wrap {
-			width: 100%;
-			max-width: 500px !important;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			gap: 12px;
-			margin: 0 auto;
-			background: rgba(10, 10, 10, 0.85);          /* Fondo oscuro unificado */
-			backdrop-filter: blur(12px);                  /* Difumina el fondo de nodos */
-			-webkit-backdrop-filter: blur(12px);
-			border: 1px solid rgba(243, 160, 34, 0.2);    /* Borde sutil */
-			border-radius: 20px;                          /* Esquinas redondeadas */
-			padding: 28px 24px;                           /* Espaciado interno para respirar */
-			box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);   /* Sombra que le da profundidad */
-		}
+		
 
 		.form-head {
 			text-align: center;
@@ -2064,12 +2009,7 @@
 		   ======================================================= */
 		@media (min-width: 1601px) {
 
-			/* 1. Ensanchamos los contenedores */
-			.form-wrap,
-			.hero-wrap {
-				max-width: 1400px !important;
-				width: 85% !important;
-			}
+			
 
 			/* 2. Títulos más grandes */
 			.hero-title {
@@ -2281,18 +2221,180 @@
 			}
 
 			
+			/* =========================================
+   TARJETA UNIFICADA PREMIUM (NUEVO DISEÑO)
+   ========================================= */
+.unified-card {
+    width: 100%;
+    max-width: 550px !important;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    margin: 0 auto;
+    background: rgba(10, 10, 10, 0.88) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(243, 160, 34, 0.18) !important;
+    border-radius: 24px !important;
+    padding: 30px !important;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.65);
+}
+
+.card-founder-header {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    text-align: left;
+    width: 100%;
+}
+
+.founder-photo-wrap {
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    border: 2px solid rgba(243, 160, 34, 0.5);
+    box-shadow: 0 0 18px rgba(243, 160, 34, 0.18);
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.founder-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.founder-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex-grow: 1;
+}
+
+.founder-meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.founder-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: 0.3px;
+}
+
+.founder-role {
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--orange);
+}
+
+.founder-bio {
+    font-size: 0.74rem;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.45;
+    margin-top: 6px;
+    font-weight: 300;
+}
+
+/* Integración moderna de Redes Sociales en Cabecera */
+.header-socials {
+    display: flex;
+    gap: 8px;
+}
+
+.header-socials a {
+    width: 32px !important;
+    height: 32px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    color: rgba(255, 255, 255, 0.55) !important;
+    font-size: 0.85rem !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+.header-socials a:hover {
+    background: rgba(243, 160, 34, 0.12) !important;
+    border-color: var(--orange) !important;
+    color: var(--orange) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Separador Interno de la Tarjeta */
+.card-inner-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.card-inner-divider::before,
+.card-inner-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(243,160,34,0.25), transparent);
+}
+
+.card-inner-divider span {
+    font-size: 0.65rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--orange);
+    opacity: 0.85;
+    white-space: nowrap;
+    font-weight: 600;
+}
+
+@media (max-width: 520px) {
+    .unified-card {
+        padding: 22px 16px !important;
+        gap: 18px !important;
+    }
+    
+    .card-founder-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 12px;
+    }
+
+    .founder-meta-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .header-socials {
+        justify-content: center;
+    }
+
+    .card-inner-divider span {
+        font-size: 0.58rem;
+        letter-spacing: 1.5px;
+    }
+}
+
+/* Footer integrado */
+.card-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 16px;
+    width: 100%;
+}
 
 
-
-			/* 9. SLIDE 5: FORMULARIO */
-			.form-wrap {
-				/* En celular sí queremos que ocupe casi todo el ancho disponible */
-				max-width: 100% !important;
-				width: 95% !important;
-				margin-top: 0 !important;
-				padding: 20px 16px !important;                /* Ajustado para mantener estructura de tarjeta en móvil */
-				padding-bottom: 24px !important;
-			}
+			
 
 			.ia-form {
 				gap: 18px !important;
@@ -2580,25 +2682,42 @@
         <i class="fas fa-arrow-up"></i> Volver
     </button>
 
-    <!-- QUIÉN SOY -->
-    <div class="founder-strip">
-        <div class="founder-photo-wrap">
-            <img src="assets/images/benja.jpg" alt="Benjamín Carmona" class="founder-photo">
+    <div class="unified-card">
+        
+        <!-- HEADER DE LA TARJETA (PERFIL + RRSS) -->
+        <div class="card-founder-header">
+            <div class="founder-photo-wrap">
+                <img src="assets/images/iasesoriaperfil.jpeg" alt="Benjamín Carmona" class="founder-photo">
+            </div>
+            <div class="founder-info">
+                <div class="founder-meta-row">
+                    <div>
+                        <p class="founder-name">Benjamín Carmona</p>
+                        <p class="founder-role">Consultor Tecnológico · IAsesoria</p>
+                    </div>
+                    <!-- REDES SOCIALES INTEGRADAS -->
+                    <div class="header-socials">
+                        <a href="https://www.facebook.com/iasesoria.cl/" target="_blank" title="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/benjamin-carmona-69aa44223/" target="_blank" title="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="mailto:soporte@iasesoria.cl" title="Correo">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+                <p class="founder-bio">Trabajo con personas, no solo con empresas. Mi objetivo es que lo que hoy le parece complejo, mañana sea su herramienta más poderosa.</p>
+            </div>
         </div>
-        <div class="founder-info">
-            <p class="founder-name">Benjamín Carmona</p>
-            <p class="founder-role">Consultor Tecnológico · IAsesoria</p>
-            <p class="founder-bio">Trabajo con personas, no solo con empresas. Mi objetivo es que lo que hoy le parece complejo, mañana sea su herramienta más poderosa.</p>
+
+        <!-- SEPARADOR INTERNO -->
+        <div class="card-inner-divider">
+            <span>Consulta sin compromiso · Sin costo</span>
         </div>
-    </div>
 
-    <div class="founder-divider">
-    <br>
-        <span>Consultenos sin compromiso, sin costo.</span>
-    <br>
-    </div>
-
-    <div class="form-wrap">
+        <!-- FORMULARIO -->
         <form class="ia-form" method="POST" action="https://www.iasesoria.cl/secretario/guardar">
             <input type="hidden" name="servicio_interes" id="servicio_interes" value="">
 
@@ -2612,16 +2731,12 @@
                     <label>Nombre</label>
                     <input type="text" name="nombre" placeholder="Su nombre" required>
                 </div>
-                <!--<div class="form-field">
-                    <label>Teléfono</label>
-                    <input type="tel" name="telefono" placeholder="9 1234 5678" pattern="[0-9]{9,12}" required>
-                </div>-->
                 <div class="form-field">
                     <label>Email</label>
                     <input type="email" name="correo" placeholder="ejemplo@correo.cl" required>
                 </div>
                 <div class="form-field" style="grid-column: 1 / -1;">
-                    <label>Coméntenos, sin compromiso - sin costo</label>
+                    <label>Coméntenos su proyecto o necesidad</label>
                     <textarea name="texto_original" placeholder="Describa su necesidad o proyecto..." required></textarea>
                 </div>
             </div>
@@ -2631,24 +2746,15 @@
             </button>
         </form>
 
-        <div class="form-footer-container">
-            <p class="form-legal">
-                Utilizamos IA para el análisis preliminar de tu solicitud. Supervisión humana garantizada.
+        <!-- FOOTER DE LA TARJETA -->
+        <div class="card-footer">
+            <p class="form-legal" style="color: rgba(255, 255, 255, 0.45) !important;">
+                Utilizamos IA para el análisis preliminar de su solicitud. Supervisión humana garantizada.
                 <br>
                 Creado por <strong style="color:var(--orange);">Benjamín Carmona</strong> · Villarrica, Chile
             </p>
-            <div class="social-links">
-                <a href="https://www.facebook.com/iasesoria.cl/" target="_blank" title="Fanpage Facebook">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/benjamin-carmona-69aa44223/" target="_blank" title="Perfil LinkedIn">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-                <a href="mailto:soporte@iasesoria.cl" title="Enviar Correo">
-                    <i class="fas fa-envelope"></i>
-                </a>
-            </div>
         </div>
+        
     </div>
 
 </div>
