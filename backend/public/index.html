@@ -58,8 +58,10 @@
     gap: 18px;
     padding: 16px 20px;
     border-radius: 16px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(243, 160, 34, 0.15);
+    background: rgba(10, 10, 10, 0.85);          /* Fondo oscuro para aislar del fondo ruidoso */
+    backdrop-filter: blur(12px);                  /* Efecto difuminado translúcido */
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(243, 160, 34, 0.25);   /* Borde sutil naranja */
     width: 100%;
     max-width: 500px;
     margin: 0 auto 6px;
@@ -1064,6 +1066,13 @@
 			align-items: center;
 			gap: 12px;
 			margin: 0 auto;
+			background: rgba(10, 10, 10, 0.85);          /* Fondo oscuro unificado */
+			backdrop-filter: blur(12px);                  /* Difumina el fondo de nodos */
+			-webkit-backdrop-filter: blur(12px);
+			border: 1px solid rgba(243, 160, 34, 0.2);    /* Borde sutil */
+			border-radius: 20px;                          /* Esquinas redondeadas */
+			padding: 28px 24px;                           /* Espaciado interno para respirar */
+			box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);   /* Sombra que le da profundidad */
 		}
 
 		.form-head {
@@ -2281,8 +2290,8 @@
 				max-width: 100% !important;
 				width: 95% !important;
 				margin-top: 0 !important;
-				padding: 0 5px;
-				padding-bottom: 20px !important;
+				padding: 20px 16px !important;                /* Ajustado para mantener estructura de tarjeta en móvil */
+				padding-bottom: 24px !important;
 			}
 
 			.ia-form {
