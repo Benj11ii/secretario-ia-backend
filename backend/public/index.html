@@ -2705,7 +2705,7 @@
 			<li><a href="#" class="active" onclick="goTo(0,event)">Inicio</a></li>
 			<li><a href="#" onclick="goTo(1,event)">Soluciones</a></li>
 			<li><a href="#" onclick="goTo(2,event)">Demos</a></li>
-			<li><a href="#" onclick="goTo(4,event)" class="nav-cta">Contacto</a></li>
+			<li><a href="#" onclick="goTo(3,event)" class="nav-cta">Contacto</a></li>
 		</ul>
 
 		<button class="nav-hamburger" onclick="toggleMobileMenu()" title="Menú" id="nav-hamburger">
@@ -2718,7 +2718,7 @@
 		<a href="#" onclick="goTo(0,event);closeMobileMenu()">Inicio</a>
 		<a href="#" onclick="goTo(1,event);closeMobileMenu()">Soluciones</a>
 		<a href="#" onclick="goTo(2,event);closeMobileMenu()">Demos</a>
-		<a href="#" onclick="goTo(4,event);closeMobileMenu()" class="nav-cta-mobile">Contacto</a>
+		<a href="#" onclick="goTo(3,event);closeMobileMenu()" class="nav-cta-mobile">Contacto</a>
 	</div>
 
 	<!-- VIEWPORT NORIA -->
@@ -2829,7 +2829,7 @@
 					</a>
 		</div>
 
-				<button class="slide-nav-next" onclick="goTo(4)">
+				<button class="slide-nav-next" onclick="goTo(3)">
 					Inicie Transformación<i class="fas fa-arrow-down"></i>
 				</button>
 			</div>
@@ -3790,9 +3790,9 @@
 		};
 
 		// Patch goTo para actualizar menú móvil también
-		const _origGoTo = goTo;
+		const _origGoToMobile = goTo;
 		goTo = function (index, e) {
-			_origGoTo(index, e);
+			_origGoToMobile(index, e);
 			setTimeout(() => updateMobileMenuActive(index), 0);
 		};
 		// Detectar el ancla #five al cargar la página o cambiar la URL
