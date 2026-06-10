@@ -97,7 +97,7 @@
         @media (max-width: 768px) {
             .f-hero {
                 height: auto;
-                min-height: 80vh;
+                min-height: 460px; /* Cambiado de vh a px para evitar que la imagen salte cuando se oculta la barra de direcciones del celular */
                 padding-bottom: 40px;
                 padding-top: 100px;
             }
@@ -1886,6 +1886,9 @@
                 closeModal();
             });
         }
+
+        // Declaramos la función que faltaba para evitar errores en consola y mejorar la estabilidad en móviles
+        function bindCursor() {}
     </script>
 </body>
 
