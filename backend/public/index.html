@@ -2083,7 +2083,181 @@
 			}
 		}
 
-		/* =======================================================
+		
+		/* =========================================
+		   TARJETA UNIFICADA PREMIUM (ESTILOS GLOBALES - PC Y MÓVIL)
+		   ========================================= */
+		.unified-card {
+			width: 100%;
+			max-width: 550px !important;
+			display: flex;
+			flex-direction: column;
+			gap: 22px;
+			margin: 0 auto;
+			background: rgba(10, 10, 10, 0.88) !important;
+			backdrop-filter: blur(16px);
+			-webkit-backdrop-filter: blur(16px);
+			border: 1px solid rgba(243, 160, 34, 0.18) !important;
+			border-radius: 24px !important;
+			padding: 30px !important;
+			box-shadow: 0 30px 60px rgba(0, 0, 0, 0.65);
+		}
+
+		.card-founder-header {
+			display: flex;
+			gap: 16px;
+			align-items: flex-start;
+			text-align: left;
+			width: 100%;
+		}
+
+		.founder-photo-wrap {
+			width: 62px;
+			height: 62px;
+			border-radius: 50%;
+			border: 2px solid rgba(243, 160, 34, 0.5);
+			box-shadow: 0 0 18px rgba(243, 160, 34, 0.18);
+			overflow: hidden;
+			flex-shrink: 0;
+		}
+
+		.founder-photo {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		.founder-info {
+			display: flex;
+			flex-direction: column;
+			gap: 2px;
+			flex-grow: 1;
+		}
+
+		.founder-meta-row {
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-start;
+			flex-wrap: wrap;
+			gap: 10px;
+		}
+
+		.founder-name {
+			font-size: 0.95rem;
+			font-weight: 600;
+			color: var(--white);
+			letter-spacing: 0.3px;
+		}
+
+		.founder-role {
+			font-size: 0.65rem;
+			letter-spacing: 1.5px;
+			text-transform: uppercase;
+			color: var(--orange);
+		}
+
+		.founder-bio {
+			font-size: 0.74rem;
+			color: rgba(255, 255, 255, 0.55);
+			line-height: 1.45;
+			margin-top: 6px;
+			font-weight: 300;
+		}
+
+		/* Integración de Redes Sociales en Cabecera */
+		.header-socials {
+			display: flex;
+			gap: 8px;
+		}
+
+		.header-socials a {
+			width: 32px !important;
+			height: 32px !important;
+			display: flex !important;
+			align-items: center !important;
+			justify-content: center !important;
+			border-radius: 50% !important;
+			background: rgba(255, 255, 255, 0.04) !important;
+			border: 1px solid rgba(255, 255, 255, 0.08) !important;
+			color: rgba(255, 255, 255, 0.55) !important;
+			font-size: 0.85rem !important;
+			text-decoration: none !important;
+			transition: all 0.3s ease !important;
+			box-shadow: none !important;
+			transform: none !important;
+		}
+
+		.header-socials a:hover {
+			background: rgba(243, 160, 34, 0.12) !important;
+			border-color: var(--orange) !important;
+			color: var(--orange) !important;
+			transform: translateY(-2px) !important;
+		}
+
+		/* Separador Interno de la Tarjeta */
+		.card-inner-divider {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			width: 100%;
+		}
+
+		.card-inner-divider::before,
+		.card-inner-divider::after {
+			content: '';
+			flex: 1;
+			height: 1px;
+			background: linear-gradient(to right, transparent, rgba(243,160,34,0.25), transparent);
+		}
+
+		.card-inner-divider span {
+			font-size: 0.65rem;
+			letter-spacing: 2.5px;
+			text-transform: uppercase;
+			color: var(--orange);
+			opacity: 0.85;
+			white-space: nowrap;
+			font-weight: 600;
+		}
+
+		/* Footer integrado */
+		.card-footer {
+			border-top: 1px solid rgba(255, 255, 255, 0.06);
+			padding-top: 16px;
+			width: 100%;
+		}
+
+		/* Adaptación específica para la tarjeta en pantallas pequeñas */
+		@media (max-width: 520px) {
+			.unified-card {
+				padding: 22px 16px !important;
+				gap: 18px !important;
+			}
+			
+			.card-founder-header {
+				flex-direction: column;
+				align-items: center;
+				text-align: center;
+				gap: 12px;
+			}
+
+			.founder-meta-row {
+				flex-direction: column;
+				align-items: center;
+				gap: 8px;
+			}
+
+			.header-socials {
+				justify-content: center;
+			}
+
+			.card-inner-divider span {
+				font-size: 0.58rem;
+				letter-spacing: 1.5px;
+			}
+		}
+
+/* =======================================================
 		   BLOQUE DE RESPONSIVIDAD MÓVIL (Max-width: 768px)
 		   ======================================================= */
 		@media (max-width: 768px) {
@@ -2221,177 +2395,7 @@
 			}
 
 			
-			/* =========================================
-   TARJETA UNIFICADA PREMIUM (NUEVO DISEÑO)
-   ========================================= */
-.unified-card {
-    width: 100%;
-    max-width: 550px !important;
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-    margin: 0 auto;
-    background: rgba(10, 10, 10, 0.88) !important;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(243, 160, 34, 0.18) !important;
-    border-radius: 24px !important;
-    padding: 30px !important;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.65);
-}
-
-.card-founder-header {
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
-    text-align: left;
-    width: 100%;
-}
-
-.founder-photo-wrap {
-    width: 62px;
-    height: 62px;
-    border-radius: 50%;
-    border: 2px solid rgba(243, 160, 34, 0.5);
-    box-shadow: 0 0 18px rgba(243, 160, 34, 0.18);
-    overflow: hidden;
-    flex-shrink: 0;
-}
-
-.founder-photo {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.founder-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    flex-grow: 1;
-}
-
-.founder-meta-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.founder-name {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--white);
-    letter-spacing: 0.3px;
-}
-
-.founder-role {
-    font-size: 0.65rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--orange);
-}
-
-.founder-bio {
-    font-size: 0.74rem;
-    color: rgba(255, 255, 255, 0.55);
-    line-height: 1.45;
-    margin-top: 6px;
-    font-weight: 300;
-}
-
-/* Integración moderna de Redes Sociales en Cabecera */
-.header-socials {
-    display: flex;
-    gap: 8px;
-}
-
-.header-socials a {
-    width: 32px !important;
-    height: 32px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    border-radius: 50% !important;
-    background: rgba(255, 255, 255, 0.04) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    color: rgba(255, 255, 255, 0.55) !important;
-    font-size: 0.85rem !important;
-    text-decoration: none !important;
-    transition: all 0.3s ease !important;
-    box-shadow: none !important;
-    transform: none !important;
-}
-
-.header-socials a:hover {
-    background: rgba(243, 160, 34, 0.12) !important;
-    border-color: var(--orange) !important;
-    color: var(--orange) !important;
-    transform: translateY(-2px) !important;
-}
-
-/* Separador Interno de la Tarjeta */
-.card-inner-divider {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    width: 100%;
-}
-
-.card-inner-divider::before,
-.card-inner-divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(to right, transparent, rgba(243,160,34,0.25), transparent);
-}
-
-.card-inner-divider span {
-    font-size: 0.65rem;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--orange);
-    opacity: 0.85;
-    white-space: nowrap;
-    font-weight: 600;
-}
-
-@media (max-width: 520px) {
-    .unified-card {
-        padding: 22px 16px !important;
-        gap: 18px !important;
-    }
-    
-    .card-founder-header {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 12px;
-    }
-
-    .founder-meta-row {
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .header-socials {
-        justify-content: center;
-    }
-
-    .card-inner-divider span {
-        font-size: 0.58rem;
-        letter-spacing: 1.5px;
-    }
-}
-
-/* Footer integrado */
-.card-footer {
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-    padding-top: 16px;
-    width: 100%;
-}
+			
 
 
 			
