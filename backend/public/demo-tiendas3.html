@@ -2,7 +2,8 @@
 <html lang="es">
 
 <head>
-    <title>SurMágico | Villarrica & Pucón</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='25' fill='%23121216'/><text y='70' x='15' font-size='65'>🏔</text></svg>">
+    <title>SurMágico Turismo · Reservas & Experiencias</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link
@@ -35,6 +36,12 @@
             --muted: #7a8c7d;
             --border: rgba(201, 168, 76, .15);
             --border2: rgba(201, 168, 76, .3);
+            --accent: #c9a84c;
+            --accent-rgb: 201, 168, 76;
+            --bg-body: #060d08;
+            --bg-card-border: rgba(201, 168, 76, .15);
+            --text-main: #ece8df;
+            --text-muted: #7a8c7d;
         }
 
         html {
@@ -949,6 +956,195 @@
             background: var(--gold2);
         }
 
+        /* ===== DRAWER CARRITO + CHECKOUT (mismo sistema demo1) ===== */
+        .btn-order {
+            width: 100%; margin-top: 20px; background: var(--accent); color: #000;
+            border: none; padding: 17px; border-radius: 14px; font-weight: 700;
+            font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            font-family: 'Jost', sans-serif; cursor: pointer;
+        }
+        .btn-order:hover { opacity: 0.88; }
+        .btn-close {
+            background: transparent; border: none; color: var(--text-muted);
+            margin-top: 16px; width: 100%; font-size: 0.78rem; letter-spacing: 1px;
+            text-decoration: underline; cursor: pointer; font-family: 'Jost', sans-serif;
+        }
+        .nav-cart-btn {
+            position: relative; background: transparent;
+            border: 1px solid var(--border2); color: var(--text);
+            width: 42px; height: 42px; border-radius: 50%;
+            display: inline-flex; align-items: center; justify-content: center;
+            font-size: 0.9rem; cursor: pointer; transition: .3s;
+        }
+        .nav-cart-btn:hover { border-color: var(--gold); color: var(--gold); }
+        .nav-cart-btn .cart-count {
+            position: absolute; top: -4px; right: -4px; background: var(--gold);
+            color: #000; font-size: 0.6rem; font-weight: 700; width: 16px; height: 16px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            opacity: 0; transition: .3s;
+        }
+        .nav-cart-btn .cart-count.on { opacity: 1; }
+        .cart-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(6px);
+            z-index: 9998; opacity: 0; transition: opacity 0.35s ease;
+        }
+        .cart-overlay.active { opacity: 1; }
+        .cart-drawer {
+            position: fixed; top: 0; right: 0; width: 100%; max-width: 420px;
+            height: 100dvh; background: var(--bg-body);
+            border-left: 1px solid rgba(var(--accent-rgb), 0.25);
+            box-shadow: -30px 0 60px rgba(0, 0, 0, 0.55);
+            z-index: 9999; transform: translateX(105%);
+            transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex; flex-direction: column;
+        }
+        .cart-drawer.active { transform: translateX(0); }
+        .cart-head {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 22px 24px; border-bottom: 1px solid var(--bg-card-border);
+        }
+        .cart-head h3 { margin: 0; font-size: 1.3rem; font-family: 'Jost', sans-serif; }
+        .cart-head h3 span { color: var(--accent); font-size: 0.8rem; }
+        .cart-x {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--bg-card-border); color: var(--text-main);
+            width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 0.85rem;
+        }
+        .cart-x:hover { border-color: var(--accent); color: var(--accent); }
+        .cart-body { flex: 1; overflow-y: auto; padding: 18px 24px; }
+        .cart-empty { text-align: center; color: var(--text-muted); padding: 60px 10px; font-size: 0.9rem; line-height: 1.8; }
+        .cart-empty i { font-size: 2.2rem; display: block; margin-bottom: 16px; color: var(--accent); opacity: 0.6; }
+        .cart-item { display: flex; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--bg-card-border); }
+        .cart-item img { width: 58px; height: 58px; object-fit: cover; border-radius: 12px; flex-shrink: 0; }
+        .cart-item-info { flex: 1; min-width: 0; }
+        .cart-item-info b { display: block; font-size: 0.85rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .cart-item-info span { font-size: 0.8rem; color: var(--accent); font-weight: 700; }
+        .qty-ctl { display: flex; align-items: center; gap: 8px; }
+        .qty-ctl button {
+            width: 28px; height: 28px; border-radius: 8px;
+            border: 1px solid var(--bg-card-border);
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-main); cursor: pointer; font-size: 0.8rem;
+        }
+        .qty-ctl button:hover { border-color: var(--accent); color: var(--accent); }
+        .qty-ctl em { font-style: normal; font-size: 0.85rem; min-width: 18px; text-align: center; }
+        .cart-rm { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.8rem; padding: 6px; }
+        .cart-rm:hover { color: #ff6b6b; }
+        .cart-foot { padding: 20px 24px 26px; border-top: 1px solid var(--bg-card-border); background: rgba(255, 255, 255, 0.02); }
+        .cart-line { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px; }
+        .cart-total { display: flex; justify-content: space-between; font-size: 1.05rem; font-weight: 700; margin: 12px 0 16px; }
+        .cart-total span:last-child { color: var(--accent); }
+        .co-field { margin-bottom: 12px; }
+        .co-field label { display: block; font-size: 0.62rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; font-family: 'Jost', sans-serif; }
+        .co-field input {
+            width: 100%; padding: 13px 15px; border-radius: 12px;
+            border: 1px solid var(--bg-card-border);
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-main); font-size: 0.9rem; outline: none; box-sizing: border-box;
+            font-family: 'Jost', sans-serif;
+        }
+        .co-field input:focus { border-color: var(--accent); }
+        .co-mail-note { font-size: 0.75rem; color: var(--text-muted); line-height: 1.6; margin: -4px 0 12px; }
+        .btn-demo-fill {
+            width: 100%; padding: 8px 16px; border-radius: 8px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7); font-size: 0.8rem;
+            cursor: pointer; transition: all 0.2s ease; margin-bottom: 14px;
+            font-family: 'Jost', sans-serif;
+        }
+        .btn-demo-fill:hover { background: rgba(255, 255, 255, 0.08); color: #fff; }
+        .gw-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 6px; }
+        .gw-opt {
+            display: flex; align-items: center; gap: 10px;
+            padding: 12px 14px; border-radius: 12px;
+            border: 1px solid var(--bg-card-border);
+            cursor: pointer; font-size: 0.82rem;
+            transition: border-color 0.25s, background 0.25s;
+        }
+        .gw-opt:hover { border-color: var(--accent); }
+        .gw-opt.sel { border-color: var(--accent); background: rgba(var(--accent-rgb), 0.08); }
+        .gw-opt i { color: var(--accent); width: 20px; text-align: center; }
+        .co-processing { text-align: center; padding: 70px 20px; }
+        .spinner-fino {
+            width: 54px; height: 54px; margin: 0 auto 24px; border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.12);
+            border-top-color: var(--accent);
+            animation: spinFino 0.9s linear infinite;
+        }
+        @keyframes spinFino { to { transform: rotate(360deg); } }
+        .co-processing p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.8; }
+        .voucher { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--bg-card-border); border-radius: 18px; padding: 26px 22px; text-align: center; }
+        .voucher-stamp {
+            display: inline-block; font-size: 0.68rem; font-weight: 700; letter-spacing: 3px;
+            text-transform: uppercase; color: #22c55e;
+            border: 1.5px solid rgba(34, 197, 94, 0.55);
+            background: rgba(34, 197, 94, 0.08);
+            padding: 8px 18px; border-radius: 999px; margin-bottom: 14px;
+        }
+        .voucher-folio { font-size: 1.25rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 2px; }
+        .voucher-date { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 18px; }
+        .voucher-items { text-align: left; font-size: 0.82rem; border-top: 1px dashed var(--bg-card-border); border-bottom: 1px dashed var(--bg-card-border); padding: 12px 0; margin-bottom: 12px; }
+        .voucher-items div { display: flex; justify-content: space-between; padding: 4px 0; gap: 10px; }
+        .voucher-total { display: flex; justify-content: space-between; font-weight: 700; font-size: 1rem; margin-bottom: 20px; }
+        .voucher-total span:last-child { color: var(--accent); }
+        .btn-wa-send {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            width: 100%; padding: 15px; border-radius: 14px; border: none;
+            background: #22c55e; color: #04120a; font-weight: 700; font-size: 0.78rem;
+            letter-spacing: 1px; text-transform: uppercase; text-decoration: none; margin-bottom: 14px;
+            box-sizing: border-box; font-family: 'Jost', sans-serif;
+        }
+        .btn-ia-conv {
+            display: block; padding: 16px; border-radius: 14px;
+            border: 1px solid rgba(var(--accent-rgb), 0.4);
+            background: rgba(var(--accent-rgb), 0.07);
+            color: var(--text-main); font-size: 0.8rem; line-height: 1.7; text-decoration: none;
+        }
+        .btn-ia-conv strong { color: var(--accent); display: block; margin-bottom: 2px; }
+
+        /* ===== GLASS TOAST (reemplaza alert nativo) ===== */
+        #toast-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: min(360px, calc(100vw - 32px));
+        }
+
+        .glass-toast {
+            background: rgba(22, 22, 28, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 12px;
+            padding: 14px 20px;
+            color: #f3f4f6;
+            font-size: 0.9rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            animation: toastIn 0.3s ease;
+            line-height: 1.5;
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateY(12px); }
+        }
+
+        .co-field input.input-error {
+            border-color: rgba(245, 158, 11, 0.6);
+            box-shadow: 0 0 12px rgba(245, 158, 11, 0.2);
+        }
+
+        @media (max-width: 560px) {
+            #toast-container { left: 16px; right: 16px; }
+        }
+
         /* =========================================
            FOOTER
            ========================================= */
@@ -1192,6 +1388,10 @@
         <a href="#" class="t-logo">Sur<em>Mágico</em></a>
         <div class="t-nav-right">
             <div class="nav-coords">39°17'S 72°13'W · Villarrica</div>
+            <button class="nav-cart-btn" id="cart-btn" title="Reservas" onclick="openCart()">
+                <i class="fas fa-bag-shopping"></i>
+                <span class="cart-count" id="cart-count">0</span>
+            </button>
             <!-- EL BOTÓN VOLVER CON EL TRUCO DE HISTORY.BACK() -->
             <a href="javascript:history.back()" class="btn-volver"><i class="fas fa-arrow-left"
                     style="font-size:.6rem;"></i> Volver</a>
@@ -1366,6 +1566,58 @@
         <div class="t-footer-right">Demo por <a href="https://www.iasesoria.cl/" target="_blank">IAsesoria.cl</a></div>
     </footer>
 
+    <!-- DRAWER CARRITO + CHECKOUT -->
+    <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+    <aside class="cart-drawer" id="cart-drawer" aria-label="Carrito de reservas">
+        <div class="cart-head">
+            <h3>Tus reservas <span id="cart-head-count"></span></h3>
+            <button class="cart-x" onclick="closeCart()" aria-label="Cerrar carrito"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-body" id="cart-body">
+            <div id="co-step-cart"><div id="cart-items"></div></div>
+            <div id="co-step-form" style="display:none;">
+                <div class="co-field">
+                    <button type="button" class="btn-demo-fill" onclick="fillDemoData()">Autocompletar datos de prueba</button>
+                </div>
+                <div class="co-field">
+                    <label for="co-nombre">Nombre y Apellido</label>
+                    <input type="text" id="co-nombre" placeholder="Ej: Carlos Morales" autocomplete="name">
+                </div>
+                <div class="co-field">
+                    <label for="co-phone">Teléfono / WhatsApp</label>
+                    <input type="tel" id="co-phone" placeholder="+56 9 1234 5678" autocomplete="tel">
+                </div>
+                <div class="co-field">
+                    <label for="co-direccion">Dirección / Alojamiento</label>
+                    <input type="text" id="co-direccion" placeholder="Hotel, cabaña o dirección" autocomplete="street-address">
+                </div>
+                <div class="co-field">
+                    <label for="co-email">Correo electrónico</label>
+                    <input type="email" id="co-email" placeholder="tucorreo@ejemplo.cl" autocomplete="email">
+                </div>
+                <p class="co-mail-note">Ingrese su correo real si desea recibir este comprobante de demostración en su bandeja de entrada.</p>
+                <div class="co-field">
+                    <label>Pasarela de pago</label>
+                    <div class="gw-list" id="gw-list">
+                        <div class="gw-opt sel" data-gw="Webpay Plus" onclick="selectGateway(this)"><i class="fas fa-credit-card"></i><span><b>Webpay Plus</b><br><small style="color:var(--text-muted)">Transbank · Débito / Crédito</small></span></div>
+                        <div class="gw-opt" data-gw="Mercado Pago" onclick="selectGateway(this)"><i class="fas fa-wallet"></i><span><b>Mercado Pago</b><br><small style="color:var(--text-muted)">Dinero en cuenta y tarjetas</small></span></div>
+                        <div class="gw-opt" data-gw="Transferencia" onclick="selectGateway(this)"><i class="fas fa-money-bill-transfer"></i><span><b>Transferencia</b><br><small style="color:var(--text-muted)">Pago contra entrega</small></span></div>
+                    </div>
+                </div>
+            </div>
+            <div id="co-step-processing" style="display:none;">
+                <div class="co-processing">
+                    <div class="spinner-fino"></div>
+                    <p><b style="color:var(--text-main)">Procesando transacción segura...</b><br>Conectando con pasarela de pago... Autorizando...</p>
+                </div>
+            </div>
+            <div id="co-step-voucher" style="display:none;">
+                <div class="voucher" id="voucher-box"></div>
+            </div>
+        </div>
+        <div class="cart-foot" id="cart-foot"></div>
+    </aside>
+
     <!-- MODAL DE RESERVAS (CORREGIDO) -->
     <div id="modal-overlay" class="modal-overlay">
         <div id="step-1" class="m-box">
@@ -1387,8 +1639,8 @@
                 Tus futuros turistas podrían reservar así de fácil, de forma <strong
                     style="color:var(--text);">automática 24/7</strong> desde WhatsApp o tu web.
             </p>
-            <a href="https://www.iasesoria.cl/#five" class="btn-cta">
-                <i class="fas fa-rocket"></i> Quiero digitalizar mi negocio
+            <a href="#" id="btn-wa-tour" target="_blank" rel="noopener noreferrer" class="btn-cta">
+                <i class="fab fa-whatsapp"></i> Enviar reserva por WhatsApp
             </a>
             <button class="btn-cancelar" onclick="location.reload()" style="margin-top:14px;">Realizar otra
                 prueba</button>
@@ -1398,8 +1650,7 @@
     <!-- SCRIPT CORREGIDO PARA LA LÓGICA DE TURISMO -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-        // WEBHOOK DE GOOGLE SHEETS
-        const WEBHOOK_URL = "{{ webhook_url }}";
+        // LEADS VÍA PROXY LOCAL SEGURO (Flask -> GAS por detrás)
         let tourSeleccionado = "";
 
         // 1. CURSOR PERSONALIZADO
@@ -1468,10 +1719,264 @@
             $('#modal-overlay').fadeOut(200);
         }
 
+        /* ----- CARRITO + CHECKOUT SIMULADO ----- */
+        const DEMO_ORIGEN = "SurMágico Turismo";
+        const WA_OFICIAL = "56926870966";
+        const toursCatalog = {
+            "Classic Tour": { n: "Classic Tour", p: "$45.000", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNj8M_kPZXrnVbd-_KnV4LSDRpYkumjAEB2g&s?w=600&q=80" },
+            "Aventura Volcán": { n: "Aventura Volcán", p: "$95.000", img: "https://mawidadventures.cl/wp-content/uploads/2020/05/descenso-del-volcan-villarrica-1.jpg?w=600&q=80" },
+            "Experiencia VIP": { n: "Experiencia VIP", p: "$250.000", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvVf8coc5c5hZYCL8pY_-exV34_rcPI8hsVA&s?w=600&q=80" }
+        };
+        let cart = {};
+        let coStep = 'cart';
+
+        function parseCLP(txt) {
+            return parseInt(String(txt).replace(/[^0-9]/g, ''), 10) || 0;
+        }
+        function fmtCLP(n) {
+            return '$' + n.toLocaleString('es-CL');
+        }
+        function cartQty() {
+            return Object.values(cart).reduce((a, e) => a + e.qty, 0);
+        }
+        function cartTotal() {
+            return Object.values(cart).reduce((a, e) => a + parseCLP(e.item.p) * e.qty, 0);
+        }
+
+        function addToCart(nombre) {
+            const item = toursCatalog[nombre];
+            if (!item) return;
+            if (cart[nombre]) cart[nombre].qty++;
+            else cart[nombre] = { item, qty: 1 };
+            updateBadge();
+            renderCart();
+            openCart();
+        }
+        // Los botones "Reservar" ahora suman al carrito
+        const _abrirReservaLegacy = abrirReserva;
+        abrirReserva = function(tour) { addToCart(tour); };
+
+        function updateBadge() {
+            const q = cartQty();
+            $('#cart-count').text(q).toggleClass('on', q > 0);
+            $('#cart-head-count').text(q ? `(${q})` : '');
+        }
+
+        function openCart() {
+            showStep('cart');
+            renderCart();
+            $('#cart-overlay').show();
+            requestAnimationFrame(() => {
+                $('#cart-overlay').addClass('active');
+                $('#cart-drawer').addClass('active');
+            });
+            document.body.style.overflow = 'hidden';
+        }
+        function closeCart() {
+            $('#cart-overlay').removeClass('active');
+            $('#cart-drawer').removeClass('active');
+            document.body.style.overflow = '';
+            setTimeout(() => $('#cart-overlay').hide(), 350);
+        }
+
+        function showStep(step) {
+            coStep = step;
+            ['cart', 'form', 'processing', 'voucher'].forEach(s => {
+                $('#co-step-' + s).toggle(s === step);
+            });
+            renderFoot();
+        }
+
+        function changeQty(nombre, d) {
+            if (!cart[nombre]) return;
+            cart[nombre].qty += d;
+            if (cart[nombre].qty <= 0) delete cart[nombre];
+            updateBadge();
+            renderCart();
+        }
+        function removeItem(nombre) {
+            delete cart[nombre];
+            updateBadge();
+            renderCart();
+        }
+
+        function renderCart() {
+            const names = Object.keys(cart);
+            if (!names.length) {
+                $('#cart-items').html(`<div class="cart-empty"><i class="fas fa-bag-shopping"></i>Aún no tienes reservas.<br>Elige tu experiencia.</div>`);
+            } else {
+                $('#cart-items').html(names.map(n => {
+                    const e = cart[n];
+                    const unit = parseCLP(e.item.p);
+                    return `<div class="cart-item">
+                        <img src="${e.item.img}" alt="${e.item.n}">
+                        <div class="cart-item-info"><b>${e.item.n}</b><span>${fmtCLP(unit * e.qty)}</span></div>
+                        <div class="qty-ctl">
+                            <button onclick="changeQty('${e.item.n}',-1)" aria-label="Restar">−</button>
+                            <em>${e.qty}</em>
+                            <button onclick="changeQty('${e.item.n}',1)" aria-label="Sumar">+</button>
+                        </div>
+                        <button class="cart-rm" onclick="removeItem('${e.item.n}')" aria-label="Eliminar"><i class="fas fa-trash-can"></i></button>
+                    </div>`;
+                }).join(''));
+            }
+            renderFoot();
+        }
+
+        function renderFoot() {
+            const foot = $('#cart-foot');
+            if (coStep === 'cart') {
+                const q = cartQty(), t = cartTotal();
+                foot.html(q ? `
+                    <div class="cart-line"><span>Subtotal (${q} reserva(s))</span><span>${fmtCLP(t)}</span></div>
+                    <div class="cart-line"><span>Traslados</span><span>Coordinar por WhatsApp</span></div>
+                    <div class="cart-total"><span>Total</span><span>${fmtCLP(t)}</span></div>
+                    <button class="btn-order" onclick="showStep('form')">Ir al checkout <i class="fas fa-arrow-right"></i></button>
+                    <button class="btn-close" onclick="closeCart()" style="cursor:pointer;">Seguir explorando</button>`
+                    : `<button class="btn-order" onclick="closeCart()">Ver experiencias</button>`);
+            } else if (coStep === 'form') {
+                foot.html(`
+                    <div class="cart-total"><span>Total a pagar</span><span>${fmtCLP(cartTotal())}</span></div>
+                    <button class="btn-order" onclick="payNow()"><i class="fas fa-lock"></i> Pagar ahora</button>
+                    <button class="btn-close" onclick="showStep('cart')" style="cursor:pointer;">← Volver a reservas</button>`);
+            } else {
+                foot.html('');
+            }
+        }
+
+        function fillDemoData() {
+            $('#co-nombre').val('Carlos Morales');
+            $('#co-phone').val('+56 9 8765 4321');
+            $('#co-direccion').val('Av. Las Araucarias 1250, Villarrica');
+            $('#co-email').val('carlos.morales@ejemplo.cl');
+            showToast('Datos de demostración cargados.');
+        }
+
+        function showToast(mensaje, tipo = 'warning') {
+            let c = document.getElementById('toast-container');
+            if (!c) {
+                c = document.createElement('div');
+                c.id = 'toast-container';
+                document.body.appendChild(c);
+            }
+            const t = document.createElement('div');
+            t.className = 'glass-toast';
+            t.textContent = mensaje;
+            c.appendChild(t);
+            setTimeout(() => {
+                t.style.transition = 'opacity 0.4s ease';
+                t.style.opacity = '0';
+                setTimeout(() => t.remove(), 400);
+            }, 3200);
+        }
+
+        function flagError(sel, mensaje) {
+            showToast(mensaje);
+            const el = $(sel);
+            el.addClass('input-error').focus();
+            setTimeout(() => el.removeClass('input-error'), 2500);
+        }
+
+        // Limpieza visual: al escribir se retira el resaltado de error
+        ['co-nombre', 'co-phone', 'co-direccion', 'co-email'].forEach(function(id) {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('input', function() { el.classList.remove('input-error'); });
+        });
+
+        function selectGateway(el) {
+            document.querySelectorAll('#gw-list .gw-opt').forEach(o => o.classList.remove('sel'));
+            el.classList.add('sel');
+        }
+        function gatewaySel() {
+            const s = document.querySelector('#gw-list .gw-opt.sel');
+            return s ? s.dataset.gw : 'Webpay Plus';
+        }
+
+        function payNow() {
+            const inputNombre = document.getElementById('co-nombre');
+            const inputTelefono = document.getElementById('co-phone');
+            const inputDireccion = document.getElementById('co-direccion');
+            const inputEmail = document.getElementById('co-email');
+            const nombreVal = inputNombre.value.trim();
+            const telefonoVal = inputTelefono.value.trim();
+            const direccionVal = inputDireccion.value.trim();
+            const email = inputEmail.value.trim();
+            const nombre = nombreVal, phone = telefonoVal, direccion = direccionVal;
+            if (!nombreVal || nombreVal.length < 3) {
+                showToast("Por favor ingrese su nombre y apellido");
+                inputNombre.focus();
+                inputNombre.classList.add('input-error');
+                return false; // DETIENE EL FLUJO POR COMPLETO
+            }
+            if (!telefonoVal || telefonoVal.length < 8) {
+                showToast("Por favor ingrese un teléfono o WhatsApp de contacto");
+                inputTelefono.focus();
+                inputTelefono.classList.add('input-error');
+                return false; // DETIENE EL FLUJO POR COMPLETO
+            }
+            if (!Object.keys(cart).length) { showToast('Aún no tienes reservas. Elige tu experiencia.'); return false; }
+            if (!direccionVal || direccionVal.length < 5) {
+                showToast("Por favor ingrese una dirección de entrega completa");
+                inputDireccion.focus();
+                inputDireccion.classList.add('input-error');
+                return false; // DETIENE EL FLUJO POR COMPLETO
+            }
+            if (email && !/[^@\s]+@[^@\s]+\.[^@\s]+/.test(email)) { flagError('#co-email', 'El correo no parece válido (puede dejarlo vacío).'); return false; }
+
+            showStep('processing');
+            const total = cartTotal();
+            const items = Object.values(cart).map(e => ({
+                nombre: e.item.n, qty: e.qty,
+                unitario: parseCLP(e.item.p),
+                subtotal: parseCLP(e.item.p) * e.qty
+            }));
+            const folio = '#TX-' + Math.floor(1000 + Math.random() * 9000);
+            const fecha = new Date().toLocaleString('es-CL');
+            const gw = gatewaySel();
+
+            setTimeout(() => {
+                const payload = {
+                    fecha, telefono: phone, nombre, email,
+                    direccion, total, items,
+                    pasarela: gw, folio,
+                    producto: items.map(i => `${i.qty}x ${i.nombre}`).join(', '),
+                    demo_origen: DEMO_ORIGEN
+                };
+                fetch('/api/demo-lead', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                }).catch(() => {}).finally(() => {
+                    showVoucher({ ...payload, folio, fecha, gw });
+                });
+            }, 1500);
+        }
+
+        function showVoucher(o) {
+            const rows = o.items.map(i =>
+                `<div><span>${i.qty} × ${i.nombre}</span><span>${fmtCLP(i.subtotal)}</span></div>`
+            ).join('');
+            const waMsg = `Hola, acabo de probar la demo de Cabañas y Turismo en IAsesoria.cl y me gustaría cotizar un sistema de reservas para mi negocio...`;
+            const waUrl = `https://wa.me/${WA_OFICIAL}?text=${encodeURIComponent(waMsg)}`;
+            $('#voucher-box').html(`
+                <span class="voucher-stamp">Pago aprobado</span>
+                <div class="voucher-folio">Folio ${o.folio}</div>
+                <div class="voucher-date">${o.fecha} · ${o.gw}</div>
+                <div class="voucher-items">${rows}</div>
+                <div class="voucher-total"><span>Total pagado</span><span>${fmtCLP(o.total)}</span></div>
+                <a class="btn-wa-send" href="${waUrl}" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> Enviar detalle por WhatsApp</a>
+                <a class="btn-ia-conv" href="https://www.iasesoria.cl/#diagnostico" target="_blank" rel="noopener"><strong>¿Desea un sistema así para su negocio?</strong>Cotice con nuestra IA en IAsesoria.cl</a>
+                <button class="btn-close" onclick="location.reload()" style="cursor:pointer;">Hacer otra reserva</button>
+            `);
+            showStep('voucher');
+            cart = {};
+            updateBadge();
+        }
+
         function procesarReserva() {
             const phone = document.getElementById('user-phone').value.trim();
             if (phone.length < 8) {
-                alert("Por favor, ingrese un número de WhatsApp válido.");
+                showToast("Por favor, ingrese un número de WhatsApp válido.");
                 return;
             }
 
@@ -1487,19 +1992,24 @@
                 demo_origen: "SurMágico Turismo"
             };
 
-            // Enviamos los datos
-            fetch(WEBHOOK_URL, {
+            // Enviamos los datos al proxy local seguro
+            fetch('/api/demo-lead', {
                 method: 'POST',
-                mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
-            }).then(() => {
+            }).then(res => {
+                if (!res.ok) throw new Error('Respuesta no OK del servidor');
+                // Preparamos el enlace a WhatsApp oficial con el tour cotizado
+                const numeroIAsesoria = "56926870966";
+                const mensaje = `Hola, acabo de probar la demo de Cabañas y Turismo en IAsesoria.cl y me gustaría cotizar un sistema de reservas para mi negocio...`;
+                document.getElementById('btn-wa-tour').href =
+                    `https://wa.me/${numeroIAsesoria}?text=${encodeURIComponent(mensaje)}`;
                 // Si funciona, ocultamos paso 1 y mostramos éxito
                 $('#step-1').hide();
                 $('#step-success').fadeIn(300);
             }).catch(() => {
                 // En caso de error de red
-                alert("Ocurrió un error al procesar tu reserva, pero la prueba fue registrada.");
+                showToast("Ocurrió un error al procesar tu reserva, pero la prueba fue registrada.");
                 cerrarModal();
                 btn.innerHTML = '<i class="fas fa-paper-plane"></i> Solicitar disponibilidad';
                 btn.disabled = false;
@@ -1508,56 +2018,12 @@
 
         // Cerrar con Escape
         document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') cerrarModal();
+            if (e.key === 'Escape') {
+                const drawer = document.getElementById('cart-drawer');
+                if (drawer && drawer.classList.contains('active')) closeCart();
+                else cerrarModal();
+            }
         });
-        function enviarWhatsApp() {
-            const phone = $('#user-phone').val().trim();
-            if (phone.length < 8) return alert("Ingrese un número válido");
-            
-            $('.btn-order').html('<i class="fas fa-spinner fa-spin"></i> Procesando...').prop('disabled', true);
-            
-            const payload = { 
-                fecha: new Date().toLocaleString(), 
-                telefono: phone, 
-                producto: productoSeleccionado, 
-                // Asegúrate de cambiar el nombre según la demo (ej: "Ferretería Pro", "SurMágico", etc.)
-                demo_origen: "Sakura Sushi (Premium)" 
-            };
-            
-            // 1. Enviamos los datos silenciosamente a Google Sheets (Webhook de Flask -> GAS)
-            fetch(WEBHOOK_URL, { 
-                method: 'POST', 
-                mode: 'no-cors', 
-                headers: { 'Content-Type': 'application/json' }, 
-                body: JSON.stringify(payload) 
-            })
-            .then(() => {
-                // 2. Preparamos el mensaje para enviarte a ti
-                // REEMPLAZA ESTE NÚMERO CON TU WHATSAPP DE IASESORIA
-                const numeroIAsesoria = "56926870966"; 
-                const mensaje = `Hola IAsesoria, acabo de probar la demo de *${payload.demo_origen}*. Simulé un pedido/reserva para: *${productoSeleccionado}*. Me interesa saber más sobre sus servicios.`;
-                const urlWaMe = `https://wa.me/${numeroIAsesoria}?text=${encodeURIComponent(mensaje)}`;
-
-                // 3. Mostramos la pantalla de éxito con el botón que abre WhatsApp
-                $('#modal-inner').html(`
-                    <div class="modal-icon"><i class="fas fa-check" style="color:var(--accent);"></i></div>
-                    <h3>¡Simulación Exitosa!</h3>
-                    <span class="modal-product-name">${productoSeleccionado}</span>
-                    <p style="color:var(--text-muted);font-size:0.85rem;line-height:1.7;margin-bottom:28px;">
-                        Tus datos se han guardado en una base de datos segura.<br><br>
-                        En la vida real, tu cliente presionaría este botón para enviarte el pedido directamente a tu WhatsApp:
-                    </p>
-                    <a href="${urlWaMe}" target="_blank" rel="noopener noreferrer"
-                       class="btn-order" style="text-decoration:none;">
-                       <i class="fab fa-whatsapp"></i> Ver cómo llega a WhatsApp
-                    </a>
-                    <button class="btn-close" onclick="closeModal(); location.reload();" style="cursor:pointer; margin-top:15px; background:none; border:none; color:var(--text-muted); text-decoration:underline;">Cerrar demo</button>
-                `);
-            }).catch(() => {
-                alert("Ocurrió un error de red, por favor intenta de nuevo.");
-                closeModal();
-            });
-        }
     </script>
 </body>
 

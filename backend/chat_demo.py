@@ -60,4 +60,4 @@ if __name__ == "__main__":
     print(f"📍 Escuchando en http://0.0.0.0:5003")
     print(f"🍎 Mac: {MAC_URL}")
     print("-" * 30)
-    app.run(host="0.0.0.0", port=5003, debug=True)
+    app.run(host="0.0.0.0", port=5003, debug=False)
