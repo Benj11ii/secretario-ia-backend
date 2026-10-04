@@ -125,8 +125,17 @@ def health_chat():
     return jsonify({"status": "proxy_active"})
 
 
+def _fmt_clp(valor):
+    """Normaliza un total a formato CLP con miles (14.900). Acepta int o str."""
+    try:
+        n = int(str(valor).replace("$", "").replace(".", "").replace(",", "").strip() or 0)
+    except Exception:
+        n = 0
+    return f"{n:,}".replace(",", ".")
+
+
 def _enviar_comprobante_demo(destino, pedido):
-    """Envía el recibo de compra simulado por correo. Requiere SMTP_* en entorno."""
+    """Envía el comprobante oficial IAsesoría de simulación. Requiere SMTP_* en entorno."""
     import smtplib
     from email.mime.text import MIMEText
     from email.mime.multipart import MIMEMultipart
@@ -140,29 +149,68 @@ def _enviar_comprobante_demo(destino, pedido):
 
     port = int(os.getenv("SMTP_PORT", "587"))
     remitente = os.getenv("SMTP_FROM", user)
+    nombre = (pedido.get("nombre") or "cliente").strip() or "cliente"
+    demo_origen = pedido.get("demo_origen") or "Demo"
+    folio = pedido.get("folio") or "#TX-0000"
+    metodo_pago = pedido.get("pasarela") or "No especificado"
+    fecha_actual = pedido.get("fecha") or datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    total_fmt = _fmt_clp(pedido.get("total", 0))
     items = pedido.get("items") or []
-    filas = "".join(
-        f"<tr><td style='padding:8px 0;'>{it.get('qty', 1)} × {it.get('nombre', '')}</td>"
-        f"<td style='padding:8px 0;text-align:right;'>${int(it.get('subtotal', 0)):,}</td></tr>"
-        .replace(",", ".")
-        for it in items
-    ) or f"<tr><td>{pedido.get('producto', '')}</td><td></td></tr>"
+    if items:
+        filas_items = "".join(
+            f"<div style='display:flex;justify-content:space-between;padding:5px 0;gap:10px;'>"
+            f"<span>{it.get('qty', 1)} × {it.get('nombre', '')}</span>"
+            f"<span>${_fmt_clp(it.get('subtotal', 0))} CLP</span></div>"
+            for it in items
+        )
+    else:
+        prod = pedido.get("producto") or "Simulación"
+        filas_items = (
+            f"<div style='display:flex;justify-content:space-between;padding:5px 0;gap:10px;'>"
+            f"<span>{prod}</span><span>${total_fmt} CLP</span></div>"
+        )
 
-    html = f"""<div style="font-family:Arial,sans-serif;max-width:520px;margin:auto;background:#0d0e12;color:#f3f4f6;border-radius:16px;overflow:hidden;">
-      <div style="background:linear-gradient(180deg,#fbbf24,#d97706);padding:22px;text-align:center;color:#1a1002;">
-        <div style="font-size:12px;letter-spacing:3px;">PAGO APROBADO</div>
-        <div style="font-size:22px;font-weight:bold;">{pedido.get('demo_origen', 'Demo')} · Folio {pedido.get('folio', '-')}</div>
-      </div>
-      <div style="padding:26px;">
-        <p>Hola {pedido.get('nombre') or 'cliente'}, este es el comprobante de su compra de demostración.</p>
-        <table style="width:100%;font-size:14px;border-collapse:collapse;">{filas}</table>
-        <p style="font-size:18px;text-align:right;"><b>Total pagado: ${pedido.get('total', '')}</b></p>
-        <p style="font-size:12px;color:#9ca3af;">Fecha: {pedido.get('fecha', '')} · Pasarela: {pedido.get('pasarela', '')}<br>
-        Simulación con fines demostrativos — IAsesoria.</p>
-      </div></div>"""
+    html = (
+        f"<div style='max-width:600px;margin:0 auto;background:#1a1e29;border-radius:12px;overflow:hidden;"
+        f"font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif;'>"
+        f"<div style='background:#f59e0b;height:65px;display:flex;align-items:center;justify-content:center;"
+        f"text-align:center;color:#09090b;font-size:22px;font-weight:bold;letter-spacing:0.5px;'>"
+        f"IAsesoría Informática</div>"
+        f"<div style='padding:32px 28px;color:#f3f4f6;'>"
+        f"<h3 style='color:#f59e0b;margin-top:0;'>Estimado/a {nombre},</h3>"
+        f"<p style='font-size:0.95rem;line-height:1.6;'>Gracias por probar nuestro ecosistema interactivo de "
+        f"{demo_origen}. A continuación tiene el desglose digital de su simulación:</p>"
+        f"<div style='background:#12151c;border-left:3px solid #f59e0b;padding:16px;border-radius:6px;margin:20px 0;'>"
+        f"<div style='font-size:0.88rem;color:#9ca3af;margin-bottom:8px;'>Folio: {folio} | {fecha_actual}</div>"
+        f"<div style='font-size:0.88rem;color:#9ca3af;margin-bottom:10px;'>Método de pago: {metodo_pago}</div>"
+        f"<div style='font-size:0.9rem;line-height:1.6;'>{filas_items}</div>"
+        f"<div style='text-align:right;font-size:1.05rem;font-weight:bold;margin-top:12px;'>"
+        f"Total pagado: ${total_fmt} CLP</div>"
+        f"</div>"
+        f"<div style='background:rgba(255,255,255,0.04);border-left:3px solid #d97706;padding:14px;"
+        f"border-radius:6px;margin:22px 0;font-size:0.88rem;color:#d1d5db;line-height:1.5;'>"
+        f"<strong>Nota operativa:</strong> Este comprobante corresponde a una simulación de flujo operativo "
+        f"en tiempo real. Todas las etapas del proceso (tiempos de entrega, confirmaciones de cocina o bodega, "
+        f"medios de pago y notificaciones automáticas) son 100% personalizables en etapas tempranas de "
+        f"implementación según las necesidades de su negocio."
+        f"</div>"
+        f"<div style='background:#f59e0b;color:#09090b;padding:18px;border-radius:8px;text-align:center;"
+        f"margin:25px 0;font-weight:600;'>"
+        f"¿Desea implementar este ecosistema automatizado en su empresa?<br>"
+        f"<a href='https://www.iasesoria.cl/#diagnostico' "
+        f"style='display:inline-block;margin-top:10px;background:#09090b;color:#f59e0b;padding:10px 22px;"
+        f"text-decoration:none;border-radius:6px;font-weight:bold;font-size:0.95rem;'>"
+        f"Inicie su diagnóstico formal con nuestro equipo técnico en iasesoria.cl →"
+        f"</a>"
+        f"</div>"
+        f"<p style='font-size:0.8rem;color:#9ca3af;line-height:1.6;margin-bottom:0;'>"
+        f"Nota de transparencia: este correo fue generado automáticamente como respaldo de su simulación.<br>"
+        f"Atentamente, Equipo IAsesoría Informática · Villarrica, Chile.</p>"
+        f"</div></div>"
+    )
 
     msg = MIMEMultipart("alternative")
-    msg["Subject"] = f"Comprobante {pedido.get('folio', '')} · {pedido.get('demo_origen', 'Demo')}"
+    msg["Subject"] = f"Comprobante {folio} · {demo_origen}"
     msg["From"] = remitente
     msg["To"] = destino
     msg.attach(MIMEText(html, "html", "utf-8"))
@@ -172,6 +220,14 @@ def _enviar_comprobante_demo(destino, pedido):
         s.login(user, pwd)
         s.sendmail(remitente, [destino], msg.as_string())
     print(f"✅ demo-lead: comprobante enviado a {destino}")
+
+
+def _disparar_correo_background(destino, pedido):
+    """Despacha el correo de confirmación en hilo background sin bloquear la respuesta."""
+    try:
+        _enviar_comprobante_demo(destino, pedido)
+    except Exception as e:
+        print(f"⚠️ demo-lead: correo falló: {e}")
 
 
 # --- PROXY SEGURO PARA LEADS DE DEMOS (no expone el GAS al frontend) ---
@@ -194,10 +250,14 @@ def demo_lead():
         folio = str(datos.get("folio", "")).strip()
         email_ok = bool(_re.match(r"[^@\s]+@[^@\s]+\.[^@\s]+", email))
 
+        # Google Sheets interpreta un "+" inicial como fórmula (#ERROR!):
+        # se prefija apóstrofe para forzar texto (el ' no se muestra en la celda).
+        telefono_sheet = "'" + telefono if telefono.startswith("+") else telefono
+
         payload = {
             "fecha": datos.get("fecha")
             or datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            "telefono": telefono,
+            "telefono": telefono_sheet,
             "nombre": nombre,
             "email": email,
             "direccion": direccion,
@@ -242,12 +302,12 @@ def demo_lead():
         except Exception as e:
             print(f"⚠️ demo-lead: Telegram falló: {e}")
 
-        # --- Correo de confirmación al cliente (solo si hay SMTP + email válido) ---
+        # --- Correo de confirmación al cliente (hilo background, solo si hay SMTP + email válido) ---
         if email_ok:
-            try:
-                _enviar_comprobante_demo(email, payload)
-            except Exception as e:
-                print(f"⚠️ demo-lead: correo falló: {e}")
+            hilo_correo = threading.Thread(
+                target=_disparar_correo_background, args=(email, payload), daemon=True
+            )
+            hilo_correo.start()
 
         return jsonify({"status": "ok"})
     except Exception as e:

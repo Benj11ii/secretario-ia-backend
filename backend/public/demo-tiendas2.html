@@ -542,6 +542,7 @@
         .gw-opt:hover { border-color: var(--accent); }
         .gw-opt.sel { border-color: var(--accent); background: rgba(var(--accent-rgb), 0.08); }
         .gw-opt i { color: var(--accent); width: 20px; text-align: center; }
+        .gw-opt svg { color: var(--accent); width: 20px; height: 20px; flex-shrink: 0; display: block; }
 
         .co-processing { text-align: center; padding: 70px 20px; }
         .spinner-fino {
@@ -551,6 +552,51 @@
             animation: spinFino 0.9s linear infinite;
         }
         @keyframes spinFino { to { transform: rotate(360deg); } }
+
+        /* ===== PIPELINE ASCENDENTE (cian industrial 3.2s · Ferretería #38bdf8) ===== */
+        .pipeline-wrap { display: flex; gap: 16px; padding: 6px 8px 10px; text-align: left; }
+        .pipeline-track { position: relative; width: 5px; border-radius: 5px; background: rgba(255,255,255,.08); min-height: 260px; overflow: hidden; flex-shrink: 0; }
+        .pipeline-fill { position: absolute; left: 0; right: 0; bottom: 0; height: 0%; background: linear-gradient(to top,#0284c7,#38bdf8,#bae6fd); box-shadow: 0 0 18px rgba(56,189,248,.75); }
+        .pipeline-fill.animate { animation: pipelineUp 3.2s linear forwards; }
+        @keyframes pipelineUp { from { height: 0%; } to { height: 100%; } }
+        .pipeline-nodes { flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 18px; min-height: 260px; }
+        .p-node { display: flex; gap: 12px; align-items: flex-start; opacity: .32; transition: opacity .4s ease; }
+        .p-node.lit { opacity: 1; }
+        .p-dot { width: 14px; height: 14px; border-radius: 50%; background: rgba(255,255,255,.15); border: 2px solid rgba(255,255,255,.2); flex-shrink: 0; margin-top: 2px; transition: all .4s ease; }
+        .p-node.lit .p-dot { background: #38bdf8; border-color: #bae6fd; box-shadow: 0 0 12px rgba(56,189,248,.9); }
+        .p-node b { display: block; font-size: .82rem; line-height: 1.5; }
+        .p-node small { display: block; font-size: .72rem; color: var(--text-muted); margin-top: 4px; line-height: 1.5; font-style: italic; }
+        .p-tag { font-size: .6rem; letter-spacing: 2px; text-transform: uppercase; color: #38bdf8; display: block; margin-bottom: 4px; }
+
+        /* ===== COMPROBANTE REVELADO (pipeline permanece visible arriba) ===== */
+        #voucher-box.voucher-reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        #voucher-box.voucher-reveal.visible { opacity: 1; transform: translateY(0); }
+        .voucher-folio { color: #38bdf8; }
+
+        /* ===== RESULTADO: tarjeta arriba / pipeline centro / acciones abajo ===== */
+        .result-total-big { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 1.6rem; font-weight: 800; color: #38bdf8; margin: 14px 0 4px; line-height: 1.2; }
+        .result-total-big span:first-child { font-size: .72rem; letter-spacing: 2px; text-transform: uppercase; color: #d1d5db; font-weight: 600; }
+        .result-pipe { margin: 16px 0 18px; padding-top: 18px; border-top: 1px dashed var(--bg-card-border); }
+
+        /* ===== A11Y: contraste AAA en pipeline y drawer (modo oscuro) ===== */
+        .p-node b { color: #ffffff !important; font-weight: 600; font-size: 0.95rem; }
+        .p-node small { color: #d1d5db !important; font-size: 0.82rem; line-height: 1.4; }
+        .p-tag { font-weight: 700; }
+
+        /* Pulso de éxito al coronar la CIMA (t=2.4s) */
+        @keyframes cimaPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 12px rgba(56,189,248,.9); }
+            50% { transform: scale(1.3); box-shadow: 0 0 24px rgba(56,189,248,1); }
+        }
+        #p-node-3.lit .p-dot, .p-node.lit.pulse .p-dot { animation: cimaPulse 1.2s ease-in-out infinite; }
+        .co-processing p, .co-mail-note, .cart-empty, .voucher-date, .voucher-items { color: #d1d5db !important; }
+        .cart-empty i { opacity: 1; }
+        /* ===== A11Y: overrides modo claro (texto oscuro sobre fondo claro) ===== */
+        body.theme-claro .p-node b, body.theme-claro .voucher-items { color: #1a1714 !important; }
+        body.theme-claro .p-node small, body.theme-claro .co-processing p,
+        body.theme-claro .co-mail-note, body.theme-claro .cart-empty,
+        body.theme-claro .voucher-date,
+        body.theme-claro .result-total-big span:first-child { color: #44403c !important; }
         .co-processing p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.8; }
 
         .voucher { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--bg-card-border); border-radius: 18px; padding: 26px 22px; text-align: center; }
@@ -1842,18 +1888,25 @@
                     <div class="gw-list" id="gw-list">
                         <div class="gw-opt sel" data-gw="Webpay Plus" onclick="selectGateway(this)"><i class="fas fa-credit-card"></i><span><b>Webpay Plus</b><br><small style="color:var(--text-muted)">Transbank · Débito / Crédito</small></span></div>
                         <div class="gw-opt" data-gw="Mercado Pago" onclick="selectGateway(this)"><i class="fas fa-wallet"></i><span><b>Mercado Pago</b><br><small style="color:var(--text-muted)">Dinero en cuenta y tarjetas</small></span></div>
-                        <div class="gw-opt" data-gw="Transferencia" onclick="selectGateway(this)"><i class="fas fa-money-bill-transfer"></i><span><b>Transferencia</b><br><small style="color:var(--text-muted)">Pago contra entrega</small></span></div>
+                        <div class="gw-opt" data-gw="Transferencia" onclick="selectGateway(this)"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 3l9 7H3l9-7z"/></svg><span><b>Transferencia</b><br><small style="color:var(--text-muted)">Pago contra entrega</small></span></div>
                     </div>
                 </div>
             </div>
             <div id="co-step-processing" style="display:none;">
-                <div class="co-processing">
-                    <div class="spinner-fino"></div>
-                    <p><b>Procesando transacción segura...</b><br>Conectando con pasarela de pago... Autorizando...</p>
+                <div class="co-processing" style="padding:20px 6px;">
+                    <p style="margin-bottom:18px;"><b>Simulando proceso operativo...</b><br><span style="font-size:.75rem;">Flujo en tiempo real · 3.2s</span></p>
+                    <div class="pipeline-wrap">
+                        <div class="pipeline-track"><div class="pipeline-fill" id="pipeline-fill"></div></div>
+                        <div class="pipeline-nodes">
+                            <div class="p-node" id="p-node-3"><span class="p-dot"></span><div><span class="p-tag">Cima · Éxito</span><b>Comprobante digital emitido con éxito</b><small>Despachado a su bandeja de entrada. Revise su correo ahora.</small></div></div>
+                            <div class="p-node" id="p-node-2"><span class="p-dot"></span><div><span class="p-tag">Centro · Operativa</span><b id="p-msg-2">Orden en bodega para picking — Lista para embalaje</b><small>* Flujo 100% personalizable a los tiempos y reglas de su negocio.</small></div></div>
+                            <div class="p-node" id="p-node-1"><span class="p-dot"></span><div><span class="p-tag">Base · Inicio</span><b id="p-msg-1">Transacción validada exitosamente</b><small id="p-sub-1">Acreditación instantánea por pasarela de pago segura.</small></div></div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div id="co-step-voucher" style="display:none;">
-                <div class="voucher" id="voucher-box"></div>
+                <div class="voucher voucher-reveal" id="voucher-box"></div>
             </div>
         </div>
         <div class="cart-foot" id="cart-foot"></div>
@@ -2202,7 +2255,7 @@
             } else if (coStep === 'form') {
                 foot.html(`
                     <div class="cart-total"><span>Total a pagar</span><span>${fmtCLP(cartTotal())}</span></div>
-                    <button class="btn-order" onclick="payNow()"><i class="fas fa-lock"></i> Pagar ahora</button>
+                    <button class="btn-order" onclick="payNow()"><i class="fas fa-lock"></i> Confirmar y Simular Proceso</button>
                     <button class="btn-close" onclick="showStep('cart')" style="cursor:pointer;">← Volver al carro</button>`);
             } else {
                 foot.html('');
@@ -2213,8 +2266,31 @@
             $('#co-nombre').val('Carlos Morales');
             $('#co-phone').val('+56 9 8765 4321');
             $('#co-direccion').val('Av. Las Araucarias 1250, Villarrica');
-            $('#co-email').val('carlos.morales@ejemplo.cl');
-            showToast('Datos de demostración cargados.');
+            const inputEmail = document.getElementById('co-email');
+            inputEmail.value = '';
+            inputEmail.classList.remove('input-error');
+            inputEmail.focus();
+            showToast('Datos de prueba listos. Ingrese su correo real para recibir el comprobante en su celular.');
+        }
+
+        function runPipelineAscendente(msgBase, msgCentro) {
+            document.getElementById('p-msg-1').textContent = msgBase;
+            document.getElementById('p-msg-2').textContent = msgCentro;
+            const subBase = document.getElementById('p-sub-1');
+            if (subBase) subBase.textContent = msgBase.toLowerCase().includes('transferencia')
+                ? 'Coordinación de pago contra entrega o transferencia.'
+                : 'Acreditación instantánea por pasarela de pago segura.';
+            ['p-node-1', 'p-node-2', 'p-node-3'].forEach(id => {
+                const n = document.getElementById(id);
+                if (n) n.classList.remove('lit', 'pulse');
+            });
+            const fill = document.getElementById('pipeline-fill');
+            fill.classList.remove('animate');
+            void fill.offsetWidth;
+            fill.classList.add('animate');
+            setTimeout(() => document.getElementById('p-node-1').classList.add('lit'), 100);
+            setTimeout(() => document.getElementById('p-node-2').classList.add('lit'), 1200);
+            setTimeout(() => document.getElementById('p-node-3').classList.add('lit', 'pulse'), 2400);
         }
 
         function showToast(mensaje, tipo = 'warning') {
@@ -2286,16 +2362,29 @@
                 return false; // DETIENE EL FLUJO POR COMPLETO
             }
             if (!Object.keys(cart).length) { showToast('Su carro está vacío. Agregue productos del catálogo.'); return false; }
-            if (email && !/[^@\s]+@[^@\s]+\.[^@\s]+/.test(email)) { flagError('#co-email', 'El correo no parece válido (puede dejarlo vacío).'); return false; }
+            const emailLower = email.toLowerCase();
+            const dominiosFicticios = ['@ejemplo.cl', '@correo.cl', '@test.com'];
+            const esFicticio = dominiosFicticios.some(d => emailLower.includes(d));
+            if (!email || esFicticio || !/[^@\s]+@[^@\s]+\.[^@\s]+/.test(email)) {
+                showToast("Por favor ingrese su correo electrónico real para enviarle el comprobante.");
+                inputEmail.focus();
+                inputEmail.classList.add('input-error');
+                return false; // NO permite avanzar si no hay correo real
+            }
 
+            const gwPrevio = gatewaySel();
+            const msgBase = gwPrevio.toLowerCase().includes('transferencia')
+                ? 'Pago por realizar de manera presencial / transferencia'
+                : 'Transacción validada exitosamente';
             showStep('processing');
+            runPipelineAscendente(msgBase, 'Orden en bodega para picking — Lista para embalaje');
             const total = cartTotal();
             const items = Object.values(cart).map(e => ({
                 nombre: e.item.n, qty: e.qty,
                 unitario: parseCLP(e.item.p),
                 subtotal: parseCLP(e.item.p) * e.qty
             }));
-            const folio = '#TX-' + Math.floor(1000 + Math.random() * 9000);
+            const folio = '2026-' + Math.floor(1000 + Math.random() * 9000);
             const fecha = new Date().toLocaleString('es-CL');
             const gw = gatewaySel();
 
@@ -2314,7 +2403,7 @@
                 }).catch(() => {}).finally(() => {
                     showVoucher({ ...payload, folio, fecha, gw });
                 });
-            }, 1500);
+            }, 3200);
         }
 
         function showVoucher(o) {
@@ -2323,17 +2412,38 @@
             ).join('');
             const waMsg = `Hola, acabo de probar la demo de Ferretería y Comercio en IAsesoria.cl y me gustaría cotizar un catálogo con pagos para mi empresa...`;
             const waUrl = `https://wa.me/${WA_OFICIAL}?text=${encodeURIComponent(waMsg)}`;
+            const msgBase = o.gw && o.gw.toLowerCase().includes('transferencia')
+                ? 'Pago por realizar de manera presencial / transferencia'
+                : 'Transacción validada exitosamente';
+            const msgSubBase = o.gw && o.gw.toLowerCase().includes('transferencia')
+                ? 'Coordinación de pago contra entrega o transferencia.'
+                : 'Acreditación instantánea por pasarela de pago segura.';
             $('#voucher-box').html(`
                 <span class="voucher-stamp">Pago aprobado</span>
-                <div class="voucher-folio">Folio ${o.folio}</div>
+                <div class="voucher-folio">N° Operación: ${o.folio}</div>
                 <div class="voucher-date">${o.fecha} · ${o.gw}</div>
                 <div class="voucher-items">${rows}</div>
-                <div class="voucher-total"><span>Total pagado</span><span>${fmtCLP(o.total)}</span></div>
+                <div class="result-total-big"><span>Total pagado</span><span>${fmtCLP(o.total)}</span></div>
+                <div class="pipeline-wrap result-pipe">
+                    <div class="pipeline-track"><div class="pipeline-fill" style="height:100%;"></div></div>
+                    <div class="pipeline-nodes">
+                        <div class="p-node lit pulse"><span class="p-dot"></span><div><span class="p-tag">Cima · Éxito</span><b>Comprobante digital emitido con éxito</b><small>Despachado a su bandeja de entrada. Revise su correo ahora.</small></div></div>
+                        <div class="p-node lit"><span class="p-dot"></span><div><span class="p-tag">Centro · Operativa</span><b>Orden en bodega para picking — Lista para embalaje</b><small>* Flujo 100% personalizable a los tiempos y reglas de su negocio.</small></div></div>
+                        <div class="p-node lit"><span class="p-dot"></span><div><span class="p-tag">Base · Inicio</span><b>${msgBase}</b><small>${msgSubBase}</small></div></div>
+                    </div>
+                </div>
                 <a class="btn-wa-send" href="${waUrl}" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> Enviar detalle por WhatsApp</a>
                 <a class="btn-ia-conv" href="https://www.iasesoria.cl/#diagnostico" target="_blank" rel="noopener"><strong>¿Desea un sistema así para su negocio?</strong>Cotice con nuestra IA en IAsesoria.cl</a>
                 <button class="btn-close" onclick="location.reload()" style="cursor:pointer;">Hacer otra compra</button>
             `);
             showStep('voucher');
+            const vb = document.getElementById('voucher-box');
+            vb.classList.remove('visible');
+            void vb.offsetWidth;
+            requestAnimationFrame(() => {
+                vb.classList.add('visible');
+                vb.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
             cart = {};
             updateBadge();
         }
