@@ -5,7 +5,7 @@ import csv
 import os
 import time
 from dotenv import load_dotenv
-from flask import Flask, render_template, request, jsonify, redirect, url_for
+from flask import Flask, render_template, request, jsonify, redirect, url_for, send_from_directory
 from werkzeug.middleware.proxy_fix import ProxyFix
 from flask_cors import CORS
 from datetime import datetime
@@ -42,6 +42,16 @@ load_dotenv()
 @app.route("/")
 def index():
     return render_template("index.html")
+
+
+@app.route("/robots.txt")
+def robots_txt():
+    return send_from_directory(app.template_folder, "robots.txt", mimetype="text/plain")
+
+
+@app.route("/sitemap.xml")
+def sitemap_xml():
+    return send_from_directory(app.template_folder, "sitemap.xml", mimetype="application/xml")
 
 
 @app.route("/servicios")

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /secretario/
+Sitemap: https://www.iasesoria.cl/sitemap.xml
