@@ -69,6 +69,16 @@ def demos():
     return render_template("demos.html")
 
 
+@app.route("/portafolio")
+def portafolio():
+    return render_template("portafolio.html")
+
+
+@app.route("/portafolio_galeria_total")
+def portafolio_galeria():
+    return render_template("portafolio_galeria_total.html")
+
+
 
 # --- PUENTE PARA EL CHAT CON LA MAC ---
 SYSTEM_PROMPT = (
