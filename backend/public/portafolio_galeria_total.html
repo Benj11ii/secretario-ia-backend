@@ -3,70 +3,360 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Galería Total de Proyectos (19 Repositorios) · Benjamín A. Carmona Vega</title>
-<meta name="description" content="Archivo completo de 19 repositorios y proyectos técnicos de Benjamín Alonso Carmona Vega.">
+<title>Archivo de Proyectos & Repositorios · Benjamín A. Carmona Vega</title>
+<meta name="description" content="Exploración técnica de arquitecturas backend, inteligencia artificial, automatizaciones y diseño de sistemas distribuidos. Portafolio de Benjamín Alonso Carmona Vega.">
+<meta name="author" content="Benjamín Alonso Carmona Vega">
 <link rel="icon" type="image/jpeg" href="assets/images/logoprincipal.jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#09090b;--amber:#f59e0b;--ink:#f3f4f6;--muted:#9ca3af;--stroke:rgba(255,255,255,.08);--font:'Inter',system-ui,sans-serif;--display:'Plus Jakarta Sans','Inter',sans-serif}
+:root{
+  --bg:#09090b; --bg2:#0d0e12;
+  --amber:#f59e0b; --amber2:#d97706; --amber-soft:rgba(245,158,11,.12);
+  --ink:#f3f4f6; --muted:#9ca3af; --muted2:rgba(255,255,255,.55);
+  --glass:rgba(18,18,24,.7); --glass2:rgba(22,22,30,.62);
+  --stroke:rgba(255,255,255,.08); --stroke-amber:rgba(245,158,11,.35);
+  --radius:20px; --radius-sm:14px;
+  --font:'Inter','Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --display:'Plus Jakarta Sans','Inter',system-ui,sans-serif;
+  --mono:ui-monospace,'SF Mono','Cascadia Code',Menlo,Consolas,monospace;
+}
 html{scroll-behavior:smooth}
-body{font-family:var(--font);background:radial-gradient(640px 420px at 12% -4%,rgba(245,158,11,.08),transparent 65%),linear-gradient(#09090b,#0d0e12);color:var(--ink);min-height:100vh;line-height:1.65;-webkit-font-smoothing:antialiased}
-.wrap{max-width:1140px;margin:0 auto;padding:0 22px}
-.nav{position:fixed;top:14px;left:0;right:0;z-index:10;display:flex;justify-content:center;padding:0 16px}
-.nav-inner{width:100%;max-width:1140px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border-radius:999px;background:rgba(14,14,19,.72);backdrop-filter:blur(16px);border:1px solid var(--stroke)}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-family:var(--display);font-weight:700}
-.brand img{width:34px;height:34px;border-radius:10px;object-fit:cover;border:1px solid rgba(245,158,11,.45)}
-.brand span{color:var(--amber)}
-.nav-inner nav{display:flex;gap:4px;align-items:center}
-.nav-inner nav a{color:var(--muted);text-decoration:none;font-size:.82rem;padding:9px 14px;border-radius:999px}
-.nav-inner nav a:hover{color:#fff;background:rgba(255,255,255,.06)}
-main{padding:140px 0 40px}
-.eyebrow{font-size:.7rem;font-weight:700;letter-spacing:2.2px;color:var(--amber);text-transform:uppercase}
-h1{font-family:var(--display);font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em;margin:8px 0 10px}
-.sub{color:var(--muted);max-width:64ch}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
-.card{background:rgba(22,22,30,.62);border:1px solid var(--stroke);border-radius:18px;padding:22px;backdrop-filter:blur(18px)}
-.card.featured{border-color:rgba(245,158,11,.45);background:linear-gradient(180deg,rgba(245,158,11,.1),rgba(22,22,30,.75))}
-.card .tag{font-family:ui-monospace,monospace;font-size:.66rem;letter-spacing:1.2px;color:var(--muted);text-transform:uppercase}
-.card h3{font-family:ui-monospace,monospace;font-size:1rem;margin:8px 0 6px;word-break:break-word}
-.card h3 a{color:var(--ink);text-decoration:none}
-.card h3 a:hover{color:var(--amber)}
-.card p{font-size:.84rem;color:var(--muted)}
-.card a.repo{color:var(--amber);font-family:ui-monospace,monospace;font-size:.72rem;text-decoration:none;word-break:break-all}
-.notice{margin-top:26px;border:1px dashed rgba(245,158,11,.4);border-radius:18px;padding:22px;color:var(--muted);font-size:.88rem}
-.notice b{color:var(--ink)}
-footer{border-top:1px solid rgba(255,255,255,.06);margin-top:40px;padding:26px 0 40px;color:var(--muted);font-size:.8rem;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-footer a{color:var(--muted);text-decoration:none;margin-right:14px}
-footer a:hover{color:#fff}
-@media(max-width:900px){.grid{grid-template-columns:1fr 1fr}}
-@media(max-width:600px){.grid{grid-template-columns:1fr}.nav-inner nav a.hide-sm{display:none}}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh}
+img{max-width:100%;display:block}
+a{color:inherit}
+::selection{background:rgba(245,158,11,.35)}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:6px}
+.ambient{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(640px 420px at 12% -4%,rgba(245,158,11,.08),transparent 65%),
+  radial-gradient(760px 480px at 88% 8%,rgba(217,119,6,.06),transparent 65%),
+  linear-gradient(#09090b,#0d0e12)}
+.page{position:relative;z-index:2}
+.wrap{width:100%;max-width:1140px;margin:0 auto;padding:0 22px}
+
+/* ---------- NAVBAR (misma que portafolio.html) ---------- */
+.nav{position:fixed;top:14px;left:0;right:0;z-index:1000;display:flex;justify-content:center;padding:0 16px}
+.nav-inner{width:100%;max-width:1140px;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:10px 12px 10px 14px;border-radius:999px;
+  background:rgba(14,14,19,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--stroke);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 18px 50px rgba(0,0,0,.5)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
+.brand img{width:36px;height:36px;border-radius:10px;object-fit:cover;border:1px solid rgba(245,158,11,.45)}
+.brand b{font-family:var(--display);font-size:.95rem;letter-spacing:.2px;white-space:nowrap}
+.brand b span{color:var(--amber)}
+.nav-links{display:flex;align-items:center;gap:2px;list-style:none}
+.nav-links a{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-size:.82rem;font-weight:500;color:var(--muted);padding:9px 13px;border-radius:999px;transition:.25s;white-space:nowrap}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,.06)}
+.nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;border-radius:999px;
+  font-weight:700;font-size:.85rem;letter-spacing:.2px;padding:13px 26px;border:1px solid transparent;cursor:pointer;transition:transform .15s,box-shadow .15s,background .15s,border-color .15s;font-family:var(--font)}
+.btn-amber{background:#f59e0b;color:#1a1002;box-shadow:0 4px 14px rgba(0,0,0,.5),inset 0 1px 1px rgba(255,255,255,.25)}
+.btn-amber:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.6),0 0 15px rgba(245,158,11,.2)}
+.btn-sm{padding:10px 18px;font-size:.78rem}
+.burger{display:none;width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid var(--stroke);color:#fff;font-size:1.05rem;cursor:pointer}
+.mobile-menu{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.5);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);align-items:center;justify-content:center;padding:20px}
+.mobile-menu.open{display:flex}
+.mm-card{max-width:330px;width:100%;border-radius:26px;background:rgba(22,22,28,.7);backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);border:1px solid rgba(255,255,255,.1);padding:28px 22px;display:flex;flex-direction:column;gap:6px;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.mm-card a{display:flex;align-items:center;gap:10px;text-decoration:none;padding:12px 14px;border-radius:14px;font-size:.92rem;color:var(--ink)}
+.mm-card a:hover{background:rgba(245,158,11,.1)}
+.mm-card .btn{margin-top:10px;width:100%}
+.mm-close{align-self:flex-end;background:none;border:none;color:var(--muted);font-size:1.3rem;cursor:pointer;padding:4px 8px}
+
+/* ---------- GALERÍA ---------- */
+main{padding-top:130px;padding-bottom:48px}
+.gallery-head{text-align:center;max-width:760px;margin:0 auto}
+.gallery-head h1{font-family:var(--display);font-size:clamp(1.9rem,4.4vw,2.6rem);font-weight:800;letter-spacing:-.02em;color:#f3f4f6;margin-top: 80px;padding-bottom: 8px}
+.gallery-head .sub{color:var(--muted);font-size:.95rem}
+.filters{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:20px 0 40px}
+.filter-btn{font-family:var(--font);font-size:.8rem;font-weight:600;color:var(--muted);
+  background:rgba(255,255,255,.04);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border:1px solid var(--stroke);border-radius:999px;padding:10px 22px;cursor:pointer;transition:.25s}
+.filter-btn:hover{color:#fff;border-color:rgba(245,158,11,.55);background:rgba(245,158,11,.1)}
+.filter-btn.active{color:#1a1002;background:var(--amber);border-color:var(--amber)}
+.count{text-align:center;font-family:var(--mono);font-size:.72rem;letter-spacing:1.2px;color:var(--muted);text-transform:uppercase;margin:8px 0 40px}
+.bento-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px;margin-top:26px}
+.bento-card{background:var(--glass2);backdrop-filter:blur(22px) saturate(160%);-webkit-backdrop-filter:blur(22px) saturate(160%);
+  border:1px solid var(--stroke);border-radius:var(--radius);padding:26px 24px;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;gap:10px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 24px 60px rgba(0,0,0,.4);
+  transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease,opacity .3s ease}
+.bento-card::before{content:'';position:absolute;top:0;left:8%;right:8%;height:1px;background:linear-gradient(90deg,transparent,rgba(245,158,11,.5),transparent)}
+.bento-card:hover{transform:translateY(-5px) scale(1.01);border-color:rgba(245,158,11,.55);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 28px 64px rgba(0,0,0,.5),0 0 28px rgba(245,158,11,.1)}
+.bento-card.fade{opacity:0}
+.bento-card.hidden{display:none}
+.bento-card .cat{display:block;font-family:var(--mono);font-size:.66rem;letter-spacing:1.6px;color:var(--amber);text-transform:uppercase;font-weight:600}
+.bento-card h3{font-family:var(--mono);font-size:1.12rem;font-weight:700;letter-spacing:-.01em;word-break:break-word}
+.bento-card p{font-size:.88rem;color:var(--muted);flex:1}
+.bento-card small{font-family:var(--mono);font-size:.7rem;color:var(--muted2);letter-spacing:.4px}
+.bento-card .foot{border-top:1px solid rgba(255,255,255,.06);padding-top:14px;display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:4px}
+.bento-card .go{font-family:var(--mono);font-size:.76rem;font-weight:600;color:var(--amber);text-decoration:none}
+.bento-card .go:hover{text-decoration:underline}
+.private-badge{display:inline-block;font-family:var(--mono);font-size:.66rem;font-weight:600;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);border:1px solid var(--stroke);padding:7px 16px;border-radius:999px}
+
+/* ---------- FOOTER ---------- */
+footer{margin-top:20px;border-top:1px solid rgba(255,255,255,.06);padding:38px 0 46px}
+.foot{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.foot-brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:.92rem}
+.foot-brand img{width:30px;height:30px;border-radius:8px;object-fit:cover;border:1px solid rgba(245,158,11,.4)}
+.foot-brand small{display:block;font-family:var(--font);font-weight:400;font-size:.72rem;color:var(--muted)}
+.foot-links{display:flex;gap:8px;flex-wrap:wrap}
+.foot-links a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:.8rem;font-weight:600;color:var(--muted);
+  border:1px solid var(--stroke);background:rgba(255,255,255,.03);padding:9px 16px;border-radius:999px;transition:.25s}
+.foot-links a:hover{color:#fff;border-color:rgba(245,158,11,.5);background:rgba(245,158,11,.08)}
+.copy{text-align:center;font-size:.74rem;color:rgba(255,255,255,.35);margin-top:26px}
+
+@media(max-width:960px){
+  .nav-links{display:none}
+  .burger{display:inline-flex;align-items:center;justify-content:center}
+  main{padding-top:120px}
+}
+@media(max-width:560px){
+  .wrap{padding:0 16px}
+  .bento-grid{grid-template-columns:1fr}
+  .brand b{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important}
+  .bento-card:hover{transform:none}
+}
 </style>
 </head>
 <body>
-<div class="nav"><div class="nav-inner">
-  <a class="brand" href="/"><img src="assets/images/logoprincipal.jpeg" alt="Logo IAsesoria">IAsesoria<span>.cl</span></a>
-  <nav><a href="/">← Volver a IAsesoria.cl</a><a class="hide-sm" href="/portafolio">← Portafolio</a><a href="https://github.com/Benj11ii?tab=repositories" target="_blank" rel="noopener">GitHub</a></nav>
-</div></div>
-<main class="wrap">
-  <p class="eyebrow">Archivo completo · 19 repositorios</p>
-  <h1>Galería Total de Proyectos</h1>
-  <p class="sub">Los 5 emblemas viven en <a href="/portafolio" style="color:var(--amber)">/portafolio</a>. Aquí el índice del archivo completo: el espejo curado parte desde GitHub (<a href="https://github.com/Benj11ii?tab=repositories" target="_blank" rel="noopener" style="color:var(--amber)">github.com/Benj11ii</a>).</p>
-  <div class="grid">
-    <div class="card featured"><p class="tag">Nivel 1 · Civic Tech</p><h3><a href="https://github.com/Benj11ii/providencia-empleo-vcm" target="_blank" rel="noopener">providencia-empleo-vcm</a></h3><p>MVP operativo de portal de empleo y asistencia social para la Municipalidad de Providencia.</p><br><a class="repo" href="https://github.com/Benj11ii/providencia-empleo-vcm" target="_blank" rel="noopener">github.com/Benj11ii/providencia-empleo-vcm →</a></div>
-    <div class="card featured"><p class="tag">Nivel 2 · Hybrid AI</p><h3><a href="https://github.com/Benj11ii/secretario-ia-backend" target="_blank" rel="noopener">secretario-ia-backend</a></h3><p>Plataforma híbrida Edge-to-Local: Zero Trust, fail-closed, Telegram/Sheets, Ollama.</p><br><a class="repo" href="https://github.com/Benj11ii/secretario-ia-backend" target="_blank" rel="noopener">github.com/Benj11ii/secretario-ia-backend →</a></div>
-    <div class="card featured"><p class="tag">Nivel 3 · Corporate API</p><h3><a href="https://github.com/Benj11ii/SlaTracker-Core" target="_blank" rel="noopener">SlaTracker-Core</a></h3><p>Motor SLA en .NET 8: Clean Architecture, DI y OpenAPI 3.0.</p><br><a class="repo" href="https://github.com/Benj11ii/SlaTracker-Core" target="_blank" rel="noopener">github.com/Benj11ii/SlaTracker-Core →</a></div>
-    <div class="card featured"><p class="tag">Nivel 4 · Transactions</p><h3><a href="https://github.com/Benj11ii/-finflow-transaction-engine" target="_blank" rel="noopener">-finflow-transaction-engine</a></h3><p>Pasarela bancaria hexagonal: idempotencia, anti-replay, outbox en PostgreSQL.</p><br><a class="repo" href="https://github.com/Benj11ii/-finflow-transaction-engine" target="_blank" rel="noopener">github.com/Benj11ii/-finflow-transaction-engine →</a></div>
-    <div class="card featured"><p class="tag">Nivel 5 · Native DL</p><h3>arkv8 (Proyecto Eko)</h3><p>Transformer from-scratch en Rust + AArch64, aceleración UMA/AMX, BPE propio. R&amp;D privado.</p><br><span class="repo">R&amp;D Engine · Repositorio Privado</span></div>
-    <div class="card"><p class="tag">Archivo · 06–19</p><h3><a href="https://github.com/Benj11ii?tab=repositories" target="_blank" rel="noopener">14 proyectos restantes</a></h3><p>Automatizaciones, experimentos y utilidades: índice vivo en el perfil de GitHub.</p><br><a class="repo" href="https://github.com/Benj11ii?tab=repositories" target="_blank" rel="noopener">github.com/Benj11ii?tab=repositories →</a></div>
+<div class="ambient" aria-hidden="true"></div>
+<div class="page">
+
+  <!-- ============ NAVBAR ============ -->
+  <nav class="nav" id="nav" aria-label="Navegación principal">
+    <div class="nav-inner">
+      <a class="brand" href="/" aria-label="IAsesoria inicio">
+        <img src="assets/images/logoprincipal.jpeg" alt="Logo IAsesoria">
+        <b>IAsesoria<span>.cl</span></b>
+      </a>
+      <ul class="nav-links">
+        <li><a href="/">← Volver a IAsesoria.cl</a></li>
+        <li><a href="/portafolio">← Portafolio</a></li>
+        <li><a href="https://github.com/Benj11ii" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+      <div class="nav-right">
+        <a class="btn btn-amber btn-sm" id="btn-cv" href="/assets/CV-Benjamin-Carmona-Vega.pdf" download="CV-Benjamin-Carmona-Vega.pdf" title="Descargar CV en PDF">Descargar CV</a>
+        <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <div class="mm-card">
+      <button class="mm-close" id="mmClose" aria-label="Cerrar menú">✕</button>
+      <a href="/">← Volver a IAsesoria.cl</a>
+      <a href="/portafolio">← Portafolio</a>
+      <a href="https://github.com/Benj11ii" target="_blank" rel="noopener">GitHub — @Benj11ii</a>
+      <a class="btn btn-amber" href="/assets/CV-Benjamin-Carmona-Vega.pdf" download="CV-Benjamin-Carmona-Vega.pdf">Descargar CV</a>
+    </div>
   </div>
-  <div class="notice"><b>Nota de curaduría:</b> esta galería es el esqueleto navegable de la fase 1. La fase 2 hidratará las 14 fichas restantes (06–19) con datos vivos de la API de GitHub — títulos, descripciones, lenguaje y estrellas — sin romper el sistema visual dark glassmorphism de esta página.</div>
-</main>
-<footer class="wrap">
-  <div>© 2026 Benjamín Alonso Carmona Vega · IAsesoria</div>
-  <div><a href="https://www.linkedin.com/in/benjamin-carmona-69aa44223/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/Benj11ii" target="_blank" rel="noopener">GitHub</a><a href="mailto:soporte@iasesoria.cl">Correo</a><a href="https://wa.me/56926870966" target="_blank" rel="noopener">WhatsApp</a></div>
-</footer>
+
+  <!-- ============ GALERÍA ============ -->
+  <main class="wrap">
+<div class="gallery-head">
+    <h1>Archivo de <span style="color:#f59e0b;">Proyectos & Repositorios</span></h1>
+    <p class="sub">Exploración técnica de arquitecturas backend, inteligencia artificial, automatizaciones y diseño de sistemas distribuidos.</p>
+  </div>
+
+    <div class="filters" role="group" aria-label="Filtrar proyectos por categoría">
+      <button class="filter-btn active" data-filter="all">Todos</button>
+      <button class="filter-btn" data-filter="backend">Backend & APIs</button>
+      <button class="filter-btn" data-filter="ia">IA & Rust</button>
+      <button class="filter-btn" data-filter="automation">Automatización</button>
+      <button class="filter-btn" data-filter="db">Bases de Datos</button>
+      <button class="filter-btn" data-filter="frontend">Frontend</button>
+    </div>
+    <p class="count" id="count" aria-live="polite"></p>
+
+    <div class="bento-grid" id="bentoGrid">
+      <article class="bento-card" data-category="ia">
+        <span class="cat">IA & Rust</span>
+        <h3>secretario-ia-backend</h3>
+        <p>Motor de Orquestación de Inteligencia Artificial Híbrida (Edge-to-Local). Cloudflare Zero Trust y AppSec.</p>
+        <small>Python · Flask · Zero Trust · Ollama</small>
+        <div class="foot"><a class="go" href="https://github.com/Benj11ii/secretario-ia-backend" target="_blank" rel="noopener">Ver en GitHub →</a></div>
+      </article>
+      <article class="bento-card" data-category="ia">
+        <span class="cat">IA & Rust</span>
+        <h3>arkv8 (Proyecto Eko)</h3>
+        <p>Motor nativo de IA y pre-entrenamiento en Rust y Metal para Apple Silicon.</p>
+        <small>Rust · Metal · AArch64 · BPE propio</small>
+        <div class="foot"><span class="private-badge">Private Repo</span></div>
+      </article>
+      <article class="bento-card" data-category="backend">
+        <span class="cat">Backend & APIs</span>
+        <h3>finflow-transaction-engine</h3>
+        <p>Motor transaccional y pasarela de pagos. Java 21, Spring Boot 3, Hexagonal y Outbox.</p>
+        <small>Java 21 · Spring Boot 3 · Hexagonal · Outbox</small>
+        <div class="foot"><a class="go" href="https://github.com/Benj11ii/finflow-transaction-engine" target="_blank" rel="noopener">Ver en GitHub →</a></div>
+      </article>
+      <article class="bento-card" data-category="backend">
+        <span class="cat">Backend & APIs</span>
+        <h3>SlaTracker-Core</h3>
+        <p>API RESTful corporativa para SLAs. .NET 8 (C#) y Clean Architecture.</p>
+        <small>.NET 8 · C# · Clean Architecture · OpenAPI 3.0</small>
+        <div class="foot"><a class="go" href="https://github.com/Benj11ii/SlaTracker-Core" target="_blank" rel="noopener">Ver en GitHub →</a></div>
+      </article>
+      <article class="bento-card" data-category="backend">
+        <span class="cat">Backend & APIs</span>
+        <h3>todocamisetas-b2b-api</h3>
+        <p>API RESTful B2B en PHP 8 nativo (MVC sin frameworks), Nginx y MySQL 8.</p>
+        <small>PHP 8 · MVC nativo · Nginx · MySQL 8</small>
+        <div class="foot"><a class="go" href="https://github.com/Benj11ii/todocamisetas-b2b-api" target="_blank" rel="noopener">Ver en GitHub →</a></div>
+      </article>
+      <article class="bento-card" data-category="backend">
+        <span class="cat">Backend & APIs</span>
+        <h3>proviemplea-backend-api</h3>
+        <p>API REST en Laravel 11 y Docker para intermediación laboral municipal (Currículum Ciego).</p>
+        <small>Laravel 11 · Docker · Currículum Ciego</small>
+        <div class="foot"><a class="go" href="https://github.com/Benj11ii/proviemplea-backend-api" target="_blank" rel="noopener">Ver en GitHub →</a></div>
+      </article>
+      <article class="bento-card" data-category="backend">
+        <span class="cat">Backend & APIs</span>
+        <h3>customer-management-api</h3>
+        <p>API REST para gestión y onboarding Fintech en Laravel 12 y Sail.</p>
+        <small>Laravel 12 · Sail · Onboarding Fintech</small>
+        <div class="foot"><a class="go" href="https://github.com/Benj11ii/customer-management-api" target="_blank" rel="noopener">Ver en GitHub →</a></div>
+      </article>
+      <article class="bento-card" data-category="db">
+        <span class="cat">Bases de Datos</span>
+        <h3>alkewallet-db-architecture</h3>
+        <p>Arquitectura relacional MySQL 8.0 para billetera virtual Fintech (3FN y ACID).</p>
+        <small>MySQL 8.0 · 3FN · ACID</small>
+        <div class="foot"><a class="go" href="https://github.com/Benj11ii/alkewallet-db-architecture" target="_blank" rel="noopener">Ver en GitHub →</a></div>
+      </article>
+      <article class="bento-card" data-category="backend">
+        <span class="cat">Backend & APIs</span>
+        <h3>smart-crm-system</h3>
+        <p>Sistema CRM desarrollado en Python para control de entidades corporativas.</p>
+        <small>Python · CRM · Entidades corporativas</small>
+        <div class="foot"><a class="go" href="https://github.com/Benj11ii/smart-crm-system" target="_blank" rel="noopener">Ver en GitHub →</a></div>
+      </article>
+      <article class="bento-card" data-category="backend">
+        <span class="cat">Backend & APIs</span>
+        <h3>inventory-management-system</h3>
+        <p>Motor de control de inventario y gestión de stock comercial en Python.</p>
+        <small>Python · Inventario · Stock comercial</small>
+        <div class="foot"><a class="go" href="https://github.com/Benj11ii/inventory-management-system" target="_blank" rel="noopener">Ver en GitHub →</a></div>
+      </article>
+      <article class="bento-card" data-category="automation">
+        <span class="cat">Automatización</span>
+        <h3>job-scraper-automation</h3>
+        <p>Bot de Web Scraping en Python para agregación de ofertas laborales.</p>
+        <small>Python · Scraping · Agregación</small>
+        <div class="foot"><a class="go" href="https://github.com/Benj11ii/job-scraper-automation" target="_blank" rel="noopener">Ver en GitHub →</a></div>
+      </article>
+      <article class="bento-card" data-category="automation">
+        <span class="cat">Automatización</span>
+        <h3>audit-asistencia-gmail-sheets</h3>
+        <p>Script de automatización extrayendo datos de Gmail a Google Sheets.</p>
+        <small>Apps Script · Gmail · Sheets</small>
+        <div class="foot"><a class="go" href="https://github.com/Benj11ii/audit-asistencia-gmail-sheets" target="_blank" rel="noopener">Ver en GitHub →</a></div>
+      </article>
+      <article class="bento-card" data-category="frontend">
+        <span class="cat">Frontend</span>
+        <h3>ecommerce-catalog-platform</h3>
+        <p>Plataforma e-commerce para retail con lógica de checkout en JS.</p>
+        <small>JavaScript · Checkout · Retail</small>
+        <div class="foot"><a class="go" href="https://github.com/Benj11ii/ecommerce-catalog-platform" target="_blank" rel="noopener">Ver en GitHub →</a></div>
+      </article>
+      <article class="bento-card" data-category="frontend">
+        <span class="cat">Frontend</span>
+        <h3>civic-employment-portal</h3>
+        <p>MVP de portal de empleo y asistencia social (Civic Tech).</p>
+        <small>Civic Tech · MVP · Accesibilidad</small>
+        <div class="foot"><a class="go" href="https://github.com/Benj11ii/civic-employment-portal" target="_blank" rel="noopener">Ver en GitHub →</a></div>
+      </article>
+      <article class="bento-card" data-category="frontend">
+        <span class="cat">Frontend</span>
+        <h3>civic-frontend-prototype</h3>
+        <p>Prototipo frontend responsivo y accesible para portal municipal.</p>
+        <small>Responsive · Accesible · Municipal</small>
+        <div class="foot"><a class="go" href="https://github.com/Benj11ii/civic-frontend-prototype" target="_blank" rel="noopener">Ver en GitHub →</a></div>
+      </article>
+    </div>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="wrap">
+      <div class="foot">
+        <div class="foot-brand">
+          <img src="assets/images/logoprincipal.jpeg" alt="Logo IAsesoria">
+          <div>Benjamín A. Carmona Vega<small>Senior Backend &amp; Systems Engineer · IAsesoria</small></div>
+        </div>
+        <nav class="foot-links" aria-label="Contacto directo">
+          <a href="https://www.linkedin.com/in/benjamin-carmona-69aa44223/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://github.com/Benj11ii" target="_blank" rel="noopener">GitHub</a>
+          <a href="mailto:soporte@iasesoria.cl">Correo</a>
+          <a href="https://wa.me/56926870966" target="_blank" rel="noopener">WhatsApp</a>
+        </nav>
+      </div>
+      <p class="copy">© 2026 Benjamín Alonso Carmona Vega · IAsesoria · Villarrica, Chile — <a href="/" style="text-decoration:none">iasesoria.cl</a></p>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function(){
+  // Navbar móvil
+  var burger = document.getElementById('burger');
+  var menu = document.getElementById('mobileMenu');
+  var mmClose = document.getElementById('mmClose');
+  function setMenu(open){
+    menu.classList.toggle('open', open);
+    menu.setAttribute('aria-hidden', open ? 'false' : 'true');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  burger.addEventListener('click', function(){ setMenu(!menu.classList.contains('open')); });
+  mmClose.addEventListener('click', function(){ setMenu(false); });
+  menu.addEventListener('click', function(e){ if(e.target === menu) setMenu(false); });
+  menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setMenu(false); }); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') setMenu(false); });
+
+  // Filtrado con transición de opacidad
+  var btns = Array.prototype.slice.call(document.querySelectorAll('.filter-btn'));
+  var cards = Array.prototype.slice.call(document.querySelectorAll('#bentoGrid .bento-card'));
+  var count = document.getElementById('count');
+  function labelOf(filter){
+    var b = document.querySelector('.filter-btn[data-filter="' + filter + '"]');
+    return b ? b.textContent.trim() : filter;
+  }
+  function render(filter){
+    var visible = 0;
+    cards.forEach(function(card){
+      var show = (filter === 'all') || (card.getAttribute('data-category') === filter);
+      if(show){
+        visible++;
+        card.classList.remove('hidden');
+        requestAnimationFrame(function(){
+          requestAnimationFrame(function(){ card.classList.remove('fade'); });
+        });
+      } else {
+        card.classList.add('fade');
+        setTimeout(function(){
+          if(card.classList.contains('fade')) card.classList.add('hidden');
+        }, 200);
+      }
+    });
+    count.textContent = 'Mostrando ' + visible + ' de ' + cards.length + ' — ' + labelOf(filter);
+  }
+  btns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      btns.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      render(btn.getAttribute('data-filter'));
+    });
+  });
+  render('all');
+})();
+</script>
 </body>
 </html>
