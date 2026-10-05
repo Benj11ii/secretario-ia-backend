@@ -217,6 +217,21 @@
             color: #fff;
             font-size: 1rem;
         }
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0, 0, 0, .35);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .mobile-menu.open {
+            display: flex;
+        }
 
         /* MAIN CONTAINER */
         main {
@@ -643,22 +658,7 @@
                 font-size: 0.75rem;
             }
 
-            /* Mobile Menu - cloned from index.html */
-            .mobile-menu {
-                display: none;
-                position: fixed;
-                inset: 0;
-                z-index: 2000;
-                background: rgba(0, 0, 0, .35);
-                backdrop-filter: blur(14px);
-                -webkit-backdrop-filter: blur(14px);
-                align-items: center;
-                justify-content: center;
-                padding: 20px
-            }
-            .mobile-menu.open {
-                display: flex
-            }
+            /* Mobile Menu responsive styles - cloned from index.html */
             .mm-card {
                 max-width: 320px;
                 width: 100%;
