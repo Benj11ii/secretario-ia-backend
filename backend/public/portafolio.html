@@ -139,9 +139,9 @@
             color: var(--amber);
         }
         .nav-links {
-            display: flex;
+            display: flex !important;
             align-items: center;
-            gap: 4px;
+            gap: 20px !important;
             list-style: none;
         }
         .nav-links a {
@@ -201,6 +201,16 @@
             font-weight: 600;
             transition: all .15s cubic-bezier(.16, 1, .3, 1);
             box-shadow: 0 4px 14px rgba(0, 0, 0, .5), inset 0 1px 1px rgba(255, 255, 255, .25);
+            white-space: nowrap !important;
+            height: 38px !important;
+            padding: 0 18px !important;
+            border-radius: 9999px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            line-height: 1 !important;
+            font-size: 0.85rem !important;
+            font-weight: 600 !important;
         }
         .nav-cta:hover {
             filter: brightness(1.08);
@@ -208,7 +218,7 @@
         }
         .text-amber { color: var(--amber); font-weight: inherit }
         .burger {
-            display: none;
+            display: none !important;
             width: 42px;
             height: 42px;
             border-radius: 12px;
@@ -501,7 +511,7 @@
             position: absolute;
             left: 20px;
             top: 20px;
-            bottom: 20px;
+            bottom: 0;
             width: 2px;
             background: rgba(255, 255, 255, 0.1);
         }
@@ -630,18 +640,18 @@
         }
 
         /* MOBILE */
-        @media (max-width: 768px) {
+        @media (max-width: 860px) {
             .hero-grid {
                 grid-template-columns: 1fr;
             }
             .hero-title {
                 font-size: 2rem;
             }
-            .nav-links .nav-link {
-                display: none;
+            .nav-links {
+                display: none !important;
             }
             .burger {
-                display: flex;
+                display: flex !important;
                 align-items: center;
                 justify-content: center;
             }
@@ -826,138 +836,139 @@
                     <span class="pill">Node.js</span>
                     <span class="pill">AI-Accelerated Engineering (OpenCode / Local LLMs)</span>
                 </div>
-
-                <div class="cta-row">
-                    <a href="#base-historia" class="btn-amber">Iniciar recorrido</a>
-                </div>
             </div>
         </section>
 
-        <!-- SUMMIT / CÚSPIDE -->
-        <section class="summit-wrap">
-            <div class="quote-box">
-                <p class="quote-text">«Continuaré — La ingeniería de software no es un punto de llegada; es un proceso continuo de aprendizaje, optimización y resolución de problemas complejos.»</p>
-                <p class="quote-author">— Benjamín Alonso Carmona Vega</p>
+        <!-- TIMELINE SECTION (HITOS) -->
+        <section id="recorrido">
+            <div class="section-header">
+                <span class="eyebrow">ARQUITECTURAS & DESPLIEGUE</span>
+                <h2>Hitos de Trayectoria Técnica</h2>
             </div>
 
-            <div class="gateway-card">
-                <div>
-                    <span class="eyebrow">ARCHIVO COMPLETO · REPOSITORIOS TÉCNICOS</span>
-                    <h3 class="gateway-title">¿Desea explorar el archivo completo de proyectos?</h3>
+            <div class="timeline-container">
+                <div class="timeline-rail"></div>
+
+                <!-- HITO 01 (BASE) -->
+                <div class="timeline-item active" id="base-historia" data-level="1">
+                    <div class="timeline-node">01</div>
+                    <div class="level-card">
+                        <div class="card-top">
+                            <span class="card-tag">CIVIC TECH · JAVASCRIPT / FULL STACK</span>
+                        </div>
+                        <h3 class="card-title">civic-employment-portal</h3>
+                        <p class="card-desc">MVP operativo de portal de empleo y asistencia social desarrollado para la Municipalidad de Providencia. Enfoque en accesibilidad ciudadana y gestión centralizada.</p>
+                        <div class="tech-pills">
+                            <span class="pill">JavaScript</span>
+                            <span class="pill">Node.js</span>
+                            <span class="pill">Accesibilidad</span>
+                            <span class="pill">Municipal</span>
+                        </div>
+                        <a href="https://github.com/Benj11ii/civic-employment-portal" target="_blank" class="card-link">Ver en GitHub</a>
+                    </div>
                 </div>
-                <a href="/portafolio_galeria_total" class="btn-glass">Explorar Galería Total</a>
+
+                <!-- HITO 02 -->
+                <div class="timeline-item" data-level="2">
+                    <div class="timeline-node">02</div>
+                    <div class="level-card">
+                        <div class="card-top">
+                            <span class="card-tag">B2B INVENTORY ENGINE · PHP 8 & DOCKER</span>
+                        </div>
+                        <h3 class="card-title">todocamisetas-b2b-api</h3>
+                        <p class="card-desc">API RESTful para gestión de catálogo e inventario deportivo mayorista. Arquitectura MVC pura en PHP 8 nativo (sin frameworks), contenedorizada con Docker (Nginx + MySQL 8.0) y documentación con OpenAPI 3.0.</p>
+                        <div class="tech-pills">
+                            <span class="pill">PHP 8</span>
+                            <span class="pill">MVC Nativo</span>
+                            <span class="pill">Docker Compose</span>
+                            <span class="pill">Nginx</span>
+                            <span class="pill">MySQL 8.0</span>
+                            <span class="pill">OpenAPI 3.0</span>
+                        </div>
+                        <a href="https://github.com/Benj11ii/todocamisetas-b2b-api" target="_blank" class="card-link">Ver en GitHub</a>
+                    </div>
+                </div>
+
+                <!-- HITO 03 -->
+                <div class="timeline-item" data-level="3">
+                    <div class="timeline-node">03</div>
+                    <div class="level-card">
+                        <div class="card-top">
+                            <span class="card-tag">CORPORATE REST API · .NET 8 / C#</span>
+                        </div>
+                        <h3 class="card-title">SlaTracker-Core</h3>
+                        <p class="card-desc">API RESTful corporativa para evaluación y monitoreo de acuerdos de nivel de servicio (SLA) en incidentes críticos. Clean Architecture, Inyección de Dependencias y OpenAPI 3.0.</p>
+                        <div class="tech-pills">
+                            <span class="pill">.NET 8</span>
+                            <span class="pill">C#</span>
+                            <span class="pill">Clean Architecture</span>
+                            <span class="pill">OpenAPI 3.0</span>
+                        </div>
+                        <a href="https://github.com/Benj11ii/SlaTracker-Core" target="_blank" class="card-link">Ver en GitHub</a>
+                    </div>
+                </div>
+
+                <!-- HITO 04 -->
+                <div class="timeline-item" data-level="4">
+                    <div class="timeline-node">04</div>
+                    <div class="level-card">
+                        <div class="card-top">
+                            <span class="card-tag">TRANSACTION ENGINE · JAVA 21 & SPRING BOOT 3</span>
+                        </div>
+                        <h3 class="card-title">finflow-transaction-engine</h3>
+                        <p class="card-desc">Motor transaccional y pasarela de pagos bancaria. Arquitectura Hexagonal con puertos y adaptadores, idempotencia, rate limiting, protección anti-replay y patrón Transactional Outbox sobre PostgreSQL.</p>
+                        <div class="tech-pills">
+                            <span class="pill">Java 21</span>
+                            <span class="pill">Spring Boot 3</span>
+                            <span class="pill">PostgreSQL</span>
+                            <span class="pill">Hexagonal</span>
+                            <span class="pill">Outbox</span>
+                        </div>
+                        <a href="https://github.com/Benj11ii/finflow-transaction-engine" target="_blank" class="card-link">Ver en GitHub</a>
+                    </div>
+                </div>
+
+                <!-- HITO 05 (CIMA) -->
+                <div class="timeline-item" data-level="5">
+                    <div class="timeline-node">05</div>
+                    <div class="level-card">
+                        <div class="card-top">
+                            <span class="card-tag">HYBRID AI ORCHESTRATOR · PYTHON & CLOUDFLARE</span>
+                        </div>
+                        <h3 class="card-title">secretario-ia-backend</h3>
+                        <p class="card-desc">Plataforma de orquestación de IA híbrida (Edge-to-Local). Túneles Cloudflare Zero Trust, arquitectura de seguridad AppSec Fail-Closed, integración multicanal asíncrona y modelos locales con Ollama.</p>
+                        <div class="tech-pills">
+                            <span class="pill">Python</span>
+                            <span class="pill">Flask</span>
+                            <span class="pill">Gunicorn</span>
+                            <span class="pill">Zero Trust</span>
+                            <span class="pill">AppSec</span>
+                            <span class="pill">Ollama</span>
+                        </div>
+                        <a href="https://github.com/Benj11ii/secretario-ia-backend" target="_blank" class="card-link">Ver en GitHub</a>
+                    </div>
+                </div>
+
+                
             </div>
         </section>
 
-        <!-- TIMELINE SECTION -->
-        <div class="section-header">
-            <span class="eyebrow">ARQUITECTURAS & DESPLIEGUE</span>
-            <h2>Hitos de Trayectoria Técnica</h2>
-        </div>
-
-        <div class="timeline-container">
-            <div class="timeline-rail"></div>
-
-            <!-- NIVEL 5 (CIMA) -->
-            <div class="timeline-item" data-level="5">
-                <div class="timeline-node">05</div>
-                <div class="level-card">
-                    <div class="card-top">
-                        <span class="card-tag">NATIVE DEEP LEARNING · RUST & METAL</span>
-                        <span class="card-badge">Repositorio Privado</span>
-                    </div>
-                    <h3 class="card-title">arkv8 (Proyecto Eko)</h3>
-                    <p class="card-desc">Motor nativo de IA y pre-entrenamiento de Transformer desarrollado desde cero en Rust y ensamblador AArch64. Aceleración por hardware para Apple Silicon (UMA/AMX) con tokenizador BPE propietario.</p>
-                    <div class="tech-pills">
-                        <span class="pill">Rust</span>
-                        <span class="pill">Metal</span>
-                        <span class="pill">AArch64</span>
-                        <span class="pill">Apple Silicon</span>
-                        <span class="pill">BPE</span>
-                    </div>
-                </div>
+        <!-- CIERRE: GALERÍA + EPÍLOGO -->
+        <section class="summit-wrap" style="margin-top: 48px;">
+            <!-- TARJETA 1: GALERÍA DE PROYECTOS -->
+            <div class="gateway-card" style="flex-direction: column; align-items: flex-start; text-align: left;">
+                <span class="eyebrow" style="color: #f59e0b; font-size: 0.75rem; font-weight: 700; text-transform: uppercase;">ARCHIVO DE REPOSITORIOS</span>
+                <h3 style="color: #f3f4f6; font-size: 1.35rem; font-weight: 700; margin: 8px 0 6px;">Galería de Proyectos</h3>
+                <p style="color: #9ca3af; font-size: 0.95rem; line-height: 1.6;">Catálogo técnico de arquitecturas backend, APIs, automatizaciones y bases de datos.</p>
+                <a href="/portafolio_galeria_total" class="btn-glass" style="margin-top: 14px; display: inline-flex; align-items: center;">Ver Galería de Proyectos</a>
             </div>
 
-            <!-- NIVEL 4 -->
-            <div class="timeline-item" data-level="4">
-                <div class="timeline-node">04</div>
-                <div class="level-card">
-                    <div class="card-top">
-                        <span class="card-tag">TRANSACTION ENGINE · JAVA 21 & SPRING BOOT 3</span>
-                    </div>
-                    <h3 class="card-title">finflow-transaction-engine</h3>
-                    <p class="card-desc">Motor transaccional y pasarela de pagos bancaria. Arquitectura Hexagonal con puertos y adaptadores, idempotencia, rate limiting, protección anti-replay y patrón Transactional Outbox sobre PostgreSQL.</p>
-                    <div class="tech-pills">
-                        <span class="pill">Java 21</span>
-                        <span class="pill">Spring Boot 3</span>
-                        <span class="pill">PostgreSQL</span>
-                        <span class="pill">Hexagonal</span>
-                        <span class="pill">Outbox</span>
-                    </div>
-                    <a href="https://github.com/Benj11ii/finflow-transaction-engine" target="_blank" class="card-link">Ver en GitHub</a>
-                </div>
+            <!-- TARJETA 2: EPÍLOGO -->
+            <div class="quote-box" style="border-top-color: transparent;">
+                <p class="quote-text" style="font-size: 1.15rem; font-style: italic; color: #f3f4f6; line-height: 1.7; margin: 0;">«La ingeniería deviene de ingenio, y este es resultado de enfrentar desafíos, buscar y construir soluciones.»</p>
+                <p class="quote-author" style="color: #f59e0b; font-size: 0.9rem; font-weight: 600; margin-top: 10px;">— Benjamín Alonso Carmona Vega</p>
             </div>
-
-            <!-- NIVEL 3 -->
-            <div class="timeline-item" data-level="3">
-                <div class="timeline-node">03</div>
-                <div class="level-card">
-                    <div class="card-top">
-                        <span class="card-tag">CORPORATE REST API · .NET 8 / C#</span>
-                    </div>
-                    <h3 class="card-title">SlaTracker-Core</h3>
-                    <p class="card-desc">API RESTful corporativa para evaluación y monitoreo de acuerdos de nivel de servicio (SLA) en incidentes críticos. Clean Architecture, Inyección de Dependencias y OpenAPI 3.0.</p>
-                    <div class="tech-pills">
-                        <span class="pill">.NET 8</span>
-                        <span class="pill">C#</span>
-                        <span class="pill">Clean Architecture</span>
-                        <span class="pill">OpenAPI 3.0</span>
-                    </div>
-                    <a href="https://github.com/Benj11ii/SlaTracker-Core" target="_blank" class="card-link">Ver en GitHub</a>
-                </div>
-            </div>
-
-            <!-- NIVEL 2 -->
-            <div class="timeline-item" data-level="2">
-                <div class="timeline-node">02</div>
-                <div class="level-card">
-                    <div class="card-top">
-                        <span class="card-tag">HYBRID AI ORCHESTRATOR · PYTHON & CLOUDFLARE</span>
-                    </div>
-                    <h3 class="card-title">secretario-ia-backend</h3>
-                    <p class="card-desc">Plataforma híbrida Edge-to-Local. Túneles Cloudflare Zero Trust, mitigación AppSec Fail-Closed, integración multicanal (Telegram, Sheets) y modelos locales con Ollama.</p>
-                    <div class="tech-pills">
-                        <span class="pill">Python</span>
-                        <span class="pill">Flask</span>
-                        <span class="pill">Zero Trust</span>
-                        <span class="pill">AppSec</span>
-                        <span class="pill">Ollama</span>
-                    </div>
-                    <a href="https://github.com/Benj11ii/secretario-ia-backend" target="_blank" class="card-link">Ver en GitHub</a>
-                </div>
-            </div>
-
-            <!-- NIVEL 1 (BASE) -->
-            <div class="timeline-item active" id="base-historia" data-level="1">
-                <div class="timeline-node">01</div>
-                <div class="level-card">
-                    <div class="card-top">
-                        <span class="card-tag">CIVIC TECH · JAVASCRIPT / FULL STACK</span>
-                    </div>
-                    <h3 class="card-title">civic-employment-portal</h3>
-                    <p class="card-desc">MVP operativo de portal de empleo y asistencia social desarrollado para la Municipalidad de Providencia. Enfoque en accesibilidad ciudadana y gestión centralizada.</p>
-                    <div class="tech-pills">
-                        <span class="pill">JavaScript</span>
-                        <span class="pill">Node.js</span>
-                        <span class="pill">Accesibilidad</span>
-                        <span class="pill">Municipal</span>
-                    </div>
-                    <a href="https://github.com/Benj11ii/civic-employment-portal" target="_blank" class="card-link">Ver en GitHub</a>
-                </div>
-            </div>
-
-            <p class="base-guide">Punto de partida técnico. Deslice hacia arriba para ascender por los hitos</p>
-        </div>
+        </section>
     </main>
 
     <!-- FOOTER -->
