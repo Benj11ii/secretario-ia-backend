@@ -6,11 +6,12 @@
 <title>Archivo de Proyectos & Repositorios · Benjamín A. Carmona Vega</title>
 <meta name="description" content="Exploración técnica de arquitecturas backend, inteligencia artificial, automatizaciones y diseño de sistemas distribuidos. Portafolio de Benjamín Alonso Carmona Vega.">
 <meta name="author" content="Benjamín Alonso Carmona Vega">
-<link rel="icon" type="image/jpeg" href="assets/images/logoprincipal.jpeg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
+<link rel="icon" type="image/jpeg" href="/assets/images/logoprincipal.jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#09090b; --bg2:#0d0e12;
@@ -19,7 +20,7 @@
   --glass:rgba(18,18,24,.7); --glass2:rgba(22,22,30,.62);
   --stroke:rgba(255,255,255,.08); --stroke-amber:rgba(245,158,11,.35);
   --radius:20px; --radius-sm:14px;
-  --font:'Inter','Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --font:'Inter','Plus Jakarta Sans',-apple-system,sans-serif;
   --display:'Plus Jakarta Sans','Inter',system-ui,sans-serif;
   --mono:ui-monospace,'SF Mono','Cascadia Code',Menlo,Consolas,monospace;
 }
@@ -36,34 +37,49 @@ a{color:inherit}
 .page{position:relative;z-index:2}
 .wrap{width:100%;max-width:1140px;margin:0 auto;padding:0 22px}
 
-/* ---------- NAVBAR (misma que portafolio.html) ---------- */
+/* ---------- NAVBAR (cloned from index.html) ---------- */
 .nav{position:fixed;top:14px;left:0;right:0;z-index:1000;display:flex;justify-content:center;padding:0 16px}
-.nav-inner{width:100%;max-width:1140px;display:flex;align-items:center;justify-content:space-between;gap:12px;
+.nav-inner{width:100%;max-width:1120px;display:flex;align-items:center;justify-content:space-between;gap:14px;
   padding:10px 12px 10px 14px;border-radius:999px;
   background:rgba(14,14,19,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   border:1px solid var(--stroke);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 18px 50px rgba(0,0,0,.5)}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
-.brand img{width:36px;height:36px;border-radius:10px;object-fit:cover;border:1px solid rgba(245,158,11,.45)}
-.brand b{font-family:var(--display);font-size:.95rem;letter-spacing:.2px;white-space:nowrap}
+.brand img{width:36px;height:36px;border-radius:10px;object-fit:cover;border:1px solid rgba(245,158,11,.4)}
+.brand b{font-family:var(--display);font-size:.98rem;letter-spacing:.2px}
 .brand b span{color:var(--amber)}
-.nav-links{display:flex;align-items:center;gap:2px;list-style:none}
-.nav-links a{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-size:.82rem;font-weight:500;color:var(--muted);padding:9px 13px;border-radius:999px;transition:.25s;white-space:nowrap}
+.nav-links{display:flex;align-items:center;gap:4px;list-style:none}
+.nav-links a{text-decoration:none;font-size:.82rem;font-weight:500;color:var(--muted);padding:9px 14px;border-radius:999px;transition:.25s}
 .nav-links a:hover{color:#fff;background:rgba(255,255,255,.06)}
-.nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;border-radius:999px;
-  font-weight:700;font-size:.85rem;letter-spacing:.2px;padding:13px 26px;border:1px solid transparent;cursor:pointer;transition:transform .15s,box-shadow .15s,background .15s,border-color .15s;font-family:var(--font)}
+  font-weight:700;font-size:.85rem;letter-spacing:.3px;padding:13px 26px;border:1px solid transparent;cursor:pointer;transition:all .15s cubic-bezier(.16,1,.3,1);font-family:var(--font)}
 .btn-amber{background:#f59e0b;color:#1a1002;box-shadow:0 4px 14px rgba(0,0,0,.5),inset 0 1px 1px rgba(255,255,255,.25)}
-.btn-amber:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.6),0 0 15px rgba(245,158,11,.2)}
-.btn-sm{padding:10px 18px;font-size:.78rem}
-.burger{display:none;width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid var(--stroke);color:#fff;font-size:1.05rem;cursor:pointer}
-.mobile-menu{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.5);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);align-items:center;justify-content:center;padding:20px}
+.btn-amber:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.6),0 0 15px rgba(245,158,11,.15)}
+.btn-ghost{background:rgba(255,255,255,.04);border-color:var(--stroke);color:var(--ink)}
+.btn-ghost:hover{border-color:rgba(245,158,11,.5);background:rgba(245,158,11,.08)}
+.btn-sm{padding:10px 20px;font-size:.78rem}
+.nav-cta{background:#f59e0b!important;color:#09090b!important;font-weight:600;transition:all .15s cubic-bezier(.16,1,.3,1);box-shadow:0 4px 14px rgba(0,0,0,.5),inset 0 1px 1px rgba(255,255,255,.25)}
+.nav-cta:hover{filter:brightness(1.08);box-shadow:0 6px 20px rgba(0,0,0,.6),0 0 15px rgba(245,158,11,.15)}
+.burger{display:none;width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid var(--stroke);color:#fff;font-size:1rem}
+.mobile-menu{display:none;position:fixed;inset:0;z-index:2000;
+  background:rgba(0,0,0,.35);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  align-items:center;justify-content:center;padding:20px}
 .mobile-menu.open{display:flex}
-.mm-card{max-width:330px;width:100%;border-radius:26px;background:rgba(22,22,28,.7);backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);border:1px solid rgba(255,255,255,.1);padding:28px 22px;display:flex;flex-direction:column;gap:6px;box-shadow:0 20px 50px rgba(0,0,0,.5)}
-.mm-card a{display:flex;align-items:center;gap:10px;text-decoration:none;padding:12px 14px;border-radius:14px;font-size:.92rem;color:var(--ink)}
-.mm-card a:hover{background:rgba(245,158,11,.1)}
-.mm-card .btn{margin-top:10px;width:100%}
-.mm-close{align-self:flex-end;background:none;border:none;color:var(--muted);font-size:1.3rem;cursor:pointer;padding:4px 8px}
+.mm-card{max-width:320px;width:100%;border-radius:28px;
+  background:rgba(22,22,28,.55);
+  backdrop-filter:blur(28px) saturate(180%);
+  -webkit-backdrop-filter:blur(28px) saturate(180%);
+  border:1px solid rgba(255,255,255,.1);
+  border-top:1px solid rgba(255,255,255,.28);
+  padding:30px 20px;box-shadow:0 20px 50px rgba(0,0,0,.5),inset 0 1px 1px rgba(255,255,255,.15);
+  display:flex;flex-direction:column;align-items:center}
+.mm-head{display:flex;align-items:center;justify-content:space-between;width:100%;margin-bottom:14px}
+.mm-close{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:#fff;font-size:1rem;cursor:pointer;transition:all .15s cubic-bezier(.16,1,.3,1)}
+.mm-close:hover{border-color:rgba(245,158,11,.5);color:var(--amber)}
+.mm-links{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;width:100%}
+.mm-link{padding:12px 32px;border-radius:9999px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);margin:6px auto;font-size:1rem;font-weight:600;color:var(--muted);text-decoration:none;min-width:230px;text-align:center;transition:all .15s cubic-bezier(.16,1,.3,1)}
+.mm-link:hover{color:#fff;border-color:rgba(245,158,11,.4)}
+.mm-link.mm-cta{background:linear-gradient(180deg,#fbbf24,#f59e0b 55%,#d97706);color:#09090b;border:none;font-weight:700;margin-top:14px}
 
 /* ---------- GALERÍA ---------- */
 main{padding-top:130px;padding-bottom:48px}
@@ -108,7 +124,7 @@ footer{margin-top:20px;border-top:1px solid rgba(255,255,255,.06);padding:38px 0
 .foot-links a:hover{color:#fff;border-color:rgba(245,158,11,.5);background:rgba(245,158,11,.08)}
 .copy{text-align:center;font-size:.74rem;color:rgba(255,255,255,.35);margin-top:26px}
 
-@media(max-width:960px){
+@media(max-width:720px){
   .nav-links{display:none}
   .burger{display:inline-flex;align-items:center;justify-content:center}
   main{padding-top:120px}
@@ -132,28 +148,38 @@ footer{margin-top:20px;border-top:1px solid rgba(255,255,255,.06);padding:38px 0
   <nav class="nav" id="nav" aria-label="Navegación principal">
     <div class="nav-inner">
       <a class="brand" href="/" aria-label="IAsesoria inicio">
-        <img src="assets/images/logoprincipal.jpeg" alt="Logo IAsesoria">
-        <b>IAsesoria<span>.cl</span></b>
+        <img src="/assets/images/logoprincipal.jpeg" alt="IAsesoria" width="36" height="36" style="border-radius:10px; object-fit:cover;">
+        <b>IA<span>sesoria</span></b>
       </a>
       <ul class="nav-links">
-        <li><a href="/">← Volver a IAsesoria.cl</a></li>
-        <li><a href="/portafolio">← Portafolio</a></li>
+        <li><a href="https://www.iasesoria.cl">Inicio</a></li>
+        <li><a href="/portafolio#base-historia">Recorrido</a></li>
+        <li><a href="/portafolio_galeria_total">Galería</a></li>
         <li><a href="https://github.com/Benj11ii" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/benjamin-carmona-69aa44223/" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a class="btn btn-amber btn-sm nav-cta" href="/assets/CV-Benjamin-Carmona-Vega.pdf" download="CV-Benjamin-Carmona-Vega.pdf">Descargar CV</a></li>
       </ul>
-      <div class="nav-right">
-        <a class="btn btn-amber btn-sm" id="btn-cv" href="/assets/CV-Benjamin-Carmona-Vega.pdf" download="CV-Benjamin-Carmona-Vega.pdf" title="Descargar CV en PDF">Descargar CV</a>
-        <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false">☰</button>
-      </div>
+      <button class="burger" id="burger" aria-label="Abrir menú"><i class="fas fa-bars"></i></button>
     </div>
   </nav>
 
-  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
-    <div class="mm-card">
-      <button class="mm-close" id="mmClose" aria-label="Cerrar menú">✕</button>
-      <a href="/">← Volver a IAsesoria.cl</a>
-      <a href="/portafolio">← Portafolio</a>
-      <a href="https://github.com/Benj11ii" target="_blank" rel="noopener">GitHub — @Benj11ii</a>
-      <a class="btn btn-amber" href="/assets/CV-Benjamin-Carmona-Vega.pdf" download="CV-Benjamin-Carmona-Vega.pdf">Descargar CV</a>
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mm-card" id="mmCard">
+      <div class="mm-head">
+        <a href="/" class="brand">
+          <img src="/assets/images/logoprincipal.jpeg" alt="IAsesoria - Consultoría Tecnológica" width="28" height="28" style="border-radius:6px;">
+          <b>IA<span>sesoria</span></b>
+        </a>
+        <button class="mm-close" id="mmClose" aria-label="Cerrar menú"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="mm-links">
+        <a href="/" class="mm-link">Volver a IAsesoria</a>
+        <a href="/portafolio#base-historia" class="mm-link">Recorrido</a>
+        <a href="/portafolio_galeria_total" class="mm-link">Archivo de Proyectos</a>
+        <a href="https://github.com/Benj11ii" target="_blank" class="mm-link">GitHub</a>
+        <a href="https://www.linkedin.com/in/benjamin-carmona-69aa44223/" target="_blank" class="mm-link">LinkedIn</a>
+        <a href="/assets/CV-Benjamin-Carmona-Vega.pdf" download="CV-Benjamin-Carmona-Vega.pdf" class="mm-link mm-cta">Descargar CV</a>
+      </div>
     </div>
   </div>
 
@@ -180,7 +206,7 @@ footer{margin-top:20px;border-top:1px solid rgba(255,255,255,.06);padding:38px 0
         <h3>secretario-ia-backend</h3>
         <p>Motor de Orquestación de Inteligencia Artificial Híbrida (Edge-to-Local). Cloudflare Zero Trust y AppSec.</p>
         <small>Python · Flask · Zero Trust · Ollama</small>
-        <div class="foot"><a class="go" href="https://github.com/Benj11ii/secretario-ia-backend" target="_blank" rel="noopener">Ver en GitHub →</a></div>
+        <div class="foot"><a class="go" href="https://github.com/Benj11ii/secretario-ia-backend" target="_blank" rel="noopener">Ver en GitHub</a></div>
       </article>
       <article class="bento-card" data-category="ia">
         <span class="cat">IA & Rust</span>
@@ -194,91 +220,91 @@ footer{margin-top:20px;border-top:1px solid rgba(255,255,255,.06);padding:38px 0
         <h3>finflow-transaction-engine</h3>
         <p>Motor transaccional y pasarela de pagos. Java 21, Spring Boot 3, Hexagonal y Outbox.</p>
         <small>Java 21 · Spring Boot 3 · Hexagonal · Outbox</small>
-        <div class="foot"><a class="go" href="https://github.com/Benj11ii/finflow-transaction-engine" target="_blank" rel="noopener">Ver en GitHub →</a></div>
+        <div class="foot"><a class="go" href="https://github.com/Benj11ii/finflow-transaction-engine" target="_blank" rel="noopener">Ver en GitHub</a></div>
       </article>
       <article class="bento-card" data-category="backend">
         <span class="cat">Backend & APIs</span>
         <h3>SlaTracker-Core</h3>
         <p>API RESTful corporativa para SLAs. .NET 8 (C#) y Clean Architecture.</p>
         <small>.NET 8 · C# · Clean Architecture · OpenAPI 3.0</small>
-        <div class="foot"><a class="go" href="https://github.com/Benj11ii/SlaTracker-Core" target="_blank" rel="noopener">Ver en GitHub →</a></div>
+        <div class="foot"><a class="go" href="https://github.com/Benj11ii/SlaTracker-Core" target="_blank" rel="noopener">Ver en GitHub</a></div>
       </article>
       <article class="bento-card" data-category="backend">
         <span class="cat">Backend & APIs</span>
         <h3>todocamisetas-b2b-api</h3>
         <p>API RESTful B2B en PHP 8 nativo (MVC sin frameworks), Nginx y MySQL 8.</p>
         <small>PHP 8 · MVC nativo · Nginx · MySQL 8</small>
-        <div class="foot"><a class="go" href="https://github.com/Benj11ii/todocamisetas-b2b-api" target="_blank" rel="noopener">Ver en GitHub →</a></div>
+        <div class="foot"><a class="go" href="https://github.com/Benj11ii/todocamisetas-b2b-api" target="_blank" rel="noopener">Ver en GitHub</a></div>
       </article>
       <article class="bento-card" data-category="backend">
         <span class="cat">Backend & APIs</span>
         <h3>proviemplea-backend-api</h3>
         <p>API REST en Laravel 11 y Docker para intermediación laboral municipal (Currículum Ciego).</p>
         <small>Laravel 11 · Docker · Currículum Ciego</small>
-        <div class="foot"><a class="go" href="https://github.com/Benj11ii/proviemplea-backend-api" target="_blank" rel="noopener">Ver en GitHub →</a></div>
+        <div class="foot"><a class="go" href="https://github.com/Benj11ii/proviemplea-backend-api" target="_blank" rel="noopener">Ver en GitHub</a></div>
       </article>
       <article class="bento-card" data-category="backend">
         <span class="cat">Backend & APIs</span>
         <h3>customer-management-api</h3>
         <p>API REST para gestión y onboarding Fintech en Laravel 12 y Sail.</p>
         <small>Laravel 12 · Sail · Onboarding Fintech</small>
-        <div class="foot"><a class="go" href="https://github.com/Benj11ii/customer-management-api" target="_blank" rel="noopener">Ver en GitHub →</a></div>
+        <div class="foot"><a class="go" href="https://github.com/Benj11ii/customer-management-api" target="_blank" rel="noopener">Ver en GitHub</a></div>
       </article>
       <article class="bento-card" data-category="db">
         <span class="cat">Bases de Datos</span>
         <h3>alkewallet-db-architecture</h3>
         <p>Arquitectura relacional MySQL 8.0 para billetera virtual Fintech (3FN y ACID).</p>
         <small>MySQL 8.0 · 3FN · ACID</small>
-        <div class="foot"><a class="go" href="https://github.com/Benj11ii/alkewallet-db-architecture" target="_blank" rel="noopener">Ver en GitHub →</a></div>
+        <div class="foot"><a class="go" href="https://github.com/Benj11ii/alkewallet-db-architecture" target="_blank" rel="noopener">Ver en GitHub</a></div>
       </article>
       <article class="bento-card" data-category="backend">
         <span class="cat">Backend & APIs</span>
         <h3>smart-crm-system</h3>
         <p>Sistema CRM desarrollado en Python para control de entidades corporativas.</p>
         <small>Python · CRM · Entidades corporativas</small>
-        <div class="foot"><a class="go" href="https://github.com/Benj11ii/smart-crm-system" target="_blank" rel="noopener">Ver en GitHub →</a></div>
+        <div class="foot"><a class="go" href="https://github.com/Benj11ii/smart-crm-system" target="_blank" rel="noopener">Ver en GitHub</a></div>
       </article>
       <article class="bento-card" data-category="backend">
         <span class="cat">Backend & APIs</span>
         <h3>inventory-management-system</h3>
         <p>Motor de control de inventario y gestión de stock comercial en Python.</p>
         <small>Python · Inventario · Stock comercial</small>
-        <div class="foot"><a class="go" href="https://github.com/Benj11ii/inventory-management-system" target="_blank" rel="noopener">Ver en GitHub →</a></div>
+        <div class="foot"><a class="go" href="https://github.com/Benj11ii/inventory-management-system" target="_blank" rel="noopener">Ver en GitHub</a></div>
       </article>
       <article class="bento-card" data-category="automation">
         <span class="cat">Automatización</span>
         <h3>job-scraper-automation</h3>
         <p>Bot de Web Scraping en Python para agregación de ofertas laborales.</p>
         <small>Python · Scraping · Agregación</small>
-        <div class="foot"><a class="go" href="https://github.com/Benj11ii/job-scraper-automation" target="_blank" rel="noopener">Ver en GitHub →</a></div>
+        <div class="foot"><a class="go" href="https://github.com/Benj11ii/job-scraper-automation" target="_blank" rel="noopener">Ver en GitHub</a></div>
       </article>
       <article class="bento-card" data-category="automation">
         <span class="cat">Automatización</span>
         <h3>audit-asistencia-gmail-sheets</h3>
         <p>Script de automatización extrayendo datos de Gmail a Google Sheets.</p>
         <small>Apps Script · Gmail · Sheets</small>
-        <div class="foot"><a class="go" href="https://github.com/Benj11ii/audit-asistencia-gmail-sheets" target="_blank" rel="noopener">Ver en GitHub →</a></div>
+        <div class="foot"><a class="go" href="https://github.com/Benj11ii/audit-asistencia-gmail-sheets" target="_blank" rel="noopener">Ver en GitHub</a></div>
       </article>
       <article class="bento-card" data-category="frontend">
         <span class="cat">Frontend</span>
         <h3>ecommerce-catalog-platform</h3>
         <p>Plataforma e-commerce para retail con lógica de checkout en JS.</p>
         <small>JavaScript · Checkout · Retail</small>
-        <div class="foot"><a class="go" href="https://github.com/Benj11ii/ecommerce-catalog-platform" target="_blank" rel="noopener">Ver en GitHub →</a></div>
+        <div class="foot"><a class="go" href="https://github.com/Benj11ii/ecommerce-catalog-platform" target="_blank" rel="noopener">Ver en GitHub</a></div>
       </article>
       <article class="bento-card" data-category="frontend">
         <span class="cat">Frontend</span>
         <h3>civic-employment-portal</h3>
         <p>MVP de portal de empleo y asistencia social (Civic Tech).</p>
         <small>Civic Tech · MVP · Accesibilidad</small>
-        <div class="foot"><a class="go" href="https://github.com/Benj11ii/civic-employment-portal" target="_blank" rel="noopener">Ver en GitHub →</a></div>
+        <div class="foot"><a class="go" href="https://github.com/Benj11ii/civic-employment-portal" target="_blank" rel="noopener">Ver en GitHub</a></div>
       </article>
       <article class="bento-card" data-category="frontend">
         <span class="cat">Frontend</span>
         <h3>civic-frontend-prototype</h3>
         <p>Prototipo frontend responsivo y accesible para portal municipal.</p>
         <small>Responsive · Accesible · Municipal</small>
-        <div class="foot"><a class="go" href="https://github.com/Benj11ii/civic-frontend-prototype" target="_blank" rel="noopener">Ver en GitHub →</a></div>
+        <div class="foot"><a class="go" href="https://github.com/Benj11ii/civic-frontend-prototype" target="_blank" rel="noopener">Ver en GitHub</a></div>
       </article>
     </div>
   </main>
@@ -305,21 +331,39 @@ footer{margin-top:20px;border-top:1px solid rgba(255,255,255,.06);padding:38px 0
 
 <script>
 (function(){
-  // Navbar móvil
+  // Navbar móvil - cloned from index.html
+  var menuOpen = false;
+  function closeMobileMenu(){
+    var menu = document.getElementById('mobileMenu');
+    var burger = document.getElementById('burger');
+    if(!menu) return;
+    menuOpen = false;
+    menu.classList.remove('open');
+    document.body.style.overflow = '';
+    if(burger) burger.innerHTML = '<i class="fas fa-bars"></i>';
+  }
   var burger = document.getElementById('burger');
   var menu = document.getElementById('mobileMenu');
   var mmClose = document.getElementById('mmClose');
-  function setMenu(open){
-    menu.classList.toggle('open', open);
-    menu.setAttribute('aria-hidden', open ? 'false' : 'true');
-    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    document.body.style.overflow = open ? 'hidden' : '';
+  if(burger && menu){
+    burger.addEventListener('click', function(e){
+      e.stopPropagation();
+      menuOpen = !menuOpen;
+      menu.classList.toggle('open', menuOpen);
+      document.body.style.overflow = menuOpen ? 'hidden' : '';
+      burger.innerHTML = menuOpen ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    });
+    if(mmClose) mmClose.addEventListener('click', closeMobileMenu);
+    menu.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', closeMobileMenu);
+    });
+    menu.addEventListener('click', function(e){
+      if(e.target === menu) closeMobileMenu();
+    });
+    window.addEventListener('scroll', function(){
+      if(menuOpen) closeMobileMenu();
+    }, {passive:true});
   }
-  burger.addEventListener('click', function(){ setMenu(!menu.classList.contains('open')); });
-  mmClose.addEventListener('click', function(){ setMenu(false); });
-  menu.addEventListener('click', function(e){ if(e.target === menu) setMenu(false); });
-  menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setMenu(false); }); });
-  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') setMenu(false); });
 
   // Filtrado con transición de opacidad
   var btns = Array.prototype.slice.call(document.querySelectorAll('.filter-btn'));

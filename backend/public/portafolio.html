@@ -7,9 +7,11 @@
     <meta name="description" content="Portafolio de ingeniería de Benjamín Alonso Carmona Vega: arquitecturas backend de alto rendimiento, sistemas transaccionales distribuidos e inteligencia artificial a bajo nivel. Fundador de IAsesoria.">
     <meta name="author" content="Benjamín Alonso Carmona Vega">
     <link rel="canonical" href="https://www.iasesoria.cl/portafolio">
+    <link rel="icon" type="image/jpeg" href="/assets/images/logoprincipal.jpeg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
         *, *::before, *::after {
             box-sizing: border-box;
@@ -20,7 +22,7 @@
             scroll-behavior: smooth;
             background-color: #09090b;
             color: #f3f4f6;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', 'Plus Jakarta Sans', -apple-system, sans-serif;
         }
         body {
             min-height: 100vh;
@@ -29,78 +31,191 @@
             line-height: 1.5;
         }
 
-        /* NAVBAR */
+        /* ============ RESET / TOKENS ============ */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        :root {
+            --bg: #09090b;
+            --bg2: #0d0e12;
+            --amber: #f59e0b;
+            --amber2: #d97706;
+            --amber-soft: rgba(245, 158, 11, .12);
+            --ink: #f3f4f6;
+            --muted: #9ca3af;
+            --muted2: rgba(255, 255, 255, .55);
+            --muted-soft: rgba(255, 255, 255, .55);
+            --glass: rgba(18, 18, 24, .7);
+            --stroke: rgba(255, 255, 255, .06);
+            --radius: 18px;
+            --font: 'Inter', 'Plus Jakarta Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+            --display: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--ink);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        img { max-width: 100%; display: block }
+        a { color: inherit }
+        ::selection { background: rgba(245, 158, 11, .35) }
+
+        /* ============ AMBIENT BACKGROUND ============ */
+        .ambient {
+            position: fixed; inset: 0; z-index: 0; pointer-events: none;
+            background:
+                radial-gradient(640px 420px at 12% -4%, rgba(245, 158, 11, .07), transparent 65%),
+                radial-gradient(760px 480px at 88% 8%, rgba(217, 119, 6, .05), transparent 65%),
+                radial-gradient(900px 620px at 50% 55%, rgba(245, 158, 11, .025), transparent 70%),
+                radial-gradient(700px 500px at 50% 110%, rgba(217, 119, 6, .04), transparent 65%),
+                linear-gradient(#09090b, #0d0e12);
+        }
+        .ambient::after {
+            content: ''; position: absolute; inset: 0; opacity: .5;
+            background-image: radial-gradient(rgba(255, 255, 255, .07) 1px, transparent 1px);
+            background-size: 34px 34px;
+            mask-image: radial-gradient(80% 60% at 50% 20%, black, transparent);
+        }
+        .grain {
+            position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: .035;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+        .page { position: relative; z-index: 2 }
+
+        /* ============ NAVBAR (cloned from index.html) ============ */
         .navbar {
             position: fixed;
-            top: 0;
+            top: 14px;
             left: 0;
-            width: 100%;
-            height: 70px;
-            background: rgba(9, 9, 11, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            right: 0;
             z-index: 1000;
             display: flex;
-            align-items: center;
+            justify-content: center;
+            padding: 0 16px;
         }
-        .nav-container {
+        .nav-inner {
             width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
+            max-width: 1120px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 14px;
+            padding: 10px 12px 10px 14px;
+            border-radius: 999px;
+            background: rgba(14, 14, 19, .72);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--stroke);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, .07), 0 18px 50px rgba(0, 0, 0, .5);
         }
-        .nav-logo {
+        .brand {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             text-decoration: none;
-            color: #f3f4f6;
-            font-weight: 700;
-            font-size: 1.1rem;
         }
-        .nav-logo img {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
+        .brand img {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
             object-fit: cover;
-            border: 1px solid rgba(245, 158, 11, 0.4);
+            border: 1px solid rgba(245, 158, 11, .4);
         }
-        .nav-logo span {
-            color: #f59e0b;
+        .brand b {
+            font-family: var(--display);
+            font-size: .98rem;
+            letter-spacing: .2px;
+        }
+        .brand b span {
+            color: var(--amber);
         }
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 24px;
+            gap: 4px;
+            list-style: none;
         }
-        .nav-link {
-            color: #9ca3af;
+        .nav-links a {
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: .82rem;
             font-weight: 500;
-            transition: color 0.2s;
+            color: var(--muted);
+            padding: 9px 14px;
+            border-radius: 999px;
+            transition: .25s;
         }
-        .nav-link:hover {
-            color: #f3f4f6;
+        .nav-links a:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, .06);
         }
-        .btn-cv {
-            background: #f59e0b;
-            color: #09090b;
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 0.85rem;
-            padding: 8px 18px;
-            border-radius: 8px;
-            transition: all 0.2s;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: .85rem;
+            letter-spacing: .3px;
+            padding: 13px 26px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all .15s cubic-bezier(.16, 1, .3, 1);
+            font-family: var(--font);
         }
-        .btn-cv:hover {
-            background: #fbbf24;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+        .btn-amber {
+            background: #f59e0b;
+            color: #1a1002;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, .5), inset 0 1px 1px rgba(255, 255, 255, .25);
+        }
+        .btn-amber:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .6), 0 0 15px rgba(245, 158, 11, .15);
+        }
+        .btn-ghost {
+            background: rgba(255, 255, 255, .04);
+            border-color: var(--stroke);
+            color: var(--ink);
+        }
+        .btn-ghost:hover {
+            border-color: rgba(245, 158, 11, .5);
+            background: rgba(245, 158, 11, .08);
+        }
+        .btn-sm {
+            padding: 10px 20px;
+            font-size: .78rem;
+        }
+        .nav-cta {
+            background: #f59e0b !important;
+            color: #09090b !important;
+            font-weight: 600;
+            transition: all .15s cubic-bezier(.16, 1, .3, 1);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, .5), inset 0 1px 1px rgba(255, 255, 255, .25);
+        }
+        .nav-cta:hover {
+            filter: brightness(1.08);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, .6), 0 0 15px rgba(245, 158, 11, .15);
+        }
+        .text-amber { color: var(--amber); font-weight: inherit }
+        .burger {
+            display: none;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid var(--stroke);
+            color: #fff;
+            font-size: 1rem;
         }
 
         /* MAIN CONTAINER */
@@ -510,6 +625,11 @@
             .nav-links .nav-link {
                 display: none;
             }
+            .burger {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
             .timeline-container {
                 padding-left: 45px;
             }
@@ -522,6 +642,93 @@
                 height: 34px;
                 font-size: 0.75rem;
             }
+
+            /* Mobile Menu - cloned from index.html */
+            .mobile-menu {
+                display: none;
+                position: fixed;
+                inset: 0;
+                z-index: 2000;
+                background: rgba(0, 0, 0, .35);
+                backdrop-filter: blur(14px);
+                -webkit-backdrop-filter: blur(14px);
+                align-items: center;
+                justify-content: center;
+                padding: 20px
+            }
+            .mobile-menu.open {
+                display: flex
+            }
+            .mm-card {
+                max-width: 320px;
+                width: 100%;
+                border-radius: 28px;
+                background: rgba(22, 22, 28, .55);
+                backdrop-filter: blur(28px) saturate(180%);
+                -webkit-backdrop-filter: blur(28px) saturate(180%);
+                border: 1px solid rgba(255, 255, 255, .1);
+                border-top: 1px solid rgba(255, 255, 255, .28);
+                padding: 30px 20px;
+                box-shadow: 0 20px 50px rgba(0, 0, 0, .5), inset 0 1px 1px rgba(255, 255, 255, .15);
+                display: flex;
+                flex-direction: column;
+                align-items: center
+            }
+            .mm-head {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                margin-bottom: 14px
+            }
+            .mm-close {
+                width: 42px;
+                height: 42px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, .05);
+                border: 1px solid rgba(255, 255, 255, .08);
+                color: #fff;
+                font-size: 1rem;
+                cursor: pointer;
+                transition: all .15s cubic-bezier(.16, 1, .3, 1)
+            }
+            .mm-close:hover {
+                border-color: rgba(245, 158, 11, .5);
+                color: #f59e0b
+            }
+            .mm-links {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                flex: 1;
+                width: 100%
+            }
+            .mm-link {
+                padding: 12px 32px;
+                border-radius: 9999px;
+                background: rgba(255, 255, 255, .04);
+                border: 1px solid rgba(255, 255, 255, .08);
+                margin: 6px auto;
+                font-size: 1rem;
+                font-weight: 600;
+                color: #9ca3af;
+                text-decoration: none;
+                min-width: 230px;
+                text-align: center;
+                transition: all .15s cubic-bezier(.16, 1, .3, 1)
+            }
+            .mm-link:hover {
+                color: #fff;
+                border-color: rgba(245, 158, 11, .4)
+            }
+            .mm-link.mm-cta {
+                background: linear-gradient(180deg, #fbbf24, #f59e0b 55%, #d97706);
+                color: #09090b;
+                border: none;
+                font-weight: 700;
+                margin-top: 14px
+            }
         }
     </style>
 </head>
@@ -529,20 +736,41 @@
 
     <!-- NAVBAR -->
     <header class="navbar">
-        <div class="nav-container">
-            <a href="https://www.iasesoria.cl" class="nav-logo">
-                <img src="/assets/images/logoprincipal.jpeg" alt="IAsesoria">
-                IAsesoria<span>.cl</span>
+        <div class="nav-inner">
+            <a href="https://www.iasesoria.cl" class="brand">
+                <img src="/assets/images/logoprincipal.jpeg" alt="IAsesoria" width="36" height="36" style="border-radius:10px; object-fit:cover;">
+                <b>IA<span>sesoria</span></b>
             </a>
-            <div class="nav-links">
-                <a href="https://www.iasesoria.cl" class="nav-link">← Volver a IAsesoria.cl</a>
-                <a href="#base-historia" class="nav-link">Recorrido</a>
-                <a href="https://github.com/Benj11ii" target="_blank" class="nav-link">GitHub</a>
-                <a href="https://www.linkedin.com/in/benjamin-carmona-vega" target="_blank" class="nav-link">LinkedIn</a>
-                <a href="/assets/CV-Benjamin-Carmona-Vega.pdf" download="CV-Benjamin-Carmona-Vega.pdf" class="btn-cv">Descargar CV</a>
-            </div>
+            <ul class="nav-links">
+                <li><a href="https://www.iasesoria.cl">Inicio</a></li>
+                <li><a href="/portafolio#base-historia">Recorrido</a></li>
+                <li><a href="/portafolio_galeria_total">Galería</a></li>
+                <li><a href="https://github.com/Benj11ii" target="_blank" rel="noopener">GitHub</a></li>
+                <li><a href="https://www.linkedin.com/in/benjamin-carmona-69aa44223/" target="_blank" rel="noopener">LinkedIn</a></li>
+                <li><a class="btn btn-amber btn-sm nav-cta" href="/assets/CV-Benjamin-Carmona-Vega.pdf" download="CV-Benjamin-Carmona-Vega.pdf">Descargar CV</a></li>
+            </ul>
+            <button class="burger" id="burger" aria-label="Abrir menú"><i class="fas fa-bars"></i></button>
         </div>
     </header>
+    <nav class="mobile-menu" id="mobileMenu">
+      <div class="mm-card" id="mmCard">
+        <div class="mm-head">
+          <a href="https://www.iasesoria.cl" class="brand">
+            <img src="/assets/images/logoprincipal.jpeg" alt="IAsesoria - Consultoría Tecnológica" width="28" height="28" style="border-radius:6px;">
+            <b>IA<span>sesoria</span></b>
+          </a>
+          <button class="mm-close" id="mmClose" aria-label="Cerrar menú"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="mm-links">
+          <a href="https://www.iasesoria.cl" class="mm-link">Volver a IAsesoria</a>
+          <a href="/portafolio#base-historia" class="mm-link">Recorrido</a>
+          <a href="/portafolio_galeria_total" class="mm-link">Archivo de Proyectos</a>
+          <a href="https://github.com/Benj11ii" target="_blank" class="mm-link">GitHub</a>
+          <a href="https://www.linkedin.com/in/benjamin-carmona-69aa44223/" target="_blank" class="mm-link">LinkedIn</a>
+          <a href="/assets/CV-Benjamin-Carmona-Vega.pdf" download="CV-Benjamin-Carmona-Vega.pdf" class="mm-link mm-cta">Descargar CV</a>
+        </div>
+      </div>
+    </nav>
 
     <main>
         <!-- HERO SECTION -->
@@ -550,7 +778,7 @@
             <!-- TARJETA PERFIL IZQUIERDA -->
             <div class="glass-card profile-card">
                 <div class="avatar-wrap">
-                    <img src="/assets/images/iasesoriaperfil.jpeg" alt="Benjamín Carmona" class="avatar-img" loading="eager" fetchpriority="high">
+                    <img src="/assets/images/iasesoriaperfil.jpeg" alt="Benjamín Carmona" class="avatar-img" loading="eager" fetchpriority="high" width="140" height="140">
                 </div>
                 <div class="status-badge">
                     <span class="status-dot"></span>
@@ -564,7 +792,7 @@
                     <a href="https://github.com/Benj11ii" target="_blank" class="social-btn" title="GitHub">
                         <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
                     </a>
-                    <a href="https://www.linkedin.com/in/benjamin-carmona-vega" target="_blank" class="social-btn" title="LinkedIn">
+                    <a href="https://www.linkedin.com/in/benjamin-carmona-69aa44223/" target="_blank" class="social-btn" title="LinkedIn">
                         <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                     </a>
                     <a href="mailto:ia@iasesoria.cl" class="social-btn" title="Correo">
@@ -600,8 +828,7 @@
                 </div>
 
                 <div class="cta-row">
-                    <a href="#base-historia" class="btn-amber">Iniciar recorrido desde la base ↓</a>
-                    <a href="/portafolio_galeria_total" class="btn-glass">Ver galería total →</a>
+                    <a href="#base-historia" class="btn-amber">Iniciar recorrido</a>
                 </div>
             </div>
         </section>
@@ -618,7 +845,7 @@
                     <span class="eyebrow">ARCHIVO COMPLETO · REPOSITORIOS TÉCNICOS</span>
                     <h3 class="gateway-title">¿Desea explorar el archivo completo de proyectos?</h3>
                 </div>
-                <a href="/portafolio_galeria_total" class="btn-glass">Explorar Galería Total →</a>
+                <a href="/portafolio_galeria_total" class="btn-glass">Explorar Galería Total</a>
             </div>
         </section>
 
@@ -667,7 +894,7 @@
                         <span class="pill">Hexagonal</span>
                         <span class="pill">Outbox</span>
                     </div>
-                    <a href="https://github.com/Benj11ii/finflow-transaction-engine" target="_blank" class="card-link">Ver en GitHub →</a>
+                    <a href="https://github.com/Benj11ii/finflow-transaction-engine" target="_blank" class="card-link">Ver en GitHub</a>
                 </div>
             </div>
 
@@ -686,7 +913,7 @@
                         <span class="pill">Clean Architecture</span>
                         <span class="pill">OpenAPI 3.0</span>
                     </div>
-                    <a href="https://github.com/Benj11ii/SlaTracker-Core" target="_blank" class="card-link">Ver en GitHub →</a>
+                    <a href="https://github.com/Benj11ii/SlaTracker-Core" target="_blank" class="card-link">Ver en GitHub</a>
                 </div>
             </div>
 
@@ -706,7 +933,7 @@
                         <span class="pill">AppSec</span>
                         <span class="pill">Ollama</span>
                     </div>
-                    <a href="https://github.com/Benj11ii/secretario-ia-backend" target="_blank" class="card-link">Ver en GitHub →</a>
+                    <a href="https://github.com/Benj11ii/secretario-ia-backend" target="_blank" class="card-link">Ver en GitHub</a>
                 </div>
             </div>
 
@@ -725,11 +952,11 @@
                         <span class="pill">Accesibilidad</span>
                         <span class="pill">Municipal</span>
                     </div>
-                    <a href="https://github.com/Benj11ii/civic-employment-portal" target="_blank" class="card-link">Ver en GitHub →</a>
+                    <a href="https://github.com/Benj11ii/civic-employment-portal" target="_blank" class="card-link">Ver en GitHub</a>
                 </div>
             </div>
 
-            <p class="base-guide">Punto de partida técnico. Deslice hacia arriba para ascender por los hitos ↑</p>
+            <p class="base-guide">Punto de partida técnico. Deslice hacia arriba para ascender por los hitos</p>
         </div>
     </main>
 
@@ -737,15 +964,50 @@
     <footer>
         <div class="footer-links">
             <a href="https://github.com/Benj11ii" target="_blank">GitHub</a>
-            <a href="https://www.linkedin.com/in/benjamin-carmona-vega" target="_blank">LinkedIn</a>
+            <a href="https://www.linkedin.com/in/benjamin-carmona-69aa44223/" target="_blank">LinkedIn</a>
             <a href="mailto:ia@iasesoria.cl">Correo</a>
             <a href="/assets/CV-Benjamin-Carmona-Vega.pdf" download="CV-Benjamin-Carmona-Vega.pdf">Descargar CV</a>
         </div>
-        <p>© 2026 Benjamín Alonso Carmona Vega — IAsesoria.cl. Todos los derechos reservados.</p>
+        <p>© 2026 Benjamín Alonso Carmona Vega — IAsesoria. Todos los derechos reservados.</p>
     </footer>
 
     <!-- INTERACTIVIDAD SEGURA -->
     <script>
+        // Mobile menu - cloned from index.html
+        var menuOpen = false;
+        function closeMobileMenu(){
+          var menu = document.getElementById('mobileMenu');
+          var burger = document.getElementById('burger');
+          if(!menu) return;
+          menuOpen = false;
+          menu.classList.remove('open');
+          document.body.style.overflow = '';
+          if(burger) burger.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+        (function(){
+          var burger = document.getElementById('burger');
+          var menu = document.getElementById('mobileMenu');
+          var mmClose = document.getElementById('mmClose');
+          if(!burger || !menu) return;
+          burger.addEventListener('click', function(e){
+            e.stopPropagation();
+            menuOpen = !menuOpen;
+            menu.classList.toggle('open', menuOpen);
+            document.body.style.overflow = menuOpen ? 'hidden' : '';
+            burger.innerHTML = menuOpen ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+          });
+          if(mmClose) mmClose.addEventListener('click', closeMobileMenu);
+          menu.querySelectorAll('a').forEach(function(a){
+            a.addEventListener('click', closeMobileMenu);
+          });
+          menu.addEventListener('click', function(e){
+            if(e.target === menu) closeMobileMenu();
+          });
+          window.addEventListener('scroll', function(){
+            if(menuOpen) closeMobileMenu();
+          }, {passive:true});
+        })();
+
         document.addEventListener('DOMContentLoaded', () => {
             const items = document.querySelectorAll('.timeline-item');
 
